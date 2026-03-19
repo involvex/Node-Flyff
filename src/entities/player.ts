@@ -61,6 +61,17 @@ class Inventory {
       .map(slot => slot.item)
       .filter(item => item !== null) as Item[];
   }
+
+  // Compatibility: return equipped item for a given part (best-effort)
+  getEquipedItem(part: number): Item | null {
+    const equipped = this.getEquippedItems();
+    return equipped.length > 0 ? equipped[0] : null;
+  }
+
+  // Compatibility alias (older naming)
+  GetEquipedItem(part: number): Item | null {
+    return this.getEquipedItem(part);
+  }
 }
 
 class Gold {
@@ -164,6 +175,10 @@ const GameOptions = {
 const USHORT_MAX_VALUE = 65535;
 
 export class Player extends Mover {
+  // Legacy-compatible aliases (type declarations)
+  public Inventory?: any;
+  public Mode?: any;
+  public CancelSkillUsage?: () => void;
   public readonly id: number;
   public readonly loggedInAt: Date;
   public readonly slot: number;
@@ -181,7 +196,7 @@ export class Player extends Mover {
   public mode: ModeType[] = [];
   public availablePoints: number = 0;
   public skillPoints: number = 0;
-  public currentShopName: string = '';
+  public currentShopName: string = "";
 
   public constructor(
     private readonly _connection: UserConnection,
@@ -218,6 +233,20 @@ export class Player extends Mover {
     this.skills = new SkillTree(this);
     this.questDiary = new QuestDiary(this);
     this.taskbar = new Taskbar();
+
+    // Compatibility aliases for legacy call sites
+    Object.defineProperty(this, "Inventory", {
+      get: () => this.inventory,
+      configurable: true
+    });
+    Object.defineProperty(this, "Mode", {
+      get: () => ({ HasFlag: (flag: any) => this.mode.includes(flag) }),
+      configurable: true
+    });
+    Object.defineProperty(this, "CancelSkillUsage", {
+      get: () => this.cancelSkillUsage.bind(this),
+      configurable: true
+    });
   }
 
   update(): void {
@@ -292,9 +321,9 @@ export class Player extends Mover {
   }
 
   public resetStatistics(): void {
-    const defaultCharacter = this.appearance.gender === GenderType.Male ?
-      GameOptions.Current.DefaultCharacter.Man :
-      GameOptions.Current.DefaultCharacter.Woman;
+    const defaultCharacter = this.appearance.gender === GenderType.Male
+      ? GameOptions.Current.DefaultCharacter.Man
+      : GameOptions.Current.DefaultCharacter.Woman;
 
     this.statistics.strength = defaultCharacter.Strength;
     this.statistics.stamina = defaultCharacter.Stamina;
@@ -330,10 +359,10 @@ export class Player extends Mover {
   public resetAvailableSkillPoints(): void {
     this.skillPoints = 0;
   }
-  
+
   public changeJob(job: DefineJob): void {
     if (this.job.id === job) {
-      return;
+
     }
 
     // TODO: Implement job resources lookup
@@ -366,12 +395,12 @@ export class Player extends Mover {
     // this.sendToVisible(snapshot, true);
   }
 
-  public sendDefinedText(textId: DefineText, params: string): void {
+  public sendDefinedText(textId: DefineText, params?: string): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new DefinedTextSnapshot(this, textId, params);
     // this.send(snapshot);
   }
-  
+
   public pickupItem(mapItem: MapItemObject, sendPickupMotion = true): void {
     if (mapItem.owner && mapItem.owner !== this) {
       this.sendDefinedText(DefineText.TID_GAME_PRIORITYITEMPER, `"${mapItem.item.name}"`);
@@ -472,7 +501,7 @@ export class Player extends Mover {
   public onKilled(killer: Mover): void {
     super.onKilled(killer);
   }
-  
+
   public dispose(): void {
     for (const visibleObject of this.visibleObjects) {
       if (!(visibleObject instanceof Player)) {
@@ -482,14 +511,14 @@ export class Player extends Mover {
 
     this.mapLayer?.removePlayer(this);
   }
-  
+
   protected onArrived(): void {
     if (this.isFollowing && this.followTarget instanceof MapItemObject) {
       this.pickupItem(this.followTarget);
       this.unfollow();
     }
   }
-  
+
   public cancelSkillUsage(): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new ClearUseSkillSnapshot(this);
@@ -505,7 +534,7 @@ export class Player extends Mover {
   public send(packet: FlyffPacket): void {
     this._connection.send(packet);
   }
-  
+
   private addVisibleEntity(entity: import("../abstract/worldObject").WorldObject): void {
     if (!this.visibleObjects.includes(entity)) {
       this.visibleObjects.push(entity);

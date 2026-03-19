@@ -1,7 +1,7 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 import yaml from "js-yaml";
 
 import { Logger } from "../helpers/logger";
@@ -26,7 +26,7 @@ import { tryParseInt } from "../helpers/parsing";
 
 export class MapResources {
   private logger: Logger;
-  private readonly redisClient: Redis;
+  private readonly redisClient: any;
   private readonly defines: Map<string, number> = new Map();
   private readonly mapsById: Map<number, MapProperties> = new Map();
   private readonly mapsByIdentifier: Map<string, MapProperties> = new Map();
@@ -40,14 +40,14 @@ export class MapResources {
     return this.mapsById.size;
   }
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     this.logger = new Logger("Map Resources");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public async get(id: number): Promise<MapProperties | null> {
     // Try cache first
-    const cached = await new Promise<any>((resolve) => this.redisClient.hgetall(`map:${id}`, (err, data) => resolve(data)));
+    const cached = await this.redisClient.hgetall(`map:${id}`);
     if (cached && Object.keys(cached).length > 0) {
       return this.parseMapProperties(cached);
     }
@@ -58,7 +58,7 @@ export class MapResources {
 
   public async getByIdentifier(identifier: string): Promise<MapProperties | null> {
     // Try cache first
-    const cached = await new Promise<any>((resolve) => this.redisClient.hgetall(`mapById:${identifier}`, (err, data) => resolve(data)));
+    const cached = await this.redisClient.hgetall(`mapById:${identifier}`);
     if (cached && Object.keys(cached).length > 0) {
       return this.parseMapProperties(cached);
     }
@@ -238,7 +238,7 @@ export class MapResources {
 
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < length; y++) {
-        const lndPath = path.join(ResourcePaths.world, worldName, `${worldName}${x.toString().padStart(2, '0')}-${y.toString().padStart(2, '0')}.lnd`);
+        const lndPath = path.join(ResourcePaths.world, worldName, `${worldName}${x.toString().padStart(2, "0")}-${y.toString().padStart(2, "0")}.lnd`);
         if (fs.existsSync(lndPath)) {
           const buffer = fs.readFileSync(lndPath);
           const dataView = new DataView(buffer.buffer);
@@ -273,7 +273,7 @@ export class MapResources {
         const parts = trimmed.split(/\s+/);
         if (parts.length >= 3) {
           const name = parts[1];
-          const idStr = parts[2].replace(/,$/, '');
+          const idStr = parts[2].replace(/,$/, "");
           const id = parseInt(idStr, 10);
           if (!isNaN(id)) {
             this.defines.set(name, id);
@@ -306,16 +306,16 @@ export class MapResources {
 
   private parseMapProperties(data: { [key: string]: string }): MapProperties {
     return {
-      id: parseInt(data["id"]),
-      name: data["name"],
-      width: parseInt(data["width"]),
-      length: parseInt(data["length"]),
-      mpu: parseInt(data["mpu"]),
-      revivalMapId: parseInt(data["revivalMapId"]),
-      bounds: JSON.parse(data["bounds"]),
-      regions: JSON.parse(data["regions"]),
-      objects: JSON.parse(data["objects"]),
-      heights: JSON.parse(data["heights"])
+      id: parseInt(data.id),
+      name: data.name,
+      width: parseInt(data.width),
+      length: parseInt(data.length),
+      mpu: parseInt(data.mpu),
+      revivalMapId: parseInt(data.revivalMapId),
+      bounds: JSON.parse(data.bounds),
+      regions: JSON.parse(data.regions),
+      objects: JSON.parse(data.objects),
+      heights: JSON.parse(data.heights)
     };
   }
 }

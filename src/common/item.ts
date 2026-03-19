@@ -15,7 +15,7 @@ export class Item {
   public refine: number;
   public element: ElementType;
   public elementRefine: number;
-  public properties: ItemProperties;
+  public properties!: ItemProperties;
 
   constructor(
     id: number,

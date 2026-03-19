@@ -1,10 +1,16 @@
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
 import yaml from "js-yaml";
+
+import { fileURLToPath } from "url";
 import _ from "lodash";
 
 fs.readFile(
-  path.join(__dirname, "../data", "expTable.inc"),
+  (() => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    return path.join(__dirname, "../data", "expTable.inc");
+  })(),
   "utf8",
   (err, data) => {
     if (err) {
@@ -22,19 +28,19 @@ fs.readFile(
       }
 
       if (section.startsWith("expDropLuck")) {
-        let level = 0
+        let level = 0;
         const lines = section.split("\n").map(i => i.trim());
         lines.forEach((line) => {
-            if (line === "{" || line === "}" || line.startsWith("//") || !line.trim()) return;
-            const parts = line.split("\t").map(i => i.trim());
-            if (parts[0] === '0' && parts[1] === '0' && parts[2] === '0') return
-            if (parts.length < 11) return;
-            parsedData.push({
-                level,
-                chance: [...parts.map(i => parseFloat(i))]
-            })
-            level++
-        })
+          if (line === "{" || line === "}" || line.startsWith("//") || !line.trim()) return;
+          const parts = line.split("\t").map(i => i.trim());
+          if (parts[0] === "0" && parts[1] === "0" && parts[2] === "0") return;
+          if (parts.length < 11) return;
+          parsedData.push({
+            level,
+            chance: [...parts.map(i => parseFloat(i))]
+          });
+          level++;
+        });
       }
     });
 

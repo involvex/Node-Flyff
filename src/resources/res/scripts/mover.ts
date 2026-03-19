@@ -1,6 +1,11 @@
-import fs from "fs-extra";
+import fs from "fs";
 import yaml from "js-yaml";
-import path from "path";
+import path, { dirname } from "path";
+
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Read the input file
 fs.readFile(
@@ -30,12 +35,12 @@ fs.readFile(
 
         // Initialize an object to store the parsed properties
         const parsedSection: Record<string, any> = {};
-        parsedSection['id'] = sectionId;
+        parsedSection.id = sectionId;
 
         // Extract and format Maxitem property
         const maxitemMatch = section.match(/Maxitem\s*=\s*(\d+)/);
         if (maxitemMatch) {
-          parsedSection['maxItem'] = parseInt(maxitemMatch[1]);
+          parsedSection.maxItem = parseInt(maxitemMatch[1]);
         }
 
         // Extract and format DropGold property
@@ -43,14 +48,14 @@ fs.readFile(
         if (dropGoldMatch) {
           const minGold = parseInt(dropGoldMatch[1]);
           const maxGold = parseInt(dropGoldMatch[2]);
-          parsedSection['dropGold'] = minGold === maxGold ? minGold : [minGold, maxGold];
+          parsedSection.dropGold = minGold === maxGold ? minGold : [minGold, maxGold];
         }
 
         // Extract and format DropKinds property
         const dropKindsMatches = section.matchAll(/DropKind\((\w+),\s*(\d+),\s*(\d+)\);/g);
-        parsedSection['dropKinds'] = [];
+        parsedSection.dropKinds = [];
         for (const match of dropKindsMatches) {
-          parsedSection['dropKinds'].push({
+          parsedSection.dropKinds.push({
             id: match[1],
             qty: [parseInt(match[2]), parseInt(match[3])]
           });
@@ -58,9 +63,9 @@ fs.readFile(
 
         // Extract and format DropItems property
         const dropItemsMatches = section.matchAll(/DropItem\((\w+),\s*(\d+),\s*(\d+),\s*(\d+)\);/g);
-        parsedSection['dropItems'] = [];
+        parsedSection.dropItems = [];
         for (const match of dropItemsMatches) {
-          parsedSection['dropItems'].push({
+          parsedSection.dropItems.push({
             id: match[1],
             chance: parseFloat(match[2]) / 3000000000,
             qty: [parseInt(match[3]), parseInt(match[4])]
@@ -78,12 +83,12 @@ fs.readFile(
     const yamlData: string = yaml.dump(parsedSections);
 
     // Write YAML data to output file
-    fs.writeFile(path.join(__dirname, '../custom', 'propMoverEx.yaml'), yamlData, (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log('Conversion completed. Output written to propMoverEx.yaml');
+    fs.writeFile(path.join(__dirname, "../custom", "propMoverEx.yaml"), yamlData, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Conversion completed. Output written to propMoverEx.yaml");
     });
   }
 );

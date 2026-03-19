@@ -1,4 +1,6 @@
-import { join } from "path";
+import { join, dirname } from "path";
+
+import { fileURLToPath } from "url";
 import _ from "lodash";
 import cron from "node-cron";
 
@@ -18,13 +20,14 @@ import {
   encryptMessage,
   encryptString,
   isValidEncryptionString,
-  parseMessage,
+  parseMessage
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 
-export default async () => {
+export default async() => {
   const instanceBuilder = new InstanceBuilder();
-
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
   instanceBuilder.buildConfig((builder: ConfigBuilder) => {
     builder.setBasePath(join(__dirname, "../../configs"));
   });
@@ -56,7 +59,7 @@ async function coreIntercom(instance: IInstance) {
     config?.login_server.security["master-password"]
   ).toString("hex");
 
-  /////////// MAIN //////////
+  /// //////// MAIN //////////
   subscriber?.subscribe(RedisChannel.CORE_CHANNEL, (err) => {
     if (!err) {
       sendMessage(MessageCommand.CORE_ONLINE);
@@ -66,9 +69,9 @@ async function coreIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/10 * * * * *", async () => {
+  cron.schedule("*/10 * * * * *", async() => {
     const clusters = await client?.getAllClusters();
-    clusters?.forEach(async (cluster) => {
+    clusters?.forEach(async(cluster) => {
       // console.log(cluster.lastPing, new Date().getTime());
       if (
         cluster.lastPing &&
@@ -85,7 +88,7 @@ async function coreIntercom(instance: IInstance) {
     });
   });
 
-  ////// MAIN //////////
+  /// /// MAIN //////////
 
   async function processChannelMessage(channel: RedisChannel, message: string) {
     if (channel !== RedisChannel.CORE_CHANNEL) return;
@@ -120,7 +123,7 @@ async function coreIntercom(instance: IInstance) {
           if (!cluster) {
             const newCluster = {
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             };
             await client?.insertCluster(newCluster);
             logger?.info(
@@ -131,7 +134,7 @@ async function coreIntercom(instance: IInstance) {
           } else {
             await client?.updateCluster({
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             });
             logger?.info(
               "Cluster",
@@ -149,7 +152,7 @@ async function coreIntercom(instance: IInstance) {
           if (cluster) {
             const newCluster = {
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             };
             await client?.updateCluster(newCluster);
           }
@@ -164,10 +167,10 @@ async function coreIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-              sender: ServerType.LOGIN_SERVER,
-              command,
-              data: message,
-            })
+            sender: ServerType.LOGIN_SERVER,
+            command,
+            data: message
+          })
           : message,
         master
       )

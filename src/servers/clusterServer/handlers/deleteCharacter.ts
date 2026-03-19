@@ -35,9 +35,9 @@ export default class Handler extends PacketHandler {
     const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
-      relations: ["characters"],
+      relations: ["characters"]
     })) as Account;
 
     if (!account) {
@@ -89,10 +89,10 @@ export default class Handler extends PacketHandler {
       const userCharacters = (await characters?.find({
         where: {
           account: {
-            username: this.username,
-          },
+            username: this.username
+          }
         },
-        relations: ["account", "equipments", "equipments.item"],
+        relations: ["account", "equipments", "equipments.item"]
       })) as Character[];
       this.userConnection.sendCharacterList(userCharacters, this.authKey);
     }

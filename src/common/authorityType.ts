@@ -1,5 +1,5 @@
 export enum AuthorityType {
-  Banned = 'B',
+  Banned = "B",
   Player = "F",
   GameMaster = "L",
   Administrator = "P",

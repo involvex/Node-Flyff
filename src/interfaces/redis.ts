@@ -1,4 +1,3 @@
-import { RedisOptions } from "ioredis";
 import { IChannel, ICluster } from "./cluster";
 
 export interface IRedisClient {

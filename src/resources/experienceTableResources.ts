@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Logger } from "../helpers/logger";
 import { IncludeFile, Block } from "../helpers/includeFile";
 import { ResourcePaths } from "./resourcePaths";
@@ -90,7 +90,7 @@ export class ExperienceTableResources {
       if (i + 3 < values.length) {
         const level = Math.floor(i / 4);
         const properties: CharacterExpTableProperties = {
-          level: level,
+          level,
           nextLevelExp: parseInt(values[i], 10),
           deathExp: parseInt(values[i + 1], 10),
           betExp: parseInt(values[i + 2], 10),

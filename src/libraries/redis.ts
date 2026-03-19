@@ -1,17 +1,18 @@
-import { Redis, RedisOptions } from "ioredis";
 import _ from "lodash";
 
 import { ICluster, IChannel } from "../interfaces/cluster";
 import { IRedisClient } from "../interfaces/redis";
 import { Logger } from "../helpers/logger";
+import KvClient from "./kvClient";
 
 export class RedisClient implements IRedisClient {
   private logger: Logger;
-  private client: Redis;
+  private client: any;
 
-  constructor(options: RedisOptions) {
+  constructor(options?: any) {
     this.logger = new Logger("Redis Client");
-    this.client = new Redis(options);
+    // Use KV-backed client when Redis is not desired; keep interface compatibility
+    this.client = options && options.client ? options.client : new KvClient();
   }
 
   async getAllClusters(): Promise<ICluster[]> {
@@ -36,7 +37,7 @@ export class RedisClient implements IRedisClient {
       port: cluster.port,
       lastPing: cluster.lastPing || 0,
       channels: JSON.stringify(cluster.channels),
-      enabled: cluster.enabled ? "true" : "false",
+      enabled: cluster.enabled ? "true" : "false"
     };
     await this.client.hmset(key, clusterData);
   }
@@ -49,7 +50,7 @@ export class RedisClient implements IRedisClient {
       port: cluster.port,
       lastPing: cluster.lastPing || 0,
       channels: JSON.stringify(cluster.channels),
-      enabled: cluster.enabled ? "true" : "false",
+      enabled: cluster.enabled ? "true" : "false"
     };
 
     await this.client.hmset(key, clusterData);
@@ -74,7 +75,7 @@ export class RedisClient implements IRedisClient {
         maxUsers: channelData.maxUsers,
         currentUsers: channelData.currentUsers,
         enabled: channelData.enabled,
-        pkEnabled: channelData.pkEnabled,
+        pkEnabled: channelData.pkEnabled
       }));
     }
 
@@ -85,7 +86,7 @@ export class RedisClient implements IRedisClient {
         port: parseInt(cluster.port),
         lastPing: parseInt(cluster.lastPing),
         channels,
-        enabled: cluster.enabled === "true",
+        enabled: cluster.enabled === "true"
       };
     }
     return null;
@@ -111,7 +112,7 @@ export class RedisClient implements IRedisClient {
         currentUsers: channel.currentUsers,
         enabled: channel.enabled,
         lastPing: channel.lastPing || 0,
-        pkEnabled: channel.pkEnabled,
+        pkEnabled: channel.pkEnabled
       };
       clusterData.channels.push(channelData);
       await this.client.hmset(clusterKey, {
@@ -119,7 +120,7 @@ export class RedisClient implements IRedisClient {
         channels:
           typeof clusterData.channels === "object"
             ? JSON.stringify(clusterData.channels)
-            : clusterData.channels,
+            : clusterData.channels
       });
     }
   }
@@ -133,12 +134,12 @@ export class RedisClient implements IRedisClient {
 
     if (clusterData) {
       const existIndex = _.findIndex(clusterData.channels, {
-        name: updatedChannel.name,
+        name: updatedChannel.name
       });
       if (existIndex >= 0) {
         clusterData.channels[existIndex] = {
           ...clusterData.channels[existIndex],
-          ...updatedChannel,
+          ...updatedChannel
         };
       } else {
         clusterData.channels.push(updatedChannel);
@@ -148,7 +149,7 @@ export class RedisClient implements IRedisClient {
         channels:
           typeof clusterData.channels === "object"
             ? JSON.stringify(clusterData.channels)
-            : clusterData.channels,
+            : clusterData.channels
       });
     }
   }
@@ -206,7 +207,7 @@ export class RedisClient implements IRedisClient {
     const sessionData = {
       characterId: characterId.toString(),
       username,
-      password,
+      password
     };
     await this.client.hmset(key, sessionData);
     await this.client.expire(key, expireInSeconds);
@@ -223,7 +224,7 @@ export class RedisClient implements IRedisClient {
     return {
       characterId: parseInt(sessionData.characterId),
       username: sessionData.username,
-      password: sessionData.password,
+      password: sessionData.password
     };
   }
 

@@ -30,9 +30,9 @@ export default class Handler extends PacketHandler {
 
     const account = (await accounts?.findOne({
       where: {
-        username: this.username,
+        username: this.username
       },
-      relations: ["characters"],
+      relations: ["characters"]
     })) as Account;
 
     if (!account) {

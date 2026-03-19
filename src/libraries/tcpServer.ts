@@ -93,7 +93,7 @@ export class TcpServer {
     }
 
     // Attach event listeners for data, close, and error events
-    socket.on("data", async (data) => {
+    socket.on("data", async(data) => {
       await this.onData(data, userConnection);
     });
     socket.on("close", () => this.onDisconnect(userConnection.sessionId));

@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import _ from "lodash";
 
 import { BinaryStream } from "../../libraries/binaryStream";

@@ -11,7 +11,7 @@ export class Logger {
     warn: clc.yellow,
     error: clc.red,
     success: clc.green,
-    main: clc.magenta,
+    main: clc.magenta
   };
 
   constructor(sender: ServerType | string) {

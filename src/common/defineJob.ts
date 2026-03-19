@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 export enum JobType {
   JTYPE_BASE = 0,
   JTYPE_EXPERT = 1,

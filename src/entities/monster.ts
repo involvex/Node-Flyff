@@ -6,23 +6,12 @@ import { DefineItem } from "../common/defineItem";
 import { ObjectState } from "../common/objectState";
 import { Item } from "../common/item";
 import { MoverProperties } from "../interfaces/resource";
+import { DropItemProperties, DropItemKindProperties } from "../interfaces/dropItemProperties";
 import { FFRandom } from "../helpers/FFRandom";
 import { timeInSeconds } from "../helpers/time";
 import { Mover } from "./mover";
 
-// Interfaces for Monster-specific properties
-interface DropItemProperties {
-  itemId: number;
-  probability: number;
-  itemMaxRefine: number;
-}
-
-interface DropItemKindProperties {
-  itemKind: string;
-  uniqueMin: number;
-  uniqueMax: number;
-}
-
+// Monster-specific properties
 interface MonsterProperties extends MoverProperties {
   dropGoldMin: number;
   dropGoldMax: number;
@@ -129,9 +118,9 @@ export class Monster extends Mover {
 
   protected onArrived(): void {
     if (!this.isFighting) {
-      const nextMoveTime = this._isReturningToBeginPosition ?
-        FFRandom.longRandom(1, 3) :
-        FFRandom.longRandom(5, 10);
+      const nextMoveTime = this._isReturningToBeginPosition
+        ? FFRandom.longRandom(1, 3)
+        : FFRandom.longRandom(5, 10);
 
       this._nextMoveTime = timeInSeconds() + nextMoveTime;
       this.beginPosition.copy(this.position);

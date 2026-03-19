@@ -105,7 +105,7 @@ export class BinaryStream {
 
   writeBuffer(
     buffer: any,
-    value: BigInt | number | undefined = undefined,
+    value: bigint | number | undefined = undefined,
     method: string = ""
   ) {
     if (value && method) {
@@ -118,7 +118,7 @@ export class BinaryStream {
     this.buffer = Buffer.concat([
       this.buffer.subarray(0, this.position),
       buffer,
-      this.buffer.subarray(this.position),
+      this.buffer.subarray(this.position)
     ]);
     this.position += buffer.length;
   }

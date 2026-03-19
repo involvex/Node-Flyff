@@ -17,7 +17,7 @@ export class MapLayer {
 
   public addPlayer(player: Player): void {
     if (!player) {
-      throw new Error('Cannot add an undefined player instance.');
+      throw new Error("Cannot add an undefined player instance.");
     }
 
     if (!this._players.includes(player)) {
@@ -27,7 +27,7 @@ export class MapLayer {
 
   public removePlayer(player: Player): void {
     if (!player) {
-      throw new Error('Cannot remove an undefined player instance.');
+      throw new Error("Cannot remove an undefined player instance.");
     }
 
     const index = this._players.indexOf(player);
@@ -38,7 +38,7 @@ export class MapLayer {
 
   public addItem(mapItem: any): void {
     if (!mapItem) {
-      throw new Error('Cannot add an undefined map item object instance.');
+      throw new Error("Cannot add an undefined map item object instance.");
     }
 
     if (!this._items.includes(mapItem)) {
@@ -48,7 +48,7 @@ export class MapLayer {
 
   public removeItem(mapItem: any): void {
     if (!mapItem) {
-      throw new Error('Cannot remove an undefined map item object instance.');
+      throw new Error("Cannot remove an undefined map item object instance.");
     }
 
     const index = this._items.indexOf(mapItem);
@@ -94,7 +94,7 @@ export class MapLayer {
     return [];
   }
 
-  private getVisibleObjectsByType<T extends any>(objects: T[], worldObject: any): T[] {
+  private getVisibleObjectsByType<T>(objects: T[], worldObject: any): T[] {
     return objects.filter(x => true); // Stub filter
   }
 }

@@ -11,7 +11,6 @@ import { PacketType } from "../common/packetType";
 import { sleep } from "../helpers/sleep";
 import { IConfig } from "../interfaces/config";
 import { RedisBuilder } from "./redisBuilder";
-import { Redis } from "ioredis";
 import { IInstance } from "../interfaces/instance";
 import { IDatabaseOptions } from "../interfaces/database";
 import { IRedisClient } from "../interfaces/redis";
@@ -67,8 +66,8 @@ export class InstanceBuilder {
   async build(): Promise<IInstance> {
     // build config
     let server: TcpServer | null = null;
-    let publisher: Redis | null = null;
-    let subscriber: Redis | null = null;
+    let publisher: any | null = null;
+    let subscriber: any | null = null;
     let client: IRedisClient | null = null;
     let database: DataSource | null = null;
     let handlers: Map<PacketType, HandlerConstructor> = new Map();
@@ -84,9 +83,9 @@ export class InstanceBuilder {
           host: _.get(this.config?.database, "host"),
           port: _.get(this.config?.database, "port"),
           username: _.get(this.config?.database, "username"),
-          password: _.get(this.config?.database, "password"),
+          password: _.get(this.config?.database, "password")
         },
-        entities: [],
+        entities: []
       } as IDatabaseOptions);
       database = await this.databaseBuilder.build();
     }
@@ -95,7 +94,9 @@ export class InstanceBuilder {
     handlers = this.handlerBuilder.build();
 
     if (this.redisBuilder) {
-      const redis = this.redisBuilder.build();
+      // prefer async build which attempts to connect and falls back to sqlite if needed
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const redis = await this.redisBuilder.buildAsync();
       publisher = redis.publisher;
       subscriber = redis.subscriber;
       client = redis.client;
@@ -125,7 +126,7 @@ export class InstanceBuilder {
       gameResources,
       getEntity: (entityName: string) => {
         return database?.getRepository(entityName);
-      },
+      }
     };
 
     if (server) {

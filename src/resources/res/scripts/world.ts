@@ -1,7 +1,12 @@
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
 import yaml from "js-yaml";
 import _ from "lodash";
+
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 fs.readFile(
   path.join(__dirname, "../data", "world.inc"),
@@ -16,15 +21,15 @@ fs.readFile(
 
     const lines = data.split("\n").map(i => i.trim());
     lines.forEach((line) => {
-        if (line === "(" || line === ")" || line.startsWith("//") || !line.trim()) return;
-        const parts = line.trim().replace(/\s/g, "").split("\"").map(i => i.trim());
-        if (parts[1] === "SetTitle" || parts[2] === "SetTitle") return
-        if (parts.length < 2) return;
-        parsedData.push({
-            id: parts[0],
-            name: parts[1]
-        })
-    })
+      if (line === "(" || line === ")" || line.startsWith("//") || !line.trim()) return;
+      const parts = line.trim().replace(/\s/g, "").split("\"").map(i => i.trim());
+      if (parts[1] === "SetTitle" || parts[2] === "SetTitle") return;
+      if (parts.length < 2) return;
+      parsedData.push({
+        id: parts[0],
+        name: parts[1]
+      });
+    });
 
     const yamlData: string = yaml.dump(parsedData);
 

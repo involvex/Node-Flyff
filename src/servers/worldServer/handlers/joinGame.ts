@@ -1,4 +1,3 @@
-
 import _ from "lodash";
 
 import { PacketType } from "../../../common/packetType";
@@ -8,8 +7,8 @@ import { SetPacketType } from "../../../decorators/packetHandler";
 import Account from "../../../database/account";
 import Character from "../../../database/character";
 import { Player } from "../../../entities/player";
-import { MoverProperties, JobProperties } from "../../../interfaces/resource";
-import { GameResources } from "../../../interfaces/resource";
+import { MoverProperties, JobProperties, GameResources } from "../../../interfaces/resource";
+
 import { Vector3 } from "../../../abstract/vector3";
 import { AuthorityType } from "../../../common/authorityType";
 import { GenderType } from "../../../common/genderType";
@@ -64,13 +63,13 @@ export default class Handler extends PacketHandler {
     const characters = this.server?.instance?.getEntity("Character");
     const character = (await characters?.findOne({
       where: {
-        id: this.characterId,
+        id: this.characterId
       },
       relations: [
         "account",
         "equipments",
-        "equipments.item",
-      ],
+        "equipments.item"
+      ]
     })) as Character;
 
     if (!character || !character.account) {
@@ -141,23 +140,23 @@ export default class Handler extends PacketHandler {
       id: character.id,
       dwID: character.id.toString(),
       szName: character.name,
-      dwAI: 'AI_NONE',
+      dwAI: "AI_NONE",
       dwStr: character.strength,
       dwSta: character.stamina,
       dwDex: character.dexterity,
       dwInt: character.intelligence,
       dwHR: 0,
       dwER: 0,
-      dwRace: 'HUMAN',
-      dwBelligerence: '',
-      dwGender: character.gender?.toString() || '0',
+      dwRace: "HUMAN",
+      dwBelligerence: "",
+      dwGender: character.gender?.toString() || "0",
       dwLevel: character.level,
       dwFlightLevel: 0,
       dwSize: 100,
       dwClass: 0,
-      bIfPart: '',
-      dwKarma: '',
-      dwUseable: '',
+      bIfPart: "",
+      dwKarma: "",
+      dwUseable: "",
       dwActionRadius: 0,
       dwAtkMin: 1,
       dwAtkMax: 1,
@@ -180,15 +179,15 @@ export default class Handler extends PacketHandler {
       nAbrasion: 0,
       nHardness: 0,
       dwAdjAtkDelay: 0,
-      eElementType: '',
+      eElementType: "",
       wElementAtk: 0,
       dwHideLevel: 0,
       fSpeed: 0.1,
       dwShelter: 0,
-      bFlying: '',
+      bFlying: "",
       dwJumpIng: 0,
       dwAirJump: 0,
-      bTaming: '',
+      bTaming: "",
       dwResisMagic: 0,
       fResistElecricity: 0,
       fResistFire: 0,
@@ -205,13 +204,13 @@ export default class Handler extends PacketHandler {
       nFxpValue: 0,
       nBodyState: 0,
       dwAddAbility: 0,
-      bKillable: '',
-      dwVirtItem1: '',
-      dwVirtType1: '',
-      dwVirtItem2: '',
-      dwVirtType2: '',
-      dwVirtItem3: '',
-      dwVirtType3: '',
+      bKillable: "",
+      dwVirtItem1: "",
+      dwVirtType1: "",
+      dwVirtItem2: "",
+      dwVirtType2: "",
+      dwVirtItem3: "",
+      dwVirtType3: "",
       dwSndAtk1: 0,
       dwSndAtk2: 0,
       dwSndDie1: 0,
@@ -221,9 +220,9 @@ export default class Handler extends PacketHandler {
       dwSndDmg3: 0,
       dwSndIdle1: 0,
       dwSndIdle2: 0,
-      szComment: '',
+      szComment: "",
       dwAreaColor: 0,
-      szNpcMark: '',
+      szNpcMark: "",
       dwMadrigalGiftPoint: 0
     };
 
@@ -295,11 +294,11 @@ export default class Handler extends PacketHandler {
       }
     }
     // Broadcast spawn to other players (like C# layer.AddPlayer)
-    (this.server.instance as any).broadcast(player, 'spawn', {
+    (this.server.instance as any).broadcast(player, "spawn", {
       id: player.id,
       name: player.name,
       position: player.position,
-      level: player.level,
+      level: player.level
       // TODO: Include more data like C#
     });
     // TODO: Send initial snapshot to new player (like C# SendInitialSnapshot)
@@ -307,5 +306,4 @@ export default class Handler extends PacketHandler {
       `Character ${character.name} (ID: ${character.id}) joined world server successfully as player entity.`
     );
   }
-
 }

@@ -82,6 +82,6 @@ export function toAttackType(skillType: SkillType): AttackType {
     case SkillType.Skill:
       return AttackType.SkillMeleeAttack;
     default:
-      return AttackType.MeleeAttack1
+      return AttackType.MeleeAttack1;
   }
 }

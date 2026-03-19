@@ -1,7 +1,7 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 import yaml from "js-yaml";
 
 import { Logger } from "../helpers/logger";
@@ -11,74 +11,35 @@ import { tryParseInt } from "../helpers/parsing";
 
 export class DeathPenaltyResources {
   logger: Logger;
-  redisClient: Redis;
+  redisClient: any;
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     this.logger = new Logger("Death Penalty Resources");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public async getRevivalPenalty(
     level: string | number
   ): Promise<PenaltyValue | null> {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`revivalPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(
-            data
-              ? {
-                  level: tryParseInt(data.level),
-                  value: tryParseInt(data.value),
-                }
-              : null
-          );
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`revivalPenalty:${level}`);
+    if (!data) return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
 
   public async getDecreaseExpPenalty(
     level: string | number
   ): Promise<PenaltyValue | null> {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`decreaseExpPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(
-            data
-              ? {
-                  level: tryParseInt(data.level),
-                  value: tryParseInt(data.value),
-                }
-              : null
-          );
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`decreaseExpPenalty:${level}`);
+    if (!data) return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
 
   public async getLevelDownPenalty(
     level: string | number
   ): Promise<PenaltyValue | null> {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`levelDownPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(
-            data
-              ? {
-                  level: tryParseInt(data.level),
-                  value: tryParseInt(data.value),
-                }
-              : null
-          );
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`levelDownPenalty:${level}`);
+    if (!data) return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
 
   public async loadDeathPenalty(): Promise<void> {
@@ -92,14 +53,14 @@ export class DeathPenaltyResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as DeathPenalty;
 
-    _.forEach(data.revivalPenalty, async (penalty) => {
-      this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
+    _.forEach(data.revivalPenalty, async(penalty) => {
+      await this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
     });
-    _.forEach(data.decreaseExpPenalty, async (penalty) => {
-      this.redisClient.hmset(`decreaseExpPenalty:${penalty.level}`, penalty);
+    _.forEach(data.decreaseExpPenalty, async(penalty) => {
+      await this.redisClient.hmset(`decreaseExpPenalty:${penalty.level}`, penalty);
     });
-    _.forEach(data.levelDownPenalty, async (penalty) => {
-      this.redisClient.hmset(`levelDownPenalty:${penalty.level}`, penalty);
+    _.forEach(data.levelDownPenalty, async(penalty) => {
+      await this.redisClient.hmset(`levelDownPenalty:${penalty.level}`, penalty);
     });
     this.logger.main("Death penalty loaded.");
   }

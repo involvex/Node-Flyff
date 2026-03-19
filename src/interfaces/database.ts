@@ -9,10 +9,9 @@ export interface IDataSource {
     username?: string;
     password?: string;
   }
-  
-  export interface IDatabaseOptions {
+
+export interface IDatabaseOptions {
     name: string;
     dataSource: IDataSource;
     entities: [];
   }
-  

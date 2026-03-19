@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Logger } from "./logger";
 
 export interface LuaTable {
@@ -71,14 +71,14 @@ export class LuaParser {
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
 
-      if (token.type === 'assignment') {
+      if (token.type === "assignment") {
         // Handle key = value assignment
         const key = token.key;
         if (key) {
           const value = this.parseTokenValue(token.value);
           result[key] = value;
         }
-      } else if (token.type === 'value') {
+      } else if (token.type === "value") {
         // Handle array-style values
         const value = this.parseTokenValue(token.value);
         result[arrayIndex++] = value;
@@ -88,8 +88,8 @@ export class LuaParser {
     return result;
   }
 
-  private tokenize(content: string): Array<{type: 'assignment' | 'value', key?: string, value: string}> {
-    const tokens: Array<{type: 'assignment' | 'value', key?: string, value: string}> = [];
+  private tokenize(content: string): Array<{type: "assignment" | "value", key?: string, value: string}> {
+    const tokens: Array<{type: "assignment" | "value", key?: string, value: string}> = [];
     let i = 0;
 
     while (i < content.length) {
@@ -103,10 +103,10 @@ export class LuaParser {
       const start = i;
 
       // Check if this is a table (starts with {)
-      if (content[i] === '{') {
+      if (content[i] === "{") {
         const tableEnd = this.findMatchingBrace(content, i);
         const tableContent = content.slice(i, tableEnd + 1);
-        tokens.push({ type: 'value', value: tableContent });
+        tokens.push({ type: "value", value: tableContent });
         i = tableEnd + 1;
 
         // Skip comma if present
@@ -120,7 +120,7 @@ export class LuaParser {
       const assignmentMatch = this.findAssignment(content, i);
       if (assignmentMatch) {
         tokens.push({
-          type: 'assignment',
+          type: "assignment",
           key: assignmentMatch.key,
           value: assignmentMatch.value
         });
@@ -132,7 +132,7 @@ export class LuaParser {
       const valueEnd = this.findValueEnd(content, i);
       const value = content.slice(i, valueEnd).trim();
       if (value) {
-        tokens.push({ type: 'value', value });
+        tokens.push({ type: "value", value });
       }
       i = valueEnd;
 
@@ -148,20 +148,20 @@ export class LuaParser {
   private findMatchingBrace(content: string, start: number): number {
     let depth = 0;
     let inString = false;
-    let stringChar = '';
+    let stringChar = "";
 
     for (let i = start; i < content.length; i++) {
       const char = content[i];
 
-      if (!inString && (char === '"' || char === "'")) {
+      if (!inString && (char === "\"" || char === "'")) {
         inString = true;
         stringChar = char;
       } else if (inString && char === stringChar) {
         inString = false;
       } else if (!inString) {
-        if (char === '{') {
+        if (char === "{") {
           depth++;
-        } else if (char === '}') {
+        } else if (char === "}") {
           depth--;
           if (depth === 0) {
             return i;
@@ -178,15 +178,15 @@ export class LuaParser {
 
     // Find the key (everything before =)
     const keyStart = i;
-    while (i < content.length && content[i] !== '=' && content[i] !== ',') {
-      if (content[i] === '{') {
+    while (i < content.length && content[i] !== "=" && content[i] !== ",") {
+      if (content[i] === "{") {
         // If we hit a brace before =, this is not an assignment
         return null;
       }
       i++;
     }
 
-    if (i >= content.length || content[i] !== '=') {
+    if (i >= content.length || content[i] !== "=") {
       return null;
     }
 
@@ -202,7 +202,7 @@ export class LuaParser {
     const valueStart = i;
     let valueEnd: number;
 
-    if (content[i] === '{') {
+    if (content[i] === "{") {
       // Value is a table
       valueEnd = this.findMatchingBrace(content, i) + 1;
     } else {
@@ -222,17 +222,17 @@ export class LuaParser {
   private findValueEnd(content: string, start: number): number {
     let i = start;
     let inString = false;
-    let stringChar = '';
+    let stringChar = "";
 
     while (i < content.length) {
       const char = content[i];
 
-      if (!inString && (char === '"' || char === "'")) {
+      if (!inString && (char === "\"" || char === "'")) {
         inString = true;
         stringChar = char;
       } else if (inString && char === stringChar) {
         inString = false;
-      } else if (!inString && char === ',') {
+      } else if (!inString && char === ",") {
         break;
       }
 
@@ -246,7 +246,7 @@ export class LuaParser {
     const trimmed = value.trim();
 
     // Handle table values
-    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
       return this.createLuaTable(this.parseTableContent(trimmed));
     }
 
@@ -258,7 +258,7 @@ export class LuaParser {
     if (!value) return "";
 
     // String values
-    if ((value.startsWith('"') && value.endsWith('"')) ||
+    if ((value.startsWith("\"") && value.endsWith("\"")) ||
         (value.startsWith("'") && value.endsWith("'"))) {
       return value.slice(1, -1);
     }
@@ -279,11 +279,10 @@ export class LuaParser {
 
   private createLuaTable(obj: any): LuaTable {
     const luaTable = obj as LuaTable;
-    const parser = this;
 
     // Following C# NLua pattern: getValues returns array of all values
     luaTable.getValues = function<T>(): T[] {
-      const values = Object.values(this).filter(v => typeof v !== 'function');
+      const values = Object.values(this).filter(v => typeof v !== "function");
       return values as T[];
     };
 

@@ -43,13 +43,13 @@ export default class Handler extends PacketHandler {
     const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
       relations: [
         "characters",
         "characters.equipments",
-        "characters.equipments.item",
-      ],
+        "characters.equipments.item"
+      ]
     })) as Account;
     if (!account) {
       this.logger.warn(

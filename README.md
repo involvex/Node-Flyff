@@ -39,12 +39,14 @@ The emulator follows a distributed server architecture:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-repo/nodejs-flyff.git
    cd nodejs-flyff
    ```
 
 2. **Install dependencies**
+
    ```bash
    yarn install
    # or
@@ -56,10 +58,30 @@ The emulator follows a distributed server architecture:
    - Linux/macOS: `sudo apt-get install redis-server` or `brew install redis`
 
 4. **Configure the database**
-   - SQLite is configured by default for development
-   - For MySQL, update the configuration files in `src/configs/`
 
-5. **Start the servers**
+### Quick start with Postgres (recommended for Bun runtime)
+
+You can spin up a local Postgres and start all servers with the helper scripts.
+
+- Unix/macOS:
+
+```bash
+./scripts/start-all.sh
+```
+
+- Windows (PowerShell):
+
+```powershell
+./scripts/start-all.ps1
+```
+
+This will start a Postgres container, build the project using Bun, and start the `login`, `cluster`, and `world` servers.
+
+- SQLite is configured by default for development
+- For MySQL, update the configuration files in `src/configs/`
+
+1. **Start the servers**
+
    ```bash
    # Start all servers
    yarn dev login    # Login server
@@ -72,6 +94,7 @@ The emulator follows a distributed server architecture:
 ### ✅ Completed Features
 
 #### Common Systems
+
 - [x] Logger system
 - [x] Cryptography algorithms
 - [x] Packet handler infrastructure
@@ -80,6 +103,7 @@ The emulator follows a distributed server architecture:
 - [x] Resource loading system (Defines, texts, items, NPCs, jobs, exp tables)
 
 #### Entity Systems
+
 - [x] WorldObject base class
 - [x] Mover entity (Player/Monster base)
 - [x] Player entity with full game systems
@@ -88,6 +112,7 @@ The emulator follows a distributed server architecture:
 - [x] MapItemObject for ground items
 
 #### Core Game Systems
+
 - [ ] Visibility System
 - [ ] Mobility System
 - [ ] Respawn System
@@ -100,12 +125,14 @@ The emulator follows a distributed server architecture:
 ### 🔄 In Progress
 
 #### Server Systems
+
 - [x] Inter-Server communication and caching
 - [x] Client authentication process
 - [x] Character management (create, delete, list)
 - [x] 2nd password verification
 
 #### Game Features
+
 - [ ] Chat System with admin commands
 - [ ] Trade System
 - [ ] Quest System
@@ -115,6 +142,7 @@ The emulator follows a distributed server architecture:
 ### 📅 Planned Features
 
 #### Advanced Systems
+
 - [ ] Bank System
 - [ ] Friend System
 - [ ] Motion System
@@ -127,6 +155,7 @@ The emulator follows a distributed server architecture:
 - [ ] Job System
 
 #### Chat Commands (Planned)
+
 - [ ] `/ci` or `/createitem` - Create items
 - [ ] `/getgold` - Add gold to inventory
 - [ ] `/teleport` - Teleport to coordinates

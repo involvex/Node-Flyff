@@ -61,5 +61,9 @@ settings:
         left-weapon:
     inventory: []
 database:
-  provider: "sqlite"
-  connection-string: "./data/db/game.db"
+  provider: "postgres"
+  host: "127.0.0.1"
+  port: 5432
+  username: "flyff"
+  password: "flyffpass"
+  database: "nodeflyff"

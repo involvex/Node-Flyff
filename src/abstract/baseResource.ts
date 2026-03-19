@@ -28,7 +28,7 @@ export abstract class BaseResource {
   }
 
   protected logLoadError(message: string, error?: Error): void {
-    this.logger.error(`${this.resourceType}: ${message}`, error?.message || '');
+    this.logger.error(`${this.resourceType}: ${message}`, error?.message || "");
   }
 
   protected logFileNotFound(filePath: string): void {

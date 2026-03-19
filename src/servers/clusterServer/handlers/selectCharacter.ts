@@ -1,19 +1,19 @@
-import _ from 'lodash'
+import _ from "lodash";
 
-import { PacketType } from '../../../common/packetType'
-import { FlyffPacket } from '../../../libraries/flyffPacket'
-import { PacketHandler } from '../../../libraries/packetHandler'
-import { SetPacketType } from '../../../decorators/packetHandler'
-import Account from '../../../database/account'
-import Character from '../../../database/character'
+import { PacketType } from "../../../common/packetType";
+import { FlyffPacket } from "../../../libraries/flyffPacket";
+import { PacketHandler } from "../../../libraries/packetHandler";
+import { SetPacketType } from "../../../decorators/packetHandler";
+import Account from "../../../database/account";
+import Character from "../../../database/character";
 
 @SetPacketType(PacketType.SEL_PLAYER)
 export default class Handler extends PacketHandler {
-  characterId: number
+  characterId: number;
 
-  constructor (packet: FlyffPacket) {
-    super()
-    this.characterId = packet.readInt32LE()
+  constructor(packet: FlyffPacket) {
+    super();
+    this.characterId = packet.readInt32LE();
   }
 
   async execute(): Promise<void> {
@@ -21,9 +21,9 @@ export default class Handler extends PacketHandler {
     const characters = this.server?.instance?.getEntity("Character");
     const character = (await characters?.findOne({
       where: {
-        id: this.characterId,
+        id: this.characterId
       },
-      relations: ["account"],
+      relations: ["account"]
     })) as Character;
 
     if (!character || !character.account) {

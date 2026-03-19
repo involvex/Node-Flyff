@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 
 import { RgnElement } from "./rgnElement";
 import { RgnRegion3 } from "./rgnRegion3";

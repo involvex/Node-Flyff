@@ -3,36 +3,35 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "t
 import { AuthorityType } from "../common/authorityType";
 import CharacterEntity from "./character";
 
-
 @Entity("Account")
 export default class AccountEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
-  id: number;
+    id: number;
 
   @Column({ nullable: false, unique: true }) // Column definition with constraints
-  username: string;
+    username: string;
 
   @Column({ nullable: false }) // Optional column with default value
-  email: string;
+    email: string;
 
   @Column({ nullable: false })
-  password: string;
+    password: string;
 
   @Column({ nullable: false, default: AuthorityType.Player })
-  authority: AuthorityType;
+    authority: AuthorityType;
 
   @Column({ default: false })
-  verified: boolean;
+    verified: boolean;
 
   @Column({ default: false })
-  banned: boolean;
+    banned: boolean;
 
   @Column({ default: false })
-  deleted: boolean;
+    deleted: boolean;
 
   @Column({ nullable: true, default: 0 })
-  lastActivity: number;
+    lastActivity: number;
 
   @OneToMany(() => CharacterEntity, (character) => character.account)
-  characters: CharacterEntity[];
+    characters: CharacterEntity[];
 }

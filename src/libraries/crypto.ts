@@ -5,9 +5,9 @@ export function encryptByteArray(input: Buffer, key: Buffer): string {
   const iv = Buffer.alloc(16, 0);
 
   const cipher = crypto.createCipheriv("aes-128-cbc", key, iv);
-  let encryptedChunks = Buffer.concat([cipher.update(input), cipher.final()]);
+  const encryptedChunks = Buffer.concat([cipher.update(input), cipher.final()]);
 
-  let encryptedString = encryptedChunks.toString("hex");
+  const encryptedString = encryptedChunks.toString("hex");
 
   return encryptedString;
 }
@@ -66,7 +66,7 @@ export function buildEncryptionKeyFromString(
   if (keyBytes.length < keySize) {
     return Buffer.concat([
       keyBytes,
-      Buffer.alloc(keySize - keyBytes.length, 0),
+      Buffer.alloc(keySize - keyBytes.length, 0)
     ]);
   } else {
     return keyBytes.subarray(0, keySize);
@@ -101,6 +101,6 @@ export function verify(
   return signature === calculatedSignature;
 }
 
-export function encryptMessage (message: string, key: string) {
+export function encryptMessage(message: string, key: string) {
   return encryptString(message, key);
 }

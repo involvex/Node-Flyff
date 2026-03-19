@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 export enum PacketType {
   // Inter-server
   CLUSTER_AUTH_REQ = 0x00003500,
@@ -410,7 +412,7 @@ export enum PacketType {
   UPDATE_GUILD_RANKING_END = 0xf000b044,
   UPDATE_GUILD_RANKING_DB = 0xf000b04d,
   REQUEST_GUILD_RANKING = 0xf000b04e,
-  //WAR_DEAD = 0x00000000, // Incorrect value in conflict with WELCOME.
+  // WAR_DEAD = 0x00000000, // Incorrect value in conflict with WELCOME.
   WAR_END = 0xf000b046,
   SURRENDER = 0xf000b047,
   QUERY_TRUCE = 0xf000b048,

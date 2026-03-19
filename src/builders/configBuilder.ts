@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { join } from "path";
 import yaml from "js-yaml";
 
@@ -41,10 +41,11 @@ export class ConfigBuilder {
         filePath.endsWith(".json") || filePath.endsWith(".JSON")
           ? ConfigType.JSON
           : filePath.endsWith(".yaml") || filePath.endsWith(".yml")
-          ? ConfigType.YAML
-          : ConfigType.UNKNOWN;
+            ? ConfigType.YAML
+            : ConfigType.UNKNOWN;
       if (configType === ConfigType.JSON) {
-        this.config[file.split(".").shift()!] = fs.readJSONSync(filePath);
+        const jsonText = fs.readFileSync(filePath, "utf8");
+        this.config[file.split(".").shift()!] = JSON.parse(jsonText);
       } else {
         const configFile = fs.readFileSync(filePath, "utf8");
         this.config[file.split(".").shift()!] = yaml.load(

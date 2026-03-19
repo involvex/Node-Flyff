@@ -1,4 +1,6 @@
-import path, { join } from "path";
+import path, { join, dirname } from "path";
+
+import { fileURLToPath } from "url";
 import _ from "lodash";
 import cron from "node-cron";
 
@@ -17,23 +19,26 @@ import {
   isValidEncryptionString,
   parseMessage,
   decryptString,
-  encryptMessage,
+  encryptMessage
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async () => {
+export default async() => {
   const instanceBuilder = new InstanceBuilder();
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
 
   instanceBuilder.buildConfig((builder: ConfigBuilder) => {
     builder.setBasePath(join(__dirname, "../../configs"));
   });
 
-  instanceBuilder.buildDatabase(async (builder: DatabaseBuilder) => {
+  instanceBuilder.buildDatabase(async(builder: DatabaseBuilder) => {
     builder.setEntitiesPath(join(__dirname, "../../database"));
   });
 
-  instanceBuilder.buildHandlers(async (builder: HandlerBuilder) => {
+  instanceBuilder.buildHandlers(async(builder: HandlerBuilder) => {
     builder.setBasePath(__dirname);
   });
 
@@ -47,10 +52,10 @@ export default async () => {
   });
 
   instanceBuilder.buildResource((builder: ResourceBuilder) => {
-    builder.setRedisOptions(instanceBuilder?.config?.cluster_server.redis)
+    builder.setRedisOptions(instanceBuilder?.config?.cluster_server.redis);
     builder.load = false;
   });
-  
+
   const instance = await instanceBuilder.build();
   clusterIntercom(instance);
 };
@@ -63,7 +68,7 @@ async function clusterIntercom(instance: IInstance) {
   ).toString("hex");
   const redisChannels = [
     RedisChannel.CORE_CHANNEL,
-    RedisChannel.CLUSTER_CHANNEL,
+    RedisChannel.CLUSTER_CHANNEL
   ];
 
   const initCluster: ICluster = {
@@ -71,11 +76,11 @@ async function clusterIntercom(instance: IInstance) {
     host: config?.cluster_server.server.host,
     port: config?.cluster_server.server.port,
     enabled: true,
-    channels: [],
+    channels: []
   };
   // const clusterKey = `cluster:${initCluster.name}`;
 
-  ////// MAIN //////////
+  /// /// MAIN //////////
   subscriber?.subscribe(...redisChannels, (err) => {
     if (!err) {
       sendMessage(
@@ -90,9 +95,9 @@ async function clusterIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/30 * * * * *", async () => {
+  cron.schedule("*/30 * * * * *", async() => {
     const channels = await client?.getAllChannels(initCluster.name);
-    channels?.forEach(async (channel) => {
+    channels?.forEach(async(channel) => {
       if (
         channel.lastPing &&
         new Date().getTime() > channel.lastPing + 60 * 1000
@@ -138,7 +143,7 @@ async function clusterIntercom(instance: IInstance) {
             if (decrypted.data?.name === initCluster.name) {
               cron.schedule("*/15 * * * * *", () => {
                 sendMessage(RedisChannel.CORE_CHANNEL, MessageCommand.PING, {
-                  name: initCluster.name,
+                  name: initCluster.name
                 });
               });
             }
@@ -170,7 +175,7 @@ async function clusterIntercom(instance: IInstance) {
             } else {
               const channel: IChannel = {
                 ...decrypted.data,
-                lastPing: new Date().getTime(),
+                lastPing: new Date().getTime()
               };
               await client?.insertChannel(initCluster.name, channel);
               sendMessage(
@@ -188,7 +193,7 @@ async function clusterIntercom(instance: IInstance) {
             if (channel) {
               const updated: IChannel = {
                 ...channel,
-                lastPing: new Date().getTime(),
+                lastPing: new Date().getTime()
               };
               await client?.updateChannel(initCluster.name, updated);
             }
@@ -208,10 +213,10 @@ async function clusterIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-              sender: ServerType.CLUSTER_SERVER,
-              command,
-              data: message,
-            })
+            sender: ServerType.CLUSTER_SERVER,
+            command,
+            data: message
+          })
           : message,
         master
       )

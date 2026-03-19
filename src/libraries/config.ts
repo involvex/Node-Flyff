@@ -1,7 +1,9 @@
 import { Logger } from "../helpers/logger";
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
 import yaml from "js-yaml";
+
+import { fileURLToPath } from "url";
 
 export class ConfigLoader {
   private logger: Logger;
@@ -16,6 +18,8 @@ export class ConfigLoader {
   }
 
   loadConfig(): void {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
     const configPath = path.join(__dirname, "../configs", `${this.serverName}.yaml`);
     try {
       const configFile = fs.readFileSync(configPath, "utf8");

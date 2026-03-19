@@ -1,7 +1,7 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 
 import { ResourcePaths } from "../resources/resourcePaths";
 import { ItemProperties } from "../interfaces/resource";
@@ -9,12 +9,12 @@ import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
 import { BaseResource } from "../abstract/baseResource";
 
 export class ItemResources extends BaseResource {
-  redisClient: Redis;
+  redisClient: any;
   private itemCount: number = 0;
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     super("Item");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public getItemCount(): number {
@@ -24,48 +24,30 @@ export class ItemResources extends BaseResource {
   public async get(
     itemIdentifier: string | number
   ): Promise<ItemProperties | null> {
-    const itemId =
-      typeof itemIdentifier === "number"
-        ? itemIdentifier
-        : await this.redisClient.hget("itemDefines", itemIdentifier);
-    if (!_.isUndefined(itemId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`item:${itemId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseItemProperties(data) : null);
-          }
-        });
-      });
+    const itemId = typeof itemIdentifier === "number" ? itemIdentifier : await this.redisClient.hget("itemDefines", itemIdentifier);
+    if (!_.isNil(itemId)) {
+      const data = await this.redisClient.hgetall(`item:${itemId}`);
+      return data ? this.parseItemProperties(data) : null;
     }
     return null;
   }
 
-  public where(predicate: (item: ItemProperties) => boolean): ItemProperties[] {
+  public async where(predicate: (item: ItemProperties) => boolean): Promise<ItemProperties[]> {
     const items: ItemProperties[] = [];
-    this.redisClient.keys("item:*", (err, keys) => {
-      if (err) {
-        this.logLoadError("Error retrieving keys from Redis", err);
-      } else {
-        if (!_.isUndefined(keys)) {
-          _.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err, data) => {
-              if (err) {
-                this.logLoadError("Error retrieving item data from Redis", err);
-              } else {
-                if (data) {
-                  const item = this.parseItemProperties(data);
-                  if (predicate(item)) {
-                    items.push(item);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("item:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const item = this.parseItemProperties(data);
+            if (predicate(item)) items.push(item);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logLoadError("Error retrieving keys from KV store", err as Error);
+    }
     return items;
   }
 
@@ -80,7 +62,7 @@ export class ItemResources extends BaseResource {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -101,14 +83,14 @@ export class ItemResources extends BaseResource {
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
-      this.logger.warn(`Unable to load items. Reason: item defines is empty`);
+      this.logger.warn("Unable to load items. Reason: item defines is empty");
     }
 
     try {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, i) => {
+      _.forEach(pairs, async(pair, i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("itemNames", idName, name);
@@ -127,7 +109,7 @@ export class ItemResources extends BaseResource {
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
-      this.logger.warn(`Unable to load items. Reason: item defines is empty`);
+      this.logger.warn("Unable to load items. Reason: item defines is empty");
     }
 
     await this.cleanCache(); // clean cache
@@ -135,7 +117,7 @@ export class ItemResources extends BaseResource {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const items = line.trim().split("\t");
 
       const id = await this.redisClient.hget("itemDefines", items[1]);
@@ -207,7 +189,7 @@ export class ItemResources extends BaseResource {
           dwAFuelReMax: tryParseInt(items[114]),
           dwReflect: tryParseInt(items[117]),
           dwQuestID: tryParseInt(items[121]),
-          szComment,
+          szComment
         };
 
         if (item.id) {
@@ -221,87 +203,73 @@ export class ItemResources extends BaseResource {
 
   parseItemProperties(data: { [key: string]: string }): ItemProperties {
     return {
-      id: parseInt(data["id"]),
-      ver6: parseInt(data["ver6"]),
-      dwID: data["dwID"],
-      szName: data["szName"],
-      szNameId: data["szNameId"],
-      dwPackMax: parseInt(data["dwPackMax"]),
-      dwItemKind1: data["dwItemKind1"],
-      dwItemKind2: data["dwItemKind2"],
-      dwItemKind3: data["dwItemKind3"],
-      dwItemJob: data["dwItemJob"],
-      bPermanence: data["bPermanence"] === "true",
-      dwUseable: data["dwUseable"] === "true",
-      dwItemSex: parseInt(data["dwItemSex"]),
-      dwCost: parseInt(data["dwCost"]),
-      dwLimitLevel1: parseInt(data["dwLimitLevel1"]),
-      dwParts: data["dwParts"],
-      dwAbilityMin: parseInt(data["dwAbilityMin"]),
-      dwAbilityMax: parseInt(data["dwAbilityMax"]),
-      eItemType: data["eItemType"],
-      dwItemLV: parseInt(data["dwItemLV"]),
-      dwItemRare: parseInt(data["dwItemRare"]),
-      dwAttackSpeed: parseFloat(data["dwAttackSpeed"]),
-      dwDestParam1: cleanString(data["dwDestParam1"]),
-      dwDestParam2: cleanString(data["dwDestParam2"]),
-      dwDestParam3: cleanString(data["dwDestParam3"]),
-      nAdjParamVal1: parseInt(data["nAdjParamVal1"]),
-      nAdjParamVal2: parseInt(data["nAdjParamVal2"]),
-      nAdjParamVal3: parseInt(data["nAdjParamVal3"]),
-      dwCircleTime: parseInt(data["dwCircleTime"]),
-      dwSfxObj: cleanString(data["dwSfxObj"]),
-      dwSfxObj2: cleanString(data["dwSfxObj2"]),
-      dwSfxObj3: cleanString(data["dwSfxObj3"]),
-      dwSfxObj4: cleanString(data["dwSfxObj4"]),
-      dwSfxObj5: cleanString(data["dwSfxObj5"]),
-      dwSkillReady: parseInt(data["dwSkillReady"]),
-      dwWeaponType: parseInt(data["dwWeaponType"]),
-      dwItemAtkOrder1: parseInt(data["dwItemAtkOrder1"]),
-      dwItemAtkOrder2: parseInt(data["dwItemAtkOrder2"]),
-      dwItemAtkOrder3: parseInt(data["dwItemAtkOrder3"]),
-      dwItemAtkOrder4: parseInt(data["dwItemAtkOrder4"]),
-      dwSkillReadyType: parseInt(data["dwSkillReadyType"]),
-      dwReferStat1: data["dwReferStat1"],
-      dwAddSkillMin: parseInt(data["dwAddSkillMin"]),
-      dwAddSkillMax: parseInt(data["dwAddSkillMax"]),
-      dwReqMp: parseInt(data["dwReqMp"]),
-      dwReqFp: parseInt(data["dwReqFp"]),
-      dwReferStat2: cleanString(data["dwReferStat2"]),
-      dwReferTarget1: cleanString(data["dwReferTarget1"]),
-      dwReferTarget2: cleanString(data["dwReferTarget2"]),
-      dwReferValue1: parseInt(data["dwReferValue1"]),
-      dwReferValue2: parseInt(data["dwReferValue2"]),
-      dwFlightLimit: parseInt(data["dwFlightLimit"]),
-      dwFFuelReMax: parseInt(data["dwFFuelReMax"]),
-      dwAFuelReMax: parseInt(data["dwAFuelReMax"]),
-      dwReflect: parseInt(data["dwReflect"]),
-      dwQuestID: parseInt(data["dwQuestID"]),
-      szComment: data["szComment"],
+      id: parseInt(data.id),
+      ver6: parseInt(data.ver6),
+      dwID: data.dwID,
+      szName: data.szName,
+      szNameId: data.szNameId,
+      dwPackMax: parseInt(data.dwPackMax),
+      dwItemKind1: data.dwItemKind1,
+      dwItemKind2: data.dwItemKind2,
+      dwItemKind3: data.dwItemKind3,
+      dwItemJob: data.dwItemJob,
+      bPermanence: data.bPermanence === "true",
+      dwUseable: data.dwUseable === "true",
+      dwItemSex: parseInt(data.dwItemSex),
+      dwCost: parseInt(data.dwCost),
+      dwLimitLevel1: parseInt(data.dwLimitLevel1),
+      dwParts: data.dwParts,
+      dwAbilityMin: parseInt(data.dwAbilityMin),
+      dwAbilityMax: parseInt(data.dwAbilityMax),
+      eItemType: data.eItemType,
+      dwItemLV: parseInt(data.dwItemLV),
+      dwItemRare: parseInt(data.dwItemRare),
+      dwAttackSpeed: parseFloat(data.dwAttackSpeed),
+      dwDestParam1: cleanString(data.dwDestParam1),
+      dwDestParam2: cleanString(data.dwDestParam2),
+      dwDestParam3: cleanString(data.dwDestParam3),
+      nAdjParamVal1: parseInt(data.nAdjParamVal1),
+      nAdjParamVal2: parseInt(data.nAdjParamVal2),
+      nAdjParamVal3: parseInt(data.nAdjParamVal3),
+      dwCircleTime: parseInt(data.dwCircleTime),
+      dwSfxObj: cleanString(data.dwSfxObj),
+      dwSfxObj2: cleanString(data.dwSfxObj2),
+      dwSfxObj3: cleanString(data.dwSfxObj3),
+      dwSfxObj4: cleanString(data.dwSfxObj4),
+      dwSfxObj5: cleanString(data.dwSfxObj5),
+      dwSkillReady: parseInt(data.dwSkillReady),
+      dwWeaponType: parseInt(data.dwWeaponType),
+      dwItemAtkOrder1: parseInt(data.dwItemAtkOrder1),
+      dwItemAtkOrder2: parseInt(data.dwItemAtkOrder2),
+      dwItemAtkOrder3: parseInt(data.dwItemAtkOrder3),
+      dwItemAtkOrder4: parseInt(data.dwItemAtkOrder4),
+      dwSkillReadyType: parseInt(data.dwSkillReadyType),
+      dwReferStat1: data.dwReferStat1,
+      dwAddSkillMin: parseInt(data.dwAddSkillMin),
+      dwAddSkillMax: parseInt(data.dwAddSkillMax),
+      dwReqMp: parseInt(data.dwReqMp),
+      dwReqFp: parseInt(data.dwReqFp),
+      dwReferStat2: cleanString(data.dwReferStat2),
+      dwReferTarget1: cleanString(data.dwReferTarget1),
+      dwReferTarget2: cleanString(data.dwReferTarget2),
+      dwReferValue1: parseInt(data.dwReferValue1),
+      dwReferValue2: parseInt(data.dwReferValue2),
+      dwFlightLimit: parseInt(data.dwFlightLimit),
+      dwFFuelReMax: parseInt(data.dwFFuelReMax),
+      dwAFuelReMax: parseInt(data.dwAFuelReMax),
+      dwReflect: parseInt(data.dwReflect),
+      dwQuestID: parseInt(data.dwQuestID),
+      szComment: data.szComment
     };
   }
 
-  cleanCache() {
-    return new Promise<void>((resolve, reject) => {
-      this.redisClient.keys("item:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
-    });
+  async cleanCache(): Promise<void> {
+    try {
+      const keys = await this.redisClient.keys("item:*");
+      if (!keys || keys.length === 0) return;
+      await this.redisClient.del(...keys);
+    } catch (err) {
+      throw err;
+    }
   }
 }

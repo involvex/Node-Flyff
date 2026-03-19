@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 export enum ObjectState {
   OBJSTA_NONE = 0x00000000,
 

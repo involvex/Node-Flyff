@@ -53,12 +53,12 @@ export default class Handler extends PacketHandler {
     const accounts = this.server?.instance?.getEntity("Account");
     const characters = this.server?.instance?.getEntity("Character");
 
-    let account = (await accounts?.findOne({
+    const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
-      relations: ["characters", "characters.equipments"],
+      relations: ["characters", "characters.equipments"]
     })) as Account;
 
     if (!account) {
@@ -71,7 +71,7 @@ export default class Handler extends PacketHandler {
     }
 
     const usernameTaken = await characters?.existsBy({
-      name: this.characterName,
+      name: this.characterName
     });
 
     if (usernameTaken) {
@@ -154,10 +154,10 @@ export default class Handler extends PacketHandler {
     const userCharacters = (await characters?.find({
       where: {
         account: {
-          username: this.username,
-        },
+          username: this.username
+        }
       },
-      relations: ["account", "equipments", "equipments.item"],
+      relations: ["account", "equipments", "equipments.item"]
     })) as Character[];
     this.userConnection.sendCharacterList(userCharacters, this.authKey);
   }

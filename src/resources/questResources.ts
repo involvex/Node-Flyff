@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import { Logger } from "../helpers/logger";
 import { ResourcePaths } from "./resourcePaths";
@@ -63,14 +63,14 @@ export class QuestResources {
     }
 
     const questFilePaths = fs.readdirSync(ResourcePaths.questsPath)
-      .filter(file => file.endsWith('.lua'))
+      .filter(file => file.endsWith(".lua"))
       .map(file => path.join(ResourcePaths.questsPath, file));
 
     if (questFilePaths.length > 0) {
       const luaParser = new LuaParser();
 
       for (const questFilePath of questFilePaths) {
-        const questIdentifier = path.basename(questFilePath, '.lua');
+        const questIdentifier = path.basename(questFilePath, ".lua");
 
         const questId = this.tryGetQuestId(questIdentifier);
         if (!questId) {
@@ -225,10 +225,10 @@ export class QuestResources {
 
       for (const monsterId of monsterIds) {
         questItemDrops.push({
-          itemId: itemId,
-          monsterId: monsterId,
-          probability: probability,
-          quantity: quantity
+          itemId,
+          monsterId,
+          probability,
+          quantity
         });
       }
     }

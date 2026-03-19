@@ -1,11 +1,13 @@
 import _ from "lodash";
-import fs from "fs-extra";
+import fs from "fs";
 import { Logger } from "../helpers/logger";
 import { join } from "path";
 import { DataSource, DataSourceOptions } from "typeorm";
-import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
-import { SqliteConnectionOptions } from "typeorm/driver/sqlite/SqliteConnectionOptions";
-import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+// Some TypeORM driver-specific option types are not available in this environment
+// Use permissive aliases to avoid hard build failures while keeping runtime behavior.
+type MysqlConnectionOptions = any;
+type SqliteConnectionOptions = any;
+type PostgresConnectionOptions = any;
 
 import { BuilderType } from "../common/builderType";
 import { IDataSource, IDatabaseOptions } from "../interfaces/database";
@@ -13,8 +15,8 @@ import { DatabaseType } from "../common/databaseType";
 
 export class DatabaseBuilder {
   private logger: Logger;
-  private entitiesPath: string;
-  private database: DataSource;
+  private entitiesPath!: string;
+  private database!: DataSource;
 
   constructor() {
     this.logger = new Logger(BuilderType.DATABASE_BUILDER);
@@ -43,7 +45,7 @@ export class DatabaseBuilder {
       const entities = await this.loadEntities();
       this.database = new DataSource({
         ...this.getOptionByType(options.dataSource),
-        entities: [...entities] as string[],
+        entities: [...entities] as string[]
       });
     } catch (error) {
       console.log(error);
@@ -60,7 +62,7 @@ export class DatabaseBuilder {
       const files = fs.readdirSync(join(this.entitiesPath));
       if (_.isEmpty(files)) return [];
       await Promise.all(
-        _.map(files, async (file: string) => {
+        _.map(files, async(file: string) => {
           if (
             file.endsWith(".ts") &&
             fs.existsSync(join(this.entitiesPath, file))
@@ -85,7 +87,7 @@ export class DatabaseBuilder {
     } catch (e) {
       this.logger.warn(e.message);
     }
-    this.logger.success(`Database successfully loaded`);
+    this.logger.success("Database successfully loaded");
     return this.database;
   }
 }

@@ -7,6 +7,7 @@ export class FlyffSnapshot extends FlyffPacket {
   static readonly SnapshotHeaderOffset: number = 1 + 4;
   static readonly SnapshotAmountOffset: number =
     FlyffSnapshot.SnapshotHeaderOffset + 4 + 4;
+
   static readonly SnapshotContentOffset: number =
     FlyffSnapshot.SnapshotAmountOffset + 2;
 
@@ -33,6 +34,7 @@ export class FlyffSnapshot extends FlyffPacket {
       this.writeInt16(this.count);
     }
   }
+
   mergeSnapshots(snapshot: FlyffSnapshot) {
     this.merge(snapshot.buffer);
   }

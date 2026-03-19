@@ -40,6 +40,13 @@ export class Mover extends WorldObject {
   public readonly delayer: Delayer = new Delayer();
   public readonly buffs: Buffs;
 
+  // Compatibility aliases (PascalCase names used across legacy code)
+  public Health?: Health;
+  public Attributes?: Attributes;
+  public Statistics?: Statistics;
+  public Buffs?: Buffs;
+  public SendToVisible?: (packet: any, sendToSelf?: boolean) => void;
+
   protected constructor(properties: MoverProperties) {
     super();
     this.properties = properties ?? (() => { throw new Error("Cannot create a mover with no properties."); })();
@@ -48,6 +55,13 @@ export class Mover extends WorldObject {
     this.health = new Health(this);
     this.defense = new Defense(this);
     this.buffs = new Buffs(this);
+
+    // runtime aliases to keep legacy PascalCase references working
+    Object.defineProperty(this, "Health", { get: () => this.health, configurable: true });
+    Object.defineProperty(this, "Attributes", { get: () => this.attributes, configurable: true });
+    Object.defineProperty(this, "Statistics", { get: () => this.statistics, configurable: true });
+    Object.defineProperty(this, "Buffs", { get: () => this.buffs, configurable: true });
+    Object.defineProperty(this, "SendToVisible", { get: () => this.sendToVisible.bind(this), configurable: true });
   }
 
   public speedFactor: number = 1;
@@ -225,7 +239,7 @@ export class Mover extends WorldObject {
     if (this instanceof Player && this.mode.includes(ModeType.ONEKILL_MODE)) {
       const attackResult: AttackResult = {
         damages: target.health.hp,
-        flags: AttackFlags.AF_GENERIC,
+        flags: AttackFlags.AF_GENERIC
       };
 
       this.inflictDamages(target, attackResult, attackType);

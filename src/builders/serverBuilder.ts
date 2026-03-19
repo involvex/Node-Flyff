@@ -4,7 +4,6 @@ import { TcpServer } from "../libraries/tcpServer";
 import { HandlerConstructor } from "../libraries/packetHandler";
 import { Logger } from "../helpers/logger";
 import { BuilderType } from "../common/builderType";
-import { Redis, RedisOptions } from "ioredis";
 import { IRedisClient } from "../interfaces/redis";
 import { IConfig } from "../interfaces/config";
 

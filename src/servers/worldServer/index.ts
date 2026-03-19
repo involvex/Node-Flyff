@@ -1,4 +1,6 @@
-import path from "path";
+import path, { dirname } from "path";
+
+import { fileURLToPath } from "url";
 import _ from "lodash";
 import cron, { ScheduledTask } from "node-cron";
 
@@ -17,13 +19,15 @@ import {
   decryptString,
   encryptMessage,
   isValidEncryptionString,
-  parseMessage,
+  parseMessage
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 import { FFRandom } from "../../helpers/FFRandom";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async () => {
+export default async() => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
   const instanceBuilder = new InstanceBuilder();
 
   instanceBuilder.buildConfig((builder: ConfigBuilder) => {
@@ -54,7 +58,7 @@ export default async () => {
   const instance = await instanceBuilder.build();
   worldIntercom(instance);
 
-  global.GameConfig = instanceBuilder.config
+  global.GameConfig = instanceBuilder.config;
   global.TimeStarted = new Date().getTime();
 };
 
@@ -75,7 +79,7 @@ function worldIntercom(instance: IInstance) {
     enabled: true,
     currentUsers: 0,
     maxUsers: config?.world_server.settings["maximum-users"],
-    pkEnabled: config?.world_server.settings["pk-enabled"],
+    pkEnabled: config?.world_server.settings["pk-enabled"]
   };
 
   subscriber?.subscribe(RedisChannel.CLUSTER_CHANNEL, (err) => {
@@ -147,10 +151,10 @@ function worldIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-              sender: ServerType.WORLD_SERVER,
-              command,
-              data: message,
-            })
+            sender: ServerType.WORLD_SERVER,
+            command,
+            data: message
+          })
           : message,
         master
       )

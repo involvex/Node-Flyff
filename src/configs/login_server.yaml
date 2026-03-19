@@ -15,5 +15,10 @@ redis:
   password: ""
   tls: false
 database:
-    provider: "sqlite" # 'sqlite' | 'mysql' | 'mssql'
-    connection-string: "./data/db/game.db"
+  provider: "postgres"
+  host: "127.0.0.1"
+  port: 5432
+  username: "flyff"
+  password: "flyffpass"
+  database: "nodeflyff"
+  # connection-string and url are optional for postgres

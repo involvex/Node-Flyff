@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Vector3 } from "../vector3";
 import { BinaryStream } from "../../libraries/binaryStream";
 

@@ -1,6 +1,6 @@
 import {
   IServerConfig,
-  TcpServer,
+  TcpServer
 } from "../../libraries/tcpServer";
 import { ServerType } from "../../common/serverType";
 // Main TCP Server class

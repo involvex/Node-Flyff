@@ -4,20 +4,20 @@ import { ElementType } from "../common/elementType";
 @Entity("Item")
 export default class ItemEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  serialNumber: number;
+    serialNumber: number;
 
   @Column({ nullable: false })
-  itemId: number;
+    itemId: number;
 
   @Column({ default: 0 })
-  refinement: number;
+    refinement: number;
 
   @Column({ default: ElementType.None })
-  element: ElementType;
+    element: ElementType;
 
   @Column({ default: 0 })
-  elementRefinement: number;
+    elementRefinement: number;
 
   @Column({ default: false })
-  deleted: boolean;
+    deleted: boolean;
 }

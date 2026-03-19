@@ -1,4 +1,4 @@
-import { RedisOptions } from "ioredis";
+
 import _ from "lodash";
 
 import { Logger } from "../helpers/logger";
@@ -26,7 +26,7 @@ export class ResourceBuilder {
   private logger: Logger;
   private loadErrors: ResourceLoadResult[] = [];
   load = true;
-  options: RedisOptions;
+  options: any;
   itemResources: ItemResources;
   monsterResources: MonsterResources;
   npcResources: NpcResources;
@@ -41,7 +41,7 @@ export class ResourceBuilder {
     this.logger = new Logger(BuilderType.RESOURCE_BUILDER);
   }
 
-  setRedisOptions(options: RedisOptions) {
+  setRedisOptions(options: any) {
     this.options = options;
   }
 
@@ -50,7 +50,7 @@ export class ResourceBuilder {
   }
 
   public validateCriticalResources(): boolean {
-    const criticalResources = ['Items', 'Monsters/Movers', 'Jobs', 'Skills'];
+    const criticalResources = ["Items", "Monsters/Movers", "Jobs", "Skills"];
     const failedCritical = this.loadErrors.filter(result =>
       !result.success && criticalResources.some(critical =>
         result.resourceType.includes(critical) || critical.includes(result.resourceType)
@@ -85,22 +85,24 @@ export class ResourceBuilder {
     this.loadErrors = [];
 
     try {
-      if (!this.options) {
-        throw new Error("Redis options not configured. Call setRedisOptions() before building.");
-      }
-
       this.logger.info("Initializing game resources...");
 
       // Initialize all resource instances with error handling
       try {
-        this.itemResources = new ItemResources(this.options);
-        this.monsterResources = new MonsterResources(this.options);
-        this.npcResources = new NpcResources(this.options);
-        this.jobResources = new JobResources(this.options);
-        this.expTableResources = new ExpTableResources(this.options);
-        this.deathPenaltyResource = new DeathPenaltyResources(this.options);
-        this.mapResource = new MapResources(this.options);
-        this.skillResource = new SkillResources(this.options);
+        // Use a simple KV-backed client (SQLite) for all resource loading
+        // lazy-import to avoid binary dependency unless needed
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const KvClient = require("../libraries/kvClient").default;
+        const kv = new KvClient();
+
+        this.itemResources = new ItemResources(kv);
+        this.monsterResources = new MonsterResources(kv);
+        this.npcResources = new NpcResources(kv);
+        this.jobResources = new JobResources(kv);
+        this.expTableResources = new ExpTableResources(kv);
+        this.deathPenaltyResource = new DeathPenaltyResources(kv);
+        this.mapResource = new MapResources(kv);
+        this.skillResource = new SkillResources(kv);
 
         // QuestResources needs defines from monster resources, so initialize after defines are loaded
         // Use YAML quest loader for better performance and maintainability
@@ -113,7 +115,7 @@ export class ResourceBuilder {
       if (this.load) {
         this.logger.info("Loading game resources...");
         // Load items with error handling
-        await this.loadResourceSafely("Items", async () => {
+        await this.loadResourceSafely("Items", async() => {
           this.logger.info("Loading items...");
           await this.itemResources.loadDefines();
           await this.itemResources.loadItemsPropStrings();
@@ -121,7 +123,7 @@ export class ResourceBuilder {
         });
 
         // Load monsters with error handling and fallback
-        await this.loadResourceSafely("Monsters/Movers", async () => {
+        await this.loadResourceSafely("Monsters/Movers", async() => {
           this.logger.info("Loading monsters/movers...");
           try {
             await this.monsterResources.load();
@@ -134,33 +136,33 @@ export class ResourceBuilder {
         });
 
         // Load NPCs with error handling
-        await this.loadResourceSafely("NPCs", async () => {
+        await this.loadResourceSafely("NPCs", async() => {
           this.logger.info("Loading NPCs...");
           await this.npcResources.load();
         });
 
         // Load jobs with error handling
-        await this.loadResourceSafely("Jobs", async () => {
+        await this.loadResourceSafely("Jobs", async() => {
           this.logger.info("Loading jobs...");
           await this.jobResources.loadDefines();
           await this.jobResources.loadJobsProp();
         });
 
         // Load experience tables with error handling
-        await this.loadResourceSafely("Experience Tables", async () => {
+        await this.loadResourceSafely("Experience Tables", async() => {
           this.logger.info("Loading experience tables...");
           await this.expTableResources.loadExpCharacter();
           await this.expTableResources.loadExpDropLuck();
         });
 
         // Load death penalties with error handling
-        await this.loadResourceSafely("Death Penalties", async () => {
+        await this.loadResourceSafely("Death Penalties", async() => {
           this.logger.info("Loading death penalties...");
           await this.deathPenaltyResource.loadDeathPenalty();
         });
 
         // Load maps with error handling
-        await this.loadResourceSafely("Maps", async () => {
+        await this.loadResourceSafely("Maps", async() => {
           this.logger.info("Loading maps and worlds...");
           await this.mapResource.loadDefines();
           await this.mapResource.loadWorldPaths();
@@ -168,7 +170,7 @@ export class ResourceBuilder {
         });
 
         // Load skills with error handling
-        await this.loadResourceSafely("Skills", async () => {
+        await this.loadResourceSafely("Skills", async() => {
           this.logger.info("Loading skills...");
           await this.skillResource.loadDefines();
           await this.skillResource.loadSkillsPropStrings();
@@ -176,7 +178,7 @@ export class ResourceBuilder {
         });
 
         // Load quests with error handling (non-critical)
-        await this.loadResourceSafely("Quests", async () => {
+        await this.loadResourceSafely("Quests", async() => {
           this.logger.info("Loading quest defines...");
           await this.questResources.loadDefines();
           this.logger.info("Loading quests...");
@@ -206,7 +208,7 @@ export class ResourceBuilder {
       expTableResources: this.expTableResources,
       deathPenaltyResource: this.deathPenaltyResource,
       mapResource: this.mapResource,
-      questResources: this.questResources,
+      questResources: this.questResources
     };
   }
 
@@ -226,7 +228,6 @@ export class ResourceBuilder {
         resourceType,
         elapsed
       });
-
     } catch (error) {
       const elapsed = Date.now() - startTime;
       const loadError = error instanceof Error ? error : new Error(String(error));
@@ -255,7 +256,7 @@ export class ResourceBuilder {
       this.logger.error("\\n=== RESOURCE LOADING ERRORS ===");
 
       failures.forEach(failure => {
-        this.logger.error(`${failure.resourceType}: ${failure.error?.message || 'Unknown error'}`);
+        this.logger.error(`${failure.resourceType}: ${failure.error?.message || "Unknown error"}`);
       });
 
       this.logger.error("=" + "=".repeat(31) + "=");
@@ -276,7 +277,7 @@ export class ResourceBuilder {
     Object.entries(resourceCounts).forEach(([resourceType, count]) => {
       const loadResult = this.loadErrors.find(result =>
         result.resourceType === resourceType ||
-        resourceType.includes(result.resourceType.split('/')[0])
+        resourceType.includes(result.resourceType.split("/")[0])
       );
 
       let statusIndicator = "";
@@ -334,46 +335,45 @@ export class ResourceBuilder {
       // QuestResources (in-memory) - use direct method
       if (this.questResources) {
         try {
-          counts["Quests"] = this.questResources.getLoadedCount();
+          counts.Quests = this.questResources.getLoadedCount();
         } catch {
-          counts["Quests"] = 0;
+          counts.Quests = 0;
         }
       }
 
       // MapResources (in-memory) - use direct method
       if (this.mapResource) {
         try {
-          counts["Maps"] = this.mapResource.getLoadedCount();
+          counts.Maps = this.mapResource.getLoadedCount();
         } catch {
-          counts["Maps"] = 0;
+          counts.Maps = 0;
         }
       }
 
       // Try to get Redis-based resource counts
       try {
         if (this.itemResources) {
-          counts["Items"] = await this.getRedisCount("item:*");
+          counts.Items = await this.getRedisCount("item:*");
         }
         if (this.npcResources) {
-          counts["NPCs"] = await this.getRedisCount("npc:*");
+          counts.NPCs = await this.getRedisCount("npc:*");
         }
         if (this.jobResources) {
-          counts["Jobs"] = await this.getRedisCount("job:*");
+          counts.Jobs = await this.getRedisCount("job:*");
         }
         if (this.skillResource) {
-          counts["Skills"] = await this.getRedisCount("skill:*");
+          counts.Skills = await this.getRedisCount("skill:*");
         }
       } catch (error) {
         // Fallback to -1 if Redis count fails
-        counts["Items"] = this.itemResources ? -1 : 0;
-        counts["NPCs"] = this.npcResources ? -1 : 0;
-        counts["Jobs"] = this.jobResources ? -1 : 0;
-        counts["Skills"] = this.skillResource ? -1 : 0;
+        counts.Items = this.itemResources ? -1 : 0;
+        counts.NPCs = this.npcResources ? -1 : 0;
+        counts.Jobs = this.jobResources ? -1 : 0;
+        counts.Skills = this.skillResource ? -1 : 0;
       }
 
       counts["Exp Tables"] = this.expTableResources ? 2 : 0; // Character exp + Drop luck
       counts["Death Penalties"] = this.deathPenaltyResource ? 3 : 0; // Revival, exp decrease, level down
-
     } catch (error) {
       this.logger.warn("Error getting resource counts:", error);
     }
@@ -382,14 +382,12 @@ export class ResourceBuilder {
   }
 
   private async getRedisCount(pattern: string): Promise<number> {
-    return new Promise((resolve) => {
-      this.itemResources.redisClient.keys(pattern, (err, keys) => {
-        if (err || !keys) {
-          resolve(-1); // Error or no connection
-        } else {
-          resolve(keys.length);
-        }
-      });
-    });
+    try {
+      const keys = await this.itemResources.redisClient.keys(pattern);
+      if (!keys) return -1;
+      return Array.isArray(keys) ? keys.length : -1;
+    } catch (err) {
+      return -1;
+    }
   }
 }

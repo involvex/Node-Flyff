@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Vector3 } from "./vector3";
 import { WorldData } from "../interfaces/resource";
 
@@ -63,7 +63,7 @@ export class WldFile {
         indoor: isIndoor,
         fly: canFly,
         revivalMapId,
-        revivalKey,
+        revivalKey
       };
     } catch (error) {
       console.error("Error reading file:", error);

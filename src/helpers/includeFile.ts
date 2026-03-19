@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Logger } from "./logger";
 import { BlockStatement, InstructionParser, Instruction, Variable } from "./instructionParser";
 

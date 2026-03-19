@@ -1,8 +1,13 @@
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
 import _ from "lodash";
 import yaml from "js-yaml";
+
+import { fileURLToPath } from "url";
 import { DefineJob, JobMax, JobType } from "../../../common/defineJob";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Read the file content
 fs.readFile(
@@ -58,7 +63,7 @@ fs.readFile(
         type: jobsDefinition[parts[0]]?.Type,
         parent: jobsDefinition[parts[0]]?.Parent,
         minLevel: getMinLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type)),
-        maxLevel: getMaxLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type)),
+        maxLevel: getMaxLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type))
       });
     });
 

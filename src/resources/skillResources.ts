@@ -1,7 +1,7 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 
 import { Logger } from "../helpers/logger";
 import { ResourcePaths } from "../resources/resourcePaths";
@@ -10,30 +10,20 @@ import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
 
 export class SkillResources {
   logger: Logger;
-  redisClient: Redis;
+  redisClient: any;
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     this.logger = new Logger("Skill Resources");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public async get(
     skillIdentifier: string | number
   ): Promise<SkillProperties | null> {
-    const skillId =
-      typeof skillIdentifier === "number"
-        ? skillIdentifier
-        : await this.redisClient.hget("skillDefines", skillIdentifier);
-    if (!_.isUndefined(skillId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`skill:${skillId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseSkillProperties(data) : null);
-          }
-        });
-      });
+    const skillId = typeof skillIdentifier === "number" ? skillIdentifier : await this.redisClient.hget("skillDefines", skillIdentifier);
+    if (!_.isNil(skillId)) {
+      const data = await this.redisClient.hgetall(`skill:${skillId}`);
+      return data ? this.parseSkillProperties(data) : null;
     }
     return null;
   }
@@ -41,85 +31,53 @@ export class SkillResources {
   public async getLevel(
     skillLevelIdentifier: string | number
   ): Promise<SkillLevelProperties | null> {
-    const skillLevelId =
-      typeof skillLevelIdentifier === "number"
-        ? skillLevelIdentifier
-        : await this.redisClient.hget("skillDefines", skillLevelIdentifier);
-    if (!_.isUndefined(skillLevelId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`skillLevel:${skillLevelId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseSkillLevelProperties(data) : null);
-          }
-        });
-      });
+    const skillLevelId = typeof skillLevelIdentifier === "number" ? skillLevelIdentifier : await this.redisClient.hget("skillDefines", skillLevelIdentifier);
+    if (!_.isNil(skillLevelId)) {
+      const data = await this.redisClient.hgetall(`skillLevel:${skillLevelId}`);
+      return data ? this.parseSkillLevelProperties(data) : null;
     }
     return null;
   }
 
-  public where(
+  public async where(
     predicate: (skill: SkillProperties) => boolean
-  ): SkillProperties[] {
+  ): Promise<SkillProperties[]> {
     const skills: SkillProperties[] = [];
-    this.redisClient.keys("skill:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!_.isUndefined(keys)) {
-          _.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err, data) => {
-              if (err) {
-                this.logger.error(
-                  "Error retrieving skill data from Redis:",
-                  err
-                );
-              } else {
-                if (data) {
-                  const skill = this.parseSkillProperties(data);
-                  if (predicate(skill)) {
-                    skills.push(skill);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("skill:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const skill = this.parseSkillProperties(data);
+            if (predicate(skill)) skills.push(skill);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving keys from KV store:", err);
+    }
     return skills;
   }
 
-  public whereLevel(
+  public async whereLevel(
     predicate: (skill: SkillLevelProperties) => boolean
-  ): SkillLevelProperties[] {
+  ): Promise<SkillLevelProperties[]> {
     const skills: SkillLevelProperties[] = [];
-    this.redisClient.keys("skillLevel:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!_.isUndefined(keys)) {
-          _.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err, data) => {
-              if (err) {
-                this.logger.error(
-                  "Error retrieving skill data from Redis:",
-                  err
-                );
-              } else {
-                if (data) {
-                  const skill = this.parseSkillLevelProperties(data);
-                  if (predicate(skill)) {
-                    skills.push(skill);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("skillLevel:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const skill = this.parseSkillLevelProperties(data);
+            if (predicate(skill)) skills.push(skill);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving keys from KV store:", err);
+    }
     return skills;
   }
 
@@ -134,7 +92,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -155,14 +113,14 @@ export class SkillResources {
       );
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
-      this.logger.warn(`Unable to load skills. Reason: skill defines is empty`);
+      this.logger.warn("Unable to load skills. Reason: skill defines is empty");
     }
 
     try {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, i) => {
+      _.forEach(pairs, async(pair, i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("skillNames", idName, name);
@@ -182,14 +140,14 @@ export class SkillResources {
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
       this.logger.warn(
-        `Unable to load skill add. Reason: skill defines is empty`
+        "Unable to load skill add. Reason: skill defines is empty"
       );
     }
 
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const parts = line.trim().split(",");
 
       const id = await this.redisClient.hget("skillDefines", parts[1]);
@@ -229,7 +187,7 @@ export class SkillResources {
           dwSkillCount: tryParseInt(parts[33]),
           dwSkillExp: tryParseInt(parts[35]),
           dwExp: tryParseInt(parts[36]),
-          dwComboSkillTime: tryParseInt(parts[38]),
+          dwComboSkillTime: tryParseInt(parts[38])
         };
 
         if (skillLevel.id) {
@@ -249,7 +207,7 @@ export class SkillResources {
       );
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
-      this.logger.warn(`Unable to load skills. Reason: skill defines is empty`);
+      this.logger.warn("Unable to load skills. Reason: skill defines is empty");
     }
 
     await this.cleanCache(); // clean cache
@@ -257,7 +215,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const skills = line.trim().split("\t");
 
       const id = await this.redisClient.hget("skillDefines", skills[1]);
@@ -271,7 +229,7 @@ export class SkillResources {
             "skillDescriptions",
             cleanString(skills[123])
           )) || "";
-        const skillLevels = this.whereLevel((skill) => skill.dwName === szName);
+        const skillLevels = await this.whereLevel((skill) => skill.dwName === szName);
         // TODO skill parse properties
         const skill: SkillProperties = {
           id: tryParseInt(id),
@@ -309,7 +267,7 @@ export class SkillResources {
           dwReferTarget2: cleanString(skills[94]),
           dwReferValue2: tryParseInt(skills[96]),
           szComment,
-          skillLevels,
+          skillLevels
         };
 
         if (skill.skillLevels) {
@@ -332,41 +290,41 @@ export class SkillResources {
   parseSkillProperties(data: { [key: string]: string }): SkillProperties {
     // TODO skill parse properties
     return {
-      id: tryParseInt(data["id"]),
-      ver: tryParseInt(data["ver6"]),
-      dwID: data["dwID"],
-      szName: data["szName"],
-      szNameId: data["szNameId"],
-      dwItemKind1: data["dwItemKind1"],
-      dwItemKind2: data["dwItemKind2"],
-      dwItemKind3: data["dwItemKind3"],
-      dwLinkKind: data["dwLinkKind"],
-      dwLinkKindBullet: data["dwLinkKindBullet"],
-      eItemType: data["eItemType"],
-      tmContinuousPain: tryParseInt(data["tmContinuousPain"]),
-      dwReqDisLV: tryParseInt(data["dwReqDisLV"]),
-      dwReSkill1: tryParseInt(data["dwReSkill1"]),
-      dwReSkillLevel1: tryParseInt(data["dwReSkillLevel1"]),
-      dwReSkill2: tryParseInt(data["dwReSkill2"]),
-      dwReSkillLevel2: tryParseInt(data["dwReSkillLevel2"]),
-      dwSkillReady: tryParseInt(data["dwSkillReady"]),
-      dwSfxObj: data["dwSfxObj"],
-      dwSfxObj2: data["dwSfxObj2"],
-      dwSfxObj3: data["dwSfxObj3"],
-      dwSfxObj4: data["dwSfxObj4"],
-      dwSfxObj5: data["dwSfxObj5"],
-      ExpertMax: tryParseInt(data["ExpertMax"]),
-      dwSkillType: data["dwSkillType"],
-      dwSpellRegion: data["dwSpellRegion"],
-      dwSpellType: data["dwSpellType"],
-      dwExeTarget: data["dwExeTarget"],
-      dwReferStat1: data["dwReferStat1"],
-      dwReferStat2: data["dwReferStat2"],
-      dwReferTarget1: data["dwReferTarget1"],
-      dwReferValue1: tryParseInt(data["dwReferValue1"]),
-      dwReferTarget2: data["dwReferTarget2"],
-      dwReferValue2: tryParseInt(data["dwReferValue2"]),
-      szComment: data["szComment"],
+      id: tryParseInt(data.id),
+      ver: tryParseInt(data.ver6),
+      dwID: data.dwID,
+      szName: data.szName,
+      szNameId: data.szNameId,
+      dwItemKind1: data.dwItemKind1,
+      dwItemKind2: data.dwItemKind2,
+      dwItemKind3: data.dwItemKind3,
+      dwLinkKind: data.dwLinkKind,
+      dwLinkKindBullet: data.dwLinkKindBullet,
+      eItemType: data.eItemType,
+      tmContinuousPain: tryParseInt(data.tmContinuousPain),
+      dwReqDisLV: tryParseInt(data.dwReqDisLV),
+      dwReSkill1: tryParseInt(data.dwReSkill1),
+      dwReSkillLevel1: tryParseInt(data.dwReSkillLevel1),
+      dwReSkill2: tryParseInt(data.dwReSkill2),
+      dwReSkillLevel2: tryParseInt(data.dwReSkillLevel2),
+      dwSkillReady: tryParseInt(data.dwSkillReady),
+      dwSfxObj: data.dwSfxObj,
+      dwSfxObj2: data.dwSfxObj2,
+      dwSfxObj3: data.dwSfxObj3,
+      dwSfxObj4: data.dwSfxObj4,
+      dwSfxObj5: data.dwSfxObj5,
+      ExpertMax: tryParseInt(data.ExpertMax),
+      dwSkillType: data.dwSkillType,
+      dwSpellRegion: data.dwSpellRegion,
+      dwSpellType: data.dwSpellType,
+      dwExeTarget: data.dwExeTarget,
+      dwReferStat1: data.dwReferStat1,
+      dwReferStat2: data.dwReferStat2,
+      dwReferTarget1: data.dwReferTarget1,
+      dwReferValue1: tryParseInt(data.dwReferValue1),
+      dwReferTarget2: data.dwReferTarget2,
+      dwReferValue2: tryParseInt(data.dwReferValue2),
+      szComment: data.szComment
     };
   }
 
@@ -374,60 +332,49 @@ export class SkillResources {
     [key: string]: string;
   }): SkillLevelProperties {
     return {
-      id: tryParseInt(data["id"]),
-      dwID: data["dwID"],
-      dwName: data["dwName"],
-      dwNameId: data["dwNameId"],
-      dwSkillLvl: tryParseInt(data["dwSkillLvl"]),
-      dwAbilityMin: tryParseInt(data["dwAbilityMin"]),
-      dwAtkAbilityMax: tryParseInt(data["dwAtkAbilityMax"]),
-      dwAbilityMinPVP: tryParseInt(data["dwAbilityMinPVP"]),
-      dwAbilityMaxPVP: tryParseInt(data["dwAbilityMaxPVP"]),
-      dwAttackSpeed: tryParseInt(data["dwAttackSpeed"]),
-      dwDmgShift: data["dwDmgShift"] === "true",
-      nProbability: tryParseInt(data["nProbability"]),
-      nProbabilityPVP: tryParseInt(data["nProbabilityPVP"]),
-      dwTaunt: tryParseInt(data["dwTaunt"]),
-      dwDestParam1: data["dwDestParam1"],
-      nAdjParamVal1: tryParseInt(data["nAdjParamVal1"]),
-      dwDestParam2: data["dwDestParam2"],
-      nAdjParamVal2: tryParseInt(data["nAdjParamVal2"]),
-      dwReqMp: tryParseInt(data["dwReqMp"]),
-      dwRepFp: tryParseInt(data["dwRepFp"]),
-      dwCooldown: tryParseInt(data["dwCooldown"]),
-      dwCastingTime: tryParseInt(data["dwCastingTime"]),
-      dwSkillRange: tryParseInt(data["dwSkillRange"]),
-      dwCircleTime: tryParseInt(data["dwCircleTime"]),
-      dwPainTime: tryParseInt(data["dwPainTime"]),
-      dwSkillTime: tryParseInt(data["dwSkillTime"]),
-      dwSkillCount: tryParseInt(data["dwSkillCount"]),
-      dwSkillExp: tryParseInt(data["dwSkillExp"]),
-      dwExp: tryParseInt(data["dwExp"]),
-      dwComboSkillTime: tryParseInt(data["dwComboSkillTime"]),
+      id: tryParseInt(data.id),
+      dwID: data.dwID,
+      dwName: data.dwName,
+      dwNameId: data.dwNameId,
+      dwSkillLvl: tryParseInt(data.dwSkillLvl),
+      dwAbilityMin: tryParseInt(data.dwAbilityMin),
+      dwAtkAbilityMax: tryParseInt(data.dwAtkAbilityMax),
+      dwAbilityMinPVP: tryParseInt(data.dwAbilityMinPVP),
+      dwAbilityMaxPVP: tryParseInt(data.dwAbilityMaxPVP),
+      dwAttackSpeed: tryParseInt(data.dwAttackSpeed),
+      dwDmgShift: data.dwDmgShift === "true",
+      nProbability: tryParseInt(data.nProbability),
+      nProbabilityPVP: tryParseInt(data.nProbabilityPVP),
+      dwTaunt: tryParseInt(data.dwTaunt),
+      dwDestParam1: data.dwDestParam1,
+      nAdjParamVal1: tryParseInt(data.nAdjParamVal1),
+      dwDestParam2: data.dwDestParam2,
+      nAdjParamVal2: tryParseInt(data.nAdjParamVal2),
+      dwReqMp: tryParseInt(data.dwReqMp),
+      dwRepFp: tryParseInt(data.dwRepFp),
+      dwCooldown: tryParseInt(data.dwCooldown),
+      dwCastingTime: tryParseInt(data.dwCastingTime),
+      dwSkillRange: tryParseInt(data.dwSkillRange),
+      dwCircleTime: tryParseInt(data.dwCircleTime),
+      dwPainTime: tryParseInt(data.dwPainTime),
+      dwSkillTime: tryParseInt(data.dwSkillTime),
+      dwSkillCount: tryParseInt(data.dwSkillCount),
+      dwSkillExp: tryParseInt(data.dwSkillExp),
+      dwExp: tryParseInt(data.dwExp),
+      dwComboSkillTime: tryParseInt(data.dwComboSkillTime)
     };
   }
 
   cleanCache() {
-    return new Promise<void>((resolve, reject) => {
-      this.redisClient.keys("skill:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("skill:*");
+        if (!keys || keys.length === 0) return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }

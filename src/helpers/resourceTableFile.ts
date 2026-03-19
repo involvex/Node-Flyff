@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "fs";
 import { Logger } from "./logger";
 import { tryParseInt, tryParseFloat, cleanString } from "./parsing";
 
@@ -23,34 +23,34 @@ export class ResourceTableFile {
 
   private parseContent(headerLineIndex: number): void {
     const allLines = this.content
-      .split('\n')
+      .split("\n")
       .map(line => line.trim())
       .filter(line => line.length > 0);
 
     // Look for commented header line (contains column names like dwID, szName, etc.)
     const commentedHeaderLine = allLines.find(line =>
-      line.startsWith('//') && line.includes('dwID') && line.includes('szName')
+      line.startsWith("//") && line.includes("dwID") && line.includes("szName")
     );
 
     if (commentedHeaderLine) {
       // Use the commented header line, removing the // prefix
-      this.headers = commentedHeaderLine.substring(2).split('\t');
+      this.headers = commentedHeaderLine.substring(2).split("\t");
     } else {
       // Fallback to the old method for files that don't have commented headers
-      const nonCommentLines = allLines.filter(line => !line.startsWith('//'));
+      const nonCommentLines = allLines.filter(line => !line.startsWith("//"));
 
       if (nonCommentLines.length <= headerLineIndex) {
         throw new Error("Header line index is out of bounds");
       }
 
-      this.headers = nonCommentLines[headerLineIndex].split('\t');
+      this.headers = nonCommentLines[headerLineIndex].split("\t");
     }
 
     // Process all non-comment lines as data
-    const dataLines = allLines.filter(line => !line.startsWith('//'));
+    const dataLines = allLines.filter(line => !line.startsWith("//"));
 
     for (const line of dataLines) {
-      const record = line.split('\t');
+      const record = line.split("\t");
       if (record.length === this.headers.length) {
         this.records.push(record);
       }
@@ -69,7 +69,7 @@ export class ResourceTableFile {
 
         if (header === "dwID" || header.includes("Name") || header.includes("IdentifierName")) {
           obj[header] = cleanString(value);
-        } else if (value.includes('.')) {
+        } else if (value.includes(".")) {
           obj[header] = tryParseFloat(value);
         } else {
           obj[header] = tryParseInt(value);

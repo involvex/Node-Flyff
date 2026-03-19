@@ -18,7 +18,8 @@ export class FlyffPacket extends BinaryStream {
     if (bufferOrHeader instanceof Buffer) {
       if (!ignoreHeaders) {
         this.HeaderNumber = this.readByte();
-        this.position += login ? 12 : 16;
+        // ensure we start reading packet data at the standard data offset
+        this.position = FlyffPacket.PACKET_DATA_START_OFFSET;
         this.PacketType = this.readUInt32LE();
       }
     } else if (typeof bufferOrHeader === "number") {

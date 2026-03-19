@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "lib": ["ES2022"],
     "outDir": "build",
     "strictNullChecks": true,
@@ -10,6 +12,10 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "noEmit": true,
+    "rootDir": "src",
+    "types": ["node"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

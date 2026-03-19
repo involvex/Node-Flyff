@@ -281,7 +281,7 @@ export interface WorldData {
   revivalKey: string;
 }
 
-export interface WorldProperties {}
+export type WorldProperties = Record<string, unknown>;
 
 export interface SkillLevelProperties {
   id: number;

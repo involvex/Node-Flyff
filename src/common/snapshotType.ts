@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 export enum SnapshotType {
   CHAT = 0x0001,
   ACT_MSG = 0x0002,
@@ -354,8 +356,7 @@ export enum SnapshotType {
 }
 
 export function ToStringHex(snapshotType: SnapshotType): string {
-    const buffer = Buffer.alloc(4);
-    buffer.writeUInt32BE(snapshotType);
-    return `0x${buffer.toString("hex")}`;
-  }
-  
+  const buffer = Buffer.alloc(4);
+  buffer.writeUInt32BE(snapshotType);
+  return `0x${buffer.toString("hex")}`;
+}

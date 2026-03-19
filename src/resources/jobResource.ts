@@ -1,8 +1,8 @@
 import { JobType } from "./../common/defineJob";
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 import yaml from "js-yaml";
 
 import { Logger } from "../helpers/logger";
@@ -13,11 +13,11 @@ import { tryParseInt, tryParseFloat } from "../helpers/parsing";
 
 export class JobResources {
   logger: Logger;
-  redisClient: Redis;
+  redisClient: any;
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     this.logger = new Logger("Job Resources");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public async get(
@@ -28,43 +28,28 @@ export class JobResources {
         ? jobIdentifier
         : await this.redisClient.hget("jobDefines", jobIdentifier);
     if (!_.isUndefined(jobId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`job:${jobId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseJobProperties(data) : null);
-          }
-        });
-      });
+      const data = await this.redisClient.hgetall(`job:${jobId}`);
+      return data ? this.parseJobProperties(data) : null;
     }
     return null;
   }
 
-  public where(predicate: (job: JobProperties) => boolean): JobProperties[] {
+  public async where(predicate: (job: JobProperties) => boolean): Promise<JobProperties[]> {
     const jobs: JobProperties[] = [];
-    this.redisClient.keys("job:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!_.isUndefined(keys)) {
-          _.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err, data) => {
-              if (err) {
-                this.logger.error("Error retrieving job data from Redis:", err);
-              } else {
-                if (data) {
-                  const job = this.parseJobProperties(data);
-                  if (predicate(job)) {
-                    jobs.push(job);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("job:*");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const job = this.parseJobProperties(data);
+            if (predicate(job)) jobs.push(job);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving jobs from KV store:", err as Error);
+    }
     return jobs;
   }
 
@@ -79,7 +64,7 @@ export class JobResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -100,7 +85,7 @@ export class JobResources {
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
-      this.logger.warn(`Unable to load jobs. Reason: job defines is empty`);
+      this.logger.warn("Unable to load jobs. Reason: job defines is empty");
     }
 
     await this.cleanCache(); // clean cache
@@ -108,14 +93,14 @@ export class JobResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as JobProperties[];
 
-    _.forEach(data, async (job) => {
+    _.forEach(data, async(job) => {
       const formattedJob = {
         ...job,
         id: DefineJob[job.id],
         identifier: job.id
       };
       if (formattedJob.id) {
-        this.redisClient.hmset(`job:${formattedJob.id}`, formattedJob);
+        await this.redisClient.hmset(`job:${formattedJob.id}`, formattedJob);
       }
     });
 
@@ -146,31 +131,20 @@ export class JobResources {
       type: JobType[data.type],
       parent: tryParseInt(data.parent),
       minLevel: tryParseInt(data.minLevel),
-      maxLevel: tryParseInt(data.maxLevel),
+      maxLevel: tryParseInt(data.maxLevel)
     };
   }
 
   cleanCache() {
-    return new Promise<void>((resolve, reject) => {
-      this.redisClient.keys("job:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise<void>(async(resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("job:*");
+        if (!keys || keys.length === 0) return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }

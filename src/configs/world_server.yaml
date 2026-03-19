@@ -68,5 +68,9 @@ settings:
             level: 10
             time: 3600
 database:
-    provider: "sqlite"
-    connection-string: "./data/db/game.db"
+  provider: "postgres"
+  host: "127.0.0.1"
+  port: 5432
+  username: "flyff"
+  password: "flyffpass"
+  database: "nodeflyff"

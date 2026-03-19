@@ -229,15 +229,15 @@ export class Npc extends WorldObject {
     console.log(`${this.name} showing dialog to player`);
 
     if (texts && texts.length > 0) {
-      console.log(`Dialog texts: ${texts.join(', ')}`);
+      console.log(`Dialog texts: ${texts.join(", ")}`);
     }
 
     if (links && links.length > 0) {
-      console.log(`Dialog links: ${links.map(l => l.title).join(', ')}`);
+      console.log(`Dialog links: ${links.map(l => l.title).join(", ")}`);
     }
 
     if (buttons && buttons.length > 0) {
-      console.log(`Dialog buttons: ${buttons.map(b => b.title).join(', ')}`);
+      console.log(`Dialog buttons: ${buttons.map(b => b.title).join(", ")}`);
     }
 
     // Add quest-related dialog options
@@ -297,7 +297,7 @@ export class Npc extends WorldObject {
     if (this.properties.dialog && this.properties.dialog.shoutText) {
       if (this._lastSpeakTime <= timeInSeconds()) {
         const playersAround = this.visibleObjects
-          .filter(obj => obj instanceof Object && obj.constructor.name === 'Player') // Type check for Player
+          .filter(obj => obj instanceof Object && obj.constructor.name === "Player") // Type check for Player
           .filter(obj => this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS));
 
         if (playersAround.length > 0) {

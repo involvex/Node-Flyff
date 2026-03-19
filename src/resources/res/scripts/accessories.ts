@@ -1,9 +1,14 @@
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
+
+import { fileURLToPath } from "url";
 import _ from "lodash";
 import yaml from "js-yaml";
 
 // Read the file content
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 fs.readFile(
   path.join(__dirname, "../data", "accessory.inc"),
   "utf8",
@@ -39,7 +44,7 @@ fs.readFile(
         .shift()!;
 
       // Initialize an empty array to store the accessory levels
-      let levels: any = [];
+      const levels: any = [];
 
       // Process each line
       lines.forEach((line) => {
@@ -61,7 +66,7 @@ fs.readFile(
           attributes: attributePair.map((i) => ({
             id: i[0],
             value: parseInt(i[1])
-          })),
+          }))
         });
       });
 

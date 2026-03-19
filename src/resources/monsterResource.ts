@@ -1,8 +1,8 @@
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import _ from "lodash";
 import { Logger } from "../helpers/logger";
-import Redis, { RedisOptions } from "ioredis";
+import KvClient from "../libraries/kvClient";
 import { ResourcePaths } from "./resourcePaths";
 import { MoverProperties } from "../interfaces/resource";
 import { DropItemProperties, DropItemKindProperties } from "../interfaces/dropItemProperties";
@@ -14,14 +14,14 @@ import { ItemKind3 } from "../common/itemKind";
 
 export class MonsterResources {
   private readonly logger: Logger;
-  private readonly redisClient: Redis;
+  private readonly redisClient: any;
   private readonly defines: Map<string, number> = new Map();
   private readonly moversById: Map<number, MoverProperties> = new Map();
   private readonly moversByIdentifierName: Map<string, MoverProperties> = new Map();
 
-  constructor(options: RedisOptions) {
+  constructor(client?: any) {
     this.logger = new Logger("Monster Resources");
-    this.redisClient = new Redis(options);
+    this.redisClient = client || new KvClient();
   }
 
   public get(moverId: number): MoverProperties | null {
@@ -52,20 +52,12 @@ export class MonsterResources {
       }
     }
 
-    const monsterId =
-      typeof monsterIdentifier === "number"
-        ? monsterIdentifier
-        : await this.redisClient.hget("objectDefines", monsterIdentifier);
+    const monsterId = typeof monsterIdentifier === "number"
+      ? monsterIdentifier
+      : await this.redisClient.hget("objectDefines", monsterIdentifier);
     if (!_.isUndefined(monsterId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`monster:${monsterId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseMoverProperties(data) : null);
-          }
-        });
-      });
+      const data = await this.redisClient.hgetall(`monster:${monsterId}`);
+      return data ? this.parseMoverProperties(data) : null;
     }
     return null;
   }
@@ -80,39 +72,28 @@ export class MonsterResources {
     return monsters;
   }
 
-  public whereAsync(
+  public async whereAsync(
     predicate: (monster: MoverProperties) => boolean
-  ): MoverProperties[] {
+  ): Promise<MoverProperties[]> {
     if (this.moversById.size > 0) {
       return this.where(predicate);
     }
 
     const monsters: MoverProperties[] = [];
-    this.redisClient.keys("monster:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!_.isUndefined(keys)) {
-          _.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err, data) => {
-              if (err) {
-                this.logger.error(
-                  "Error retrieving monster data from Redis:",
-                  err
-                );
-              } else {
-                if (data) {
-                  const monster = this.parseMoverProperties(data);
-                  if (predicate(monster)) {
-                    monsters.push(monster);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("monster:*");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const monster = this.parseMoverProperties(data);
+            if (predicate(monster)) monsters.push(monster);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving monsters from KV store:", err as Error);
+    }
     return monsters;
   }
 
@@ -199,7 +180,7 @@ export class MonsterResources {
 
     const moversPropExFile = new IncludeFile(ResourcePaths.moversPropExPath);
     for (const statement of moversPropExFile.Statements) {
-      if (statement.type === 'block') {
+      if (statement.type === "block") {
         const moverId = this.defines.get(statement.name);
         if (moverId && this.moversById.has(moverId)) {
           const mover = this.moversById.get(moverId)!;
@@ -320,7 +301,7 @@ export class MonsterResources {
       }
 
       const dropItemKind: DropItemKindProperties = {
-        itemKind: itemKind,
+        itemKind,
         uniqueMin: Math.max((mover.level || 1) - 5, 1),
         uniqueMax: Math.max((mover.level || 1) - 2, 1)
       };
@@ -338,7 +319,7 @@ export class MonsterResources {
     }
     if (!(await this.redisClient.exists("objectDefines"))) {
       this.logger.warn(
-        `Unable to load monsters. Reason: monster defines is empty`
+        "Unable to load monsters. Reason: monster defines is empty"
       );
     }
 
@@ -346,7 +327,7 @@ export class MonsterResources {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, i) => {
+      _.forEach(pairs, async(pair, i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("monsterNames", idName, name);
@@ -367,7 +348,7 @@ export class MonsterResources {
     }
     if (!(await this.redisClient.exists("objectDefines"))) {
       this.logger.warn(
-        `Unable to load monsters. Reason: monster defines is empty`
+        "Unable to load monsters. Reason: monster defines is empty"
       );
       return;
     }
@@ -376,7 +357,7 @@ export class MonsterResources {
 
     const data = fs.readFileSync(absolutePath, "utf8");
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const monsterData = line.trim().split("\t");
       const id = await this.redisClient.hget("objectDefines", monsterData[0]);
 
@@ -468,11 +449,11 @@ export class MonsterResources {
           szComment: cleanString(monsterData[82]),
           dwAreaColor: tryParseInt(monsterData[83]),
           szNpcMark: cleanString(monsterData[84]),
-          dwMadrigalGiftPoint: tryParseInt(monsterData[85]),
+          dwMadrigalGiftPoint: tryParseInt(monsterData[85])
         };
 
         if (monster.id) {
-          this.redisClient.hmset(`monster:${monster.id}`, monster);
+          await this.redisClient.hmset(`monster:${monster.id}`, monster);
         }
       }
     });
@@ -482,119 +463,106 @@ export class MonsterResources {
 
   parseMoverProperties(data: { [key: string]: string }): MoverProperties {
     return {
-      id: tryParseInt(data["id"]),
-      dwID: data["dwID"],
-      szName: data["szName"],
-      dwAI: data["dwAI"],
-      dwStr: tryParseInt(data["dwStr"]),
-      dwSta: tryParseInt(data["dwSta"]),
-      dwDex: tryParseInt(data["dwDex"]),
-      dwInt: tryParseInt(data["dwInt"]),
-      dwHR: tryParseInt(data["dwHR"]),
-      dwER: tryParseInt(data["dwER"]),
-      dwRace: data["dwRace"],
-      dwBelligerence: data["dwBelligerence"],
-      dwGender: data["dwGender"],
-      dwLevel: tryParseInt(data["dwLevel"]),
-      dwFlightLevel: tryParseInt(data["dwFlightLevel"]),
-      dwSize: tryParseInt(data["dwSize"]),
-      dwClass: tryParseInt(data["dwClass"]),
-      bIfPart: cleanString(data["bIfPart"]),
-      dwKarma: cleanString(data["dwKarma"]),
-      dwUseable: cleanString(data["dwUseable"]),
-      dwActionRadius: tryParseInt(data["dwActionRadius"]),
-      dwAtkMin: tryParseInt(data["dwAtkMin"]),
-      dwAtkMax: tryParseInt(data["dwAtkMax"]),
-      dwAtk1: tryParseInt(data["dwAtk1"]),
-      dwAtk2: tryParseInt(data["dwAtk2"]),
-      dwAtk3: tryParseInt(data["dwAtk3"]),
-      dwHorizontalRate: tryParseInt(data["dwHorizontalRate"]),
-      dwVerticalRate: tryParseInt(data["dwVerticalRate"]),
-      dwDiagonalRate: tryParseInt(data["dwDiagonalRate"]),
-      dwThrustRate: tryParseInt(data["dwThrustRate"]),
-      dwChestRate: tryParseInt(data["dwChestRate"]),
-      dwHeadRate: tryParseInt(data["dwHeadRate"]),
-      dwArmRate: tryParseInt(data["dwArmRate"]),
-      dwLegRate: tryParseInt(data["dwLegRate"]),
-      dwAttackSpeed: tryParseFloat(data["dwAttackSpeed"]),
-      dwReAttackDelay: tryParseInt(data["dwReAttackDelay"]),
-      dwAddHp: tryParseInt(data["dwAddHp"]),
-      dwAddMp: tryParseInt(data["dwAddMp"]),
-      dwNaturealArmor: tryParseInt(data["dwNaturealArmor"]),
-      nAbrasion: tryParseInt(data["nAbrasion"]),
-      nHardness: tryParseInt(data["nHardness"]),
-      dwAdjAtkDelay: tryParseInt(data["dwAdjAtkDelay"]),
-      eElementType: data["eElementType"],
-      wElementAtk: tryParseInt(data["wElementAtk"]),
-      dwHideLevel: tryParseInt(data["dwHideLevel"]),
-      fSpeed: tryParseFloat(data["fSpeed"]),
-      dwShelter: tryParseInt(data["dwShelter"]),
-      bFlying: cleanString(data["bFlying"]),
-      dwJumpIng: tryParseInt(data["dwJumpIng"]),
-      dwAirJump: tryParseInt(data["dwAirJump"]),
-      bTaming: cleanString(data["bTaming"]),
-      dwResisMagic: tryParseFloat(data["dwResisMagic"]),
-      fResistElecricity: tryParseFloat(data["fResistElecricity"]),
-      fResistFire: tryParseFloat(data["fResistFire"]),
-      fResistWind: tryParseFloat(data["fResistWind"]),
-      fResistWater: tryParseFloat(data["fResistWater"]),
-      fResistEarth: tryParseFloat(data["fResistEarth"]),
-      dwCash: tryParseInt(data["dwCash"]),
-      dwSourceMaterial: tryParseInt(data["dwSourceMaterial"]),
-      dwMaterialAmount: tryParseInt(data["dwMaterialAmount"]),
-      dwCohesion: tryParseInt(data["dwCohesion"]),
-      dwHoldingTime: tryParseInt(data["dwHoldingTime"]),
-      dwCorrectionValue: tryParseInt(data["dwCorrectionValue"]),
-      dwExpValue: tryParseInt(data["dwExpValue"]),
-      nFxpValue: tryParseInt(data["nFxpValue"]),
-      nBodyState: tryParseInt(data["nBodyState"]),
-      dwAddAbility: tryParseInt(data["dwAddAbility"]),
-      bKillable: cleanString(data["bKillable"]),
-      dwVirtItem1: cleanString(data["dwVirtItem1"]),
-      dwVirtType1: cleanString(data["dwVirtType1"]),
-      dwVirtItem2: cleanString(data["dwVirtItem2"]),
-      dwVirtType2: cleanString(data["dwVirtType2"]),
-      dwVirtItem3: cleanString(data["dwVirtItem3"]),
-      dwVirtType3: cleanString(data["dwVirtType3"]),
-      dwSndAtk1: tryParseInt(data["dwSndAtk1"]),
-      dwSndAtk2: tryParseInt(data["dwSndAtk2"]),
-      dwSndDie1: tryParseInt(data["dwSndDie1"]),
-      dwSndDie2: tryParseInt(data["dwSndDie2"]),
-      dwSndDmg1: tryParseInt(data["dwSndDmg1"]),
-      dwSndDmg2: tryParseInt(data["dwSndDmg2"]),
-      dwSndDmg3: tryParseInt(data["dwSndDmg3"]),
-      dwSndIdle1: tryParseInt(data["dwSndIdle1"]),
-      dwSndIdle2: tryParseInt(data["dwSndIdle2"]),
-      szComment: data["szComment"],
-      dwAreaColor: tryParseInt(data["dwAreaColor"]),
-      szNpcMark: data["szNpcMark"],
-      dwMadrigalGiftPoint: tryParseInt(data["dwMadrigalGiftPoint"]),
+      id: tryParseInt(data.id),
+      dwID: data.dwID,
+      szName: data.szName,
+      dwAI: data.dwAI,
+      dwStr: tryParseInt(data.dwStr),
+      dwSta: tryParseInt(data.dwSta),
+      dwDex: tryParseInt(data.dwDex),
+      dwInt: tryParseInt(data.dwInt),
+      dwHR: tryParseInt(data.dwHR),
+      dwER: tryParseInt(data.dwER),
+      dwRace: data.dwRace,
+      dwBelligerence: data.dwBelligerence,
+      dwGender: data.dwGender,
+      dwLevel: tryParseInt(data.dwLevel),
+      dwFlightLevel: tryParseInt(data.dwFlightLevel),
+      dwSize: tryParseInt(data.dwSize),
+      dwClass: tryParseInt(data.dwClass),
+      bIfPart: cleanString(data.bIfPart),
+      dwKarma: cleanString(data.dwKarma),
+      dwUseable: cleanString(data.dwUseable),
+      dwActionRadius: tryParseInt(data.dwActionRadius),
+      dwAtkMin: tryParseInt(data.dwAtkMin),
+      dwAtkMax: tryParseInt(data.dwAtkMax),
+      dwAtk1: tryParseInt(data.dwAtk1),
+      dwAtk2: tryParseInt(data.dwAtk2),
+      dwAtk3: tryParseInt(data.dwAtk3),
+      dwHorizontalRate: tryParseInt(data.dwHorizontalRate),
+      dwVerticalRate: tryParseInt(data.dwVerticalRate),
+      dwDiagonalRate: tryParseInt(data.dwDiagonalRate),
+      dwThrustRate: tryParseInt(data.dwThrustRate),
+      dwChestRate: tryParseInt(data.dwChestRate),
+      dwHeadRate: tryParseInt(data.dwHeadRate),
+      dwArmRate: tryParseInt(data.dwArmRate),
+      dwLegRate: tryParseInt(data.dwLegRate),
+      dwAttackSpeed: tryParseFloat(data.dwAttackSpeed),
+      dwReAttackDelay: tryParseInt(data.dwReAttackDelay),
+      dwAddHp: tryParseInt(data.dwAddHp),
+      dwAddMp: tryParseInt(data.dwAddMp),
+      dwNaturealArmor: tryParseInt(data.dwNaturealArmor),
+      nAbrasion: tryParseInt(data.nAbrasion),
+      nHardness: tryParseInt(data.nHardness),
+      dwAdjAtkDelay: tryParseInt(data.dwAdjAtkDelay),
+      eElementType: data.eElementType,
+      wElementAtk: tryParseInt(data.wElementAtk),
+      dwHideLevel: tryParseInt(data.dwHideLevel),
+      fSpeed: tryParseFloat(data.fSpeed),
+      dwShelter: tryParseInt(data.dwShelter),
+      bFlying: cleanString(data.bFlying),
+      dwJumpIng: tryParseInt(data.dwJumpIng),
+      dwAirJump: tryParseInt(data.dwAirJump),
+      bTaming: cleanString(data.bTaming),
+      dwResisMagic: tryParseFloat(data.dwResisMagic),
+      fResistElecricity: tryParseFloat(data.fResistElecricity),
+      fResistFire: tryParseFloat(data.fResistFire),
+      fResistWind: tryParseFloat(data.fResistWind),
+      fResistWater: tryParseFloat(data.fResistWater),
+      fResistEarth: tryParseFloat(data.fResistEarth),
+      dwCash: tryParseInt(data.dwCash),
+      dwSourceMaterial: tryParseInt(data.dwSourceMaterial),
+      dwMaterialAmount: tryParseInt(data.dwMaterialAmount),
+      dwCohesion: tryParseInt(data.dwCohesion),
+      dwHoldingTime: tryParseInt(data.dwHoldingTime),
+      dwCorrectionValue: tryParseInt(data.dwCorrectionValue),
+      dwExpValue: tryParseInt(data.dwExpValue),
+      nFxpValue: tryParseInt(data.nFxpValue),
+      nBodyState: tryParseInt(data.nBodyState),
+      dwAddAbility: tryParseInt(data.dwAddAbility),
+      bKillable: cleanString(data.bKillable),
+      dwVirtItem1: cleanString(data.dwVirtItem1),
+      dwVirtType1: cleanString(data.dwVirtType1),
+      dwVirtItem2: cleanString(data.dwVirtItem2),
+      dwVirtType2: cleanString(data.dwVirtType2),
+      dwVirtItem3: cleanString(data.dwVirtItem3),
+      dwVirtType3: cleanString(data.dwVirtType3),
+      dwSndAtk1: tryParseInt(data.dwSndAtk1),
+      dwSndAtk2: tryParseInt(data.dwSndAtk2),
+      dwSndDie1: tryParseInt(data.dwSndDie1),
+      dwSndDie2: tryParseInt(data.dwSndDie2),
+      dwSndDmg1: tryParseInt(data.dwSndDmg1),
+      dwSndDmg2: tryParseInt(data.dwSndDmg2),
+      dwSndDmg3: tryParseInt(data.dwSndDmg3),
+      dwSndIdle1: tryParseInt(data.dwSndIdle1),
+      dwSndIdle2: tryParseInt(data.dwSndIdle2),
+      szComment: data.szComment,
+      dwAreaColor: tryParseInt(data.dwAreaColor),
+      szNpcMark: data.szNpcMark,
+      dwMadrigalGiftPoint: tryParseInt(data.dwMadrigalGiftPoint)
     };
   }
 
   cleanCache() {
-    return new Promise<void>((resolve, reject) => {
-      this.redisClient.keys("monster:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise<void>(async(resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("monster:*");
+        if (!keys || keys.length === 0) return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
-
-
 }

@@ -1,9 +1,14 @@
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
 import yaml from "js-yaml";
 import _ from "lodash";
 
+import { fileURLToPath } from "url";
+
 // Read the file content
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 fs.readFile(
   path.join(__dirname, "../data", "character.inc"),
   "utf16le",
@@ -37,20 +42,18 @@ fs.readFile(
         .split("//")
         .shift()!;
 
-      let addMenu: any[] = [],
-        addVendorItem: any[] = [],
-        addVendorItem2: any[] = [],
-        structure = "",
-        setMusic = "",
-        setImage = "",
-        setOutput = false,
-        dialog = "",
-        setName = "",
-        addVendorSlot: any[] = [],
-        setVenderType: any = null,
-        setBuffSkill: any[] = [];
-
-        
+      const addMenu: any[] = [];
+      const addVendorItem: any[] = [];
+      const addVendorItem2: any[] = [];
+      let structure = "";
+      const setMusic = "";
+      let setImage = "";
+      let setOutput = false;
+      let dialog = "";
+      let setName = "";
+      const addVendorSlot: any[] = [];
+      let setVenderType: any = null;
+      const setBuffSkill: any[] = [];
 
       if (characterId.includes("elper")) {
         console.log(lines);
@@ -74,7 +77,7 @@ fs.readFile(
           const slotName = lines[i + 1].trim();
           addVendorSlot.push({
             slot: parseInt(slotIndex),
-            name: slotName,
+            name: slotName
           });
         } else if (
           trimmedLine.startsWith("AddVendorItem") ||
@@ -94,7 +97,7 @@ fs.readFile(
             job: parseInt(values[2]),
             min: parseInt(values[3]),
             max: parseInt(values[4]),
-            qty: parseInt(values[5]),
+            qty: parseInt(values[5])
           });
         } else if (
           trimmedLine.startsWith("AddVenderItem2") ||
@@ -110,7 +113,7 @@ fs.readFile(
             .map((i) => i.trim());
           addVendorItem2.push({
             slot: parseInt(values[0]),
-            id: values[1],
+            id: values[1]
           });
         } else if (trimmedLine.startsWith("SetName")) {
           setName = lines[i + 2].trim();
@@ -125,7 +128,7 @@ fs.readFile(
             .pop()!
             .split(";")
             .shift()!
-            .replace('"', "")
+            .replace("\"", "")
             .trim();
         } else if (trimmedLine.startsWith("m_nStructure")) {
           structure = trimmedLine
@@ -150,7 +153,7 @@ fs.readFile(
             level: parseInt(values[1]),
             minLevel: parseInt(values[2]),
             maxLevel: parseInt(values[3]),
-            duration: parseInt(values[4]),
+            duration: parseInt(values[4])
           });
         }
       }
@@ -162,7 +165,7 @@ fs.readFile(
           vendorSlots: addVendorSlot,
           settings: {
             menu: addMenu,
-            vendorType: setVenderType ?? '',
+            vendorType: setVenderType ?? "",
             vendorItems: addVendorItem,
             vendorItems2: addVendorItem2,
             structure,

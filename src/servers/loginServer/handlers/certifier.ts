@@ -3,7 +3,7 @@ import _ from "lodash";
 import { PacketType } from "../../../common/packetType";
 import {
   buildEncryptionKeyFromString,
-  decryptByteArray,
+  decryptByteArray
 } from "../../../libraries/crypto";
 import { FlyffPacket } from "../../../libraries/flyffPacket";
 import { PacketHandler } from "../../../libraries/packetHandler";
@@ -44,8 +44,8 @@ export default class Handler extends PacketHandler {
 
     const account = (await database?.findOne({
       where: {
-        username: this.username,
-      },
+        username: this.username
+      }
     })) as Account;
 
     if (!account) {
