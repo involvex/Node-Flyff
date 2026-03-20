@@ -4,7 +4,6 @@ import { PacketType } from "../../../common/packetType";
 import { FlyffPacket } from "../../../libraries/flyffPacket";
 import { PacketHandler } from "../../../libraries/packetHandler";
 import { SetPacketType } from "../../../decorators/packetHandler";
-import Account from "../../../database/account";
 import Character from "../../../database/character";
 
 @SetPacketType(PacketType.SEL_PLAYER)

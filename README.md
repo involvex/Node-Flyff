@@ -229,3 +229,47 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 ---
 
 **Note**: This is an educational and research project. Please respect the intellectual property rights of the original game creators.
+
+---
+
+## 🧑‍💻 Developer Notes (recent)
+
+Summary of recent maintenance and developer-focused changes:
+
+- Fixed multiple TypeScript and ESLint issues across the repo to restore clean builds.
+- Resolved `ws` typings mismatch and updated `src/tools/wsTcpProxy.ts` to match current `ws` API.
+- Added and fixed web-client tooling:
+   - `web-client/tools/import-assets.js` — zip-based asset importer for permissive packs.
+   - `web-client/tools/generate-sprite-sheet.js` — ImageMagick-based sprite-sheet generator.
+   - `web-client/src/components/AvatarAnimator.tsx` — Canvas animator for avatar sheets.
+- Asset manifest format updated to include `assets.avatar_sheets` entries used at runtime.
+
+How to run checks and tools (developer):
+
+1. Install deps for web client
+
+```bash
+cd web-client
+npm install
+```
+
+2. TypeScript checks (root and web-client)
+
+```bash
+npx tsc -p tsconfig.json --noEmit   # repo root
+npx tsc -p web-client/tsconfig.json --noEmit   # web-client
+```
+
+3. Run ESLint autofix
+
+```bash
+npx eslint "**/*.{ts,tsx,js,jsx}" --fix
+```
+
+4. Generate sprite sheets (requires ImageMagick `magick` on PATH)
+
+```bash
+npm --prefix web-client run generate-sheets -- <packName>
+```
+
+If you want, I can open a PR with these changes, run the generator on a provided pack, or push to a remote branch — tell me which next step you prefer.

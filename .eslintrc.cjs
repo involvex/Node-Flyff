@@ -23,13 +23,13 @@ module.exports = {
   },
   rules: {
   }
-}
+};
 
 // Add TypeScript support for ESLint
 // Uses @typescript-eslint/parser for .ts/.mts files and enables recommended rules
 module.exports.overrides = module.exports.overrides || [];
 module.exports.overrides.push({
-  files: ['**/*.ts', '**/*.mts'],
+  files: ['**/*.ts', '**/*.mts', '**/*.tsx'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     // Avoid strict type-checking rules that require type-aware linting in this
@@ -45,8 +45,8 @@ module.exports.overrides.push({
   ],
   rules: {
     // Match existing code style to minimise churn during migration
-    quotes: ["error", "double"],
-    semi: ["error", "always"],
+    quotes: ['error', 'double'],
+    semi: ['error', 'always'],
 
     // Relax strict type-safety lint rules for now; we'll address these
     // incrementally in a later pass focused on types.
@@ -57,7 +57,7 @@ module.exports.overrides.push({
     '@typescript-eslint/no-floating-promises': 'off',
 
     // Allow unused variables that start with underscore
-    '@typescript-eslint/no-unused-vars': ['warn', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
 
     // Turn off a few strict stylistic rules that produce a lot of churn
     'comma-dangle': ['error', 'never'],
@@ -72,7 +72,12 @@ module.exports.rules = Object.assign(module.exports.rules || {}, {
   'no-use-before-define': 'off',
   'no-useless-constructor': 'off',
   'no-empty': 'off',
-  'eqeqeq': 'off',
+  eqeqeq: 'off',
   '@typescript-eslint/no-duplicate-enum-values': 'off',
   'n/handle-callback-err': 'off'
 });
+
+// Enforce semicolons and function-paren spacing across JS/TS files to match
+// the TypeScript override and reduce mixed-rule failures during migration.
+module.exports.rules.semi = ['error', 'always'];
+module.exports.rules['space-before-function-paren'] = ['error', 'never'];

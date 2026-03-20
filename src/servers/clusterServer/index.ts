@@ -1,4 +1,4 @@
-import path, { join, dirname } from "path";
+import { join, dirname } from "path";
 
 import { fileURLToPath } from "url";
 import _ from "lodash";

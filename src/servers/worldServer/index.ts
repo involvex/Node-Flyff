@@ -11,7 +11,7 @@ import { HandlerBuilder } from "../../builders/handlerBuilder";
 import { ServerBuilder } from "../../builders/serverBuilder";
 import { ServerType } from "../../common/serverType";
 import { WorldServer } from "./worldServer";
-import { IChannel, ICluster } from "../../interfaces/cluster";
+import { IChannel } from "../../interfaces/cluster";
 import { IInstance } from "../../interfaces/instance";
 import { MessageCommand, RedisChannel } from "../../common/redisTypes";
 import {

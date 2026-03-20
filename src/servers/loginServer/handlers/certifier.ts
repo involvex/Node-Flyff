@@ -11,7 +11,6 @@ import { SetPacketType } from "../../../decorators/packetHandler";
 import { ErrorType } from "../../../common/errorType";
 import { IChannel, ICluster } from "../../../interfaces/cluster";
 import Account from "../../../database/account";
-import { uNumPad } from "../../../helpers/numPad";
 
 @SetPacketType(PacketType.CERTIFY)
 export default class Handler extends PacketHandler {
@@ -90,7 +89,7 @@ export default class Handler extends PacketHandler {
       packet.writeInt32LE(cluster.enabled ? 1 : 0);
       packet.writeInt32LE(0); // Maximum users
 
-      _.forEach(cluster.channels, (channel: IChannel, j) => {
+      _.forEach(cluster.channels, (channel: IChannel, _j) => {
         packet.writeInt32LE(clusterId); // cluster id
         packet.writeInt32LE(channel.id as number); // channel id
         packet.writeStringLE(channel.name);

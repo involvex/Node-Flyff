@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "generated": true,
+  "assets": {
+    "avatar": {
+      "body": ["/assets/avatar_body_0.svg"],
+      "head": ["/assets/avatar_head_0.svg"],
+      "hair": ["/assets/avatar_hair_0.svg"]
+    }
+  }
+}

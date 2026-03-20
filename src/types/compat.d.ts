@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Temporary compatibility type shims to aid incremental migration
 // These declarations are intentionally permissive (any) and will be
 // replaced by proper typings as we resolve implementation mismatches.

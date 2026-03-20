@@ -4,10 +4,9 @@ import { PacketType } from "../../../common/packetType";
 import { FlyffPacket } from "../../../libraries/flyffPacket";
 import { PacketHandler } from "../../../libraries/packetHandler";
 import { SetPacketType } from "../../../decorators/packetHandler";
-import Account from "../../../database/account";
 import Character from "../../../database/character";
 import { Player } from "../../../entities/player";
-import { MoverProperties, JobProperties, GameResources } from "../../../interfaces/resource";
+import { MoverProperties, GameResources } from "../../../interfaces/resource";
 
 import { Vector3 } from "../../../abstract/vector3";
 import { AuthorityType } from "../../../common/authorityType";

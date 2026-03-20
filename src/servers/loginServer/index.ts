@@ -11,14 +11,13 @@ import { HandlerBuilder } from "../../builders/handlerBuilder";
 import { ServerBuilder } from "../../builders/serverBuilder";
 import { ServerType } from "../../common/serverType";
 import { LoginServer } from "./loginServer";
-import { IChannel, ICluster } from "../../interfaces/cluster";
+import { ICluster } from "../../interfaces/cluster";
 import { IInstance } from "../../interfaces/instance";
 import { MessageCommand, RedisChannel } from "../../common/redisTypes";
 import {
   buildEncryptionKeyFromString,
   decryptString,
   encryptMessage,
-  encryptString,
   isValidEncryptionString,
   parseMessage
 } from "../../libraries/crypto";
