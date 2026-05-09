@@ -62,7 +62,9 @@ export class RedisClient implements IRedisClient {
 
   async getCluster(clusterName: string): Promise<ICluster | null> {
     const cluster: any = await this.client.hgetall(
-      clusterName?.includes("cluster:") ? clusterName : `cluster:${clusterName}`
+      clusterName?.includes("cluster:")
+        ? clusterName
+        : `cluster:${clusterName}`
     );
     let channels: IChannel[] = [];
     if (cluster.channels) {
@@ -202,7 +204,13 @@ export class RedisClient implements IRedisClient {
     await this.client.set(key, numPadId);
   }
 
-  async setCharacterSession(sessionKey: number, characterId: number, username: string, password: string, expireInSeconds: number): Promise<void> {
+  async setCharacterSession(
+    sessionKey: number,
+    characterId: number,
+    username: string,
+    password: string,
+    expireInSeconds: number
+  ): Promise<void> {
     const key = `session:${sessionKey}`;
     const sessionData = {
       characterId: characterId.toString(),
@@ -213,7 +221,11 @@ export class RedisClient implements IRedisClient {
     await this.client.expire(key, expireInSeconds);
   }
 
-  async getCharacterSession(sessionKey: number): Promise<{characterId: number, username: string, password: string} | null> {
+  async getCharacterSession(sessionKey: number): Promise<{
+    characterId: number;
+    username: string;
+    password: string;
+  } | null> {
     const key = `session:${sessionKey}`;
     const sessionData = await this.client.hgetall(key);
 

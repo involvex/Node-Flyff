@@ -29,15 +29,22 @@ fs.readFile(
 
       if (section.startsWith("expDropLuck")) {
         let level = 0;
-        const lines = section.split("\n").map(i => i.trim());
+        const lines = section.split("\n").map((i) => i.trim());
         lines.forEach((line) => {
-          if (line === "{" || line === "}" || line.startsWith("//") || !line.trim()) return;
-          const parts = line.split("\t").map(i => i.trim());
+          if (
+            line === "{" ||
+            line === "}" ||
+            line.startsWith("//") ||
+            !line.trim()
+          ) {
+            return;
+          }
+          const parts = line.split("\t").map((i) => i.trim());
           if (parts[0] === "0" && parts[1] === "0" && parts[2] === "0") return;
           if (parts.length < 11) return;
           parsedData.push({
             level,
-            chance: [...parts.map(i => parseFloat(i))]
+            chance: [...parts.map((i) => parseFloat(i))]
           });
           level++;
         });

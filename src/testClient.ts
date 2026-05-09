@@ -1,12 +1,15 @@
 import { createConnection, Socket } from "net";
 import { FlyffPacket } from "./libraries/flyffPacket";
 import { PacketType } from "./common/packetType";
-import { encryptByteArray, buildEncryptionKeyFromString } from "./libraries/crypto";
+import {
+  encryptByteArray,
+  buildEncryptionKeyFromString
+} from "./libraries/crypto";
 
 enum ClientState {
   LOGIN,
   CLUSTER,
-  WORLD
+  WORLD,
 }
 
 class TestClient {
@@ -68,20 +71,31 @@ class TestClient {
     const packet = new FlyffPacket(data);
     console.log(packet);
 
-    console.log(`Received packet: ${PacketType[packet.PacketType]} (${packet.PacketType.toString(16)})`);
+    console.log(
+      `Received packet: ${PacketType[packet.PacketType]} (${packet.PacketType.toString(16)})`
+    );
 
     if (packet.PacketType === PacketType.WELCOME) {
       this.sessionId = packet.readUInt32LE();
       console.log(`Session ID: ${this.sessionId}`);
-    } else if (packet.PacketType === PacketType.SERVER_LIST && this.state === ClientState.LOGIN) {
+    } else if (
+      packet.PacketType === PacketType.SERVER_LIST &&
+      this.state === ClientState.LOGIN
+    ) {
       console.log("Received server list");
       // Parse server list, but for simplicity, proceed to cluster
       this.startCluster();
-    } else if (packet.PacketType === PacketType.CHARACTER_LIST && this.state === ClientState.CLUSTER) {
+    } else if (
+      packet.PacketType === PacketType.CHARACTER_LIST &&
+      this.state === ClientState.CLUSTER
+    ) {
       console.log("Received character list");
       // Assume character exists, send select
       this.sendSelectCharacter();
-    } else if (packet.PacketType === PacketType.PLAYER_ID && this.state === ClientState.CLUSTER) {
+    } else if (
+      packet.PacketType === PacketType.PLAYER_ID &&
+      this.state === ClientState.CLUSTER
+    ) {
       this.authKey = packet.readInt32LE();
       console.log(`Received auth key: ${this.authKey}`);
       this.startWorld();

@@ -17,7 +17,11 @@ export class HealthFormulas {
     }
   }
 
-  static getMaxParamPoints(originValue: number, additional: number, maxFactor: number): number {
+  static getMaxParamPoints(
+    originValue: number,
+    additional: number,
+    maxFactor: number
+  ): number {
     let maxValue = originValue + additional;
     const factor = 1 + maxFactor / 100;
 

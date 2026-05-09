@@ -47,7 +47,9 @@ export default class Handler extends PacketHandler {
 
   async execute(): Promise<void> {
     // Validate session from Redis (sent from cluster server, equivalent to C# account/player DB check)
-    const sessionData = await this.server?.redisClient?.getCharacterSession(this.authKey);
+    const sessionData = await this.server?.redisClient?.getCharacterSession(
+      this.authKey
+    );
 
     if (!sessionData) {
       this.logger.warn(
@@ -64,11 +66,7 @@ export default class Handler extends PacketHandler {
       where: {
         id: this.characterId
       },
-      relations: [
-        "account",
-        "equipments",
-        "equipments.item"
-      ]
+      relations: ["account", "equipments", "equipments.item"]
     })) as Character;
 
     if (!character || !character.account) {
@@ -81,8 +79,10 @@ export default class Handler extends PacketHandler {
     }
 
     // Verify session matches character (like C# player.Id == packet.PlayerId, player.Name == packet.PlayerName)
-    if (character.id !== sessionData.characterId ||
-        character.account.username !== sessionData.username) {
+    if (
+      character.id !== sessionData.characterId ||
+      character.account.username !== sessionData.username
+    ) {
       this.logger.warn(
         "Unable to join game for character",
         character.name,
@@ -108,12 +108,21 @@ export default class Handler extends PacketHandler {
     this.userConnection.username = character.account.username;
 
     // Ensure initial position if defaults are zero (like C# default pos)
-    if (character.positionX === 0 && character.positionY === 0 && character.positionZ === 0) {
+    if (
+      character.positionX === 0 &&
+      character.positionY === 0 &&
+      character.positionZ === 0
+    ) {
       character.positionX = 12345; // Example for WI_WORLD_MADRIGAL
       character.positionY = 6789;
       character.positionZ = 0;
       character.mapId = 1;
-      await characters?.update(character.id, { positionX: character.positionX, positionY: character.positionY, positionZ: character.positionZ, mapId: character.mapId });
+      await characters?.update(character.id, {
+        positionX: character.positionX,
+        positionY: character.positionY,
+        positionZ: character.positionZ,
+        mapId: character.mapId
+      });
       this.logger.info(`Set initial spawn position for ${character.name}`);
     }
 
@@ -127,12 +136,18 @@ export default class Handler extends PacketHandler {
     // Load job properties (like C# GameResources.Current.Jobs.Get(player.JobId))
     const jobProperties = await gameResources.jobResources.get(character.jobId);
     if (!jobProperties) {
-      this.logger.error(`Job properties not found for jobId ${character.jobId}`);
+      this.logger.error(
+        `Job properties not found for jobId ${character.jobId}`
+      );
       return this.userConnection.disconnect();
     }
 
     // Create position vector (like C# new Vector3(player.PosX, player.PosY, player.PosZ))
-    const position = new Vector3(character.positionX, character.positionY, character.positionZ);
+    const position = new Vector3(
+      character.positionX,
+      character.positionY,
+      character.positionZ
+    );
 
     // Basic MoverProperties (extend as needed, like C# GameResources.Current.Movers.Get(modelId))
     const moverProperties: MoverProperties = {
@@ -288,7 +303,9 @@ export default class Handler extends PacketHandler {
         const layer = map.getDefaultLayer();
         if (layer && layer.addPlayer) {
           layer.addPlayer(player);
-          this.logger.info(`Added ${character.name} to map ${character.mapId} layer`);
+          this.logger.info(
+            `Added ${character.name} to map ${character.mapId} layer`
+          );
         }
       }
     }

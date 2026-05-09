@@ -42,7 +42,9 @@ export class Logger {
     console.log(
       clc.blue(moment().format("LTS")) +
         " " +
-        Logger.SeverityMap[level](`[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`) +
+        Logger.SeverityMap[level](
+          `[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`
+        ) +
         " " +
         clc.white.bold(message.join(" "))
     );

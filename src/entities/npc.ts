@@ -3,7 +3,13 @@ import { WorldObjectType } from "../common/worldObjectType";
 import { DialogOptions } from "../common/dialogOptions";
 import { QuestState } from "../common/questState";
 import { Item } from "../common/item";
-import { NpcProperties, DialogProperties, DialogLink, ShopProperties, ShopItemProperties } from "../interfaces/resource";
+import {
+  NpcProperties,
+  DialogProperties,
+  DialogLink,
+  ShopProperties,
+  ShopItemProperties
+} from "../interfaces/resource";
 import { FFRandom } from "../helpers/FFRandom";
 import { timeInSeconds } from "../helpers/time";
 import { FlyffPacket } from "../libraries/flyffPacket";
@@ -75,11 +81,26 @@ class ItemContainer {
 // Dialog constants for quest system
 const DialogConstants = {
   QuestAcceptDeclineButtons: [
-    { id: QuestState.BeginYes, title: "Accept", questId: 0, texts: new Set<string>() },
-    { id: QuestState.BeginNo, title: "Decline", questId: 0, texts: new Set<string>() }
+    {
+      id: QuestState.BeginYes,
+      title: "Accept",
+      questId: 0,
+      texts: new Set<string>()
+    },
+    {
+      id: QuestState.BeginNo,
+      title: "Decline",
+      questId: 0,
+      texts: new Set<string>()
+    }
   ],
   QuestFinishButtons: [
-    { id: QuestState.EndCompleted, title: "Complete", questId: 0, texts: new Set<string>() }
+    {
+      id: QuestState.EndCompleted,
+      title: "Complete",
+      questId: 0,
+      texts: new Set<string>()
+    }
   ]
 };
 
@@ -145,7 +166,7 @@ export class Npc extends WorldObject {
 
     // Create shop containers - assuming shop can have multiple tabs
     const shopTabs = this.groupShopItemsByTab(shopProperties.items);
-    (this as any).shop = shopTabs.map(tabItems => {
+    (this as any).shop = shopTabs.map((tabItems) => {
       const container = new ItemContainer(100);
       const items: Record<number, Item> = {};
 
@@ -166,7 +187,9 @@ export class Npc extends WorldObject {
     });
   }
 
-  private groupShopItemsByTab(items: ShopItemProperties[]): ShopItemProperties[][] {
+  private groupShopItemsByTab(
+    items: ShopItemProperties[]
+  ): ShopItemProperties[][] {
     // For now, put all items in one tab
     // TODO: Implement proper tab grouping logic
     return [items];
@@ -174,9 +197,10 @@ export class Npc extends WorldObject {
 
   private loadQuests(): void {
     // Load quests that start with this NPC
-    const npcQuests = GameResources.Current.Quests.filter(quest =>
-      quest.startCharacter &&
-      quest.startCharacter.toLowerCase() === this.name.toLowerCase()
+    const npcQuests = GameResources.Current.Quests.filter(
+      (quest) =>
+        quest.startCharacter &&
+        quest.startCharacter.toLowerCase() === this.name.toLowerCase()
     );
 
     (this as any).quests = npcQuests;
@@ -233,11 +257,11 @@ export class Npc extends WorldObject {
     }
 
     if (links && links.length > 0) {
-      console.log(`Dialog links: ${links.map(l => l.title).join(", ")}`);
+      console.log(`Dialog links: ${links.map((l) => l.title).join(", ")}`);
     }
 
     if (buttons && buttons.length > 0) {
-      console.log(`Dialog buttons: ${buttons.map(b => b.title).join(", ")}`);
+      console.log(`Dialog buttons: ${buttons.map((b) => b.title).join(", ")}`);
     }
 
     // Add quest-related dialog options
@@ -252,8 +276,18 @@ export class Npc extends WorldObject {
     buttons: DialogLink[],
     questId: number
   ): void {
-    const questDialogs = texts.map(text => GameResources.Current.getText(text));
-    this.showDialog(player, questDialogs, this.properties.dialog?.links ? Array.from(this.properties.dialog.links) : undefined, buttons, questId);
+    const questDialogs = texts.map((text) =>
+      GameResources.Current.getText(text)
+    );
+    this.showDialog(
+      player,
+      questDialogs,
+      this.properties.dialog?.links
+        ? Array.from(this.properties.dialog.links)
+        : undefined,
+      buttons,
+      questId
+    );
   }
 
   public closeDialog(player: Player): void {
@@ -265,13 +299,18 @@ export class Npc extends WorldObject {
   }
 
   public suggestAvailableQuest(player: Player): boolean {
-    const availableQuests = this.quests.filter(quest =>
+    const availableQuests = this.quests.filter((quest) =>
       player.questDiary.canStartQuest(quest)
     );
 
     if (availableQuests.length > 0) {
       const quest = availableQuests[0];
-      this.showQuestDialog(player, quest.beginDialogs, DialogConstants.QuestAcceptDeclineButtons, quest.id);
+      this.showQuestDialog(
+        player,
+        quest.beginDialogs,
+        DialogConstants.QuestAcceptDeclineButtons,
+        quest.id
+      );
       return true;
     }
 
@@ -279,14 +318,20 @@ export class Npc extends WorldObject {
   }
 
   public suggestFinalizeQuest(player: Player): boolean {
-    const playerQuestsToFinalize = player.questDiary.activeQuests.filter(quest =>
-      quest.canFinish() &&
-      quest.properties.endCharacter.toLowerCase() === this.name.toLowerCase()
+    const playerQuestsToFinalize = player.questDiary.activeQuests.filter(
+      (quest) =>
+        quest.canFinish() &&
+        quest.properties.endCharacter.toLowerCase() === this.name.toLowerCase()
     );
 
     if (playerQuestsToFinalize.length > 0) {
       const quest = playerQuestsToFinalize[0];
-      this.showQuestDialog(player, quest.properties.completedDialogs, DialogConstants.QuestFinishButtons, quest.id);
+      this.showQuestDialog(
+        player,
+        quest.properties.completedDialogs,
+        DialogConstants.QuestFinishButtons,
+        quest.id
+      );
       return true;
     }
 
@@ -297,11 +342,15 @@ export class Npc extends WorldObject {
     if (this.properties.dialog && this.properties.dialog.shoutText) {
       if (this._lastSpeakTime <= timeInSeconds()) {
         const playersAround = this.visibleObjects
-          .filter(obj => obj instanceof Object && obj.constructor.name === "Player") // Type check for Player
-          .filter(obj => this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS));
+          .filter(
+            (obj) => obj instanceof Object && obj.constructor.name === "Player"
+          ) // Type check for Player
+          .filter((obj) =>
+            this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS)
+          );
 
         if (playersAround.length > 0) {
-          playersAround.forEach(player => {
+          playersAround.forEach((player) => {
             this.speak(this.properties.dialog!.shoutText, player as Player);
           });
         }
@@ -314,8 +363,8 @@ export class Npc extends WorldObject {
   private addQuestDialogOptions(targetPlayer: Player, questId: number): void {
     // Add new quest options
     const newQuestLinks = this.quests
-      .filter(quest => targetPlayer.questDiary.canStartQuest(quest))
-      .map(quest => ({
+      .filter((quest) => targetPlayer.questDiary.canStartQuest(quest))
+      .map((quest) => ({
         id: QuestState.Suggest,
         title: GameResources.Current.getText(quest.title),
         questId: quest.id,
@@ -324,8 +373,8 @@ export class Npc extends WorldObject {
 
     // Add quest in progress options
     const questsInProgressLinks = this.quests
-      .filter(quest => targetPlayer.questDiary.hasActiveQuest(quest.id))
-      .map(quest => ({
+      .filter((quest) => targetPlayer.questDiary.hasActiveQuest(quest.id))
+      .map((quest) => ({
         id: QuestState.End,
         title: GameResources.Current.getText(quest.title),
         questId: quest.id,

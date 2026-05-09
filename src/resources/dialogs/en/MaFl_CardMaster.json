@@ -1,4 +1,3 @@
-
 {
   "name": "MaFl_CardMaster",
   "oralText": "If you need any weapon or armor piercing cards converted, I'm your gal!",
@@ -17,9 +16,7 @@
     {
       "id": "BYE",
       "title": "Goodbye!",
-      "texts": [
-        "Stop by anytime, my friend!"
-      ]
+      "texts": ["Stop by anytime, my friend!"]
     }
   ]
 }

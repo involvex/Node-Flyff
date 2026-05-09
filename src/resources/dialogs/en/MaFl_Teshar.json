@@ -16,9 +16,7 @@
     {
       "id": "BYE",
       "title": "Goodbye!",
-      "texts": [
-        "Farewell, champion! See you on the battlefield!"
-      ]
+      "texts": ["Farewell, champion! See you on the battlefield!"]
     }
   ]
 }

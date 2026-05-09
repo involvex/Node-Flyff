@@ -4,7 +4,7 @@ export interface ICluster {
   port: number;
   lastPing?: number;
   channels: IChannel[];
-  enabled: boolean
+  enabled: boolean;
 }
 
 export interface IChannel {

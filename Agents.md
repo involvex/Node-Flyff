@@ -104,7 +104,7 @@ npm run build            # Build for production
 
 - **Runtime**: Node.js 22+ and Bun 1.0+
 - **Language**: TypeScript 5.6+ with strict mode enabled
-- **Database**: 
+- **Database**:
   - SQLite (development)
   - MySQL (production ready)
   - PostgreSQL (recommended for Bun runtime)
@@ -115,18 +115,18 @@ npm run build            # Build for production
 
 ```json
 {
-  "better-sqlite3": "^8.2.0",      // SQLite database
-  "cli-color": "^2.0.4",           // Terminal colors
-  "crypto-js": "^4.2.0",           // Cryptography
-  "fs-extra": "^11.2.0",           // File system utilities
-  "js-yaml": "^4.1.0",             // YAML parsing
-  "lodash": "^4.17.21",            // Utility library
-  "moment": "^2.30.1",             // Date/time handling
-  "node-cron": "^3.0.3",           // Scheduled tasks
-  "pg": "^8.11.0",                 // PostgreSQL client
-  "reflect-metadata": "^0.2.1",    // Decorator metadata
-  "typeorm": "^0.3.20",            // ORM
-  "ws": "^8.13.0"                  // WebSocket
+  "better-sqlite3": "^8.2.0", // SQLite database
+  "cli-color": "^2.0.4", // Terminal colors
+  "crypto-js": "^4.2.0", // Cryptography
+  "fs-extra": "^11.2.0", // File system utilities
+  "js-yaml": "^4.1.0", // YAML parsing
+  "lodash": "^4.17.21", // Utility library
+  "moment": "^2.30.1", // Date/time handling
+  "node-cron": "^3.0.3", // Scheduled tasks
+  "pg": "^8.11.0", // PostgreSQL client
+  "reflect-metadata": "^0.2.1", // Decorator metadata
+  "typeorm": "^0.3.20", // ORM
+  "ws": "^8.13.0" // WebSocket
 }
 ```
 
@@ -152,6 +152,7 @@ npm run build            # Build for production
 ### Code Organization
 
 1. **Follow the established directory structure**:
+
    ```
    src/
    ├── abstract/          # Base classes and interfaces
@@ -253,6 +254,7 @@ npm run build            # Build for production
    - No trailing commas
 
 2. **Write descriptive commit messages**: Use conventional commit format:
+
    ```
    feat: add new feature
    fix: fix bug description
@@ -323,12 +325,14 @@ npm run build            # Build for production
 ### Setting Up the Development Environment
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/your-repo/nodejs-flyff.git
    cd nodejs-flyff
    ```
 
 2. **Install dependencies**:
+
    ```bash
    bun install
    # or
@@ -353,6 +357,7 @@ npm run build            # Build for production
 ### Making Changes
 
 1. **Create a feature branch**:
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
@@ -360,27 +365,32 @@ npm run build            # Build for production
 2. **Make your changes** following the best practices and guidelines.
 
 3. **Run type checking**:
+
    ```bash
    npx tsc -p tsconfig.json --noEmit
    ```
 
 4. **Run linting**:
+
    ```bash
    npx eslint "**/*.{ts,tsx,js,jsx}" --fix
    ```
 
 5. **Test your changes**:
+
    ```bash
    npm run test-client
    ```
 
 6. **Commit your changes**:
+
    ```bash
    git add .
    git commit -m "feat: add amazing feature"
    ```
 
 7. **Push to the branch**:
+
    ```bash
    git push origin feature/amazing-feature
    ```
@@ -496,7 +506,7 @@ Use TypeORM for database operations:
 
 ```typescript
 // Define an entity
-@Entity('players')
+@Entity("players")
 export class Player {
   @PrimaryGeneratedColumn()
   id: number;
@@ -510,7 +520,7 @@ export class Player {
 
 // Query the database
 const player = await dataSource.getRepository(Player).findOne({
-  where: { id: playerId }
+  where: { id: playerId },
 });
 ```
 
@@ -538,7 +548,7 @@ try {
   return player;
 } catch (error) {
   this.logger.error(`Failed to get player: ${error.message}`);
-  throw new Error('Player not found');
+  throw new Error("Player not found");
 }
 ```
 
@@ -549,13 +559,13 @@ Use async/await for asynchronous operations:
 ```typescript
 async function getPlayerData(playerId: number): Promise<PlayerData> {
   const player = await this.playerRepository.findOne({
-    where: { id: playerId }
+    where: { id: playerId },
   });
-  
+
   if (!player) {
-    throw new Error('Player not found');
+    throw new Error("Player not found");
   }
-  
+
   return player;
 }
 ```

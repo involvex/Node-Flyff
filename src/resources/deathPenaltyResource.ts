@@ -57,10 +57,16 @@ export class DeathPenaltyResources {
       await this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
     });
     _.forEach(data.decreaseExpPenalty, async(penalty) => {
-      await this.redisClient.hmset(`decreaseExpPenalty:${penalty.level}`, penalty);
+      await this.redisClient.hmset(
+        `decreaseExpPenalty:${penalty.level}`,
+        penalty
+      );
     });
     _.forEach(data.levelDownPenalty, async(penalty) => {
-      await this.redisClient.hmset(`levelDownPenalty:${penalty.level}`, penalty);
+      await this.redisClient.hmset(
+        `levelDownPenalty:${penalty.level}`,
+        penalty
+      );
     });
     this.logger.main("Death penalty loaded.");
   }

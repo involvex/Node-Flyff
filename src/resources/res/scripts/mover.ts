@@ -48,11 +48,14 @@ fs.readFile(
         if (dropGoldMatch) {
           const minGold = parseInt(dropGoldMatch[1]);
           const maxGold = parseInt(dropGoldMatch[2]);
-          parsedSection.dropGold = minGold === maxGold ? minGold : [minGold, maxGold];
+          parsedSection.dropGold =
+            minGold === maxGold ? minGold : [minGold, maxGold];
         }
 
         // Extract and format DropKinds property
-        const dropKindsMatches = section.matchAll(/DropKind\((\w+),\s*(\d+),\s*(\d+)\);/g);
+        const dropKindsMatches = section.matchAll(
+          /DropKind\((\w+),\s*(\d+),\s*(\d+)\);/g
+        );
         parsedSection.dropKinds = [];
         for (const match of dropKindsMatches) {
           parsedSection.dropKinds.push({
@@ -62,7 +65,9 @@ fs.readFile(
         }
 
         // Extract and format DropItems property
-        const dropItemsMatches = section.matchAll(/DropItem\((\w+),\s*(\d+),\s*(\d+),\s*(\d+)\);/g);
+        const dropItemsMatches = section.matchAll(
+          /DropItem\((\w+),\s*(\d+),\s*(\d+),\s*(\d+)\);/g
+        );
         parsedSection.dropItems = [];
         for (const match of dropItemsMatches) {
           parsedSection.dropItems.push({
@@ -83,12 +88,16 @@ fs.readFile(
     const yamlData: string = yaml.dump(parsedSections);
 
     // Write YAML data to output file
-    fs.writeFile(path.join(__dirname, "../custom", "propMoverEx.yaml"), yamlData, (err) => {
-      if (err) {
-        console.error(err);
-        return;
+    fs.writeFile(
+      path.join(__dirname, "../custom", "propMoverEx.yaml"),
+      yamlData,
+      (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("Conversion completed. Output written to propMoverEx.yaml");
       }
-      console.log("Conversion completed. Output written to propMoverEx.yaml");
-    });
+    );
   }
 );

@@ -132,14 +132,14 @@ fs.readFile(
             .replace("\"", "")
             .trim();
         } else if (trimmedLine.startsWith("m_nStructure")) {
-          structure = trimmedLine
-            .split("=")
+          structure = trimmedLine.split("=").pop()!.split(";").shift()!.trim();
+        } else if (trimmedLine.startsWith("SetVenderType")) {
+          setVenderType = trimmedLine
+            .split("(")
             .pop()!
-            .split(";")
+            .split(")")
             .shift()!
             .trim();
-        } else if (trimmedLine.startsWith("SetVenderType")) {
-          setVenderType = trimmedLine.split("(").pop()!.split(")").shift()!.trim();
         } else if (trimmedLine.startsWith("SetBuffSkill")) {
           const values = trimmedLine
             .split("(")
@@ -190,7 +190,9 @@ fs.readFile(
           console.error(err);
           return;
         }
-        console.log("Conversion completed. Output written to characterSchool.yaml");
+        console.log(
+          "Conversion completed. Output written to characterSchool.yaml"
+        );
       }
     );
   }

@@ -12,7 +12,12 @@ type Props = {
 
 const HAIR_COLORS = ["#2b2b2b", "#7b3f00", "#f2d16b", "#d9644a", "#1e90ff"];
 
-function makeAvatarSVG(gender: string, face: number, hair: number, hairColor: string) {
+function makeAvatarSVG(
+  gender: string,
+  face: number,
+  hair: number,
+  hairColor: string,
+) {
   // Simple inline SVG with separate hair and body shapes so we can tint hair dynamically.
   return `<?xml version="1.0" encoding="UTF-8"?>
   <svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'>
@@ -37,18 +42,31 @@ function makeAvatarSVG(gender: string, face: number, hair: number, hairColor: st
   </svg>`;
 }
 
-export default function AvatarPreview({ gender, face, hair, hairColor, width = 160, height = 160 }: Props) {
+export default function AvatarPreview({
+  gender,
+  face,
+  hair,
+  hairColor,
+  width = 160,
+  height = 160,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [loadedParts, setLoadedParts] = useState<Record<string, HTMLImageElement[]>>();
+  const [loadedParts, setLoadedParts] =
+    useState<Record<string, HTMLImageElement[]>>();
 
   useEffect(() => {
     let cancelled = false;
-    assetLoader.loadAvatarParts().then((parts) => {
-      if (!cancelled) setLoadedParts(parts);
-    }).catch(() => {
-      // ignore; fallback to generated svg
-    });
-    return () => { cancelled = true; };
+    assetLoader
+      .loadAvatarParts()
+      .then((parts) => {
+        if (!cancelled) setLoadedParts(parts);
+      })
+      .catch(() => {
+        // ignore; fallback to generated svg
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -65,9 +83,13 @@ export default function AvatarPreview({ gender, face, hair, hairColor, width = 1
       const imgs: HTMLImageElement[] = [];
       if (loadedParts.body[0]) imgs.push(loadedParts.body[0]);
       if (loadedParts.head[0]) imgs.push(loadedParts.head[0]);
-      if (loadedParts.hair && loadedParts.hair[0]) imgs.push(loadedParts.hair[0]);
+      if (loadedParts.hair && loadedParts.hair[0])
+        imgs.push(loadedParts.hair[0]);
       for (const img of imgs) {
-        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+        const scale = Math.min(
+          canvas.width / img.width,
+          canvas.height / img.height,
+        );
         const w = img.width * scale;
         const h = img.height * scale;
         const x = (canvas.width - w) / 2;
@@ -84,7 +106,10 @@ export default function AvatarPreview({ gender, face, hair, hairColor, width = 1
     const img = new Image();
     img.onload = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+      const scale = Math.min(
+        canvas.width / img.width,
+        canvas.height / img.height,
+      );
       const w = img.width * scale;
       const h = img.height * scale;
       const x = (canvas.width - w) / 2;
@@ -97,5 +122,12 @@ export default function AvatarPreview({ gender, face, hair, hairColor, width = 1
     img.src = url;
   }, [gender, face, hair, hairColor, width, height, loadedParts]);
 
-  return <canvas className="avatar-canvas" ref={canvasRef} width={width} height={height} />;
+  return (
+    <canvas
+      className="avatar-canvas"
+      ref={canvasRef}
+      width={width}
+      height={height}
+    />
+  );
 }

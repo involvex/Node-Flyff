@@ -21,15 +21,26 @@ export class Vector3 {
   }
 
   getDistance2D(otherPosition: Vector3): number {
-    return Math.sqrt(Math.pow(otherPosition.x - this.x, 2) + Math.pow(otherPosition.z - this.z, 2));
+    return Math.sqrt(
+      Math.pow(otherPosition.x - this.x, 2) +
+        Math.pow(otherPosition.z - this.z, 2)
+    );
   }
 
   getDistance3D(otherPosition: Vector3): number {
-    return Math.sqrt(Math.pow(otherPosition.x - this.x, 2) + Math.pow(otherPosition.y - this.y, 2) + Math.pow(otherPosition.z - this.z, 2));
+    return Math.sqrt(
+      Math.pow(otherPosition.x - this.x, 2) +
+        Math.pow(otherPosition.y - this.y, 2) +
+        Math.pow(otherPosition.z - this.z, 2)
+    );
   }
 
   isInCircle(otherPosition: Vector3, circleRadius: number): boolean {
-    return Math.pow(otherPosition.x - this.x, 2) + Math.pow(otherPosition.z - this.z, 2) < Math.pow(circleRadius, 2);
+    return (
+      Math.pow(otherPosition.x - this.x, 2) +
+        Math.pow(otherPosition.z - this.z, 2) <
+      Math.pow(circleRadius, 2)
+    );
   }
 
   isInRange(otherPosition: Vector3, range: number): boolean {
@@ -41,8 +52,12 @@ export class Vector3 {
   }
 
   intersects(rectangle: Rectangle, radius: number): boolean {
-    const deltaX = this.x - Math.max(rectangle.x, Math.min(this.x, rectangle.x + rectangle.width));
-    const deltaY = this.z - Math.max(rectangle.z, Math.min(this.z, rectangle.z + rectangle.length));
+    const deltaX =
+      this.x -
+      Math.max(rectangle.x, Math.min(this.x, rectangle.x + rectangle.width));
+    const deltaY =
+      this.z -
+      Math.max(rectangle.z, Math.min(this.z, rectangle.z + rectangle.length));
     return deltaX * deltaX + deltaY * deltaY < radius * radius;
   }
 
@@ -77,7 +92,11 @@ export class Vector3 {
   }
 
   hashCode(): number {
-    return FFRandom.getHashCode(this.x) ^ FFRandom.getHashCode(this.y) ^ FFRandom.getHashCode(this.z);
+    return (
+      FFRandom.getHashCode(this.x) ^
+      FFRandom.getHashCode(this.y) ^
+      FFRandom.getHashCode(this.z)
+    );
   }
 
   equals(other: Vector3): boolean {
@@ -110,7 +129,7 @@ export class Vector3 {
 
   static getRandomPositionInCircle(center: Vector3, radius: number): Vector3 {
     const newVector = center.clone();
-    const angle = FFRandom.floatRandomBetween(0, 360) * Math.PI / 180;
+    const angle = (FFRandom.floatRandomBetween(0, 360) * Math.PI) / 180;
     const power = FFRandom.floatRandomBetween(0, radius);
     newVector.x += Math.sin(angle) * power;
     newVector.z += Math.cos(angle) * power;

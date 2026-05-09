@@ -8,7 +8,14 @@ export class RgnElement {
   protected _right: number;
   protected _bottom: number;
 
-  constructor(type: number, position: Vector3, left: number, top: number, right: number, bottom: number) {
+  constructor(
+    type: number,
+    position: Vector3,
+    left: number,
+    top: number,
+    right: number,
+    bottom: number
+  ) {
     this._type = type;
     this._position = position;
     this._left = left;

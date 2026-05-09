@@ -1,6 +1,11 @@
 import fs from "fs";
 import { Logger } from "./logger";
-import { BlockStatement, InstructionParser, Instruction, Variable } from "./instructionParser";
+import {
+  BlockStatement,
+  InstructionParser,
+  Instruction,
+  Variable
+} from "./instructionParser";
 
 export interface Block {
   name: string;
@@ -35,13 +40,13 @@ export class IncludeFile {
         name: statement.name,
         unknownStatements: [],
         getInstruction: (name: string) => {
-          return statement.instructions.find(i => i.name === name) || null;
+          return statement.instructions.find((i) => i.name === name) || null;
         },
         getInstructions: (name: string) => {
-          return statement.instructions.filter(i => i.name === name);
+          return statement.instructions.filter((i) => i.name === name);
         },
         getVariable: (name: string) => {
-          return statement.variables.find(v => v.name === name) || null;
+          return statement.variables.find((v) => v.name === name) || null;
         }
       };
 

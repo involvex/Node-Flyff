@@ -20,12 +20,19 @@ export class ConfigLoader {
   loadConfig(): void {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
-    const configPath = path.join(__dirname, "../configs", `${this.serverName}.yaml`);
+    const configPath = path.join(
+      __dirname,
+      "../configs",
+      `${this.serverName}.yaml`
+    );
     try {
       const configFile = fs.readFileSync(configPath, "utf8");
       this.config = yaml.load(configFile);
     } catch (err) {
-      this.logger.error(`Error loading configuration for server ${this.serverName}:`, err);
+      this.logger.error(
+        `Error loading configuration for server ${this.serverName}:`,
+        err
+      );
     }
   }
 

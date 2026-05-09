@@ -4,11 +4,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000000
     output: false
     dialog: MaSC_SCGirl1.txt"
@@ -26,7 +26,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -168,10 +168,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000002
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor1
   name: IDS_CHARACTER_SCHOOL_INC_000009
   vendorSlots:
@@ -186,7 +186,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -430,21 +430,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000008
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl2
   name: IDS_CHARACTER_SCHOOL_INC_000015
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000014
     output: false
     dialog: MaSC_SCGirl2.txt"
@@ -462,7 +462,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -604,10 +604,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000016
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor2
   name: IDS_CHARACTER_SCHOOL_INC_000023
   vendorSlots:
@@ -622,7 +622,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -866,21 +866,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000022
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl3
   name: IDS_CHARACTER_SCHOOL_INC_000029
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000028
     output: false
     dialog: MaSC_SCGirl3.txt"
@@ -898,7 +898,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -1040,10 +1040,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000030
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor3
   name: IDS_CHARACTER_SCHOOL_INC_000037
   vendorSlots:
@@ -1058,7 +1058,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -1302,21 +1302,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000036
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl4
   name: IDS_CHARACTER_SCHOOL_INC_000043
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000042
     output: false
     dialog: MaSC_SCGirl4.txt"
@@ -1334,7 +1334,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -1476,10 +1476,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000044
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor4
   name: IDS_CHARACTER_SCHOOL_INC_000051
   vendorSlots:
@@ -1494,7 +1494,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -1738,21 +1738,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000050
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl5
   name: IDS_CHARACTER_SCHOOL_INC_000057
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000056
     output: false
     dialog: MaSC_SCGirl5.txt"
@@ -1770,7 +1770,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -1912,10 +1912,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000058
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor5
   name: IDS_CHARACTER_SCHOOL_INC_000065
   vendorSlots:
@@ -1930,7 +1930,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -2174,21 +2174,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000064
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl6
   name: IDS_CHARACTER_SCHOOL_INC_000071
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000070
     output: false
     dialog: MaSC_SCGirl6.txt"
@@ -2206,7 +2206,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -2348,10 +2348,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000072
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor6
   name: IDS_CHARACTER_SCHOOL_INC_000079
   vendorSlots:
@@ -2366,7 +2366,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -2610,21 +2610,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000078
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl7
   name: IDS_CHARACTER_SCHOOL_INC_000085
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000084
     output: false
     dialog: MaSC_SCGirl7.txt"
@@ -2642,7 +2642,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -2784,10 +2784,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000086
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor7
   name: IDS_CHARACTER_SCHOOL_INC_000093
   vendorSlots:
@@ -2802,7 +2802,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -3046,21 +3046,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000092
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl8
   name: IDS_CHARACTER_SCHOOL_INC_000099
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000098
     output: false
     dialog: MaSC_SCGirl8.txt"
@@ -3078,7 +3078,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -3220,10 +3220,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000100
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor8
   name: IDS_CHARACTER_SCHOOL_INC_000107
   vendorSlots:
@@ -3238,7 +3238,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -3482,21 +3482,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000106
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl9
   name: IDS_CHARACTER_SCHOOL_INC_000113
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000112
     output: false
     dialog: MaSC_SCGirl9.txt"
@@ -3514,7 +3514,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -3656,10 +3656,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000114
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor9
   name: IDS_CHARACTER_SCHOOL_INC_000121
   vendorSlots:
@@ -3674,7 +3674,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -3918,21 +3918,21 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000120
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCGirl10
   name: IDS_CHARACTER_SCHOOL_INC_000127
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000126
     output: false
     dialog: MaSC_SCGirl10.txt"
@@ -3950,7 +3950,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -4092,10 +4092,10 @@
         qty: 1
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000128
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSC_SCArmor10
   name: IDS_CHARACTER_SCHOOL_INC_000135
   vendorSlots:
@@ -4110,7 +4110,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -4354,7 +4354,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_SCHOOL_INC_000134
     output: false
-    dialog: ''
+    dialog: ""

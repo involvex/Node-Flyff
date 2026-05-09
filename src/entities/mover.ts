@@ -49,7 +49,11 @@ export class Mover extends WorldObject {
 
   protected constructor(properties: MoverProperties) {
     super();
-    this.properties = properties ?? (() => { throw new Error("Cannot create a mover with no properties."); })();
+    this.properties =
+      properties ??
+      (() => {
+        throw new Error("Cannot create a mover with no properties.");
+      })();
     this.attributes = new Attributes(this);
     this.statistics = new Statistics(this);
     this.health = new Health(this);
@@ -57,11 +61,26 @@ export class Mover extends WorldObject {
     this.buffs = new Buffs(this);
 
     // runtime aliases to keep legacy PascalCase references working
-    Object.defineProperty(this, "Health", { get: () => this.health, configurable: true });
-    Object.defineProperty(this, "Attributes", { get: () => this.attributes, configurable: true });
-    Object.defineProperty(this, "Statistics", { get: () => this.statistics, configurable: true });
-    Object.defineProperty(this, "Buffs", { get: () => this.buffs, configurable: true });
-    Object.defineProperty(this, "SendToVisible", { get: () => this.sendToVisible.bind(this), configurable: true });
+    Object.defineProperty(this, "Health", {
+      get: () => this.health,
+      configurable: true
+    });
+    Object.defineProperty(this, "Attributes", {
+      get: () => this.attributes,
+      configurable: true
+    });
+    Object.defineProperty(this, "Statistics", {
+      get: () => this.statistics,
+      configurable: true
+    });
+    Object.defineProperty(this, "Buffs", {
+      get: () => this.buffs,
+      configurable: true
+    });
+    Object.defineProperty(this, "SendToVisible", {
+      get: () => this.sendToVisible.bind(this),
+      configurable: true
+    });
   }
 
   public speedFactor: number = 1;
@@ -151,7 +170,8 @@ export class Mover extends WorldObject {
     itemObject.mapLayer = this.mapLayer;
     if (owner) itemObject.owner = owner;
     itemObject.ownershipTime = owner
-      ? timeInSeconds() + ((global as any).GameOptions?.Current?.Drops?.OwnershipTime || 30)
+      ? timeInSeconds() +
+        ((global as any).GameOptions?.Current?.Drops?.OwnershipTime || 30)
       : 0;
 
     this.mapLayer?.addItem?.(itemObject);
@@ -172,7 +192,10 @@ export class Mover extends WorldObject {
 
     this.target = target;
 
-    const oneHitResult = this.tryInflictDamagesIfOneHitKillMode(target, attackType);
+    const oneHitResult = this.tryInflictDamagesIfOneHitKillMode(
+      target,
+      attackType
+    );
     let attackResult: AttackResult;
 
     if (!oneHitResult.success) {

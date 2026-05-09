@@ -1,5 +1,5 @@
 export enum ConfigType {
-    UNKNOWN,
-    JSON,
-    YAML
+  UNKNOWN,
+  JSON,
+  YAML,
 }

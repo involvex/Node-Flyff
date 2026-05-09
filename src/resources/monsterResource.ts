@@ -5,7 +5,10 @@ import { Logger } from "../helpers/logger";
 import KvClient from "../libraries/kvClient";
 import { ResourcePaths } from "./resourcePaths";
 import { MoverProperties } from "../interfaces/resource";
-import { DropItemProperties, DropItemKindProperties } from "../interfaces/dropItemProperties";
+import {
+  DropItemProperties,
+  DropItemKindProperties
+} from "../interfaces/dropItemProperties";
 import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
 import { ResourceTableFile } from "../helpers/resourceTableFile";
 import { IncludeFile, Block } from "../helpers/includeFile";
@@ -17,7 +20,8 @@ export class MonsterResources {
   private readonly redisClient: any;
   private readonly defines: Map<string, number> = new Map();
   private readonly moversById: Map<number, MoverProperties> = new Map();
-  private readonly moversByIdentifierName: Map<string, MoverProperties> = new Map();
+  private readonly moversByIdentifierName: Map<string, MoverProperties> =
+    new Map();
 
   constructor(client?: any) {
     this.logger = new Logger("Monster Resources");
@@ -52,9 +56,10 @@ export class MonsterResources {
       }
     }
 
-    const monsterId = typeof monsterIdentifier === "number"
-      ? monsterIdentifier
-      : await this.redisClient.hget("objectDefines", monsterIdentifier);
+    const monsterId =
+      typeof monsterIdentifier === "number"
+        ? monsterIdentifier
+        : await this.redisClient.hget("objectDefines", monsterIdentifier);
     if (!_.isUndefined(monsterId)) {
       const data = await this.redisClient.hgetall(`monster:${monsterId}`);
       return data ? this.parseMoverProperties(data) : null;
@@ -62,7 +67,9 @@ export class MonsterResources {
     return null;
   }
 
-  public where(predicate: (monster: MoverProperties) => boolean): MoverProperties[] {
+  public where(
+    predicate: (monster: MoverProperties) => boolean
+  ): MoverProperties[] {
     const monsters: MoverProperties[] = [];
     for (const monster of this.moversById.values()) {
       if (predicate(monster)) {
@@ -92,7 +99,10 @@ export class MonsterResources {
         }
       }
     } catch (err) {
-      this.logger.error("Error retrieving monsters from KV store:", err as Error);
+      this.logger.error(
+        "Error retrieving monsters from KV store:",
+        err as Error
+      );
     }
     return monsters;
   }
@@ -134,16 +144,24 @@ export class MonsterResources {
     const startTime = Date.now();
 
     if (!fs.existsSync(ResourcePaths.moversProp)) {
-      throw new Error(`Unable to load mover properties. Reason: cannot find '${ResourcePaths.moversProp}' file.`);
+      throw new Error(
+        `Unable to load mover properties. Reason: cannot find '${ResourcePaths.moversProp}' file.`
+      );
     }
 
     if (!fs.existsSync(ResourcePaths.moversPropExPath)) {
-      throw new Error(`Unable to load extended mover properties. Reason: cannot find '${ResourcePaths.moversPropExPath}' file.`);
+      throw new Error(
+        `Unable to load extended mover properties. Reason: cannot find '${ResourcePaths.moversPropExPath}' file.`
+      );
     }
 
     await this.loadDefines();
 
-    const resourceTable = new ResourceTableFile(ResourcePaths.moversProp, 0, this.defines);
+    const resourceTable = new ResourceTableFile(
+      ResourcePaths.moversProp,
+      0,
+      this.defines
+    );
     const movers = resourceTable.getRecords<any>();
 
     for (const mover of movers) {
@@ -166,13 +184,20 @@ export class MonsterResources {
       if (!this.moversById.has(moverProperties.id)) {
         this.moversById.set(moverProperties.id, moverProperties);
       } else {
-        this.logger.warn(`Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`);
+        this.logger.warn(
+          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`
+        );
       }
 
       if (!this.moversByIdentifierName.has(moverProperties.identifierName!)) {
-        this.moversByIdentifierName.set(moverProperties.identifierName!, moverProperties);
+        this.moversByIdentifierName.set(
+          moverProperties.identifierName!,
+          moverProperties
+        );
       } else {
-        this.logger.warn(`Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`);
+        this.logger.warn(
+          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`
+        );
       }
     }
 
@@ -206,13 +231,18 @@ export class MonsterResources {
     this.logger.info(`${this.moversById.size} movers loaded in ${elapsed}ms.`);
   }
 
-  private loadDropGold(mover: MoverProperties, dropGoldInstruction: Instruction | null): void {
+  private loadDropGold(
+    mover: MoverProperties,
+    dropGoldInstruction: Instruction | null
+  ): void {
     if (!dropGoldInstruction) {
       return;
     }
 
     if (dropGoldInstruction.parameters.length < 2) {
-      this.logger.warn(`Cannot load 'DropGold' instruction for mover ${mover.name}. Reason: Missing parameters.`);
+      this.logger.warn(
+        `Cannot load 'DropGold' instruction for mover ${mover.name}. Reason: Missing parameters.`
+      );
       return;
     }
 
@@ -231,7 +261,10 @@ export class MonsterResources {
     mover.dropGoldMax = maxGold;
   }
 
-  private loadDropItems(mover: MoverProperties, dropItemInstructions: Instruction[]): void {
+  private loadDropItems(
+    mover: MoverProperties,
+    dropItemInstructions: Instruction[]
+  ): void {
     if (!dropItemInstructions || dropItemInstructions.length === 0) {
       return;
     }
@@ -250,7 +283,9 @@ export class MonsterResources {
       if (itemId) {
         dropItem.itemId = itemId;
       } else {
-        this.logger.warn(`Cannot find drop item id: ${dropItemName} for mover ${mover.name}.`);
+        this.logger.warn(
+          `Cannot find drop item id: ${dropItemName} for mover ${mover.name}.`
+        );
         continue;
       }
 
@@ -258,45 +293,64 @@ export class MonsterResources {
       if (!isNaN(probability)) {
         dropItem.probability = probability;
       } else {
-        this.logger.warn(`Cannot read drop item probability for item ${dropItemName} and mover ${mover.name}.`);
+        this.logger.warn(
+          `Cannot read drop item probability for item ${dropItemName} and mover ${mover.name}.`
+        );
       }
 
       const itemMaxRefine = parseInt(dropItemInstruction.parameters[2], 10);
       if (!isNaN(itemMaxRefine)) {
         dropItem.itemMaxRefine = itemMaxRefine;
       } else {
-        this.logger.warn(`Cannot read drop item refine max for item ${dropItemName} and mover ${mover.name}.`);
+        this.logger.warn(
+          `Cannot read drop item refine max for item ${dropItemName} and mover ${mover.name}.`
+        );
       }
 
       const itemCount = parseInt(dropItemInstruction.parameters[3], 10);
       if (!isNaN(itemCount)) {
         dropItem.count = itemCount;
       } else {
-        this.logger.warn(`Cannot read drop item count for item ${dropItemName} and mover ${mover.name}.`);
+        this.logger.warn(
+          `Cannot read drop item count for item ${dropItemName} and mover ${mover.name}.`
+        );
       }
 
       mover.dropItems!.push(dropItem);
     }
   }
 
-  private loadDropItemsKind(mover: MoverProperties, instructions: Instruction[]): void {
+  private loadDropItemsKind(
+    mover: MoverProperties,
+    instructions: Instruction[]
+  ): void {
     if (!instructions || instructions.length === 0) {
       return;
     }
 
     for (const dropItemKindInstruction of instructions) {
-      if (dropItemKindInstruction.parameters.length < 1 || dropItemKindInstruction.parameters.length > 3) {
-        this.logger.warn(`Cannot load 'DropKind' instruction for mover ${mover.name}. Reason: Missing parameters.`);
+      if (
+        dropItemKindInstruction.parameters.length < 1 ||
+        dropItemKindInstruction.parameters.length > 3
+      ) {
+        this.logger.warn(
+          `Cannot load 'DropKind' instruction for mover ${mover.name}. Reason: Missing parameters.`
+        );
         continue;
       }
 
-      const itemKindStr = dropItemKindInstruction.parameters[0].replace("IK3_", "");
+      const itemKindStr = dropItemKindInstruction.parameters[0].replace(
+        "IK3_",
+        ""
+      );
       let itemKind: ItemKind3;
 
       try {
         itemKind = ItemKind3[itemKindStr as keyof typeof ItemKind3];
       } catch {
-        this.logger.warn(`Cannot parse ItemKind3: ${itemKindStr} for mover ${mover.name}.`);
+        this.logger.warn(
+          `Cannot parse ItemKind3: ${itemKindStr} for mover ${mover.name}.`
+        );
         continue;
       }
 

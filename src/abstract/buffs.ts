@@ -14,7 +14,9 @@ export class Buffs implements Iterable<Buff> {
     }
 
     if (this.contains(buff) && "skillId" in buff) {
-      const existingBuff = this.buffs.find(b => "skillId" in b && b.skillId === (buff as any).skillId) as Buff & { skillLevel: number };
+      const existingBuff = this.buffs.find(
+        (b) => "skillId" in b && b.skillId === (buff as any).skillId
+      ) as Buff & { skillLevel: number };
 
       if (existingBuff) {
         if (existingBuff.skillLevel === (buff as any).SkillLevel) {
@@ -63,10 +65,12 @@ export class Buffs implements Iterable<Buff> {
     }
 
     if ("skillId" in buff) {
-      return this.buffs.some(b => "skillId" in b && b.skillId === (buff as any).skillId);
+      return this.buffs.some(
+        (b) => "skillId" in b && b.skillId === (buff as any).skillId
+      );
     }
 
-    return this.buffs.some(b => b.id === buff.id);
+    return this.buffs.some((b) => b.id === buff.id);
   }
 
   update(): void {
@@ -79,7 +83,7 @@ export class Buffs implements Iterable<Buff> {
   }
 
   serialize(packet: FlyffPacket): void {
-    const activeBuffs = this.buffs.filter(b => !b.hasExpired);
+    const activeBuffs = this.buffs.filter((b) => !b.hasExpired);
     packet.writeInt32(activeBuffs.length);
     for (const buff of activeBuffs) {
       buff.serialize(packet);

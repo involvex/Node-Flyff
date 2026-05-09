@@ -29,10 +29,17 @@ fs.readFile(
 
       if (section.startsWith("expCharacter")) {
         let level = 0;
-        const lines = section.split("\n").map(i => i.trim());
+        const lines = section.split("\n").map((i) => i.trim());
         lines.forEach((line) => {
-          if (line === "{" || line === "}" || line.startsWith("//") || !line.trim()) return;
-          const parts = line.split("\t").map(i => i.trim());
+          if (
+            line === "{" ||
+            line === "}" ||
+            line.startsWith("//") ||
+            !line.trim()
+          ) {
+            return;
+          }
+          const parts = line.split("\t").map((i) => i.trim());
           if (parts[0] === "0" && parts[1] === "0" && parts[2] === "0") return;
           if (parts.length < 4) return;
           parsedData.push({
@@ -58,7 +65,9 @@ fs.readFile(
           console.error(err);
           return;
         }
-        console.log("Conversion completed. Output written to expCharacter.yaml");
+        console.log(
+          "Conversion completed. Output written to expCharacter.yaml"
+        );
       }
     );
   }

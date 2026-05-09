@@ -15,7 +15,9 @@ export class MagicSkillAttackArbiter extends SkillAttackArbiterBase {
     let damages: number = this.getAttackerSkillPower();
     let skillMastryAttribute: DefineAttributes | undefined;
 
-    const spellType = (this.skill as any).properties?.spellType ?? (this.skill as any).Properties?.spellType;
+    const spellType =
+      (this.skill as any).properties?.spellType ??
+      (this.skill as any).Properties?.spellType;
     switch (spellType) {
       case SpellType.Fire:
         skillMastryAttribute = DefineAttributes.DST_MASTRY_FIRE;
@@ -37,7 +39,10 @@ export class MagicSkillAttackArbiter extends SkillAttackArbiterBase {
     }
 
     if (skillMastryAttribute !== undefined) {
-      const ratio: number = Math.max(0, this.attacker.attributes.get(skillMastryAttribute) / 100);
+      const ratio: number = Math.max(
+        0,
+        this.attacker.attributes.get(skillMastryAttribute) / 100
+      );
       damages += damages * ratio;
     }
 

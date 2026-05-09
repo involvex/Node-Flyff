@@ -88,8 +88,14 @@ export class LuaParser {
     return result;
   }
 
-  private tokenize(content: string): Array<{type: "assignment" | "value", key?: string, value: string}> {
-    const tokens: Array<{type: "assignment" | "value", key?: string, value: string}> = [];
+  private tokenize(
+    content: string
+  ): Array<{ type: "assignment" | "value"; key?: string; value: string }> {
+    const tokens: Array<{
+      type: "assignment" | "value";
+      key?: string;
+      value: string;
+    }> = [];
     let i = 0;
 
     while (i < content.length) {
@@ -173,7 +179,10 @@ export class LuaParser {
     return content.length - 1;
   }
 
-  private findAssignment(content: string, start: number): {key: string, value: string, endIndex: number} | null {
+  private findAssignment(
+    content: string,
+    start: number
+  ): { key: string; value: string; endIndex: number } | null {
     let i = start;
 
     // Find the key (everything before =)
@@ -258,8 +267,10 @@ export class LuaParser {
     if (!value) return "";
 
     // String values
-    if ((value.startsWith("\"") && value.endsWith("\"")) ||
-        (value.startsWith("'") && value.endsWith("'"))) {
+    if (
+      (value.startsWith("\"") && value.endsWith("\"")) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
       return value.slice(1, -1);
     }
 
@@ -281,21 +292,21 @@ export class LuaParser {
     const luaTable = obj as LuaTable;
 
     // Following C# NLua pattern: getValues returns array of all values
-    luaTable.getValues = function<T>(): T[] {
-      const values = Object.values(this).filter(v => typeof v !== "function");
+    luaTable.getValues = function <T>(): T[] {
+      const values = Object.values(this).filter((v) => typeof v !== "function");
       return values as T[];
     };
 
     // Following C# NLua pattern: getValue for key-based access
-    luaTable.getValue = function<T>(key: string): T | undefined {
+    luaTable.getValue = function <T>(key: string): T | undefined {
       const value = this[key];
       return value as T;
     };
 
     // Convenience method with default value
-    luaTable.getValueOrDefault = function<T>(key: string, defaultValue: T): T {
+    luaTable.getValueOrDefault = function <T>(key: string, defaultValue: T): T {
       const value = this[key];
-      return value !== undefined ? value as T : defaultValue;
+      return value !== undefined ? (value as T) : defaultValue;
     };
 
     return luaTable;

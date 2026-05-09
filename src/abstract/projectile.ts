@@ -17,11 +17,11 @@ export class Projectile {
   }
 
   /**
-     * Creates a new Projectile instance.
-     * @param owner Projectile owner.
-     * @param target Projectile target.
-     * @param onArrived Projectile action to execute when arrived at its target.
-     */
+   * Creates a new Projectile instance.
+   * @param owner Projectile owner.
+   * @param target Projectile target.
+   * @param onArrived Projectile action to execute when arrived at its target.
+   */
   constructor(owner: Mover, target: Mover, onArrived: () => void) {
     this.owner = owner;
     this.target = target;

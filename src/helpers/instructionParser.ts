@@ -23,7 +23,10 @@ export interface BlockStatement extends Statement {
 export class InstructionParser {
   public static parseBlock(content: string): BlockStatement[] {
     const blocks: BlockStatement[] = [];
-    const lines = content.split("\n").map(line => line.trim()).filter(line => line.length > 0);
+    const lines = content
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0);
 
     let currentBlock: BlockStatement | null = null;
     let braceLevel = 0;
@@ -71,7 +74,9 @@ export class InstructionParser {
 
     const name = match[1];
     const paramString = match[2];
-    const parameters = paramString.split(",").map(p => p.trim().replace(/['"]/g, ""));
+    const parameters = paramString
+      .split(",")
+      .map((p) => p.trim().replace(/['"]/g, ""));
 
     return { name, parameters };
   }

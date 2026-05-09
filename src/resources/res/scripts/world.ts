@@ -19,10 +19,21 @@ fs.readFile(
 
     const parsedData: any[] = [];
 
-    const lines = data.split("\n").map(i => i.trim());
+    const lines = data.split("\n").map((i) => i.trim());
     lines.forEach((line) => {
-      if (line === "(" || line === ")" || line.startsWith("//") || !line.trim()) return;
-      const parts = line.trim().replace(/\s/g, "").split("\"").map(i => i.trim());
+      if (
+        line === "(" ||
+        line === ")" ||
+        line.startsWith("//") ||
+        !line.trim()
+      ) {
+        return;
+      }
+      const parts = line
+        .trim()
+        .replace(/\s/g, "")
+        .split("\"")
+        .map((i) => i.trim());
       if (parts[1] === "SetTitle" || parts[2] === "SetTitle") return;
       if (parts.length < 2) return;
       parsedData.push({

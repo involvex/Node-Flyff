@@ -7,7 +7,13 @@ type SheetInfo = {
   count: number;
 };
 
-export default function AvatarAnimator({ part = "body", fps = 8 }: { part?: string; fps?: number }) {
+export default function AvatarAnimator({
+  part = "body",
+  fps = 8,
+}: {
+  part?: string;
+  fps?: number;
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
@@ -59,7 +65,7 @@ export default function AvatarAnimator({ part = "body", fps = 8 }: { part?: stri
         0,
         0,
         sheetInfo.frameWidth,
-        sheetInfo.frameHeight
+        sheetInfo.frameHeight,
       );
       rafRef.current = requestAnimationFrame(draw);
     }

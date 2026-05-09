@@ -1,0 +1,34 @@
+server:
+  host: "127.0.0.1"
+  port: 23000
+security:
+  build-version: "20100412"
+  master-password: "StrongPassword"
+  password-encryption-key: "dldhsvmflvm"
+settings:
+  account-verification: true
+  max-connection: 1000
+  client-buffer-size: 128
+# Inter-server communication (replaces Redis)
+inter-server:
+  enabled: true
+  host: "127.0.0.1"
+  port: 23001
+  cluster-server:
+    host: "127.0.0.1"
+    port: 28001
+# Database configuration (Bun SQLite optimized)
+database:
+  provider: "sqlite"
+  database: "data/flyff.db"
+  synchronize: true
+  logging: false
+# Session management (in-memory, replaces Redis)
+sessions:
+  default-duration: 3600
+  cleanup-interval: 60
+# Asset configuration
+assets:
+  client-path: "I:\\ClockworksFlyff Client\\"
+  cache-path: "data/assets/"
+  enable-caching: true

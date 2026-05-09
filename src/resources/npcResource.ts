@@ -4,7 +4,11 @@ import _ from "lodash";
 import KvClient from "../libraries/kvClient";
 import { Logger } from "../helpers/logger";
 import { ResourcePaths } from "./resourcePaths";
-import { NpcProperties, ShopProperties, DialogProperties } from "../interfaces/resource";
+import {
+  NpcProperties,
+  ShopProperties,
+  DialogProperties
+} from "../interfaces/resource";
 
 export class NpcResources {
   private readonly logger: Logger;
@@ -59,18 +63,26 @@ export class NpcResources {
       return;
     }
 
-    const dialogFiles = fs.readdirSync(dialogDir).filter(file => file.endsWith(".json"));
+    const dialogFiles = fs
+      .readdirSync(dialogDir)
+      .filter((file) => file.endsWith(".json"));
     for (const file of dialogFiles) {
       const npcId = file.replace(".json", "");
       const dialogPath = path.join(dialogDir, file);
       try {
-        const dialog: DialogProperties = JSON.parse(fs.readFileSync(dialogPath, "utf8"));
+        const dialog: DialogProperties = JSON.parse(
+          fs.readFileSync(dialogPath, "utf8")
+        );
         if (this.npcs.has(npcId)) {
           (this.npcs.get(npcId) as any).dialog = dialog;
           (this.npcs.get(npcId) as any).hasDialog = true;
         } else {
           // Cache dialog separately
-          await this.redisClient.hset(`npc:${npcId}`, "dialog", JSON.stringify(dialog));
+          await this.redisClient.hset(
+            `npc:${npcId}`,
+            "dialog",
+            JSON.stringify(dialog)
+          );
         }
       } catch (e) {
         this.logger.warn(`Failed to load dialog for ${npcId}: ${e}`);
@@ -84,18 +96,26 @@ export class NpcResources {
       return;
     }
 
-    const shopFiles = fs.readdirSync(ResourcePaths.shopsDir).filter(file => file.endsWith(".json"));
+    const shopFiles = fs
+      .readdirSync(ResourcePaths.shopsDir)
+      .filter((file) => file.endsWith(".json"));
     for (const file of shopFiles) {
       const npcId = file.replace(".json", "");
       const shopPath = path.join(ResourcePaths.shopsDir, file);
       try {
-        const shop: ShopProperties = JSON.parse(fs.readFileSync(shopPath, "utf8"));
+        const shop: ShopProperties = JSON.parse(
+          fs.readFileSync(shopPath, "utf8")
+        );
         if (this.npcs.has(npcId)) {
           (this.npcs.get(npcId) as any).shop = shop;
           (this.npcs.get(npcId) as any).hasShop = true;
         } else {
           // Cache shop separately
-          await this.redisClient.hset(`npc:${npcId}`, "shop", JSON.stringify(shop));
+          await this.redisClient.hset(
+            `npc:${npcId}`,
+            "shop",
+            JSON.stringify(shop)
+          );
         }
       } catch (e) {
         this.logger.warn(`Failed to load shop for ${npcId}: ${e}`);
@@ -105,7 +125,11 @@ export class NpcResources {
 
   public async loadNpcPropStrings(): Promise<void> {
     // Load from character.txt.txt or similar
-    const propPath = path.join(ResourcePaths.resPath, "data", "character.txt.txt");
+    const propPath = path.join(
+      ResourcePaths.resPath,
+      "data",
+      "character.txt.txt"
+    );
     if (!fs.existsSync(propPath)) {
       this.logger.info("No NPC prop strings file found (stub)");
       return;
@@ -113,7 +137,10 @@ export class NpcResources {
 
     const content = fs.readFileSync(propPath, "utf8");
     const lines = content.split("\n");
-    const pairs = _.chunk(lines.filter(l => l.trim()), 2);
+    const pairs = _.chunk(
+      lines.filter((l) => l.trim()),
+      2
+    );
 
     for (const pair of pairs) {
       if (pair.length >= 2) {
@@ -128,7 +155,11 @@ export class NpcResources {
 
   public async loadNpcSchoolPropStrings(): Promise<void> {
     // Load from character-school.txt.txt
-    const propPath = path.join(ResourcePaths.resPath, "data", "character-school.txt.txt");
+    const propPath = path.join(
+      ResourcePaths.resPath,
+      "data",
+      "character-school.txt.txt"
+    );
     if (!fs.existsSync(propPath)) {
       this.logger.info("No NPC school prop strings file found (stub)");
       return;
@@ -136,7 +167,10 @@ export class NpcResources {
 
     const content = fs.readFileSync(propPath, "utf8");
     const lines = content.split("\n");
-    const pairs = _.chunk(lines.filter(l => l.trim()), 2);
+    const pairs = _.chunk(
+      lines.filter((l) => l.trim()),
+      2
+    );
 
     for (const pair of pairs) {
       if (pair.length >= 2) {
@@ -157,7 +191,9 @@ export class NpcResources {
       return;
     }
 
-    const files = fs.readdirSync(dataPath).filter(file => file.startsWith("character") && file.endsWith(".inc"));
+    const files = fs
+      .readdirSync(dataPath)
+      .filter((file) => file.startsWith("character") && file.endsWith(".inc"));
     for (const file of files) {
       const filePath = path.join(dataPath, file);
       const content = fs.readFileSync(filePath, "utf8");

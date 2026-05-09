@@ -45,7 +45,9 @@ export default async() => {
 
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.LOGIN_SERVER);
-    builder.addServer(new LoginServer(instanceBuilder.config?.login_server.server));
+    builder.addServer(
+      new LoginServer(instanceBuilder.config?.login_server.server)
+    );
   });
   const instance = await instanceBuilder.build();
   await coreIntercom(instance);
@@ -125,21 +127,13 @@ async function coreIntercom(instance: IInstance) {
               lastPing: new Date().getTime()
             };
             await client?.insertCluster(newCluster);
-            logger?.info(
-              "Cluster",
-              newCluster.name,
-              "has been added."
-            );
+            logger?.info("Cluster", newCluster.name, "has been added.");
           } else {
             await client?.updateCluster({
               ...decrypted.data,
               lastPing: new Date().getTime()
             });
-            logger?.info(
-              "Cluster",
-              decrypted.data.name,
-              "has been updated."
-            );
+            logger?.info("Cluster", decrypted.data.name, "has been updated.");
           }
           sendMessage(MessageCommand.CLUSTER_ADDED, decrypted.data);
           break;

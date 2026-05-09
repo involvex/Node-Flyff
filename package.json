@@ -10,14 +10,14 @@
   "scripts": {
     "start": "bun run src/main.ts",
     "dev": "bun --watch run src/main.ts",
-    "dev:login": "yarn dev login",
+    "dev:login": "bun dev login",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run lint",
+    "prebuild": "bun run lint",
     "build": "bun build ./src/main.ts --outdir ./dist --target node",
     "build:watch": "bun build ./src/main.ts --outdir ./dist --target node --watch",
-    "build:release": "npm run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
+    "build:release": "bun run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
     "lint": "eslint . --ext .ts --ext .mts",
-    "prettier": "prettier --config .prettierrc --write .",
+    "format": "prettier --write .",
     "test-client": "bun run src/testClient.ts",
     "ws-proxy": "bun run src/tools/wsTcpProxy.ts",
     "tsc:build": "tsc -p tsconfig.json"
@@ -33,6 +33,7 @@
     "node-cron": "^3.0.3",
     "pg": "^8.11.0",
     "reflect-metadata": "^0.2.1",
+    "sqlite3": "^6.0.1",
     "typeorm": "^0.3.20",
     "ws": "^8.13.0"
   },

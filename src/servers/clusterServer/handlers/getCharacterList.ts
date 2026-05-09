@@ -66,9 +66,7 @@ export default class Handler extends PacketHandler {
     if (channel?.host) {
       this.sendChannelIp(channel.host);
     }
-    if (
-      this.server?.config?.settings["login-protect"]
-    ) {
+    if (this.server?.config?.settings["login-protect"]) {
       await this.sendNumPadId();
     }
   }
@@ -82,9 +80,7 @@ export default class Handler extends PacketHandler {
   async sendNumPadId() {
     const numpadId = Math.floor(Math.random() * uNumPad.length);
     await this.server.redisClient.setNumpadId(this.username, numpadId);
-    const packet = new FlyffPacket(
-      PacketType.LOGIN_PROTECT_NUMPAD
-    );
+    const packet = new FlyffPacket(PacketType.LOGIN_PROTECT_NUMPAD);
     packet.writeUInt32LE(numpadId);
     this.send(packet);
   }

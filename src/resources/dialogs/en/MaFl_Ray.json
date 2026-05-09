@@ -16,9 +16,7 @@
     {
       "id": "BYE",
       "title": "Goodbye!",
-      "texts": [
-        "Another one bites the dust!"
-      ]
+      "texts": ["Another one bites the dust!"]
     }
   ]
 }

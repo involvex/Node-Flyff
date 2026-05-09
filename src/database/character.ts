@@ -99,7 +99,10 @@ export default class CharacterEntity extends BaseEntity {
   @Column({ nullable: false, default: 100 })
     fatiguePoints: number;
 
-  @OneToMany(() => EquipmentItemEntity, (equipmentItem) => equipmentItem.character)
+  @OneToMany(
+    () => EquipmentItemEntity,
+    (equipmentItem) => equipmentItem.character
+  )
     equipments: EquipmentItemEntity[];
 
   @Column({ default: false })

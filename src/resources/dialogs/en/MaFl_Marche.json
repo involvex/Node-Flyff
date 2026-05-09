@@ -16,9 +16,7 @@
     {
       "id": "BYE",
       "title": "Goodbye!",
-      "texts": [
-        "Thank you for visiting  my magic shop! Be careful out there!"
-      ]
+      "texts": ["Thank you for visiting  my magic shop! Be careful out there!"]
     }
   ]
 }

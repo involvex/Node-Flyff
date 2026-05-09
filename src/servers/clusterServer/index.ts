@@ -48,7 +48,9 @@ export default async() => {
 
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.CLUSTER_SERVER);
-    builder.addServer(new ClusterServer(instanceBuilder.config?.cluster_server.server));
+    builder.addServer(
+      new ClusterServer(instanceBuilder.config?.cluster_server.server)
+    );
   });
 
   instanceBuilder.buildResource((builder: ResourceBuilder) => {
@@ -167,11 +169,25 @@ async function clusterIntercom(instance: IInstance) {
             if (
               await client?.getChannelById(initCluster.name, decrypted.data.id)
             ) {
-              logger?.warn("A channel with id", decrypted.data.id, "already exist.");
-              sendMessage(RedisChannel.CLUSTER_CHANNEL, MessageCommand.CHANNEL_ID_EXIST, decrypted.data);
-            } else if (await client?.getChannel(initCluster.name, decrypted.data.name)) {
+              logger?.warn(
+                "A channel with id",
+                decrypted.data.id,
+                "already exist."
+              );
+              sendMessage(
+                RedisChannel.CLUSTER_CHANNEL,
+                MessageCommand.CHANNEL_ID_EXIST,
+                decrypted.data
+              );
+            } else if (
+              await client?.getChannel(initCluster.name, decrypted.data.name)
+            ) {
               logger?.warn("Channel", decrypted.data.name, "already exist.");
-              sendMessage(RedisChannel.CLUSTER_CHANNEL, MessageCommand.CHANNEL_EXIST, decrypted.data);
+              sendMessage(
+                RedisChannel.CLUSTER_CHANNEL,
+                MessageCommand.CHANNEL_EXIST,
+                decrypted.data
+              );
             } else {
               const channel: IChannel = {
                 ...decrypted.data,

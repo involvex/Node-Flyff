@@ -37,8 +37,12 @@ export class WorldObject {
     this.position = new Vector3();
   }
 
-  public getVisibleObject<TEntity extends WorldObject>(objectId: number): TEntity | null {
-    return this.visibleObjects.find(obj => obj.objectId === objectId) as TEntity | null;
+  public getVisibleObject<TEntity extends WorldObject>(
+    objectId: number
+  ): TEntity | null {
+    return this.visibleObjects.find(
+      (obj) => obj.objectId === objectId
+    ) as TEntity | null;
   }
 
   public sendDefinedText(text: DefineText, ...parameters: any[]): void {
@@ -46,17 +50,22 @@ export class WorldObject {
     this.send(snapshot);
   }
 
-  public sendSpecialEffect(specialEffect: DefineSpecialEffects, followObject: boolean = true): void {
-    const snapshot = new CreateSfxObjectSnapshot(this, specialEffect, followObject);
+  public sendSpecialEffect(
+    specialEffect: DefineSpecialEffects,
+    followObject: boolean = true
+  ): void {
+    const snapshot = new CreateSfxObjectSnapshot(
+      this,
+      specialEffect,
+      followObject
+    );
     this.sendToVisible(snapshot, true);
   }
 
-  public send(packet: FlyffPacket): void {
-
-  }
+  public send(packet: FlyffPacket): void {}
 
   public sendToVisible(packet: FlyffPacket, sendToSelf: boolean = false): void {
-    this.visibleObjects.forEach(obj => obj.send(packet));
+    this.visibleObjects.forEach((obj) => obj.send(packet));
     if (sendToSelf) {
       this.send(packet);
     }

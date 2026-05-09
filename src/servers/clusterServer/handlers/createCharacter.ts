@@ -171,9 +171,10 @@ export default class Handler extends PacketHandler {
     element: number = 0,
     elementRefinement: number = 0
   ) {
-    const item = await this.server.instance.gameResources?.itemResources?.get(
-      itemIdentifier
-    );
+    const item =
+      await this.server.instance.gameResources?.itemResources?.get(
+        itemIdentifier
+      );
     if (!_.isNil(item) && !_.isUndefined(item) && !_.isNaN(item.id)) {
       const itemEntity = new Item();
       itemEntity.itemId = item.id;

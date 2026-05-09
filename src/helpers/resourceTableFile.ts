@@ -9,7 +9,11 @@ export class ResourceTableFile {
   private records: string[][] = [];
   private defines: Map<string, number>;
 
-  constructor(filePath: string, headerLineIndex: number = 0, defines?: Map<string, number>) {
+  constructor(
+    filePath: string,
+    headerLineIndex: number = 0,
+    defines?: Map<string, number>
+  ) {
     this.logger = new Logger("ResourceTableFile");
     this.defines = defines || new Map();
 
@@ -24,12 +28,15 @@ export class ResourceTableFile {
   private parseContent(headerLineIndex: number): void {
     const allLines = this.content
       .split("\n")
-      .map(line => line.trim())
-      .filter(line => line.length > 0);
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0);
 
     // Look for commented header line (contains column names like dwID, szName, etc.)
-    const commentedHeaderLine = allLines.find(line =>
-      line.startsWith("//") && line.includes("dwID") && line.includes("szName")
+    const commentedHeaderLine = allLines.find(
+      (line) =>
+        line.startsWith("//") &&
+        line.includes("dwID") &&
+        line.includes("szName")
     );
 
     if (commentedHeaderLine) {
@@ -37,7 +44,7 @@ export class ResourceTableFile {
       this.headers = commentedHeaderLine.substring(2).split("\t");
     } else {
       // Fallback to the old method for files that don't have commented headers
-      const nonCommentLines = allLines.filter(line => !line.startsWith("//"));
+      const nonCommentLines = allLines.filter((line) => !line.startsWith("//"));
 
       if (nonCommentLines.length <= headerLineIndex) {
         throw new Error("Header line index is out of bounds");
@@ -47,7 +54,7 @@ export class ResourceTableFile {
     }
 
     // Process all non-comment lines as data
-    const dataLines = allLines.filter(line => !line.startsWith("//"));
+    const dataLines = allLines.filter((line) => !line.startsWith("//"));
 
     for (const line of dataLines) {
       const record = line.split("\t");
@@ -67,7 +74,11 @@ export class ResourceTableFile {
         const header = this.headers[i];
         const value = record[i];
 
-        if (header === "dwID" || header.includes("Name") || header.includes("IdentifierName")) {
+        if (
+          header === "dwID" ||
+          header.includes("Name") ||
+          header.includes("IdentifierName")
+        ) {
           obj[header] = cleanString(value);
         } else if (value.includes(".")) {
           obj[header] = tryParseFloat(value);

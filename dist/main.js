@@ -48,6 +48,20 @@ var __toCommonJS = (from) => {
 };
 var __moduleCache;
 var __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
+var __returnValue = (v) => v;
+function __exportSetter(name, newValue) {
+  this[name] = __returnValue.bind(null, newValue);
+}
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {
+      get: all[name],
+      enumerable: true,
+      configurable: true,
+      set: __exportSetter.bind(all, name)
+    });
+};
+var __esm = (fn, res) => () => (fn && (res = fn(fn = 0)), res);
 var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 // node_modules/node-cron/src/task.js
@@ -14381,6 +14395,44 @@ Arguments: ` + Array.prototype.slice.call(args).join("") + `
     };
     return hooks;
   });
+});
+
+// src/helpers/logger.ts
+var import_cli_color, import_moment, Logger;
+var init_logger = __esm(() => {
+  import_cli_color = __toESM(require_cli_color(), 1);
+  import_moment = __toESM(require_moment(), 1);
+  Logger = class Logger {
+    sender = "MAIN";
+    static SeverityMap = {
+      info: import_cli_color.default.cyan,
+      warn: import_cli_color.default.yellow,
+      error: import_cli_color.default.red,
+      success: import_cli_color.default.green,
+      main: import_cli_color.default.magenta
+    };
+    constructor(sender) {
+      this.sender = sender;
+    }
+    info(...message) {
+      this.log("info", ...message);
+    }
+    warn(...message) {
+      this.log("warn", ...message);
+    }
+    error(...message) {
+      this.log("error", ...message);
+    }
+    success(...message) {
+      this.log("success", ...message);
+    }
+    main(...message) {
+      this.log("main", ...message);
+    }
+    log(level = "main", ...message) {
+      console.log(import_cli_color.default.blue(import_moment.default().format("LTS")) + " " + Logger.SeverityMap[level](`[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`) + " " + import_cli_color.default.white.bold(message.join(" ")));
+    }
+  };
 });
 
 // node_modules/tslib/tslib.js
@@ -34052,6 +34104,41 @@ var require_built3 = __commonJS((exports, module) => {
   exports.print = print;
 });
 
+// node_modules/better-sqlite3/lib/util.js
+var require_util2 = __commonJS((exports) => {
+  exports.getBooleanOption = (options, key) => {
+    let value = false;
+    if (key in options && typeof (value = options[key]) !== "boolean") {
+      throw new TypeError(`Expected the "${key}" option to be a boolean`);
+    }
+    return value;
+  };
+  exports.cppdb = Symbol();
+  exports.inspect = Symbol.for("nodejs.util.inspect.custom");
+});
+
+// node_modules/better-sqlite3/lib/sqlite-error.js
+var require_sqlite_error = __commonJS((exports, module) => {
+  var descriptor = { value: "SqliteError", writable: true, enumerable: false, configurable: true };
+  function SqliteError(message, code) {
+    if (new.target !== SqliteError) {
+      return new SqliteError(message, code);
+    }
+    if (typeof code !== "string") {
+      throw new TypeError("Expected second argument to be a string");
+    }
+    Error.call(this, message);
+    descriptor.value = "" + message;
+    Object.defineProperty(this, "message", descriptor);
+    Error.captureStackTrace(this, SqliteError);
+    this.code = code;
+  }
+  Object.setPrototypeOf(SqliteError, Error);
+  Object.setPrototypeOf(SqliteError.prototype, Error.prototype);
+  Object.defineProperty(SqliteError.prototype, "name", descriptor);
+  module.exports = SqliteError;
+});
+
 // node_modules/file-uri-to-path/index.js
 var require_file_uri_to_path = __commonJS((exports, module) => {
   var sep = __require("path").sep || "/";
@@ -34207,6 +34294,576 @@ var require_bindings = __commonJS((exports, module) => {
       dir = join2(dir, "..");
     }
   };
+});
+
+// node_modules/better-sqlite3/lib/methods/wrappers.js
+var require_wrappers = __commonJS((exports) => {
+  var { cppdb } = require_util2();
+  exports.prepare = function prepare(sql) {
+    return this[cppdb].prepare(sql, this, false);
+  };
+  exports.exec = function exec(sql) {
+    this[cppdb].exec(sql);
+    return this;
+  };
+  exports.close = function close() {
+    this[cppdb].close();
+    return this;
+  };
+  exports.loadExtension = function loadExtension(...args) {
+    this[cppdb].loadExtension(...args);
+    return this;
+  };
+  exports.defaultSafeIntegers = function defaultSafeIntegers(...args) {
+    this[cppdb].defaultSafeIntegers(...args);
+    return this;
+  };
+  exports.unsafeMode = function unsafeMode(...args) {
+    this[cppdb].unsafeMode(...args);
+    return this;
+  };
+  exports.getters = {
+    name: {
+      get: function name() {
+        return this[cppdb].name;
+      },
+      enumerable: true
+    },
+    open: {
+      get: function open() {
+        return this[cppdb].open;
+      },
+      enumerable: true
+    },
+    inTransaction: {
+      get: function inTransaction() {
+        return this[cppdb].inTransaction;
+      },
+      enumerable: true
+    },
+    readonly: {
+      get: function readonly() {
+        return this[cppdb].readonly;
+      },
+      enumerable: true
+    },
+    memory: {
+      get: function memory() {
+        return this[cppdb].memory;
+      },
+      enumerable: true
+    }
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/transaction.js
+var require_transaction2 = __commonJS((exports, module) => {
+  var { cppdb } = require_util2();
+  var controllers = new WeakMap;
+  module.exports = function transaction(fn) {
+    if (typeof fn !== "function")
+      throw new TypeError("Expected first argument to be a function");
+    const db = this[cppdb];
+    const controller = getController(db, this);
+    const { apply } = Function.prototype;
+    const properties = {
+      default: { value: wrapTransaction(apply, fn, db, controller.default) },
+      deferred: { value: wrapTransaction(apply, fn, db, controller.deferred) },
+      immediate: { value: wrapTransaction(apply, fn, db, controller.immediate) },
+      exclusive: { value: wrapTransaction(apply, fn, db, controller.exclusive) },
+      database: { value: this, enumerable: true }
+    };
+    Object.defineProperties(properties.default.value, properties);
+    Object.defineProperties(properties.deferred.value, properties);
+    Object.defineProperties(properties.immediate.value, properties);
+    Object.defineProperties(properties.exclusive.value, properties);
+    return properties.default.value;
+  };
+  var getController = (db, self2) => {
+    let controller = controllers.get(db);
+    if (!controller) {
+      const shared = {
+        commit: db.prepare("COMMIT", self2, false),
+        rollback: db.prepare("ROLLBACK", self2, false),
+        savepoint: db.prepare("SAVEPOINT `\t_bs3.\t`", self2, false),
+        release: db.prepare("RELEASE `\t_bs3.\t`", self2, false),
+        rollbackTo: db.prepare("ROLLBACK TO `\t_bs3.\t`", self2, false)
+      };
+      controllers.set(db, controller = {
+        default: Object.assign({ begin: db.prepare("BEGIN", self2, false) }, shared),
+        deferred: Object.assign({ begin: db.prepare("BEGIN DEFERRED", self2, false) }, shared),
+        immediate: Object.assign({ begin: db.prepare("BEGIN IMMEDIATE", self2, false) }, shared),
+        exclusive: Object.assign({ begin: db.prepare("BEGIN EXCLUSIVE", self2, false) }, shared)
+      });
+    }
+    return controller;
+  };
+  var wrapTransaction = (apply, fn, db, { begin, commit, rollback, savepoint, release, rollbackTo }) => function sqliteTransaction() {
+    let before, after, undo;
+    if (db.inTransaction) {
+      before = savepoint;
+      after = release;
+      undo = rollbackTo;
+    } else {
+      before = begin;
+      after = commit;
+      undo = rollback;
+    }
+    before.run();
+    try {
+      const result = apply.call(fn, this, arguments);
+      after.run();
+      return result;
+    } catch (ex) {
+      if (db.inTransaction) {
+        undo.run();
+        if (undo !== rollback)
+          after.run();
+      }
+      throw ex;
+    }
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/pragma.js
+var require_pragma = __commonJS((exports, module) => {
+  var { getBooleanOption, cppdb } = require_util2();
+  module.exports = function pragma(source, options) {
+    if (options == null)
+      options = {};
+    if (typeof source !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (typeof options !== "object")
+      throw new TypeError("Expected second argument to be an options object");
+    const simple = getBooleanOption(options, "simple");
+    const stmt = this[cppdb].prepare(`PRAGMA ${source}`, this, true);
+    return simple ? stmt.pluck().get() : stmt.all();
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/backup.js
+var require_backup = __commonJS((exports, module) => {
+  var fs2 = __require("fs");
+  var path = __require("path");
+  var { promisify } = __require("util");
+  var { cppdb } = require_util2();
+  var fsAccess = promisify(fs2.access);
+  module.exports = async function backup(filename, options) {
+    if (options == null)
+      options = {};
+    if (typeof filename !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (typeof options !== "object")
+      throw new TypeError("Expected second argument to be an options object");
+    filename = filename.trim();
+    const attachedName = "attached" in options ? options.attached : "main";
+    const handler = "progress" in options ? options.progress : null;
+    if (!filename)
+      throw new TypeError("Backup filename cannot be an empty string");
+    if (filename === ":memory:")
+      throw new TypeError('Invalid backup filename ":memory:"');
+    if (typeof attachedName !== "string")
+      throw new TypeError('Expected the "attached" option to be a string');
+    if (!attachedName)
+      throw new TypeError('The "attached" option cannot be an empty string');
+    if (handler != null && typeof handler !== "function")
+      throw new TypeError('Expected the "progress" option to be a function');
+    await fsAccess(path.dirname(filename)).catch(() => {
+      throw new TypeError("Cannot save backup because the directory does not exist");
+    });
+    const isNewFile = await fsAccess(filename).then(() => false, () => true);
+    return runBackup(this[cppdb].backup(this, attachedName, filename, isNewFile), handler || null);
+  };
+  var runBackup = (backup, handler) => {
+    let rate = 0;
+    let useDefault = true;
+    return new Promise((resolve, reject) => {
+      setImmediate(function step() {
+        try {
+          const progress = backup.transfer(rate);
+          if (!progress.remainingPages) {
+            backup.close();
+            resolve(progress);
+            return;
+          }
+          if (useDefault) {
+            useDefault = false;
+            rate = 100;
+          }
+          if (handler) {
+            const ret = handler(progress);
+            if (ret !== undefined) {
+              if (typeof ret === "number" && ret === ret)
+                rate = Math.max(0, Math.min(2147483647, Math.round(ret)));
+              else
+                throw new TypeError("Expected progress callback to return a number or undefined");
+            }
+          }
+          setImmediate(step);
+        } catch (err) {
+          backup.close();
+          reject(err);
+        }
+      });
+    });
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/serialize.js
+var require_serialize = __commonJS((exports, module) => {
+  var { cppdb } = require_util2();
+  module.exports = function serialize(options) {
+    if (options == null)
+      options = {};
+    if (typeof options !== "object")
+      throw new TypeError("Expected first argument to be an options object");
+    const attachedName = "attached" in options ? options.attached : "main";
+    if (typeof attachedName !== "string")
+      throw new TypeError('Expected the "attached" option to be a string');
+    if (!attachedName)
+      throw new TypeError('The "attached" option cannot be an empty string');
+    return this[cppdb].serialize(attachedName);
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/function.js
+var require_function = __commonJS((exports, module) => {
+  var { getBooleanOption, cppdb } = require_util2();
+  module.exports = function defineFunction(name, options, fn) {
+    if (options == null)
+      options = {};
+    if (typeof options === "function") {
+      fn = options;
+      options = {};
+    }
+    if (typeof name !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (typeof fn !== "function")
+      throw new TypeError("Expected last argument to be a function");
+    if (typeof options !== "object")
+      throw new TypeError("Expected second argument to be an options object");
+    if (!name)
+      throw new TypeError("User-defined function name cannot be an empty string");
+    const safeIntegers = "safeIntegers" in options ? +getBooleanOption(options, "safeIntegers") : 2;
+    const deterministic = getBooleanOption(options, "deterministic");
+    const directOnly = getBooleanOption(options, "directOnly");
+    const varargs = getBooleanOption(options, "varargs");
+    let argCount = -1;
+    if (!varargs) {
+      argCount = fn.length;
+      if (!Number.isInteger(argCount) || argCount < 0)
+        throw new TypeError("Expected function.length to be a positive integer");
+      if (argCount > 100)
+        throw new RangeError("User-defined functions cannot have more than 100 arguments");
+    }
+    this[cppdb].function(fn, name, argCount, safeIntegers, deterministic, directOnly);
+    return this;
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/aggregate.js
+var require_aggregate = __commonJS((exports, module) => {
+  var { getBooleanOption, cppdb } = require_util2();
+  module.exports = function defineAggregate(name, options) {
+    if (typeof name !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (typeof options !== "object" || options === null)
+      throw new TypeError("Expected second argument to be an options object");
+    if (!name)
+      throw new TypeError("User-defined function name cannot be an empty string");
+    const start = "start" in options ? options.start : null;
+    const step = getFunctionOption(options, "step", true);
+    const inverse = getFunctionOption(options, "inverse", false);
+    const result = getFunctionOption(options, "result", false);
+    const safeIntegers = "safeIntegers" in options ? +getBooleanOption(options, "safeIntegers") : 2;
+    const deterministic = getBooleanOption(options, "deterministic");
+    const directOnly = getBooleanOption(options, "directOnly");
+    const varargs = getBooleanOption(options, "varargs");
+    let argCount = -1;
+    if (!varargs) {
+      argCount = Math.max(getLength(step), inverse ? getLength(inverse) : 0);
+      if (argCount > 0)
+        argCount -= 1;
+      if (argCount > 100)
+        throw new RangeError("User-defined functions cannot have more than 100 arguments");
+    }
+    this[cppdb].aggregate(start, step, inverse, result, name, argCount, safeIntegers, deterministic, directOnly);
+    return this;
+  };
+  var getFunctionOption = (options, key, required) => {
+    const value = key in options ? options[key] : null;
+    if (typeof value === "function")
+      return value;
+    if (value != null)
+      throw new TypeError(`Expected the "${key}" option to be a function`);
+    if (required)
+      throw new TypeError(`Missing required option "${key}"`);
+    return null;
+  };
+  var getLength = ({ length }) => {
+    if (Number.isInteger(length) && length >= 0)
+      return length;
+    throw new TypeError("Expected function.length to be a positive integer");
+  };
+});
+
+// node_modules/better-sqlite3/lib/methods/table.js
+var require_table = __commonJS((exports, module) => {
+  var { cppdb } = require_util2();
+  module.exports = function defineTable(name, factory) {
+    if (typeof name !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (!name)
+      throw new TypeError("Virtual table module name cannot be an empty string");
+    let eponymous = false;
+    if (typeof factory === "object" && factory !== null) {
+      eponymous = true;
+      factory = defer(parseTableDefinition(factory, "used", name));
+    } else {
+      if (typeof factory !== "function")
+        throw new TypeError("Expected second argument to be a function or a table definition object");
+      factory = wrapFactory(factory);
+    }
+    this[cppdb].table(factory, name, eponymous);
+    return this;
+  };
+  function wrapFactory(factory) {
+    return function virtualTableFactory(moduleName, databaseName, tableName, ...args) {
+      const thisObject = {
+        module: moduleName,
+        database: databaseName,
+        table: tableName
+      };
+      const def = apply.call(factory, thisObject, args);
+      if (typeof def !== "object" || def === null) {
+        throw new TypeError(`Virtual table module "${moduleName}" did not return a table definition object`);
+      }
+      return parseTableDefinition(def, "returned", moduleName);
+    };
+  }
+  function parseTableDefinition(def, verb, moduleName) {
+    if (!hasOwnProperty2.call(def, "rows")) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition without a "rows" property`);
+    }
+    if (!hasOwnProperty2.call(def, "columns")) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition without a "columns" property`);
+    }
+    const rows = def.rows;
+    if (typeof rows !== "function" || Object.getPrototypeOf(rows) !== GeneratorFunctionPrototype) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with an invalid "rows" property (should be a generator function)`);
+    }
+    let columns = def.columns;
+    if (!Array.isArray(columns) || !(columns = [...columns]).every((x) => typeof x === "string")) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with an invalid "columns" property (should be an array of strings)`);
+    }
+    if (columns.length !== new Set(columns).size) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with duplicate column names`);
+    }
+    if (!columns.length) {
+      throw new RangeError(`Virtual table module "${moduleName}" ${verb} a table definition with zero columns`);
+    }
+    let parameters;
+    if (hasOwnProperty2.call(def, "parameters")) {
+      parameters = def.parameters;
+      if (!Array.isArray(parameters) || !(parameters = [...parameters]).every((x) => typeof x === "string")) {
+        throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with an invalid "parameters" property (should be an array of strings)`);
+      }
+    } else {
+      parameters = inferParameters(rows);
+    }
+    if (parameters.length !== new Set(parameters).size) {
+      throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with duplicate parameter names`);
+    }
+    if (parameters.length > 32) {
+      throw new RangeError(`Virtual table module "${moduleName}" ${verb} a table definition with more than the maximum number of 32 parameters`);
+    }
+    for (const parameter of parameters) {
+      if (columns.includes(parameter)) {
+        throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with column "${parameter}" which was ambiguously defined as both a column and parameter`);
+      }
+    }
+    let safeIntegers = 2;
+    if (hasOwnProperty2.call(def, "safeIntegers")) {
+      const bool2 = def.safeIntegers;
+      if (typeof bool2 !== "boolean") {
+        throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with an invalid "safeIntegers" property (should be a boolean)`);
+      }
+      safeIntegers = +bool2;
+    }
+    let directOnly = false;
+    if (hasOwnProperty2.call(def, "directOnly")) {
+      directOnly = def.directOnly;
+      if (typeof directOnly !== "boolean") {
+        throw new TypeError(`Virtual table module "${moduleName}" ${verb} a table definition with an invalid "directOnly" property (should be a boolean)`);
+      }
+    }
+    const columnDefinitions = [
+      ...parameters.map(identifier).map((str2) => `${str2} HIDDEN`),
+      ...columns.map(identifier)
+    ];
+    return [
+      `CREATE TABLE x(${columnDefinitions.join(", ")});`,
+      wrapGenerator(rows, new Map(columns.map((x, i2) => [x, parameters.length + i2])), moduleName),
+      parameters,
+      safeIntegers,
+      directOnly
+    ];
+  }
+  function wrapGenerator(generator, columnMap, moduleName) {
+    return function* virtualTable(...args) {
+      const output = args.map((x) => Buffer.isBuffer(x) ? Buffer.from(x) : x);
+      for (let i2 = 0;i2 < columnMap.size; ++i2) {
+        output.push(null);
+      }
+      for (const row of generator(...args)) {
+        if (Array.isArray(row)) {
+          extractRowArray(row, output, columnMap.size, moduleName);
+          yield output;
+        } else if (typeof row === "object" && row !== null) {
+          extractRowObject(row, output, columnMap, moduleName);
+          yield output;
+        } else {
+          throw new TypeError(`Virtual table module "${moduleName}" yielded something that isn't a valid row object`);
+        }
+      }
+    };
+  }
+  function extractRowArray(row, output, columnCount, moduleName) {
+    if (row.length !== columnCount) {
+      throw new TypeError(`Virtual table module "${moduleName}" yielded a row with an incorrect number of columns`);
+    }
+    const offset = output.length - columnCount;
+    for (let i2 = 0;i2 < columnCount; ++i2) {
+      output[i2 + offset] = row[i2];
+    }
+  }
+  function extractRowObject(row, output, columnMap, moduleName) {
+    let count = 0;
+    for (const key of Object.keys(row)) {
+      const index = columnMap.get(key);
+      if (index === undefined) {
+        throw new TypeError(`Virtual table module "${moduleName}" yielded a row with an undeclared column "${key}"`);
+      }
+      output[index] = row[key];
+      count += 1;
+    }
+    if (count !== columnMap.size) {
+      throw new TypeError(`Virtual table module "${moduleName}" yielded a row with missing columns`);
+    }
+  }
+  function inferParameters({ length }) {
+    if (!Number.isInteger(length) || length < 0) {
+      throw new TypeError("Expected function.length to be a positive integer");
+    }
+    const params = [];
+    for (let i2 = 0;i2 < length; ++i2) {
+      params.push(`$${i2 + 1}`);
+    }
+    return params;
+  }
+  var { hasOwnProperty: hasOwnProperty2 } = Object.prototype;
+  var { apply } = Function.prototype;
+  var GeneratorFunctionPrototype = Object.getPrototypeOf(function* () {});
+  var identifier = (str2) => `"${str2.replace(/"/g, '""')}"`;
+  var defer = (x) => () => x;
+});
+
+// node_modules/better-sqlite3/lib/methods/inspect.js
+var require_inspect = __commonJS((exports, module) => {
+  var DatabaseInspection = function Database() {};
+  module.exports = function inspect(depth, opts) {
+    return Object.assign(new DatabaseInspection, this);
+  };
+});
+
+// node_modules/better-sqlite3/lib/database.js
+var require_database = __commonJS((exports, module) => {
+  var fs2 = __require("fs");
+  var path = __require("path");
+  var util = require_util2();
+  var SqliteError = require_sqlite_error();
+  var DEFAULT_ADDON;
+  function Database(filenameGiven, options) {
+    if (new.target == null) {
+      return new Database(filenameGiven, options);
+    }
+    let buffer;
+    if (Buffer.isBuffer(filenameGiven)) {
+      buffer = filenameGiven;
+      filenameGiven = ":memory:";
+    }
+    if (filenameGiven == null)
+      filenameGiven = "";
+    if (options == null)
+      options = {};
+    if (typeof filenameGiven !== "string")
+      throw new TypeError("Expected first argument to be a string");
+    if (typeof options !== "object")
+      throw new TypeError("Expected second argument to be an options object");
+    if ("readOnly" in options)
+      throw new TypeError('Misspelled option "readOnly" should be "readonly"');
+    if ("memory" in options)
+      throw new TypeError('Option "memory" was removed in v7.0.0 (use ":memory:" filename instead)');
+    const filename = filenameGiven.trim();
+    const anonymous = filename === "" || filename === ":memory:";
+    const readonly = util.getBooleanOption(options, "readonly");
+    const fileMustExist = util.getBooleanOption(options, "fileMustExist");
+    const timeout = "timeout" in options ? options.timeout : 5000;
+    const verbose = "verbose" in options ? options.verbose : null;
+    const nativeBinding = "nativeBinding" in options ? options.nativeBinding : null;
+    if (readonly && anonymous && !buffer)
+      throw new TypeError("In-memory/temporary databases cannot be readonly");
+    if (!Number.isInteger(timeout) || timeout < 0)
+      throw new TypeError('Expected the "timeout" option to be a positive integer');
+    if (timeout > 2147483647)
+      throw new RangeError('Option "timeout" cannot be greater than 2147483647');
+    if (verbose != null && typeof verbose !== "function")
+      throw new TypeError('Expected the "verbose" option to be a function');
+    if (nativeBinding != null && typeof nativeBinding !== "string" && typeof nativeBinding !== "object")
+      throw new TypeError('Expected the "nativeBinding" option to be a string or addon object');
+    let addon;
+    if (nativeBinding == null) {
+      addon = DEFAULT_ADDON || (DEFAULT_ADDON = require_bindings()("better_sqlite3.node"));
+    } else if (typeof nativeBinding === "string") {
+      const requireFunc = typeof __non_webpack_require__ === "function" ? __non_webpack_require__ : __require;
+      addon = requireFunc(path.resolve(nativeBinding).replace(/(\.node)?$/, ".node"));
+    } else {
+      addon = nativeBinding;
+    }
+    if (!addon.isInitialized) {
+      addon.setErrorConstructor(SqliteError);
+      addon.isInitialized = true;
+    }
+    if (!anonymous && !fs2.existsSync(path.dirname(filename))) {
+      throw new TypeError("Cannot open database because the directory does not exist");
+    }
+    Object.defineProperties(this, {
+      [util.cppdb]: { value: new addon.Database(filename, filenameGiven, anonymous, readonly, fileMustExist, timeout, verbose || null, buffer || null) },
+      ...wrappers.getters
+    });
+  }
+  var wrappers = require_wrappers();
+  Database.prototype.prepare = wrappers.prepare;
+  Database.prototype.transaction = require_transaction2();
+  Database.prototype.pragma = require_pragma();
+  Database.prototype.backup = require_backup();
+  Database.prototype.serialize = require_serialize();
+  Database.prototype.function = require_function();
+  Database.prototype.aggregate = require_aggregate();
+  Database.prototype.table = require_table();
+  Database.prototype.loadExtension = wrappers.loadExtension;
+  Database.prototype.exec = wrappers.exec;
+  Database.prototype.close = wrappers.close;
+  Database.prototype.defaultSafeIntegers = wrappers.defaultSafeIntegers;
+  Database.prototype.unsafeMode = wrappers.unsafeMode;
+  Database.prototype[util.inspect] = require_inspect();
+  module.exports = Database;
+});
+
+// node_modules/better-sqlite3/lib/index.js
+var require_lib5 = __commonJS((exports, module) => {
+  module.exports = require_database();
+  module.exports.SqliteError = require_sqlite_error();
 });
 
 // node_modules/sqlite3/lib/sqlite3-binding.js
@@ -34499,7 +35156,7 @@ var require_PlatformTools = __commonJS((exports) => {
           case "ioredis":
             return require_built3();
           case "better-sqlite3":
-            return (()=>{throw new Error("Cannot require module "+"better-sqlite3");})();
+            return require_lib5();
           case "sqlite3":
             return require_sqlite3();
           case "sql.js":
@@ -85032,6 +85689,352 @@ var require_typeorm = __commonJS((exports) => {
   } });
 });
 
+// src/libraries/kvClient.ts
+var exports_kvClient = {};
+__export(exports_kvClient, {
+  default: () => kvClient_default,
+  KvClient: () => KvClient
+});
+import fs4 from "fs";
+import path from "path";
+
+class KvClient {
+  db = null;
+  memory = null;
+  expiresMemory = null;
+  logger;
+  constructor(dbFile) {
+    this.logger = new Logger("KV SQLite Client");
+    const dataDir = path.resolve(process.cwd(), "data");
+    if (!fs4.existsSync(dataDir))
+      fs4.mkdirSync(dataDir, { recursive: true });
+    const file = dbFile || path.join(dataDir, "kv.db");
+    try {
+      const Database = require_lib5();
+      this.db = new Database(file);
+      this.migrate();
+      this.logger.main("Using better-sqlite3 for KV storage.");
+    } catch (err) {
+      this.logger.warn("better-sqlite3 not available or failed to initialize, falling back to in-memory KV store.");
+      this.memory = new Map;
+      this.expiresMemory = new Map;
+    }
+  }
+  migrate() {
+    if (!this.db)
+      return;
+    this.db.prepare(`
+      CREATE TABLE IF NOT EXISTS kv (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      )
+    `).run();
+    this.db.prepare(`
+      CREATE TABLE IF NOT EXISTS expires (
+        key TEXT PRIMARY KEY,
+        expireAt INTEGER
+      )
+    `).run();
+  }
+  isExpired(key) {
+    if (this.db) {
+      const row = this.db.prepare("SELECT expireAt FROM expires WHERE key = ?").get(key);
+      if (!row)
+        return false;
+      if (row.expireAt && Date.now() > row.expireAt) {
+        this.db.prepare("DELETE FROM kv WHERE key = ?").run(key);
+        this.db.prepare("DELETE FROM expires WHERE key = ?").run(key);
+        return true;
+      }
+      return false;
+    }
+    if (this.expiresMemory) {
+      const exp = this.expiresMemory.get(key);
+      if (!exp)
+        return false;
+      if (Date.now() > exp) {
+        this.memory?.delete(key);
+        this.expiresMemory.delete(key);
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+  async get(key) {
+    if (this.isExpired(key))
+      return null;
+    if (this.db) {
+      const row = this.db.prepare("SELECT value FROM kv WHERE key = ?").get(key);
+      return row ? row.value : null;
+    }
+    return this.memory?.get(key) ?? null;
+  }
+  async set(key, value) {
+    if (this.db) {
+      this.db.prepare("INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)").run(key, String(value));
+      return;
+    }
+    this.memory?.set(key, String(value));
+  }
+  async del(key) {
+    if (this.db) {
+      this.db.prepare("DELETE FROM kv WHERE key = ?").run(key);
+      this.db.prepare("DELETE FROM expires WHERE key = ?").run(key);
+      return;
+    }
+    this.memory?.delete(key);
+    this.expiresMemory?.delete(key);
+  }
+  async exists(key) {
+    if (this.isExpired(key))
+      return 0;
+    if (this.db) {
+      const row = this.db.prepare("SELECT 1 FROM kv WHERE key = ?").get(key);
+      return row ? 1 : 0;
+    }
+    return this.memory?.has(key) ? 1 : 0;
+  }
+  async keys(pattern) {
+    const like = pattern.replace(/\*/g, "%");
+    if (this.db) {
+      const rows = this.db.prepare("SELECT key FROM kv WHERE key LIKE ?").all(like);
+      return rows.map((r) => r.key);
+    }
+    const regex = new RegExp("^" + pattern.replace(/\*/g, ".*") + "$");
+    const result = [];
+    for (const k of this.memory?.keys() ?? []) {
+      if (regex.test(k))
+        result.push(k);
+    }
+    return result;
+  }
+  async hget(hashKey, field) {
+    const raw = await this.get(hashKey);
+    if (!raw)
+      return null;
+    try {
+      const obj = JSON.parse(raw);
+      return obj[field] !== undefined ? String(obj[field]) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+  async hgetall(hashKey) {
+    const raw = await this.get(hashKey);
+    if (!raw)
+      return null;
+    try {
+      const obj = JSON.parse(raw);
+      return import_lodash3.default.mapValues(obj, (v) => String(v));
+    } catch (err) {
+      return null;
+    }
+  }
+  async hset(hashKey, field, value) {
+    const raw = await this.get(hashKey);
+    let obj = {};
+    if (raw) {
+      try {
+        obj = JSON.parse(raw);
+      } catch (_4) {
+        obj = {};
+      }
+    }
+    obj[field] = value;
+    await this.set(hashKey, JSON.stringify(obj));
+  }
+  async hmset(hashKey, obj) {
+    const raw = await this.get(hashKey);
+    let base = {};
+    if (raw) {
+      try {
+        base = JSON.parse(raw);
+      } catch (_4) {
+        base = {};
+      }
+    }
+    base = { ...base, ...obj };
+    await this.set(hashKey, JSON.stringify(base));
+  }
+  async expire(key, seconds) {
+    const expireAt = Date.now() + seconds * 1000;
+    if (this.db) {
+      this.db.prepare("INSERT OR REPLACE INTO expires (key, expireAt) VALUES (?, ?)").run(key, expireAt);
+      return;
+    }
+    this.expiresMemory?.set(key, expireAt);
+  }
+}
+var import_lodash3, kvClient_default;
+var init_kvClient = __esm(() => {
+  init_logger();
+  import_lodash3 = __toESM(require_lodash(), 1);
+  kvClient_default = KvClient;
+});
+
+// src/libraries/sqliteClient.ts
+var exports_sqliteClient = {};
+__export(exports_sqliteClient, {
+  default: () => sqliteClient_default,
+  SqliteClient: () => SqliteClient
+});
+import fs5 from "fs";
+import path2 from "path";
+
+class SqliteClient {
+  logger;
+  db;
+  constructor(dbFile) {
+    this.logger = new Logger("Sqlite Redis Fallback");
+    const dataDir = path2.resolve(process.cwd(), "data");
+    if (!fs5.existsSync(dataDir))
+      fs5.mkdirSync(dataDir, { recursive: true });
+    const file = dbFile || path2.join(dataDir, "local.db");
+    this.db = new import_better_sqlite3.default(file);
+    this.migrate();
+  }
+  migrate() {
+    this.db.prepare(`
+      CREATE TABLE IF NOT EXISTS clusters (
+        name TEXT PRIMARY KEY,
+        host TEXT,
+        port INTEGER,
+        lastPing INTEGER,
+        enabled INTEGER,
+        channels TEXT
+      )
+    `).run();
+    this.db.prepare(`
+      CREATE TABLE IF NOT EXISTS numpad (
+        username TEXT PRIMARY KEY,
+        numpad INTEGER
+      )
+    `).run();
+    this.db.prepare(`
+      CREATE TABLE IF NOT EXISTS sessions (
+        sessionKey INTEGER PRIMARY KEY,
+        characterId INTEGER,
+        username TEXT,
+        password TEXT,
+        expireAt INTEGER
+      )
+    `).run();
+  }
+  async getAllClusters() {
+    const rows = this.db.prepare("SELECT * FROM clusters").all();
+    return rows.map((r) => ({
+      name: r.name,
+      host: r.host,
+      port: r.port,
+      lastPing: r.lastPing || 0,
+      channels: JSON.parse(r.channels || "[]"),
+      enabled: !!r.enabled
+    }));
+  }
+  async insertCluster(cluster) {
+    this.db.prepare("INSERT OR REPLACE INTO clusters (name, host, port, lastPing, enabled, channels) VALUES (?, ?, ?, ?, ?, ?)").run(cluster.name, cluster.host, cluster.port, cluster.lastPing || 0, cluster.enabled ? 1 : 0, JSON.stringify(cluster.channels || []));
+  }
+  async updateCluster(cluster) {
+    await this.insertCluster(cluster);
+  }
+  async deleteCluster(clusterName) {
+    this.db.prepare("DELETE FROM clusters WHERE name = ?").run(clusterName);
+  }
+  async getCluster(clusterName) {
+    const row = this.db.prepare("SELECT * FROM clusters WHERE name = ?").get(clusterName);
+    if (!row)
+      return null;
+    return {
+      name: row.name,
+      host: row.host,
+      port: row.port,
+      lastPing: row.lastPing || 0,
+      channels: JSON.parse(row.channels || "[]"),
+      enabled: !!row.enabled
+    };
+  }
+  async getAllChannels(clusterName) {
+    const cluster = await this.getCluster(clusterName);
+    return cluster?.channels || [];
+  }
+  async insertChannel(clusterName, channel) {
+    const cluster = await this.getCluster(clusterName) || {
+      name: clusterName,
+      host: "127.0.0.1",
+      port: 0,
+      lastPing: 0,
+      channels: [],
+      enabled: true
+    };
+    if (import_lodash5.default.some(cluster.channels, (c) => c.name === channel.name))
+      return;
+    cluster.channels.push(channel);
+    await this.insertCluster(cluster);
+  }
+  async updateChannel(clusterName, updatedChannel) {
+    const cluster = await this.getCluster(clusterName);
+    if (!cluster)
+      return;
+    const idx = import_lodash5.default.findIndex(cluster.channels, { name: updatedChannel.name });
+    if (idx >= 0) {
+      cluster.channels[idx] = { ...cluster.channels[idx], ...updatedChannel };
+    } else
+      cluster.channels.push(updatedChannel);
+    await this.insertCluster(cluster);
+  }
+  async getChannel(clusterName, channelName) {
+    const cluster = await this.getCluster(clusterName);
+    return import_lodash5.default.find(cluster?.channels, { name: channelName }) || null;
+  }
+  async deleteChannel(clusterName, channelName) {
+    const cluster = await this.getCluster(clusterName);
+    if (!cluster)
+      return;
+    cluster.channels = import_lodash5.default.filter(cluster.channels, (c) => c.name !== channelName);
+    await this.insertCluster(cluster);
+  }
+  async getChannelById(clusterName, id) {
+    const channels = await this.getAllChannels(clusterName);
+    return import_lodash5.default.find(channels, { id });
+  }
+  async getNumpadId(username) {
+    const row = this.db.prepare("SELECT numpad FROM numpad WHERE username = ?").get(username);
+    return row ? row.numpad : null;
+  }
+  async setNumpadId(username, numPadId) {
+    this.db.prepare("INSERT OR REPLACE INTO numpad (username, numpad) VALUES (?, ?)").run(username, numPadId);
+  }
+  async setCharacterSession(sessionKey, characterId, username, password, expireInSeconds) {
+    const expireAt = Date.now() + expireInSeconds * 1000;
+    this.db.prepare("INSERT OR REPLACE INTO sessions (sessionKey, characterId, username, password, expireAt) VALUES (?, ?, ?, ?, ?)").run(sessionKey, characterId, username, password, expireAt);
+  }
+  async getCharacterSession(sessionKey) {
+    const row = this.db.prepare("SELECT * FROM sessions WHERE sessionKey = ?").get(sessionKey);
+    if (!row)
+      return null;
+    if (row.expireAt && Date.now() > row.expireAt) {
+      this.db.prepare("DELETE FROM sessions WHERE sessionKey = ?").run(sessionKey);
+      return null;
+    }
+    return {
+      characterId: row.characterId,
+      username: row.username,
+      password: row.password
+    };
+  }
+  async deleteCharacterSession(sessionKey) {
+    this.db.prepare("DELETE FROM sessions WHERE sessionKey = ?").run(sessionKey);
+  }
+}
+var import_better_sqlite3, import_lodash5, sqliteClient_default;
+var init_sqliteClient = __esm(() => {
+  init_logger();
+  import_better_sqlite3 = __toESM(require_lib5(), 1);
+  import_lodash5 = __toESM(require_lodash(), 1);
+  sqliteClient_default = SqliteClient;
+});
+
 // node_modules/crypto-js/core.js
 var require_core = __commonJS((exports, module) => {
   (function(root, factory) {
@@ -90403,7 +91406,7 @@ import { join as join4, dirname as dirname2 } from "path";
 import { fileURLToPath as fileURLToPath2 } from "url";
 
 // src/builders/instanceBuilder.ts
-var import_lodash13 = __toESM(require_lodash(), 1);
+var import_lodash15 = __toESM(require_lodash(), 1);
 
 // src/builders/configBuilder.ts
 import fs from "fs";
@@ -93094,43 +94097,8 @@ var jsYaml = {
   safeDump
 };
 
-// src/helpers/logger.ts
-var import_cli_color = __toESM(require_cli_color(), 1);
-var import_moment = __toESM(require_moment(), 1);
-
-class Logger {
-  sender = "MAIN";
-  static SeverityMap = {
-    info: import_cli_color.default.cyan,
-    warn: import_cli_color.default.yellow,
-    error: import_cli_color.default.red,
-    success: import_cli_color.default.green,
-    main: import_cli_color.default.magenta
-  };
-  constructor(sender) {
-    this.sender = sender;
-  }
-  info(...message) {
-    this.log("info", ...message);
-  }
-  warn(...message) {
-    this.log("warn", ...message);
-  }
-  error(...message) {
-    this.log("error", ...message);
-  }
-  success(...message) {
-    this.log("success", ...message);
-  }
-  main(...message) {
-    this.log("main", ...message);
-  }
-  log(level = "main", ...message) {
-    console.log(import_cli_color.default.blue(import_moment.default().format("LTS")) + " " + Logger.SeverityMap[level](`[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`) + " " + import_cli_color.default.white.bold(message.join(" ")));
-  }
-}
-
 // src/builders/configBuilder.ts
+init_logger();
 class ConfigBuilder {
   logger;
   config;
@@ -93173,6 +94141,7 @@ class ConfigBuilder {
 }
 
 // src/builders/databaseBuilder.ts
+init_logger();
 var import_lodash = __toESM(require_lodash(), 1);
 import fs2 from "fs";
 import { join as join2 } from "path";
@@ -93460,6 +94429,7 @@ class DatabaseBuilder {
 }
 
 // src/builders/handlerBuilder.ts
+init_logger();
 var import_lodash2 = __toESM(require_lodash(), 1);
 import fs3 from "fs";
 import { join as join3 } from "path";
@@ -93506,6 +94476,7 @@ class HandlerBuilder {
 }
 
 // src/builders/serverBuilder.ts
+init_logger();
 class ServerBuilder {
   logger;
   server;
@@ -93542,17 +94513,19 @@ class ServerBuilder {
 }
 
 // src/builders/redisBuilder.ts
-var import_ioredis2 = __toESM(require_built3(), 1);
+init_logger();
 
 // src/libraries/redis.ts
-var import_ioredis = __toESM(require_built3(), 1);
-var import_lodash3 = __toESM(require_lodash(), 1);
+init_logger();
+init_kvClient();
+var import_lodash4 = __toESM(require_lodash(), 1);
+
 class RedisClient {
   logger;
   client;
   constructor(options) {
     this.logger = new Logger("Redis Client");
-    this.client = new import_ioredis.Redis(options);
+    this.client = options && options.client ? options.client : new kvClient_default;
   }
   async getAllClusters() {
     const clusterKeys = await this.client.keys("cluster:*");
@@ -93599,7 +94572,7 @@ class RedisClient {
     let channels = [];
     if (cluster.channels) {
       const channelDataArray = JSON.parse(cluster.channels);
-      channels = import_lodash3.default.map(channelDataArray, (channelData) => ({
+      channels = import_lodash4.default.map(channelDataArray, (channelData) => ({
         id: channelData.id,
         name: channelData.name,
         host: channelData.host,
@@ -93610,7 +94583,7 @@ class RedisClient {
         pkEnabled: channelData.pkEnabled
       }));
     }
-    if (!import_lodash3.default.isNil(cluster) && !import_lodash3.default.isEmpty(cluster)) {
+    if (!import_lodash4.default.isNil(cluster) && !import_lodash4.default.isEmpty(cluster)) {
       return {
         name: cluster.name,
         host: cluster.host,
@@ -93630,7 +94603,7 @@ class RedisClient {
     const clusterData = await this.getCluster(clusterName);
     const clusterKey = `cluster:${clusterName}`;
     if (clusterData) {
-      if (import_lodash3.default.some(clusterData.channels, (i2) => i2.name === channel.name))
+      if (import_lodash4.default.some(clusterData.channels, (i2) => i2.name === channel.name))
         return;
       const channelData = {
         id: channel.id,
@@ -93654,7 +94627,7 @@ class RedisClient {
     const clusterData = await this.getCluster(clusterName);
     const clusterKey = `cluster:${clusterName}`;
     if (clusterData) {
-      const existIndex = import_lodash3.default.findIndex(clusterData.channels, {
+      const existIndex = import_lodash4.default.findIndex(clusterData.channels, {
         name: updatedChannel.name
       });
       if (existIndex >= 0) {
@@ -93673,7 +94646,7 @@ class RedisClient {
   }
   async getChannel(clusterName, channelName) {
     const cluster = await this.getCluster(clusterName);
-    return import_lodash3.default.find(cluster?.channels, { name: channelName }) || null;
+    return import_lodash4.default.find(cluster?.channels, { name: channelName }) || null;
   }
   async deleteChannel(clusterName, channelName) {
     const key = `cluster:${clusterName}`;
@@ -93685,7 +94658,7 @@ class RedisClient {
       } catch (error) {
         this.logger.error("Error parsing channels JSON:", error);
       }
-      const updatedChannels = import_lodash3.default.filter(channels, { name: channelName });
+      const updatedChannels = import_lodash4.default.filter(channels, { name: channelName });
       clusterData.channels = JSON.stringify(updatedChannels);
       await this.client.hmset(key, clusterData);
     } else {
@@ -93694,7 +94667,7 @@ class RedisClient {
   }
   async getChannelById(clusterName, id) {
     const channels = await this.getAllChannels(clusterName);
-    return import_lodash3.default.find(channels, { id });
+    return import_lodash4.default.find(channels, { id });
   }
   async getNumpadId(username) {
     const key = `numpadId:${username}`;
@@ -93718,7 +94691,7 @@ class RedisClient {
   async getCharacterSession(sessionKey) {
     const key = `session:${sessionKey}`;
     const sessionData = await this.client.hgetall(key);
-    if (import_lodash3.default.isEmpty(sessionData)) {
+    if (import_lodash4.default.isEmpty(sessionData)) {
       return null;
     }
     return {
@@ -93744,81 +94717,117 @@ class RedisBuilder {
     this.options = options;
   }
   build() {
-    if (!this.options) {
+    try {
+      const client = new RedisClient(this.options);
+      this.logger.success("KV-backed Redis client initialized");
       return {
         subscriber: null,
         publisher: null,
-        client: null
+        client
       };
+    } catch (err) {
+      this.logger.warn("Initialization failed, falling back to local sqlite storage:", err);
+      try {
+        const SqliteClient2 = (init_sqliteClient(), __toCommonJS(exports_sqliteClient)).default;
+        const sqliteClient = new SqliteClient2;
+        this.logger.success("Sqlite fallback client initialized");
+        return {
+          subscriber: null,
+          publisher: null,
+          client: sqliteClient
+        };
+      } catch (sqliteErr) {
+        this.logger.warn("Sqlite fallback initialization failed, continuing without Redis/sqlite:", sqliteErr);
+        return {
+          subscriber: null,
+          publisher: null,
+          client: null
+        };
+      }
     }
-    this.logger.success("Redis successfully loaded");
-    return {
-      subscriber: new import_ioredis2.Redis(this.options),
-      publisher: new import_ioredis2.Redis(this.options),
-      client: new RedisClient(this.options)
-    };
+  }
+  async buildAsync() {
+    try {
+      const client = new RedisClient(this.options);
+      this.logger.success("KV-backed Redis client initialized (async)");
+      return { subscriber: null, publisher: null, client };
+    } catch (err) {
+      this.logger.warn("Initialization failed, falling back to local sqlite storage:", err?.message ?? err);
+      try {
+        const SqliteClient2 = (init_sqliteClient(), __toCommonJS(exports_sqliteClient)).default;
+        const sqliteClient = new SqliteClient2;
+        this.logger.success("Sqlite fallback client initialized");
+        return { subscriber: null, publisher: null, client: sqliteClient };
+      } catch (sqliteErr) {
+        this.logger.warn("Sqlite fallback initialization failed, continuing without Redis/sqlite:", sqliteErr);
+        return { subscriber: null, publisher: null, client: null };
+      }
+    }
   }
 }
 
+// src/builders/resourceBuilder.ts
+init_logger();
+
 // src/resources/itemResource.ts
-var import_lodash5 = __toESM(require_lodash(), 1);
-var import_ioredis3 = __toESM(require_built3(), 1);
-import fs4 from "fs";
-import path2 from "path";
+init_kvClient();
+var import_lodash7 = __toESM(require_lodash(), 1);
+import fs6 from "fs";
+import path4 from "path";
 
 // src/resources/resourcePaths.ts
-import path, { dirname } from "path";
+import path3, { dirname } from "path";
 import { fileURLToPath } from "url";
 var __filename2 = fileURLToPath(import.meta.url);
 var __dirname2 = dirname(__filename2);
-var resPath = path.join(__dirname2, "res");
+var resPath = path3.join(__dirname2, "res");
 var ResourcePaths = {
   resPath,
-  itemsProp: path.join(resPath, "data", "propItem.txt"),
-  itemsText: path.join(resPath, "data", "propItem.txt.txt"),
-  moversProp: path.join(resPath, "data", "propMover.txt"),
-  moversText: path.join(resPath, "data", "propMover.txt.txt"),
-  moversEx: path.join(resPath, "custom", "propMoverEx.yaml"),
-  character: path.join(resPath, "custom", "characters.yaml"),
-  characterText: path.join(resPath, "data", "character.txt.txt"),
-  characterSchool: path.join(resPath, "custom", "characterSchool.yaml"),
-  characterSchoolText: path.join(resPath, "data", "character-school.txt.txt"),
-  dialogsDir: path.join(__dirname2, "dialogs"),
-  shopsDir: path.join(__dirname2, "shops"),
-  job: path.join(resPath, "custom", "job.yaml"),
-  expCharacter: path.join(resPath, "custom", "expCharacter.yaml"),
-  expDropLuck: path.join(resPath, "custom", "expDropLuck.yaml"),
-  deathPenalty: path.join(resPath, "custom", "deathPenalty.yaml"),
-  worldPath: path.join(resPath, "custom", "world.yaml"),
-  world: path.join(__dirname2, "maps"),
-  defineWorld: path.join(resPath, "data", "defineWorld.h"),
-  defineItem: path.join(resPath, "data", "defineItem.h"),
-  defineItemKind: path.join(resPath, "data", "defineItemKind.h"),
-  defineJob: path.join(resPath, "data", "defineJob.h"),
-  defineObject: path.join(resPath, "data", "defineObj.h"),
-  defineSkill: path.join(resPath, "data", "defineSkill.h"),
-  defineQuest: path.join(resPath, "data", "definequest.h"),
-  skillsProp: path.join(resPath, "data", "propSkill.txt"),
-  skillsPropAdd: path.join(resPath, "data", "propSkillAdd.csv"),
-  skillsText: path.join(resPath, "data", "propSkill.txt.txt"),
-  expTablePath: path.join(resPath, "data", "expTable.inc"),
-  moversPropExPath: path.join(resPath, "data", "propMoverEx.inc"),
-  questsPath: path.join(__dirname2, "quests"),
-  questsYamlPath: path.join(__dirname2, "quests-yaml")
+  itemsProp: path3.join(resPath, "data", "propItem.txt"),
+  itemsText: path3.join(resPath, "data", "propItem.txt.txt"),
+  moversProp: path3.join(resPath, "data", "propMover.txt"),
+  moversText: path3.join(resPath, "data", "propMover.txt.txt"),
+  moversEx: path3.join(resPath, "custom", "propMoverEx.yaml"),
+  character: path3.join(resPath, "custom", "characters.yaml"),
+  characterText: path3.join(resPath, "data", "character.txt.txt"),
+  characterSchool: path3.join(resPath, "custom", "characterSchool.yaml"),
+  characterSchoolText: path3.join(resPath, "data", "character-school.txt.txt"),
+  dialogsDir: path3.join(__dirname2, "dialogs"),
+  shopsDir: path3.join(__dirname2, "shops"),
+  job: path3.join(resPath, "custom", "job.yaml"),
+  expCharacter: path3.join(resPath, "custom", "expCharacter.yaml"),
+  expDropLuck: path3.join(resPath, "custom", "expDropLuck.yaml"),
+  deathPenalty: path3.join(resPath, "custom", "deathPenalty.yaml"),
+  worldPath: path3.join(resPath, "custom", "world.yaml"),
+  world: path3.join(__dirname2, "maps"),
+  defineWorld: path3.join(resPath, "data", "defineWorld.h"),
+  defineItem: path3.join(resPath, "data", "defineItem.h"),
+  defineItemKind: path3.join(resPath, "data", "defineItemKind.h"),
+  defineJob: path3.join(resPath, "data", "defineJob.h"),
+  defineObject: path3.join(resPath, "data", "defineObj.h"),
+  defineSkill: path3.join(resPath, "data", "defineSkill.h"),
+  defineQuest: path3.join(resPath, "data", "definequest.h"),
+  skillsProp: path3.join(resPath, "data", "propSkill.txt"),
+  skillsPropAdd: path3.join(resPath, "data", "propSkillAdd.csv"),
+  skillsText: path3.join(resPath, "data", "propSkill.txt.txt"),
+  expTablePath: path3.join(resPath, "data", "expTable.inc"),
+  moversPropExPath: path3.join(resPath, "data", "propMoverEx.inc"),
+  questsPath: path3.join(__dirname2, "quests"),
+  questsYamlPath: path3.join(__dirname2, "quests-yaml")
 };
 
 // src/helpers/parsing.ts
-var import_lodash4 = __toESM(require_lodash(), 1);
+var import_lodash6 = __toESM(require_lodash(), 1);
 var tryParseInt = (value) => {
   try {
-    return !import_lodash4.default.isNaN(parseInt(value)) ? parseInt(value) : 0;
+    return !import_lodash6.default.isNaN(parseInt(value)) ? parseInt(value) : 0;
   } catch {
     return 0;
   }
 };
 var tryParseFloat = (value) => {
   try {
-    return !import_lodash4.default.isNaN(parseFloat(value)) ? parseFloat(value) : 0;
+    return !import_lodash6.default.isNaN(parseFloat(value)) ? parseFloat(value) : 0;
   } catch {
     return 0;
   }
@@ -93828,6 +94837,8 @@ var cleanString = (value) => {
 };
 
 // src/abstract/baseResource.ts
+init_logger();
+
 class BaseResource {
   logger;
   loadedCount = 0;
@@ -93864,87 +94875,73 @@ class BaseResource {
 class ItemResources extends BaseResource {
   redisClient;
   itemCount = 0;
-  constructor(options) {
+  constructor(client) {
     super("Item");
-    this.redisClient = new import_ioredis3.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   getItemCount() {
     return this.itemCount;
   }
   async get(itemIdentifier) {
     const itemId = typeof itemIdentifier === "number" ? itemIdentifier : await this.redisClient.hget("itemDefines", itemIdentifier);
-    if (!import_lodash5.default.isUndefined(itemId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`item:${itemId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseItemProperties(data) : null);
-          }
-        });
-      });
+    if (!import_lodash7.default.isNil(itemId)) {
+      const data = await this.redisClient.hgetall(`item:${itemId}`);
+      return data ? this.parseItemProperties(data) : null;
     }
     return null;
   }
-  where(predicate) {
+  async where(predicate) {
     const items = [];
-    this.redisClient.keys("item:*", (err, keys) => {
-      if (err) {
-        this.logLoadError("Error retrieving keys from Redis", err);
-      } else {
-        if (!import_lodash5.default.isUndefined(keys)) {
-          import_lodash5.default.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err2, data) => {
-              if (err2) {
-                this.logLoadError("Error retrieving item data from Redis", err2);
-              } else {
-                if (data) {
-                  const item = this.parseItemProperties(data);
-                  if (predicate(item)) {
-                    items.push(item);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("item:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const item = this.parseItemProperties(data);
+            if (predicate(item))
+              items.push(item);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logLoadError("Error retrieving keys from KV store", err);
+    }
     return items;
   }
   async loadDefines() {
-    const absolutePath = path2.resolve(ResourcePaths.defineItem);
-    if (!fs4.existsSync(absolutePath)) {
+    const absolutePath = path4.resolve(ResourcePaths.defineItem);
+    if (!fs6.existsSync(absolutePath)) {
       this.logger.error(`Unable to load items. Reason: cannot find '${absolutePath}' file.`);
     }
-    const data = fs4.readFileSync(absolutePath, "utf8");
+    const data = fs6.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash5.default.forEach(lines, async (line) => {
-      if (import_lodash5.default.trim(line).startsWith("#define")) {
-        const parts = import_lodash5.default.trim(line).split(/\s+/);
+    import_lodash7.default.forEach(lines, async (line) => {
+      if (import_lodash7.default.trim(line).startsWith("#define")) {
+        const parts = import_lodash7.default.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
         const name = parts[1];
-        if (!import_lodash5.default.isNaN(id) && name !== "") {
+        if (!import_lodash7.default.isNaN(id) && name !== "") {
           await this.redisClient.hset("itemDefines", name, id);
         }
       }
     });
   }
   async loadItemsPropStrings() {
-    const absolutePath = path2.resolve(ResourcePaths.itemsText);
-    if (!fs4.existsSync(absolutePath)) {
+    const absolutePath = path4.resolve(ResourcePaths.itemsText);
+    if (!fs6.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load items. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("itemDefines")) {
       this.logger.warn("Unable to load items. Reason: item defines is empty");
     }
     try {
-      const data = fs4.readFileSync(absolutePath, "utf16le");
+      const data = fs6.readFileSync(absolutePath, "utf16le");
       const lines = data.split(`
 `).map((i2) => i2.toString().trim());
-      const pairs2 = import_lodash5.default.chunk(lines, 2);
-      import_lodash5.default.forEach(pairs2, async (pair, i2) => {
+      const pairs2 = import_lodash7.default.chunk(lines, 2);
+      import_lodash7.default.forEach(pairs2, async (pair, i2) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("itemNames", idName, name);
@@ -93955,21 +94952,21 @@ class ItemResources extends BaseResource {
     }
   }
   async loadItemsProp() {
-    const absolutePath = path2.resolve(ResourcePaths.itemsProp);
-    if (!fs4.existsSync(absolutePath)) {
+    const absolutePath = path4.resolve(ResourcePaths.itemsProp);
+    if (!fs6.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load items. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("itemDefines")) {
       this.logger.warn("Unable to load items. Reason: item defines is empty");
     }
     await this.cleanCache();
-    const data = fs4.readFileSync(absolutePath, "utf8");
+    const data = fs6.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash5.default.forEach(lines, async (line) => {
+    import_lodash7.default.forEach(lines, async (line) => {
       const items = line.trim().split("\t");
       const id = await this.redisClient.hget("itemDefines", items[1]);
-      if (!import_lodash5.default.isNil(id)) {
+      if (!import_lodash7.default.isNil(id)) {
         const szName = await this.redisClient.hget("itemNames", cleanString(items[2])) || "";
         const szComment = await this.redisClient.hget("itemDescriptions", cleanString(items[123])) || "";
         const item = {
@@ -94099,39 +95096,28 @@ class ItemResources extends BaseResource {
       szComment: data.szComment
     };
   }
-  cleanCache() {
-    return new Promise((resolve, reject) => {
-      this.redisClient.keys("item:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
-    });
+  async cleanCache() {
+    try {
+      const keys = await this.redisClient.keys("item:*");
+      if (!keys || keys.length === 0)
+        return;
+      await this.redisClient.del(...keys);
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
 // src/resources/monsterResource.ts
-var import_lodash6 = __toESM(require_lodash(), 1);
-import fs7 from "fs";
-import path3 from "path";
-var import_ioredis4 = __toESM(require_built3(), 1);
+init_logger();
+init_kvClient();
+var import_lodash8 = __toESM(require_lodash(), 1);
+import fs9 from "fs";
+import path5 from "path";
 
 // src/helpers/resourceTableFile.ts
-import fs5 from "fs";
+init_logger();
+import fs7 from "fs";
 class ResourceTableFile {
   logger;
   content;
@@ -94141,10 +95127,10 @@ class ResourceTableFile {
   constructor(filePath, headerLineIndex = 0, defines) {
     this.logger = new Logger("ResourceTableFile");
     this.defines = defines || new Map;
-    if (!fs5.existsSync(filePath)) {
+    if (!fs7.existsSync(filePath)) {
       throw new Error(`File not found: ${filePath}`);
     }
-    this.content = fs5.readFileSync(filePath, "utf-8");
+    this.content = fs7.readFileSync(filePath, "utf-8");
     this.parseContent(headerLineIndex);
   }
   parseContent(headerLineIndex) {
@@ -94194,7 +95180,8 @@ class ResourceTableFile {
 }
 
 // src/helpers/includeFile.ts
-import fs6 from "fs";
+init_logger();
+import fs8 from "fs";
 
 // src/helpers/instructionParser.ts
 class InstructionParser {
@@ -94270,10 +95257,10 @@ class IncludeFile {
   statements = [];
   constructor(filePath, separators = "([(){}=,;\\n\\r\\t ])") {
     this.logger = new Logger("IncludeFile");
-    if (!fs6.existsSync(filePath)) {
+    if (!fs8.existsSync(filePath)) {
       throw new Error(`File not found: ${filePath}`);
     }
-    this.content = fs6.readFileSync(filePath, "utf-8");
+    this.content = fs8.readFileSync(filePath, "utf-8");
     this.parseContent();
   }
   parseContent() {
@@ -94431,9 +95418,9 @@ class MonsterResources {
   defines = new Map;
   moversById = new Map;
   moversByIdentifierName = new Map;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("Monster Resources");
-    this.redisClient = new import_ioredis4.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   get(moverId) {
     return this.moversById.get(moverId) || null;
@@ -94458,16 +95445,9 @@ class MonsterResources {
       }
     }
     const monsterId = typeof monsterIdentifier === "number" ? monsterIdentifier : await this.redisClient.hget("objectDefines", monsterIdentifier);
-    if (!import_lodash6.default.isUndefined(monsterId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`monster:${monsterId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseMoverProperties(data) : null);
-          }
-        });
-      });
+    if (!import_lodash8.default.isUndefined(monsterId)) {
+      const data = await this.redisClient.hgetall(`monster:${monsterId}`);
+      return data ? this.parseMoverProperties(data) : null;
     }
     return null;
   }
@@ -94480,45 +95460,38 @@ class MonsterResources {
     }
     return monsters;
   }
-  whereAsync(predicate) {
+  async whereAsync(predicate) {
     if (this.moversById.size > 0) {
       return this.where(predicate);
     }
     const monsters = [];
-    this.redisClient.keys("monster:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!import_lodash6.default.isUndefined(keys)) {
-          import_lodash6.default.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err2, data) => {
-              if (err2) {
-                this.logger.error("Error retrieving monster data from Redis:", err2);
-              } else {
-                if (data) {
-                  const monster = this.parseMoverProperties(data);
-                  if (predicate(monster)) {
-                    monsters.push(monster);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("monster:*");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const monster = this.parseMoverProperties(data);
+            if (predicate(monster))
+              monsters.push(monster);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving monsters from KV store:", err);
+    }
     return monsters;
   }
   async loadDefines() {
     this.loadDefinesSync();
   }
   async loadDefinesSync() {
-    const absolutePath = path3.resolve(ResourcePaths.defineObject);
-    if (!fs7.existsSync(absolutePath)) {
+    const absolutePath = path5.resolve(ResourcePaths.defineObject);
+    if (!fs9.existsSync(absolutePath)) {
       this.logger.error(`Unable to load monster defines. Reason: cannot find '${absolutePath}' file.`);
       return;
     }
-    const data = fs7.readFileSync(absolutePath, "utf8");
+    const data = fs9.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
     for (const line of lines) {
@@ -94538,10 +95511,10 @@ class MonsterResources {
   }
   async load() {
     const startTime = Date.now();
-    if (!fs7.existsSync(ResourcePaths.moversProp)) {
+    if (!fs9.existsSync(ResourcePaths.moversProp)) {
       throw new Error(`Unable to load mover properties. Reason: cannot find '${ResourcePaths.moversProp}' file.`);
     }
-    if (!fs7.existsSync(ResourcePaths.moversPropExPath)) {
+    if (!fs9.existsSync(ResourcePaths.moversPropExPath)) {
       throw new Error(`Unable to load extended mover properties. Reason: cannot find '${ResourcePaths.moversPropExPath}' file.`);
     }
     await this.loadDefines();
@@ -94681,19 +95654,19 @@ class MonsterResources {
     }
   }
   async loadMonstersPropStrings() {
-    const absolutePath = path3.resolve(ResourcePaths.moversText);
-    if (!fs7.existsSync(absolutePath)) {
+    const absolutePath = path5.resolve(ResourcePaths.moversText);
+    if (!fs9.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load monsters. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("objectDefines")) {
       this.logger.warn("Unable to load monsters. Reason: monster defines is empty");
     }
     try {
-      const data = fs7.readFileSync(absolutePath, "utf16le");
+      const data = fs9.readFileSync(absolutePath, "utf16le");
       const lines = data.split(`
 `).map((i2) => i2.toString().trim());
-      const pairs2 = import_lodash6.default.chunk(lines, 2);
-      import_lodash6.default.forEach(pairs2, async (pair, i2) => {
+      const pairs2 = import_lodash8.default.chunk(lines, 2);
+      import_lodash8.default.forEach(pairs2, async (pair, i2) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("monsterNames", idName, name);
@@ -94704,8 +95677,8 @@ class MonsterResources {
     }
   }
   async loadMonstersProp() {
-    const absolutePath = path3.resolve(ResourcePaths.moversProp);
-    if (!fs7.existsSync(absolutePath)) {
+    const absolutePath = path5.resolve(ResourcePaths.moversProp);
+    if (!fs9.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load monsters. Reason: cannot find '${absolutePath}' file.`);
       return;
     }
@@ -94714,13 +95687,13 @@ class MonsterResources {
       return;
     }
     await this.cleanCache();
-    const data = fs7.readFileSync(absolutePath, "utf8");
+    const data = fs9.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash6.default.forEach(lines, async (line) => {
+    import_lodash8.default.forEach(lines, async (line) => {
       const monsterData = line.trim().split("\t");
       const id = await this.redisClient.hget("objectDefines", monsterData[0]);
-      if (!import_lodash6.default.isNil(id)) {
+      if (!import_lodash8.default.isNil(id)) {
         const monster = {
           id: parseInt(id),
           dwID: monsterData[0],
@@ -94811,7 +95784,7 @@ class MonsterResources {
           dwMadrigalGiftPoint: tryParseInt(monsterData[85])
         };
         if (monster.id) {
-          this.redisClient.hmset(`monster:${monster.id}`, monster);
+          await this.redisClient.hmset(`monster:${monster.id}`, monster);
         }
       }
     });
@@ -94909,45 +95882,36 @@ class MonsterResources {
     };
   }
   cleanCache() {
-    return new Promise((resolve, reject) => {
-      this.redisClient.keys("monster:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise(async (resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("monster:*");
+        if (!keys || keys.length === 0)
+          return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }
 
 // src/resources/npcResource.ts
-var import_lodash7 = __toESM(require_lodash(), 1);
-var import_ioredis5 = __toESM(require_built3(), 1);
-import fs8 from "fs";
-import path4 from "path";
+init_kvClient();
+init_logger();
+var import_lodash9 = __toESM(require_lodash(), 1);
+import fs10 from "fs";
+import path6 from "path";
 class NpcResources {
   logger;
   redisClient;
   npcs = new Map;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("NPC Resources");
-    this.redisClient = new import_ioredis5.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async get(name) {
-    const cached = await new Promise((resolve) => this.redisClient.hgetall(`npc:${name}`, (err, data) => resolve(data)));
+    const cached = await this.redisClient.hgetall(`npc:${name}`);
     if (cached && Object.keys(cached).length > 0) {
       return this.parseNpcProperties(cached);
     }
@@ -94977,17 +95941,17 @@ class NpcResources {
     };
   }
   async loadNpcDialogs() {
-    const dialogDir = path4.join(ResourcePaths.dialogsDir, "en");
-    if (!fs8.existsSync(dialogDir)) {
+    const dialogDir = path6.join(ResourcePaths.dialogsDir, "en");
+    if (!fs10.existsSync(dialogDir)) {
       this.logger.warn(`Dialog directory not found: ${dialogDir}`);
       return;
     }
-    const dialogFiles = fs8.readdirSync(dialogDir).filter((file) => file.endsWith(".json"));
+    const dialogFiles = fs10.readdirSync(dialogDir).filter((file) => file.endsWith(".json"));
     for (const file of dialogFiles) {
       const npcId = file.replace(".json", "");
-      const dialogPath = path4.join(dialogDir, file);
+      const dialogPath = path6.join(dialogDir, file);
       try {
-        const dialog = JSON.parse(fs8.readFileSync(dialogPath, "utf8"));
+        const dialog = JSON.parse(fs10.readFileSync(dialogPath, "utf8"));
         if (this.npcs.has(npcId)) {
           this.npcs.get(npcId).dialog = dialog;
           this.npcs.get(npcId).hasDialog = true;
@@ -95000,16 +95964,16 @@ class NpcResources {
     }
   }
   async loadNpcShops() {
-    if (!fs8.existsSync(ResourcePaths.shopsDir)) {
+    if (!fs10.existsSync(ResourcePaths.shopsDir)) {
       this.logger.warn(`Shops directory not found: ${ResourcePaths.shopsDir}`);
       return;
     }
-    const shopFiles = fs8.readdirSync(ResourcePaths.shopsDir).filter((file) => file.endsWith(".json"));
+    const shopFiles = fs10.readdirSync(ResourcePaths.shopsDir).filter((file) => file.endsWith(".json"));
     for (const file of shopFiles) {
       const npcId = file.replace(".json", "");
-      const shopPath = path4.join(ResourcePaths.shopsDir, file);
+      const shopPath = path6.join(ResourcePaths.shopsDir, file);
       try {
-        const shop = JSON.parse(fs8.readFileSync(shopPath, "utf8"));
+        const shop = JSON.parse(fs10.readFileSync(shopPath, "utf8"));
         if (this.npcs.has(npcId)) {
           this.npcs.get(npcId).shop = shop;
           this.npcs.get(npcId).hasShop = true;
@@ -95022,15 +95986,15 @@ class NpcResources {
     }
   }
   async loadNpcPropStrings() {
-    const propPath = path4.join(ResourcePaths.resPath, "data", "character.txt.txt");
-    if (!fs8.existsSync(propPath)) {
+    const propPath = path6.join(ResourcePaths.resPath, "data", "character.txt.txt");
+    if (!fs10.existsSync(propPath)) {
       this.logger.info("No NPC prop strings file found (stub)");
       return;
     }
-    const content = fs8.readFileSync(propPath, "utf8");
+    const content = fs10.readFileSync(propPath, "utf8");
     const lines = content.split(`
 `);
-    const pairs2 = import_lodash7.default.chunk(lines.filter((l) => l.trim()), 2);
+    const pairs2 = import_lodash9.default.chunk(lines.filter((l) => l.trim()), 2);
     for (const pair of pairs2) {
       if (pair.length >= 2) {
         const [id, name] = pair[0].split("\t");
@@ -95042,15 +96006,15 @@ class NpcResources {
     this.logger.info("NPC prop strings loaded");
   }
   async loadNpcSchoolPropStrings() {
-    const propPath = path4.join(ResourcePaths.resPath, "data", "character-school.txt.txt");
-    if (!fs8.existsSync(propPath)) {
+    const propPath = path6.join(ResourcePaths.resPath, "data", "character-school.txt.txt");
+    if (!fs10.existsSync(propPath)) {
       this.logger.info("No NPC school prop strings file found (stub)");
       return;
     }
-    const content = fs8.readFileSync(propPath, "utf8");
+    const content = fs10.readFileSync(propPath, "utf8");
     const lines = content.split(`
 `);
-    const pairs2 = import_lodash7.default.chunk(lines.filter((l) => l.trim()), 2);
+    const pairs2 = import_lodash9.default.chunk(lines.filter((l) => l.trim()), 2);
     for (const pair of pairs2) {
       if (pair.length >= 2) {
         const [id, name] = pair[0].split("\t");
@@ -95062,15 +96026,15 @@ class NpcResources {
     this.logger.info("NPC school prop strings loaded");
   }
   async loadNpcProp() {
-    const dataPath = path4.join(ResourcePaths.resPath, "data");
-    if (!fs8.existsSync(dataPath)) {
+    const dataPath = path6.join(ResourcePaths.resPath, "data");
+    if (!fs10.existsSync(dataPath)) {
       this.logger.warn(`NPC data path not found: ${dataPath}`);
       return;
     }
-    const files = fs8.readdirSync(dataPath).filter((file) => file.startsWith("character") && file.endsWith(".inc"));
+    const files = fs10.readdirSync(dataPath).filter((file) => file.startsWith("character") && file.endsWith(".inc"));
     for (const file of files) {
-      const filePath = path4.join(dataPath, file);
-      const content = fs8.readFileSync(filePath, "utf8");
+      const filePath = path6.join(dataPath, file);
+      const content = fs10.readFileSync(filePath, "utf8");
       const lines = content.split(`
 `);
       let currentNpcId = "";
@@ -95182,96 +96146,83 @@ var DefineJob;
 })(DefineJob ||= {});
 
 // src/resources/jobResource.ts
-var import_lodash8 = __toESM(require_lodash(), 1);
-var import_ioredis6 = __toESM(require_built3(), 1);
-import fs9 from "fs";
-import path5 from "path";
+init_kvClient();
+var import_lodash10 = __toESM(require_lodash(), 1);
+import fs11 from "fs";
+import path7 from "path";
+init_logger();
 class JobResources {
   logger;
   redisClient;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("Job Resources");
-    this.redisClient = new import_ioredis6.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async get(jobIdentifier) {
     const jobId = typeof jobIdentifier === "number" ? jobIdentifier : await this.redisClient.hget("jobDefines", jobIdentifier);
-    if (!import_lodash8.default.isUndefined(jobId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`job:${jobId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseJobProperties(data) : null);
-          }
-        });
-      });
+    if (!import_lodash10.default.isUndefined(jobId)) {
+      const data = await this.redisClient.hgetall(`job:${jobId}`);
+      return data ? this.parseJobProperties(data) : null;
     }
     return null;
   }
-  where(predicate) {
+  async where(predicate) {
     const jobs = [];
-    this.redisClient.keys("job:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!import_lodash8.default.isUndefined(keys)) {
-          import_lodash8.default.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err2, data) => {
-              if (err2) {
-                this.logger.error("Error retrieving job data from Redis:", err2);
-              } else {
-                if (data) {
-                  const job = this.parseJobProperties(data);
-                  if (predicate(job)) {
-                    jobs.push(job);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("job:*");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const job = this.parseJobProperties(data);
+            if (predicate(job))
+              jobs.push(job);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving jobs from KV store:", err);
+    }
     return jobs;
   }
   async loadDefines() {
-    const absolutePath = path5.resolve(ResourcePaths.defineJob);
-    if (!fs9.existsSync(absolutePath)) {
+    const absolutePath = path7.resolve(ResourcePaths.defineJob);
+    if (!fs11.existsSync(absolutePath)) {
       this.logger.error(`Unable to load jobs. Reason: cannot find '${absolutePath}' file.`);
     }
-    const data = fs9.readFileSync(absolutePath, "utf8");
+    const data = fs11.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash8.default.forEach(lines, async (line) => {
-      if (import_lodash8.default.trim(line).startsWith("#define")) {
-        const parts = import_lodash8.default.trim(line).split(/\s+/);
+    import_lodash10.default.forEach(lines, async (line) => {
+      if (import_lodash10.default.trim(line).startsWith("#define")) {
+        const parts = import_lodash10.default.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
         const name = parts[1];
-        if (!import_lodash8.default.isNaN(id) && name !== "") {
+        if (!import_lodash10.default.isNaN(id) && name !== "") {
           await this.redisClient.hset("jobDefines", name, id);
         }
       }
     });
   }
   async loadJobsProp() {
-    const absolutePath = path5.resolve(ResourcePaths.job);
-    if (!fs9.existsSync(absolutePath)) {
+    const absolutePath = path7.resolve(ResourcePaths.job);
+    if (!fs11.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load jobs. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("itemDefines")) {
       this.logger.warn("Unable to load jobs. Reason: job defines is empty");
     }
     await this.cleanCache();
-    const text = fs9.readFileSync(absolutePath, "utf-8");
+    const text = fs11.readFileSync(absolutePath, "utf-8");
     const data = jsYaml.load(text);
-    import_lodash8.default.forEach(data, async (job) => {
+    import_lodash10.default.forEach(data, async (job) => {
       const formattedJob = {
         ...job,
         id: DefineJob[job.id],
         identifier: job.id
       };
       if (formattedJob.id) {
-        this.redisClient.hmset(`job:${formattedJob.id}`, formattedJob);
+        await this.redisClient.hmset(`job:${formattedJob.id}`, formattedJob);
       }
     });
     this.logger.main(`${data.length} jobs loaded.`);
@@ -95304,94 +96255,75 @@ class JobResources {
     };
   }
   cleanCache() {
-    return new Promise((resolve, reject) => {
-      this.redisClient.keys("job:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise(async (resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("job:*");
+        if (!keys || keys.length === 0)
+          return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }
 
 // src/resources/expTableResource.ts
-var import_lodash9 = __toESM(require_lodash(), 1);
-var import_ioredis7 = __toESM(require_built3(), 1);
-import fs10 from "fs";
-import path6 from "path";
+init_kvClient();
+var import_lodash11 = __toESM(require_lodash(), 1);
+import fs12 from "fs";
+import path8 from "path";
+init_logger();
 class ExpTableResources {
   logger;
   redisClient;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("ExpTable Resources");
-    this.redisClient = new import_ioredis7.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async getExpCharacter(level) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`expCharacter:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data ? {
-            level: tryParseInt(data.level),
-            exp: tryParseFloat(data.level),
-            pxp: tryParseFloat(data.level),
-            gp: tryParseFloat(data.level),
-            limitExp: tryParseFloat(data.level)
-          } : null);
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`expCharacter:${level}`);
+    if (!data)
+      return null;
+    return {
+      level: tryParseInt(data.level),
+      exp: tryParseFloat(data.level),
+      pxp: tryParseFloat(data.level),
+      gp: tryParseFloat(data.level),
+      limitExp: tryParseFloat(data.level)
+    };
   }
   async getDropLuck(level) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`expDropLuck:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data ? {
-            level: parseInt(data.level),
-            chance: JSON.parse(data.chance)
-          } : null);
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`expDropLuck:${level}`);
+    if (!data)
+      return null;
+    return {
+      level: parseInt(data.level),
+      chance: JSON.parse(data.chance)
+    };
   }
   async loadExpCharacter() {
-    const absolutePath = path6.resolve(ResourcePaths.expCharacter);
-    if (!fs10.existsSync(absolutePath)) {
+    const absolutePath = path8.resolve(ResourcePaths.expCharacter);
+    if (!fs12.existsSync(absolutePath)) {
       this.logger.error(`Unable to load exp character. Reason: cannot find '${absolutePath}' file.`);
     }
-    const text = fs10.readFileSync(absolutePath, "utf-8");
+    const text = fs12.readFileSync(absolutePath, "utf-8");
     const data = jsYaml.load(text);
-    import_lodash9.default.forEach(data, async (exp) => {
-      this.redisClient.hmset(`expCharacter:${exp.level}`, exp);
+    import_lodash11.default.forEach(data, async (exp) => {
+      await this.redisClient.hmset(`expCharacter:${exp.level}`, exp);
     });
     this.logger.main(`${data.length} exp character loaded.`);
   }
   async loadExpDropLuck() {
-    const absolutePath = path6.resolve(ResourcePaths.expDropLuck);
-    if (!fs10.existsSync(absolutePath)) {
+    const absolutePath = path8.resolve(ResourcePaths.expDropLuck);
+    if (!fs12.existsSync(absolutePath)) {
       this.logger.error(`Unable to load exp drop luck. Reason: cannot find '${absolutePath}' file.`);
     }
-    const text = fs10.readFileSync(absolutePath, "utf-8");
+    const text = fs12.readFileSync(absolutePath, "utf-8");
     const data = jsYaml.load(text);
-    import_lodash9.default.forEach(data, async (dropLuck) => {
-      this.redisClient.hmset(`expDropLuck:${dropLuck.level}`, {
+    import_lodash11.default.forEach(data, async (dropLuck) => {
+      await this.redisClient.hmset(`expDropLuck:${dropLuck.level}`, {
         level: dropLuck.level,
         chance: JSON.stringify(dropLuck.chance)
       });
@@ -95401,86 +96333,64 @@ class ExpTableResources {
 }
 
 // src/resources/deathPenaltyResource.ts
-var import_lodash10 = __toESM(require_lodash(), 1);
-var import_ioredis8 = __toESM(require_built3(), 1);
-import fs11 from "fs";
-import path7 from "path";
+init_kvClient();
+var import_lodash12 = __toESM(require_lodash(), 1);
+import fs13 from "fs";
+import path9 from "path";
+init_logger();
 class DeathPenaltyResources {
   logger;
   redisClient;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("Death Penalty Resources");
-    this.redisClient = new import_ioredis8.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async getRevivalPenalty(level) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`revivalPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data ? {
-            level: tryParseInt(data.level),
-            value: tryParseInt(data.value)
-          } : null);
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`revivalPenalty:${level}`);
+    if (!data)
+      return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
   async getDecreaseExpPenalty(level) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`decreaseExpPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data ? {
-            level: tryParseInt(data.level),
-            value: tryParseInt(data.value)
-          } : null);
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`decreaseExpPenalty:${level}`);
+    if (!data)
+      return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
   async getLevelDownPenalty(level) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.hgetall(`levelDownPenalty:${level}`, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data ? {
-            level: tryParseInt(data.level),
-            value: tryParseInt(data.value)
-          } : null);
-        }
-      });
-    });
+    const data = await this.redisClient.hgetall(`levelDownPenalty:${level}`);
+    if (!data)
+      return null;
+    return { level: tryParseInt(data.level), value: tryParseInt(data.value) };
   }
   async loadDeathPenalty() {
-    const absolutePath = path7.resolve(ResourcePaths.deathPenalty);
-    if (!fs11.existsSync(absolutePath)) {
+    const absolutePath = path9.resolve(ResourcePaths.deathPenalty);
+    if (!fs13.existsSync(absolutePath)) {
       this.logger.error(`Unable to load exp character. Reason: cannot find '${absolutePath}' file.`);
     }
-    const text = fs11.readFileSync(absolutePath, "utf-8");
+    const text = fs13.readFileSync(absolutePath, "utf-8");
     const data = jsYaml.load(text);
-    import_lodash10.default.forEach(data.revivalPenalty, async (penalty) => {
-      this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
+    import_lodash12.default.forEach(data.revivalPenalty, async (penalty) => {
+      await this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
     });
-    import_lodash10.default.forEach(data.decreaseExpPenalty, async (penalty) => {
-      this.redisClient.hmset(`decreaseExpPenalty:${penalty.level}`, penalty);
+    import_lodash12.default.forEach(data.decreaseExpPenalty, async (penalty) => {
+      await this.redisClient.hmset(`decreaseExpPenalty:${penalty.level}`, penalty);
     });
-    import_lodash10.default.forEach(data.levelDownPenalty, async (penalty) => {
-      this.redisClient.hmset(`levelDownPenalty:${penalty.level}`, penalty);
+    import_lodash12.default.forEach(data.levelDownPenalty, async (penalty) => {
+      await this.redisClient.hmset(`levelDownPenalty:${penalty.level}`, penalty);
     });
     this.logger.main("Death penalty loaded.");
   }
 }
 
 // src/resources/mapResources.ts
-var import_ioredis9 = __toESM(require_built3(), 1);
-import fs15 from "fs";
-import path8 from "path";
+init_kvClient();
+import fs17 from "fs";
+import path10 from "path";
+init_logger();
 
 // src/abstract/wldFile.ts
-import fs12 from "fs";
+import fs14 from "fs";
 
 // src/helpers/FFRandom.ts
 class FFRandom {
@@ -95683,7 +96593,7 @@ class WldFile {
   }
   read(filePath) {
     try {
-      const data = fs12.readFileSync(filePath, "utf-8");
+      const data = fs14.readFileSync(filePath, "utf-8");
       const lines = data.split(`
 `);
       let size = null;
@@ -95741,7 +96651,7 @@ class WldFile {
 }
 
 // src/abstract/rgn/rgnFile.ts
-import fs13 from "fs";
+import fs15 from "fs";
 
 // src/abstract/rgn/rgnElement.ts
 class RgnElement {
@@ -95874,7 +96784,7 @@ class RgnFile {
   }
   read() {
     try {
-      const fileContent = fs13.readFileSync(this.filePath, "utf16le");
+      const fileContent = fs15.readFileSync(this.filePath, "utf16le");
       const lines = fileContent.split(`
 `);
       for (const line of lines) {
@@ -95989,8 +96899,8 @@ class MapTriggerRegionProperties extends MapRegionProperties {
 }
 
 // src/abstract/dyo/dyoFile.ts
-var import_lodash11 = __toESM(require_lodash(), 1);
-import fs14 from "fs";
+var import_lodash13 = __toESM(require_lodash(), 1);
+import fs16 from "fs";
 
 // src/libraries/binaryStream.ts
 import { TextDecoder, TextEncoder as TextEncoder2 } from "util";
@@ -96392,7 +97302,7 @@ class DyoNpcElement extends DyoElement {
 class DyoFile {
   _elements = [];
   constructor(dyoFilePath) {
-    const data = fs14.readFileSync(dyoFilePath, "binary");
+    const data = fs16.readFileSync(dyoFilePath, "binary");
     const buffer = Buffer.from(data, "binary");
     const streamReader = new BinaryStream(buffer);
     while (streamReader.position < streamReader.buffer.length) {
@@ -96416,7 +97326,7 @@ class DyoFile {
       }
       rgnElement.elementType = type2;
       rgnElement.read(streamReader);
-      if (!import_lodash11.default.isUndefined(rgnElement.angle)) {
+      if (!import_lodash13.default.isUndefined(rgnElement.angle)) {
         this._elements.push(rgnElement);
       }
     }
@@ -96484,19 +97394,19 @@ class MapResources {
   getLoadedCount() {
     return this.mapsById.size;
   }
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("Map Resources");
-    this.redisClient = new import_ioredis9.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async get(id) {
-    const cached = await new Promise((resolve) => this.redisClient.hgetall(`map:${id}`, (err, data) => resolve(data)));
+    const cached = await this.redisClient.hgetall(`map:${id}`);
     if (cached && Object.keys(cached).length > 0) {
       return this.parseMapProperties(cached);
     }
     return this.mapsById.get(id) || null;
   }
   async getByIdentifier(identifier) {
-    const cached = await new Promise((resolve) => this.redisClient.hgetall(`mapById:${identifier}`, (err, data) => resolve(data)));
+    const cached = await this.redisClient.hgetall(`mapById:${identifier}`);
     if (cached && Object.keys(cached).length > 0) {
       return this.parseMapProperties(cached);
     }
@@ -96537,12 +97447,12 @@ class MapResources {
     this.logger.info(`${this.mapsById.size} maps loaded in ${elapsed}ms.`);
   }
   loadWorldScriptFile() {
-    const absolutePath = path8.resolve(ResourcePaths.worldPath);
-    if (!fs15.existsSync(absolutePath)) {
+    const absolutePath = path10.resolve(ResourcePaths.worldPath);
+    if (!fs17.existsSync(absolutePath)) {
       this.logger.warn(`World script not found: ${absolutePath}`);
       return new Map;
     }
-    const text = fs15.readFileSync(absolutePath, "utf-8");
+    const text = fs17.readFileSync(absolutePath, "utf-8");
     const yamlData = jsYaml.load(text);
     const worlds = new Map;
     for (const world of yamlData) {
@@ -96553,8 +97463,8 @@ class MapResources {
     return worlds;
   }
   loadWorldInformation(worldName) {
-    const wldPath = path8.join(ResourcePaths.world, worldName, `${worldName}.wld`);
-    if (!fs15.existsSync(wldPath)) {
+    const wldPath = path10.join(ResourcePaths.world, worldName, `${worldName}.wld`);
+    if (!fs17.existsSync(wldPath)) {
       this.logger.warn(`World file not found: ${wldPath}`);
       return { width: 0, length: 0, mpu: 1, revivalMapId: 0 };
     }
@@ -96562,8 +97472,8 @@ class MapResources {
     return worldFile.worldData || { width: 0, length: 0, mpu: 1, revivalMapId: 0 };
   }
   loadRegions(worldName, revivalMapId) {
-    const rgnPath = path8.join(ResourcePaths.world, worldName, `${worldName}.rgn`);
-    if (!fs15.existsSync(rgnPath)) {
+    const rgnPath = path10.join(ResourcePaths.world, worldName, `${worldName}.rgn`);
+    if (!fs17.existsSync(rgnPath)) {
       this.logger.warn(`Regions file not found: ${rgnPath}`);
       return [];
     }
@@ -96585,8 +97495,8 @@ class MapResources {
     return regions;
   }
   loadObjects(worldName) {
-    const dyoPath = path8.join(ResourcePaths.world, worldName, `${worldName}.dyo`);
-    if (!fs15.existsSync(dyoPath)) {
+    const dyoPath = path10.join(ResourcePaths.world, worldName, `${worldName}.dyo`);
+    if (!fs17.existsSync(dyoPath)) {
       this.logger.warn(`Objects file not found: ${dyoPath}`);
       return [];
     }
@@ -96598,9 +97508,9 @@ class MapResources {
     const landscapeSize = 128;
     for (let x = 0;x < width; x++) {
       for (let y = 0;y < length; y++) {
-        const lndPath = path8.join(ResourcePaths.world, worldName, `${worldName}${x.toString().padStart(2, "0")}-${y.toString().padStart(2, "0")}.lnd`);
-        if (fs15.existsSync(lndPath)) {
-          const buffer = fs15.readFileSync(lndPath);
+        const lndPath = path10.join(ResourcePaths.world, worldName, `${worldName}${x.toString().padStart(2, "0")}-${y.toString().padStart(2, "0")}.lnd`);
+        if (fs17.existsSync(lndPath)) {
+          const buffer = fs17.readFileSync(lndPath);
           const dataView = new DataView(buffer.buffer);
           const version = dataView.getInt32(0, true);
           if (version >= 1) {
@@ -96615,12 +97525,12 @@ class MapResources {
     return heights;
   }
   async loadDefines() {
-    const absolutePath = path8.resolve(ResourcePaths.defineWorld);
-    if (!fs15.existsSync(absolutePath)) {
+    const absolutePath = path10.resolve(ResourcePaths.defineWorld);
+    if (!fs17.existsSync(absolutePath)) {
       this.logger.error(`Unable to load world defines: ${absolutePath}`);
       return;
     }
-    const data = fs15.readFileSync(absolutePath, "utf8");
+    const data = fs17.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
     for (const line of lines) {
@@ -96640,12 +97550,12 @@ class MapResources {
     this.logger.info(`${this.defines.size} world defines loaded.`);
   }
   async loadWorldPaths() {
-    const absolutePath = path8.resolve(ResourcePaths.worldPath);
-    if (!fs15.existsSync(absolutePath)) {
+    const absolutePath = path10.resolve(ResourcePaths.worldPath);
+    if (!fs17.existsSync(absolutePath)) {
       this.logger.error(`Unable to load world paths: ${absolutePath}`);
       return;
     }
-    const text = fs15.readFileSync(absolutePath, "utf-8");
+    const text = fs17.readFileSync(absolutePath, "utf-8");
     const yamlData = jsYaml.load(text);
     for (const world of yamlData) {
       if (world.id && world.name) {
@@ -96671,132 +97581,105 @@ class MapResources {
 }
 
 // src/resources/skillResources.ts
-var import_lodash12 = __toESM(require_lodash(), 1);
-var import_ioredis10 = __toESM(require_built3(), 1);
-import fs16 from "fs";
-import path9 from "path";
+init_kvClient();
+init_logger();
+var import_lodash14 = __toESM(require_lodash(), 1);
+import fs18 from "fs";
+import path11 from "path";
 class SkillResources {
   logger;
   redisClient;
-  constructor(options) {
+  constructor(client) {
     this.logger = new Logger("Skill Resources");
-    this.redisClient = new import_ioredis10.default(options);
+    this.redisClient = client || new kvClient_default;
   }
   async get(skillIdentifier) {
     const skillId = typeof skillIdentifier === "number" ? skillIdentifier : await this.redisClient.hget("skillDefines", skillIdentifier);
-    if (!import_lodash12.default.isUndefined(skillId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`skill:${skillId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseSkillProperties(data) : null);
-          }
-        });
-      });
+    if (!import_lodash14.default.isNil(skillId)) {
+      const data = await this.redisClient.hgetall(`skill:${skillId}`);
+      return data ? this.parseSkillProperties(data) : null;
     }
     return null;
   }
   async getLevel(skillLevelIdentifier) {
     const skillLevelId = typeof skillLevelIdentifier === "number" ? skillLevelIdentifier : await this.redisClient.hget("skillDefines", skillLevelIdentifier);
-    if (!import_lodash12.default.isUndefined(skillLevelId)) {
-      return new Promise((resolve, reject) => {
-        this.redisClient.hgetall(`skillLevel:${skillLevelId}`, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data ? this.parseSkillLevelProperties(data) : null);
-          }
-        });
-      });
+    if (!import_lodash14.default.isNil(skillLevelId)) {
+      const data = await this.redisClient.hgetall(`skillLevel:${skillLevelId}`);
+      return data ? this.parseSkillLevelProperties(data) : null;
     }
     return null;
   }
-  where(predicate) {
+  async where(predicate) {
     const skills = [];
-    this.redisClient.keys("skill:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!import_lodash12.default.isUndefined(keys)) {
-          import_lodash12.default.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err2, data) => {
-              if (err2) {
-                this.logger.error("Error retrieving skill data from Redis:", err2);
-              } else {
-                if (data) {
-                  const skill = this.parseSkillProperties(data);
-                  if (predicate(skill)) {
-                    skills.push(skill);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("skill:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const skill = this.parseSkillProperties(data);
+            if (predicate(skill))
+              skills.push(skill);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving keys from KV store:", err);
+    }
     return skills;
   }
-  whereLevel(predicate) {
+  async whereLevel(predicate) {
     const skills = [];
-    this.redisClient.keys("skillLevel:*", (err, keys) => {
-      if (err) {
-        this.logger.error("Error retrieving keys from Redis:", err);
-      } else {
-        if (!import_lodash12.default.isUndefined(keys)) {
-          import_lodash12.default.forEach(keys, (key) => {
-            this.redisClient.hgetall(key, (err2, data) => {
-              if (err2) {
-                this.logger.error("Error retrieving skill data from Redis:", err2);
-              } else {
-                if (data) {
-                  const skill = this.parseSkillLevelProperties(data);
-                  if (predicate(skill)) {
-                    skills.push(skill);
-                  }
-                }
-              }
-            });
-          });
+    try {
+      const keys = await this.redisClient.keys("skillLevel:%");
+      if (keys && keys.length > 0) {
+        for (const key of keys) {
+          const data = await this.redisClient.hgetall(key);
+          if (data) {
+            const skill = this.parseSkillLevelProperties(data);
+            if (predicate(skill))
+              skills.push(skill);
+          }
         }
       }
-    });
+    } catch (err) {
+      this.logger.error("Error retrieving keys from KV store:", err);
+    }
     return skills;
   }
   async loadDefines() {
-    const absolutePath = path9.resolve(ResourcePaths.defineSkill);
-    if (!fs16.existsSync(absolutePath)) {
+    const absolutePath = path11.resolve(ResourcePaths.defineSkill);
+    if (!fs18.existsSync(absolutePath)) {
       this.logger.error(`Unable to load skills. Reason: cannot find '${absolutePath}' file.`);
     }
-    const data = fs16.readFileSync(absolutePath, "utf8");
+    const data = fs18.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash12.default.forEach(lines, async (line) => {
-      if (import_lodash12.default.trim(line).startsWith("#define")) {
-        const parts = import_lodash12.default.trim(line).split(/\s+/);
+    import_lodash14.default.forEach(lines, async (line) => {
+      if (import_lodash14.default.trim(line).startsWith("#define")) {
+        const parts = import_lodash14.default.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
         const name = parts[1];
-        if (!import_lodash12.default.isNaN(id) && name !== "") {
+        if (!import_lodash14.default.isNaN(id) && name !== "") {
           await this.redisClient.hset("skillDefines", name, id);
         }
       }
     });
   }
   async loadSkillsPropStrings() {
-    const absolutePath = path9.resolve(ResourcePaths.skillsText);
-    if (!fs16.existsSync(absolutePath)) {
+    const absolutePath = path11.resolve(ResourcePaths.skillsText);
+    if (!fs18.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load skills. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("skillDefines")) {
       this.logger.warn("Unable to load skills. Reason: skill defines is empty");
     }
     try {
-      const data = fs16.readFileSync(absolutePath, "utf16le");
+      const data = fs18.readFileSync(absolutePath, "utf16le");
       const lines = data.split(`
 `).map((i2) => i2.toString().trim());
-      const pairs2 = import_lodash12.default.chunk(lines, 2);
-      import_lodash12.default.forEach(pairs2, async (pair, i2) => {
+      const pairs2 = import_lodash14.default.chunk(lines, 2);
+      import_lodash14.default.forEach(pairs2, async (pair, i2) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("skillNames", idName, name);
@@ -96807,20 +97690,20 @@ class SkillResources {
     }
   }
   async loadSkillAddProp() {
-    const absolutePath = path9.resolve(ResourcePaths.skillsProp);
-    if (!fs16.existsSync(absolutePath)) {
+    const absolutePath = path11.resolve(ResourcePaths.skillsProp);
+    if (!fs18.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load skill add. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("skillDefines")) {
       this.logger.warn("Unable to load skill add. Reason: skill defines is empty");
     }
-    const data = fs16.readFileSync(absolutePath, "utf8");
+    const data = fs18.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash12.default.forEach(lines, async (line) => {
+    import_lodash14.default.forEach(lines, async (line) => {
       const parts = line.trim().split(",");
       const id = await this.redisClient.hget("skillDefines", parts[1]);
-      if (!import_lodash12.default.isNil(id)) {
+      if (!import_lodash14.default.isNil(id)) {
         const dwName = await this.redisClient.hget("skillNames", cleanString(parts[1])) || "";
         const skillLevel = {
           id: tryParseInt(id),
@@ -96862,24 +97745,24 @@ class SkillResources {
     this.logger.main(`${lines.length} skills loaded.`);
   }
   async loadSkillsProp() {
-    const absolutePath = path9.resolve(ResourcePaths.skillsProp);
-    if (!fs16.existsSync(absolutePath)) {
+    const absolutePath = path11.resolve(ResourcePaths.skillsProp);
+    if (!fs18.existsSync(absolutePath)) {
       this.logger.warn(`Unable to load skills. Reason: cannot find '${absolutePath}' file.`);
     }
     if (!await this.redisClient.exists("skillDefines")) {
       this.logger.warn("Unable to load skills. Reason: skill defines is empty");
     }
     await this.cleanCache();
-    const data = fs16.readFileSync(absolutePath, "utf8");
+    const data = fs18.readFileSync(absolutePath, "utf8");
     const lines = data.split(`
 `);
-    import_lodash12.default.forEach(lines, async (line) => {
+    import_lodash14.default.forEach(lines, async (line) => {
       const skills = line.trim().split("\t");
       const id = await this.redisClient.hget("skillDefines", skills[1]);
-      if (!import_lodash12.default.isNil(id)) {
+      if (!import_lodash14.default.isNil(id)) {
         const szName = await this.redisClient.hget("skillNames", cleanString(skills[2])) || "";
         const szComment = await this.redisClient.hget("skillDescriptions", cleanString(skills[123])) || "";
-        const skillLevels = this.whereLevel((skill2) => skill2.dwName === szName);
+        const skillLevels = await this.whereLevel((skill2) => skill2.dwName === szName);
         const skill = {
           id: tryParseInt(id),
           ver: tryParseInt(skills[0]),
@@ -97006,33 +97889,24 @@ class SkillResources {
     };
   }
   cleanCache() {
-    return new Promise((resolve, reject) => {
-      this.redisClient.keys("skill:*", (err, keys) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (keys) {
-            if (keys.length === 0) {
-              resolve();
-            } else {
-              this.redisClient.del(...keys, (delErr, reply) => {
-                if (delErr) {
-                  reject(delErr);
-                } else {
-                  resolve();
-                }
-              });
-            }
-          }
-        }
-      });
+    return new Promise(async (resolve, reject) => {
+      try {
+        const keys = await this.redisClient.keys("skill:*");
+        if (!keys || keys.length === 0)
+          return resolve();
+        await this.redisClient.del(...keys);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }
 
 // src/resources/questResourcesYaml.ts
-import fs17 from "fs";
-import path10 from "path";
+import fs19 from "fs";
+import path12 from "path";
+init_logger();
 class QuestResourcesYaml {
   logger;
   defines;
@@ -97042,16 +97916,16 @@ class QuestResourcesYaml {
   constructor(defines) {
     this.logger = new Logger("QuestResourcesYaml");
     this.defines = defines;
-    this.questsYamlPath = path10.join(path10.dirname(ResourcePaths.questsPath), "quests-yaml");
+    this.questsYamlPath = path12.join(path12.dirname(ResourcePaths.questsPath), "quests-yaml");
   }
   async loadDefines() {
     const startTime = Date.now();
-    if (!fs17.existsSync(ResourcePaths.defineQuest)) {
+    if (!fs19.existsSync(ResourcePaths.defineQuest)) {
       this.logger.warn(`Quest defines file not found: ${ResourcePaths.defineQuest}`);
       return;
     }
     try {
-      const content = fs17.readFileSync(ResourcePaths.defineQuest, "utf-8");
+      const content = fs19.readFileSync(ResourcePaths.defineQuest, "utf-8");
       const lines = content.split(`
 `);
       for (const line of lines) {
@@ -97096,12 +97970,12 @@ class QuestResourcesYaml {
   }
   load() {
     const startTime = Date.now();
-    if (!fs17.existsSync(this.questsYamlPath)) {
+    if (!fs19.existsSync(this.questsYamlPath)) {
       this.logger.warn(`Quests YAML directory not found: ${this.questsYamlPath}`);
       this.logger.info("Falling back to Lua quest loading...");
       return;
     }
-    const questFilePaths = fs17.readdirSync(this.questsYamlPath).filter((file) => file.endsWith(".yml") || file.endsWith(".yaml")).map((file) => path10.join(this.questsYamlPath, file));
+    const questFilePaths = fs19.readdirSync(this.questsYamlPath).filter((file) => file.endsWith(".yml") || file.endsWith(".yaml")).map((file) => path12.join(this.questsYamlPath, file));
     if (questFilePaths.length === 0) {
       this.logger.warn("No YAML quest files found");
       return;
@@ -97128,7 +98002,7 @@ class QuestResourcesYaml {
   }
   loadYamlQuest(filePath) {
     try {
-      const fileContent = fs17.readFileSync(filePath, "utf-8");
+      const fileContent = fs19.readFileSync(filePath, "utf-8");
       const yamlData = jsYaml.load(fileContent);
       if (!yamlData || !yamlData.quest_id) {
         this.logger.warn(`Invalid YAML quest data in ${filePath}`);
@@ -97325,19 +98199,18 @@ class ResourceBuilder {
     const buildStartTime = Date.now();
     this.loadErrors = [];
     try {
-      if (!this.options) {
-        throw new Error("Redis options not configured. Call setRedisOptions() before building.");
-      }
       this.logger.info("Initializing game resources...");
       try {
-        this.itemResources = new ItemResources(this.options);
-        this.monsterResources = new MonsterResources(this.options);
-        this.npcResources = new NpcResources(this.options);
-        this.jobResources = new JobResources(this.options);
-        this.expTableResources = new ExpTableResources(this.options);
-        this.deathPenaltyResource = new DeathPenaltyResources(this.options);
-        this.mapResource = new MapResources(this.options);
-        this.skillResource = new SkillResources(this.options);
+        const KvClient2 = (init_kvClient(), __toCommonJS(exports_kvClient)).default;
+        const kv = new KvClient2;
+        this.itemResources = new ItemResources(kv);
+        this.monsterResources = new MonsterResources(kv);
+        this.npcResources = new NpcResources(kv);
+        this.jobResources = new JobResources(kv);
+        this.expTableResources = new ExpTableResources(kv);
+        this.deathPenaltyResource = new DeathPenaltyResources(kv);
+        this.mapResource = new MapResources(kv);
+        this.skillResource = new SkillResources(kv);
         this.questResources = new QuestResourcesYaml(new Map);
       } catch (error) {
         this.logger.error("Failed to initialize resource instances:", error);
@@ -97544,15 +98417,14 @@ class ResourceBuilder {
     return counts;
   }
   async getRedisCount(pattern) {
-    return new Promise((resolve) => {
-      this.itemResources.redisClient.keys(pattern, (err, keys) => {
-        if (err || !keys) {
-          resolve(-1);
-        } else {
-          resolve(keys.length);
-        }
-      });
-    });
+    try {
+      const keys = await this.itemResources.redisClient.keys(pattern);
+      if (!keys)
+        return -1;
+      return Array.isArray(keys) ? keys.length : -1;
+    } catch (err) {
+      return -1;
+    }
   }
 }
 
@@ -97565,34 +98437,34 @@ class InstanceBuilder {
   redisBuilder;
   resourceBuilder;
   constructor() {}
-  buildConfig(_14) {
+  buildConfig(_16) {
     const builder = new ConfigBuilder;
-    _14(builder);
+    _16(builder);
     this.config = builder.build();
   }
-  buildDatabase(_14) {
+  buildDatabase(_16) {
     const builder = new DatabaseBuilder;
-    _14(builder);
+    _16(builder);
     this.databaseBuilder = builder;
   }
-  buildHandlers(_14) {
+  buildHandlers(_16) {
     const builder = new HandlerBuilder;
-    _14(builder);
+    _16(builder);
     this.handlerBuilder = builder;
   }
-  buildServer(_14) {
+  buildServer(_16) {
     const builder = new ServerBuilder;
-    _14(builder);
+    _16(builder);
     this.serverBuilder = builder;
   }
-  buildRedis(_14) {
+  buildRedis(_16) {
     const builder = new RedisBuilder;
-    _14(builder);
+    _16(builder);
     this.redisBuilder = builder;
   }
-  buildResource(_14) {
+  buildResource(_16) {
     const builder = new ResourceBuilder;
-    _14(builder);
+    _16(builder);
     this.resourceBuilder = builder;
   }
   async build() {
@@ -97606,13 +98478,13 @@ class InstanceBuilder {
     if (this.config?.database) {
       await this.databaseBuilder.addConnection({
         dataSource: {
-          type: import_lodash13.default.get(this.config?.database, "provider"),
-          database: import_lodash13.default.get(this.config?.database, "connection-string"),
-          url: import_lodash13.default.get(this.config?.database, "url"),
-          host: import_lodash13.default.get(this.config?.database, "host"),
-          port: import_lodash13.default.get(this.config?.database, "port"),
-          username: import_lodash13.default.get(this.config?.database, "username"),
-          password: import_lodash13.default.get(this.config?.database, "password")
+          type: import_lodash15.default.get(this.config?.database, "provider"),
+          database: import_lodash15.default.get(this.config?.database, "connection-string"),
+          url: import_lodash15.default.get(this.config?.database, "url"),
+          host: import_lodash15.default.get(this.config?.database, "host"),
+          port: import_lodash15.default.get(this.config?.database, "port"),
+          username: import_lodash15.default.get(this.config?.database, "username"),
+          password: import_lodash15.default.get(this.config?.database, "password")
         },
         entities: []
       });
@@ -97621,7 +98493,7 @@ class InstanceBuilder {
     await this.handlerBuilder.loadHandlers();
     handlers = this.handlerBuilder.build();
     if (this.redisBuilder) {
-      const redis = this.redisBuilder.build();
+      const redis = await this.redisBuilder.buildAsync();
       publisher = redis.publisher;
       subscriber = redis.subscriber;
       client = redis.client;
@@ -97659,7 +98531,7 @@ class InstanceBuilder {
 
 // src/libraries/tcpServer.ts
 var import_reflect_metadata = __toESM(require_Reflect(), 1);
-var import_lodash14 = __toESM(require_lodash(), 1);
+var import_lodash16 = __toESM(require_lodash(), 1);
 import { createServer } from "net";
 
 // src/libraries/flyffPacket.ts
@@ -97674,7 +98546,7 @@ class FlyffPacket extends BinaryStream {
     if (bufferOrHeader instanceof Buffer) {
       if (!ignoreHeaders) {
         this.HeaderNumber = this.readByte();
-        this.position += login ? 12 : 16;
+        this.position = FlyffPacket.PACKET_DATA_START_OFFSET;
         this.PacketType = this.readUInt32LE();
       }
     } else if (typeof bufferOrHeader === "number") {
@@ -98421,6 +99293,7 @@ function ToStringHex(packetType) {
 }
 
 // src/libraries/tcpServer.ts
+init_logger();
 class TcpServer {
   serverType;
   options;
@@ -98520,7 +99393,7 @@ class TcpServer {
     }
   }
   isUserConnected = (userConnection) => this.connections.has(userConnection.sessionId);
-  isUserAccountConnected = (account) => !import_lodash14.default.isNil(this.getConnectionByAccount(account));
+  isUserAccountConnected = (account) => !import_lodash16.default.isNil(this.getConnectionByAccount(account));
   getConnectionByAccount(account) {
     let userConnection = null;
     this.connections.forEach((connection) => {
@@ -98541,7 +99414,7 @@ class UserConnection {
     this.sessionId = Math.floor(Math.random() * Math.pow(2, 32));
     this.socket = socket;
   }
-  async onData(packet) {}
+  async onData(_packet) {}
   send(packet) {
     this.socket.write(FlyffPacket.appendHeader(packet.buffer));
   }
@@ -98552,10 +99425,10 @@ class UserConnection {
   }
   sendCharacterList(characters, authKey) {
     const packet = new FlyffPacket(243 /* CHARACTER_LIST */);
-    const filteredCharacters = import_lodash14.default.filter(characters, { deleted: false });
+    const filteredCharacters = import_lodash16.default.filter(characters, { deleted: false });
     packet.writeInt32LE(authKey);
     packet.writeInt32LE(filteredCharacters.length || 0);
-    import_lodash14.default.forEach(filteredCharacters, (character) => {
+    import_lodash16.default.forEach(filteredCharacters, (character) => {
       packet.writeInt32LE(character.slot);
       packet.writeInt32LE(character.id);
       packet.writeInt32LE(character.mapId);
@@ -98582,7 +99455,7 @@ class UserConnection {
       packet.writeInt32LE(character.intelligence);
       packet.writeInt32LE(0);
       packet.writeInt32LE(character.equipments.length);
-      import_lodash14.default.forEach(character.equipments, (equipment) => {
+      import_lodash16.default.forEach(character.equipments, (equipment) => {
         packet.writeInt32LE(equipment.item.itemId);
       });
     });
@@ -98902,7 +99775,7 @@ async function clusterIntercom(instance) {
 
 // src/servers/worldServer/index.ts
 var import_node_cron3 = __toESM(require_node_cron(), 1);
-import path12, { dirname as dirname4 } from "path";
+import path13, { dirname as dirname4 } from "path";
 import { fileURLToPath as fileURLToPath4 } from "url";
 
 // src/servers/worldServer/worldServer.ts
@@ -98918,10 +99791,10 @@ var worldServer_default = async () => {
   const __dirname3 = dirname4(__filename3);
   const instanceBuilder = new InstanceBuilder;
   instanceBuilder.buildConfig((builder) => {
-    builder.setBasePath(path12.join(__dirname3, "../../configs"));
+    builder.setBasePath(path13.join(__dirname3, "../../configs"));
   });
   instanceBuilder.buildDatabase((builder) => {
-    builder.setEntitiesPath(path12.join(__dirname3, "../../database"));
+    builder.setEntitiesPath(path13.join(__dirname3, "../../database"));
   });
   instanceBuilder.buildHandlers((builder) => {
     builder.setBasePath(__dirname3);

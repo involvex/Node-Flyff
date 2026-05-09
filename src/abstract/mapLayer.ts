@@ -95,6 +95,6 @@ export class MapLayer {
   }
 
   private getVisibleObjectsByType<T>(objects: T[], worldObject: any): T[] {
-    return objects.filter(x => true); // Stub filter
+    return objects.filter((x) => true); // Stub filter
   }
 }

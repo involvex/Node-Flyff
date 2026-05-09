@@ -17,7 +17,12 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
   private readonly _attackFlags: AttackFlags;
   private readonly _attackPower: number;
 
-  constructor(attacker: Mover, defender: Mover, attackFlags: AttackFlags = AttackFlags.AF_GENERIC, attackPower = 0) {
+  constructor(
+    attacker: Mover,
+    defender: Mover,
+    attackFlags: AttackFlags = AttackFlags.AF_GENERIC,
+    attackPower = 0
+  ) {
     super(attacker, defender);
     this._attackFlags = attackFlags;
     this._attackPower = attackPower;
@@ -53,7 +58,10 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       }
     }
 
-    let damages = FFRandom.random(attackRange?.maximum as number, attackRange?.maximum as number);
+    let damages = FFRandom.random(
+      attackRange?.maximum as number,
+      attackRange?.maximum as number
+    );
 
     if (flags & AttackFlags.AF_RANGE) {
       damages = Math.round(damages * this.getChargeAttackMultiplier());
@@ -75,12 +83,12 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
 
     // Basic fallback calculation until full formula is implemented
     if (hitRating + escapeRating > 0) {
-      hitRate = (hitRating * 1.6) / (hitRating + escapeRating) * 1.5;
+      hitRate = ((hitRating * 1.6) / (hitRating + escapeRating)) * 1.5;
       // incorporate simple level scaling when available
       try {
         const attLevel = (this.attacker as any).level ?? 1;
         const defLevel = (this.defender as any).level ?? 1;
-        hitRate = hitRate * (attLevel * 1.2 / (attLevel + defLevel));
+        hitRate = hitRate * ((attLevel * 1.2) / (attLevel + defLevel));
       } catch {
         // ignore and keep hitRate as-is
       }
@@ -89,9 +97,14 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       hitRate = MeleeAttackArbiter.MinimalHitRate;
     }
 
-    hitRate = Math.min(Math.max(hitRate, MeleeAttackArbiter.MinimalHitRate), MeleeAttackArbiter.MaximalHitRate);
+    hitRate = Math.min(
+      Math.max(hitRate, MeleeAttackArbiter.MinimalHitRate),
+      MeleeAttackArbiter.MaximalHitRate
+    );
 
-    return FFRandom.random(0, 100) < hitRate ? this._attackFlags : AttackFlags.AF_MISS;
+    return FFRandom.random(0, 100) < hitRate
+      ? this._attackFlags
+      : AttackFlags.AF_MISS;
   }
 
   private getHitRating(entity: Mover): number {
@@ -104,8 +117,14 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return 0;
   }
 
-  private isCriticalAttack(attacker: Mover, currentAttackFlags: AttackFlags): boolean {
-    if (currentAttackFlags & AttackFlags.AF_MELEE_SKILL || currentAttackFlags & AttackFlags.AF_MAGIC_SKILL) {
+  private isCriticalAttack(
+    attacker: Mover,
+    currentAttackFlags: AttackFlags
+  ): boolean {
+    if (
+      currentAttackFlags & AttackFlags.AF_MELEE_SKILL ||
+      currentAttackFlags & AttackFlags.AF_MAGIC_SKILL
+    ) {
       return false;
     }
 
@@ -120,7 +139,11 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     //     criticalJobFactor = 1;
     // }
 
-    let criticalProbability = Math.round((baseDexterity + attacker.attributes.get(DefineAttributes.DST_DEX)) / 10 * criticalJobFactor);
+    let criticalProbability = Math.round(
+      ((baseDexterity + attacker.attributes.get(DefineAttributes.DST_DEX)) /
+        10) *
+        criticalJobFactor
+    );
 
     if (criticalProbability < 0) {
       criticalProbability = 0;
@@ -129,7 +152,9 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return FFRandom.random(0, 100) < criticalProbability;
   }
 
-  private calculateCriticalDamages(actualAttackRange: RangeHelper<number>): RangeHelper<number> {
+  private calculateCriticalDamages(
+    actualAttackRange: RangeHelper<number>
+  ): RangeHelper<number> {
     const criticalMin = 1.1;
     const criticalMax = 1.4;
 
@@ -149,8 +174,12 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       criticalBonus = 0.1;
     }
 
-    const attackMin = Math.round(actualAttackRange.minimum * criticalMin * criticalBonus);
-    const attackMax = Math.round(actualAttackRange.maximum * criticalMax * criticalBonus);
+    const attackMin = Math.round(
+      actualAttackRange.minimum * criticalMin * criticalBonus
+    );
+    const attackMax = Math.round(
+      actualAttackRange.maximum * criticalMax * criticalBonus
+    );
 
     return new RangeHelper<number>(attackMin, attackMax);
   }

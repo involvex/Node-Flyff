@@ -48,7 +48,9 @@ export default async() => {
 
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.WORLD_SERVER);
-    builder.addServer(new WorldServer(instanceBuilder.config?.world_server.server));
+    builder.addServer(
+      new WorldServer(instanceBuilder.config?.world_server.server)
+    );
   });
 
   instanceBuilder.buildResource((builder: ResourceBuilder) => {

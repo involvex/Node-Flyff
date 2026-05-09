@@ -6,7 +6,10 @@ import { DefineItem } from "../common/defineItem";
 import { ObjectState } from "../common/objectState";
 import { Item } from "../common/item";
 import { MoverProperties } from "../interfaces/resource";
-import { DropItemProperties, DropItemKindProperties } from "../interfaces/dropItemProperties";
+import {
+  DropItemProperties,
+  DropItemKindProperties
+} from "../interfaces/dropItemProperties";
 import { FFRandom } from "../helpers/FFRandom";
 import { timeInSeconds } from "../helpers/time";
 import { Mover } from "./mover";
@@ -44,17 +47,18 @@ export class Monster extends Mover {
   public readonly region: Rectangle;
   public readonly beginPosition: Vector3;
 
-  constructor(properties: MonsterProperties, respawnTime: number = 30, region?: Rectangle) {
+  constructor(
+    properties: MonsterProperties,
+    respawnTime: number = 30,
+    region?: Rectangle
+  ) {
     super(properties);
 
     this.name = properties.szName;
     this.respawnTime = respawnTime;
-    this.region = region || new Rectangle(
-      this.position.x - 10,
-      this.position.z - 10,
-      20,
-      20
-    );
+    this.region =
+      region ||
+      new Rectangle(this.position.x - 10, this.position.z - 10, 20, 20);
     this.beginPosition = this.position.clone();
   }
 
@@ -74,10 +78,17 @@ export class Monster extends Mover {
           this.setSpeedFactor(2);
         }
 
-        if (this.followTarget && this.position.isInCircle(this.followTarget.position, this.followDistance)) {
+        if (
+          this.followTarget &&
+          this.position.isInCircle(
+            this.followTarget.position,
+            this.followDistance
+          )
+        ) {
           if (this._nextAttackTime < Date.now()) {
             this.tryMeleeAttack(this.target, AttackType.MeleeAttack1);
-            this._nextAttackTime = Date.now() + (this.properties as MonsterProperties).reAttackDelay;
+            this._nextAttackTime =
+              Date.now() + (this.properties as MonsterProperties).reAttackDelay;
           }
         } else {
           if (this.position.isInRange(this.beginPosition, 40)) {
@@ -90,7 +101,10 @@ export class Monster extends Mover {
         this.follow(this.target);
       }
     } else {
-      if ((this.objectState & ObjectState.OBJSTA_STAND) !== 0 && this._nextMoveTime < timeInSeconds()) {
+      if (
+        (this.objectState & ObjectState.OBJSTA_STAND) !== 0 &&
+        this._nextMoveTime < timeInSeconds()
+      ) {
         let randomPosition = this.region.getRandomPosition();
 
         while (this.position.getDistance2D(randomPosition) > 10) {
@@ -107,7 +121,11 @@ export class Monster extends Mover {
       }
 
       if ((this.objectState & ObjectState.OBJSTA_FMOVE) !== 0) {
-        if (this._isReturningToBeginPosition && this.position.isInCircle(this.beginPosition, 3.0) && this.speedFactor >= 2) {
+        if (
+          this._isReturningToBeginPosition &&
+          this.position.isInCircle(this.beginPosition, 3.0) &&
+          this.speedFactor >= 2
+        ) {
           this.setSpeedFactor(1);
         }
       }
@@ -136,7 +154,11 @@ export class Monster extends Mover {
     }
   }
 
-  protected onSufferDamages(attacker: Mover, damages: number, attackFlags: AttackFlags): void {
+  protected onSufferDamages(
+    attacker: Mover,
+    damages: number,
+    attackFlags: AttackFlags
+  ): void {
     if (this.isDead) {
       this.unfollow();
       this.target = null;
@@ -188,7 +210,9 @@ export class Monster extends Mover {
   }
 
   private canRespawn(): boolean {
-    return !this.isSpawned && this.isDead && this._nextRespawnTime < timeInSeconds();
+    return (
+      !this.isSpawned && this.isDead && this._nextRespawnTime < timeInSeconds()
+    );
   }
 
   private respawn(): void {
@@ -209,7 +233,11 @@ export class Monster extends Mover {
     const DROP_GOLD_LIMIT3 = 99;
     const goldMultiplier = GameOptions.Current.Rates.Gold;
     const monsterProps = this.properties as MonsterProperties;
-    const goldAmount = Math.max(0, FFRandom.random(monsterProps.dropGoldMin, monsterProps.dropGoldMax)) * goldMultiplier;
+    const goldAmount =
+      Math.max(
+        0,
+        FFRandom.random(monsterProps.dropGoldMin, monsterProps.dropGoldMax)
+      ) * goldMultiplier;
 
     if (goldAmount > 0) {
       let goldItemId: DefineItem;
@@ -229,7 +257,9 @@ export class Monster extends Mover {
       // goldItem.quantity = goldAmount;
       // this.dropItem(goldItem, owner);
 
-      console.log(`Monster ${this.name} would drop ${goldAmount} gold (item ID: ${goldItemId})`);
+      console.log(
+        `Monster ${this.name} would drop ${goldAmount} gold (item ID: ${goldItemId})`
+      );
     }
   }
 
@@ -246,7 +276,10 @@ export class Monster extends Mover {
 
       const dropChance = FFRandom.longRandom(0, MAX_DROP_CHANCE);
 
-      if (dropItemProperties.probability * GameOptions.Current.Rates.Drop >= dropChance) {
+      if (
+        dropItemProperties.probability * GameOptions.Current.Rates.Drop >=
+        dropChance
+      ) {
         const itemRefine = FFRandom.random(0, dropItemProperties.itemMaxRefine);
 
         // TODO: Implement proper item creation when GameResources is available
@@ -256,7 +289,9 @@ export class Monster extends Mover {
         // itemToDrop.quantity = 1;
         // this.dropItem(itemToDrop, owner);
 
-        console.log(`Monster ${this.name} would drop item ID: ${dropItemProperties.itemId} with refine: ${itemRefine}`);
+        console.log(
+          `Monster ${this.name} would drop item ID: ${dropItemProperties.itemId} with refine: ${itemRefine}`
+        );
         itemCount++;
       }
     }
@@ -264,7 +299,9 @@ export class Monster extends Mover {
     // Drop item kinds
     for (const dropItemKind of monsterProps.dropItemsKind || []) {
       // TODO: Implement item kind drops when GameResources is available
-      console.log(`Monster ${this.name} would potentially drop item kind: ${dropItemKind.itemKind}`);
+      console.log(
+        `Monster ${this.name} would potentially drop item kind: ${dropItemKind.itemKind}`
+      );
     }
   }
 }

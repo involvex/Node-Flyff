@@ -34,7 +34,9 @@ export class JobResources {
     return null;
   }
 
-  public async where(predicate: (job: JobProperties) => boolean): Promise<JobProperties[]> {
+  public async where(
+    predicate: (job: JobProperties) => boolean
+  ): Promise<JobProperties[]> {
     const jobs: JobProperties[] = [];
     try {
       const keys = await this.redisClient.keys("job:*");

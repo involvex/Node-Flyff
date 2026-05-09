@@ -82,14 +82,19 @@ export class QuestResourcesYaml {
   constructor(defines: Map<string, number>) {
     this.logger = new Logger("QuestResourcesYaml");
     this.defines = defines;
-    this.questsYamlPath = path.join(path.dirname(ResourcePaths.questsPath), "quests-yaml");
+    this.questsYamlPath = path.join(
+      path.dirname(ResourcePaths.questsPath),
+      "quests-yaml"
+    );
   }
 
   public async loadDefines(): Promise<void> {
     const startTime = Date.now();
 
     if (!fs.existsSync(ResourcePaths.defineQuest)) {
-      this.logger.warn(`Quest defines file not found: ${ResourcePaths.defineQuest}`);
+      this.logger.warn(
+        `Quest defines file not found: ${ResourcePaths.defineQuest}`
+      );
       return;
     }
 
@@ -110,7 +115,9 @@ export class QuestResourcesYaml {
       }
 
       const elapsed = Date.now() - startTime;
-      this.logger.info(`${this.defines.size} quest defines loaded in ${elapsed}ms`);
+      this.logger.info(
+        `${this.defines.size} quest defines loaded in ${elapsed}ms`
+      );
     } catch (error) {
       this.logger.error("Failed to load quest defines:", error);
     }
@@ -129,7 +136,9 @@ export class QuestResourcesYaml {
     }
   }
 
-  public where(predicate: (quest: QuestProperties) => boolean): QuestProperties[] {
+  public where(
+    predicate: (quest: QuestProperties) => boolean
+  ): QuestProperties[] {
     const results: QuestProperties[] = [];
     for (const quest of this.quests.values()) {
       if (predicate(quest)) {
@@ -147,14 +156,17 @@ export class QuestResourcesYaml {
     const startTime = Date.now();
 
     if (!fs.existsSync(this.questsYamlPath)) {
-      this.logger.warn(`Quests YAML directory not found: ${this.questsYamlPath}`);
+      this.logger.warn(
+        `Quests YAML directory not found: ${this.questsYamlPath}`
+      );
       this.logger.info("Falling back to Lua quest loading...");
       return;
     }
 
-    const questFilePaths = fs.readdirSync(this.questsYamlPath)
-      .filter(file => file.endsWith(".yml") || file.endsWith(".yaml"))
-      .map(file => path.join(this.questsYamlPath, file));
+    const questFilePaths = fs
+      .readdirSync(this.questsYamlPath)
+      .filter((file) => file.endsWith(".yml") || file.endsWith(".yaml"))
+      .map((file) => path.join(this.questsYamlPath, file));
 
     if (questFilePaths.length === 0) {
       this.logger.warn("No YAML quest files found");
@@ -181,7 +193,9 @@ export class QuestResourcesYaml {
     }
 
     const elapsed = Date.now() - startTime;
-    this.logger.info(`${loadedCount} YAML quests loaded in ${elapsed}ms (${errorCount} errors)`);
+    this.logger.info(
+      `${loadedCount} YAML quests loaded in ${elapsed}ms (${errorCount} errors)`
+    );
   }
 
   private loadYamlQuest(filePath: string): QuestProperties | null {
@@ -196,7 +210,9 @@ export class QuestResourcesYaml {
 
       const questId = this.tryGetQuestId(yamlData.quest_id);
       if (!questId) {
-        this.logger.warn(`Cannot find quest id for quest: '${yamlData.quest_id}' in ${filePath}`);
+        this.logger.warn(
+          `Cannot find quest id for quest: '${yamlData.quest_id}' in ${filePath}`
+        );
         return null;
       }
 
@@ -207,14 +223,19 @@ export class QuestResourcesYaml {
     }
   }
 
-  private convertYamlToQuestProperties(yamlData: YamlQuestData, questId: number): QuestProperties {
+  private convertYamlToQuestProperties(
+    yamlData: YamlQuestData,
+    questId: number
+  ): QuestProperties {
     return {
       id: questId,
       name: yamlData.quest_id,
       title: yamlData.title || "",
       startCharacter: yamlData.character || "",
       endCharacter: yamlData.end_character || yamlData.character || "",
-      startRequirements: this.convertStartRequirements(yamlData.start_requirements),
+      startRequirements: this.convertStartRequirements(
+        yamlData.start_requirements
+      ),
       questEndCondition: this.convertEndConditions(yamlData.end_conditions),
       rewards: this.convertRewards(yamlData.rewards),
       drops: this.convertDrops(yamlData.drops),
@@ -226,7 +247,9 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertStartRequirements(data?: YamlQuestData["start_requirements"]): QuestStartRequirementsProperties {
+  private convertStartRequirements(
+    data?: YamlQuestData["start_requirements"]
+  ): QuestStartRequirementsProperties {
     if (!data) {
       return {
         previousQuestId: undefined,
@@ -240,14 +263,18 @@ export class QuestResourcesYaml {
       previousQuestId: data.previous_quest || undefined,
       minLevel: data.min_level || 0,
       maxLevel: data.max_level || 0,
-      jobs: data.job?.map(jobStr => {
-        const jobKey = jobStr as keyof typeof DefineJob;
-        return DefineJob[jobKey];
-      }).filter(job => job !== undefined)
+      jobs: data.job
+        ?.map((jobStr) => {
+          const jobKey = jobStr as keyof typeof DefineJob;
+          return DefineJob[jobKey];
+        })
+        .filter((job) => job !== undefined)
     };
   }
 
-  private convertEndConditions(data?: YamlQuestData["end_conditions"]): QuestEndConditionProperties {
+  private convertEndConditions(
+    data?: YamlQuestData["end_conditions"]
+  ): QuestEndConditionProperties {
     if (!data) {
       return {
         items: undefined,
@@ -257,17 +284,17 @@ export class QuestResourcesYaml {
     }
 
     return {
-      items: data.items?.map(item => ({
+      items: data.items?.map((item) => ({
         id: item.id,
         quantity: item.quantity,
         sex: this.parseGenderType(item.sex),
         remove: item.remove
       })),
-      monsters: data.monsters?.map(monster => ({
+      monsters: data.monsters?.map((monster) => ({
         id: monster.id,
         amount: monster.amount
       })),
-      patrols: data.patrols?.map(patrol => ({
+      patrols: data.patrols?.map((patrol) => ({
         mapId: patrol.map_id,
         left: patrol.left,
         top: patrol.top,
@@ -277,7 +304,9 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertRewards(data?: YamlQuestData["rewards"]): QuestRewardProperties {
+  private convertRewards(
+    data?: YamlQuestData["rewards"]
+  ): QuestRewardProperties {
     if (!data) {
       return {
         exp: undefined,
@@ -291,7 +320,7 @@ export class QuestResourcesYaml {
       exp: data.exp,
       gold: data.gold,
       skillPoints: data.skill_points,
-      items: data.items?.map(item => ({
+      items: data.items?.map((item) => ({
         id: item.id,
         quantity: item.quantity,
         sex: this.parseGenderType(item.sex),
@@ -300,7 +329,9 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertDrops(data?: YamlQuestData["drops"]): QuestItemDropProperties[] {
+  private convertDrops(
+    data?: YamlQuestData["drops"]
+  ): QuestItemDropProperties[] {
     if (!data) return [];
 
     const questItemDrops: QuestItemDropProperties[] = [];
@@ -323,10 +354,13 @@ export class QuestResourcesYaml {
 
   private parseGenderType(sex: string): GenderType {
     switch (sex?.toLowerCase()) {
-      case "male": return GenderType.Male;
-      case "female": return GenderType.Female;
+      case "male":
+        return GenderType.Male;
+      case "female":
+        return GenderType.Female;
       case "any":
-      default: return GenderType.Any;
+      default:
+        return GenderType.Any;
     }
   }
 

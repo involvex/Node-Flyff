@@ -11,7 +11,9 @@ export class Attributes {
   }
 
   get(attribute: DefineAttributes, defaultValue = 0): number {
-    return this._attributes.has(attribute) ? this._attributes.get(attribute)! : defaultValue;
+    return this._attributes.has(attribute)
+      ? this._attributes.get(attribute)!
+      : defaultValue;
   }
 
   set(attribute: DefineAttributes, value: number, sendToEntity = true): void {
@@ -21,11 +23,19 @@ export class Attributes {
     }
   }
 
-  increase(attribute: DefineAttributes, value: number, sendToEntity = true): void {
+  increase(
+    attribute: DefineAttributes,
+    value: number,
+    sendToEntity = true
+  ): void {
     switch (attribute) {
       case DefineAttributes.DST_RESIST_ALL:
         this.increase(DefineAttributes.DST_RESIST_FIRE, value, sendToEntity);
-        this.increase(DefineAttributes.DST_RESIST_ELECTRICITY, value, sendToEntity);
+        this.increase(
+          DefineAttributes.DST_RESIST_ELECTRICITY,
+          value,
+          sendToEntity
+        );
         this.increase(DefineAttributes.DST_RESIST_WATER, value, sendToEntity);
         this.increase(DefineAttributes.DST_RESIST_WIND, value, sendToEntity);
         this.increase(DefineAttributes.DST_RESIST_EARTH, value, sendToEntity);
@@ -45,11 +55,19 @@ export class Attributes {
     }
   }
 
-  decrease(attribute: DefineAttributes, value: number, sendToEntity = true): void {
+  decrease(
+    attribute: DefineAttributes,
+    value: number,
+    sendToEntity = true
+  ): void {
     switch (attribute) {
       case DefineAttributes.DST_RESIST_ALL:
         this.decrease(DefineAttributes.DST_RESIST_FIRE, value, sendToEntity);
-        this.decrease(DefineAttributes.DST_RESIST_ELECTRICITY, value, sendToEntity);
+        this.decrease(
+          DefineAttributes.DST_RESIST_ELECTRICITY,
+          value,
+          sendToEntity
+        );
         this.decrease(DefineAttributes.DST_RESIST_WATER, value, sendToEntity);
         this.decrease(DefineAttributes.DST_RESIST_WIND, value, sendToEntity);
         this.decrease(DefineAttributes.DST_RESIST_EARTH, value, sendToEntity);

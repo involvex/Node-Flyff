@@ -239,9 +239,9 @@ Summary of recent maintenance and developer-focused changes:
 - Fixed multiple TypeScript and ESLint issues across the repo to restore clean builds.
 - Resolved `ws` typings mismatch and updated `src/tools/wsTcpProxy.ts` to match current `ws` API.
 - Added and fixed web-client tooling:
-   - `web-client/tools/import-assets.js` — zip-based asset importer for permissive packs.
-   - `web-client/tools/generate-sprite-sheet.js` — ImageMagick-based sprite-sheet generator.
-   - `web-client/src/components/AvatarAnimator.tsx` — Canvas animator for avatar sheets.
+  - `web-client/tools/import-assets.js` — zip-based asset importer for permissive packs.
+  - `web-client/tools/generate-sprite-sheet.js` — ImageMagick-based sprite-sheet generator.
+  - `web-client/src/components/AvatarAnimator.tsx` — Canvas animator for avatar sheets.
 - Asset manifest format updated to include `assets.avatar_sheets` entries used at runtime.
 
 How to run checks and tools (developer):

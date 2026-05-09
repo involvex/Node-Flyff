@@ -20,7 +20,10 @@ export class SkillResources {
   public async get(
     skillIdentifier: string | number
   ): Promise<SkillProperties | null> {
-    const skillId = typeof skillIdentifier === "number" ? skillIdentifier : await this.redisClient.hget("skillDefines", skillIdentifier);
+    const skillId =
+      typeof skillIdentifier === "number"
+        ? skillIdentifier
+        : await this.redisClient.hget("skillDefines", skillIdentifier);
     if (!_.isNil(skillId)) {
       const data = await this.redisClient.hgetall(`skill:${skillId}`);
       return data ? this.parseSkillProperties(data) : null;
@@ -31,7 +34,10 @@ export class SkillResources {
   public async getLevel(
     skillLevelIdentifier: string | number
   ): Promise<SkillLevelProperties | null> {
-    const skillLevelId = typeof skillLevelIdentifier === "number" ? skillLevelIdentifier : await this.redisClient.hget("skillDefines", skillLevelIdentifier);
+    const skillLevelId =
+      typeof skillLevelIdentifier === "number"
+        ? skillLevelIdentifier
+        : await this.redisClient.hget("skillDefines", skillLevelIdentifier);
     if (!_.isNil(skillLevelId)) {
       const data = await this.redisClient.hgetall(`skillLevel:${skillLevelId}`);
       return data ? this.parseSkillLevelProperties(data) : null;
@@ -229,7 +235,9 @@ export class SkillResources {
             "skillDescriptions",
             cleanString(skills[123])
           )) || "";
-        const skillLevels = await this.whereLevel((skill) => skill.dwName === szName);
+        const skillLevels = await this.whereLevel(
+          (skill) => skill.dwName === szName
+        );
         // TODO skill parse properties
         const skill: SkillProperties = {
           id: tryParseInt(id),
@@ -366,7 +374,7 @@ export class SkillResources {
   }
 
   cleanCache() {
-    return new Promise<void>(async (resolve, reject) => {
+    return new Promise<void>(async(resolve, reject) => {
       try {
         const keys = await this.redisClient.keys("skill:*");
         if (!keys || keys.length === 0) return resolve();

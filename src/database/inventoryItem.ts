@@ -11,8 +11,7 @@ import InventoryEntity from "./inventory";
 import ItemEntity from "./item";
 
 @Entity("InventoryItem")
-export default class InventoryItemEntity
-  extends BaseEntity {
+export default class InventoryItemEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
     id: number;
 

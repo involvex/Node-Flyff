@@ -23,13 +23,18 @@ export class MapItemObject extends WorldObject {
 
   constructor(item: Item) {
     super();
-    if (!item) throw new Error("Cannot create a map object instance with an undefined item.");
+    if (!item) {
+      throw new Error(
+        "Cannot create a map object instance with an undefined item."
+      );
+    }
     this.item = item;
     this.modelId = item.properties.id;
-    this.isGold = item.id === DefineItem.II_GOLD_SEED1 ||
-            item.id === DefineItem.II_GOLD_SEED2 ||
-            item.id === DefineItem.II_GOLD_SEED3 ||
-            item.id === DefineItem.II_GOLD_SEED4;
+    this.isGold =
+      item.id === DefineItem.II_GOLD_SEED1 ||
+      item.id === DefineItem.II_GOLD_SEED2 ||
+      item.id === DefineItem.II_GOLD_SEED3 ||
+      item.id === DefineItem.II_GOLD_SEED4;
   }
 
   public update(): void {

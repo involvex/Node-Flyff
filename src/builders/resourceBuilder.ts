@@ -1,4 +1,3 @@
-
 import _ from "lodash";
 
 import { Logger } from "../helpers/logger";
@@ -51,16 +50,24 @@ export class ResourceBuilder {
 
   public validateCriticalResources(): boolean {
     const criticalResources = ["Items", "Monsters/Movers", "Jobs", "Skills"];
-    const failedCritical = this.loadErrors.filter(result =>
-      !result.success && criticalResources.some(critical =>
-        result.resourceType.includes(critical) || critical.includes(result.resourceType)
-      )
+    const failedCritical = this.loadErrors.filter(
+      (result) =>
+        !result.success &&
+        criticalResources.some(
+          (critical) =>
+            result.resourceType.includes(critical) ||
+            critical.includes(result.resourceType)
+        )
     );
 
     if (failedCritical.length > 0) {
-      this.logger.error("CRITICAL ERROR: Essential game resources failed to load!");
-      failedCritical.forEach(failure => {
-        this.logger.error(`- ${failure.resourceType}: ${failure.error?.message}`);
+      this.logger.error(
+        "CRITICAL ERROR: Essential game resources failed to load!"
+      );
+      failedCritical.forEach((failure) => {
+        this.logger.error(
+          `- ${failure.resourceType}: ${failure.error?.message}`
+        );
       });
       return false;
     }
@@ -68,9 +75,14 @@ export class ResourceBuilder {
     return true;
   }
 
-  public getLoadingStats(): { total: number; successful: number; failed: number; errors: ResourceLoadResult[] } {
-    const successful = this.loadErrors.filter(result => result.success);
-    const failed = this.loadErrors.filter(result => !result.success);
+  public getLoadingStats(): {
+    total: number;
+    successful: number;
+    failed: number;
+    errors: ResourceLoadResult[];
+    } {
+    const successful = this.loadErrors.filter((result) => result.success);
+    const failed = this.loadErrors.filter((result) => !result.success);
 
     return {
       total: this.loadErrors.length,
@@ -109,7 +121,9 @@ export class ResourceBuilder {
         this.questResources = new QuestResourcesYaml(new Map());
       } catch (error) {
         this.logger.error("Failed to initialize resource instances:", error);
-        throw new Error(`Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`);
+        throw new Error(
+          `Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`
+        );
       }
 
       if (this.load) {
@@ -128,7 +142,10 @@ export class ResourceBuilder {
           try {
             await this.monsterResources.load();
           } catch (error) {
-            this.logger.warn("Failed to load with new method, falling back to Redis-based loading:", error);
+            this.logger.warn(
+              "Failed to load with new method, falling back to Redis-based loading:",
+              error
+            );
             await this.monsterResources.loadDefines();
             await this.monsterResources.loadMonstersPropStrings();
             await this.monsterResources.loadMonstersProp();
@@ -178,19 +195,25 @@ export class ResourceBuilder {
         });
 
         // Load quests with error handling (non-critical)
-        await this.loadResourceSafely("Quests", async() => {
-          this.logger.info("Loading quest defines...");
-          await this.questResources.loadDefines();
-          this.logger.info("Loading quests...");
-          this.questResources.load();
-        }, false); // Non-critical resource
+        await this.loadResourceSafely(
+          "Quests",
+          async() => {
+            this.logger.info("Loading quest defines...");
+            await this.questResources.loadDefines();
+            this.logger.info("Loading quests...");
+            this.questResources.load();
+          },
+          false
+        ); // Non-critical resource
 
         // Log summary of loaded resources
         await this.logResourceSummary(buildStartTime);
 
         // Validate critical resources
         if (!this.validateCriticalResources()) {
-          throw new Error("Critical resources failed to load. Server cannot start safely.");
+          throw new Error(
+            "Critical resources failed to load. Server cannot start safely."
+          );
         }
       }
     } catch (error) {
@@ -230,7 +253,8 @@ export class ResourceBuilder {
       });
     } catch (error) {
       const elapsed = Date.now() - startTime;
-      const loadError = error instanceof Error ? error : new Error(String(error));
+      const loadError =
+        error instanceof Error ? error : new Error(String(error));
 
       this.loadErrors.push({
         success: false,
@@ -240,23 +264,35 @@ export class ResourceBuilder {
       });
 
       if (critical) {
-        this.logger.error(`CRITICAL: Failed to load ${resourceType}:`, loadError.message);
-        throw new Error(`Critical resource loading failed: ${resourceType} - ${loadError.message}`);
+        this.logger.error(
+          `CRITICAL: Failed to load ${resourceType}:`,
+          loadError.message
+        );
+        throw new Error(
+          `Critical resource loading failed: ${resourceType} - ${loadError.message}`
+        );
       } else {
-        this.logger.warn(`NON-CRITICAL: Failed to load ${resourceType}:`, loadError.message);
-        this.logger.warn(`Server will continue without ${resourceType} functionality.`);
+        this.logger.warn(
+          `NON-CRITICAL: Failed to load ${resourceType}:`,
+          loadError.message
+        );
+        this.logger.warn(
+          `Server will continue without ${resourceType} functionality.`
+        );
       }
     }
   }
 
   private logErrorSummary(): void {
-    const failures = this.loadErrors.filter(result => !result.success);
+    const failures = this.loadErrors.filter((result) => !result.success);
 
     if (failures.length > 0) {
       this.logger.error("\\n=== RESOURCE LOADING ERRORS ===");
 
-      failures.forEach(failure => {
-        this.logger.error(`${failure.resourceType}: ${failure.error?.message || "Unknown error"}`);
+      failures.forEach((failure) => {
+        this.logger.error(
+          `${failure.resourceType}: ${failure.error?.message || "Unknown error"}`
+        );
       });
 
       this.logger.error("=" + "=".repeat(31) + "=");
@@ -265,8 +301,8 @@ export class ResourceBuilder {
 
   private async logResourceSummary(buildStartTime: number): Promise<void> {
     const totalElapsed = Date.now() - buildStartTime;
-    const successfulLoads = this.loadErrors.filter(result => result.success);
-    const failedLoads = this.loadErrors.filter(result => !result.success);
+    const successfulLoads = this.loadErrors.filter((result) => result.success);
+    const failedLoads = this.loadErrors.filter((result) => !result.success);
 
     this.logger.success("==== RESOURCE LOADING SUMMARY ====");
 
@@ -275,9 +311,10 @@ export class ResourceBuilder {
 
     // Log individual resource counts with status indicators
     Object.entries(resourceCounts).forEach(([resourceType, count]) => {
-      const loadResult = this.loadErrors.find(result =>
-        result.resourceType === resourceType ||
-        resourceType.includes(result.resourceType.split("/")[0])
+      const loadResult = this.loadErrors.find(
+        (result) =>
+          result.resourceType === resourceType ||
+          resourceType.includes(result.resourceType.split("/")[0])
       );
 
       let statusIndicator = "";
@@ -292,25 +329,41 @@ export class ResourceBuilder {
         }
       }
 
-      const logMethod = loadResult?.success !== false ? this.logger.success : this.logger.error;
-      logMethod.call(this.logger, `${resourceType.padEnd(20)} ${countStr.padStart(6)} ${statusIndicator}`);
+      const logMethod =
+        loadResult?.success !== false ? this.logger.success : this.logger.error;
+      logMethod.call(
+        this.logger,
+        `${resourceType.padEnd(20)} ${countStr.padStart(6)} ${statusIndicator}`
+      );
     });
 
     // Calculate total (excluding unknown counts)
-    const knownCounts = Object.values(resourceCounts).filter(count => count >= 0);
+    const knownCounts = Object.values(resourceCounts).filter(
+      (count) => count >= 0
+    );
     const totalResources = knownCounts.reduce((sum, count) => sum + count, 0);
-    const hasUnknownCounts = Object.values(resourceCounts).some(count => count === -1);
+    const hasUnknownCounts = Object.values(resourceCounts).some(
+      (count) => count === -1
+    );
 
     this.logger.success("=".repeat(35));
-    const totalStr = hasUnknownCounts ? `${totalResources}+` : totalResources.toString();
-    this.logger.success(`${"TOTAL RESOURCES".padEnd(20)} ${totalStr.padStart(6)} loaded`);
+    const totalStr = hasUnknownCounts
+      ? `${totalResources}+`
+      : totalResources.toString();
+    this.logger.success(
+      `${"TOTAL RESOURCES".padEnd(20)} ${totalStr.padStart(6)} loaded`
+    );
 
     // Add error summary to main summary
     if (failedLoads.length > 0) {
-      this.logger.error(`${"FAILED RESOURCES".padEnd(20)} ${failedLoads.length.toString().padStart(6)} failed`);
+      this.logger.error(
+        `${"FAILED RESOURCES".padEnd(20)} ${failedLoads.length.toString().padStart(6)} failed`
+      );
     }
 
-    this.logger.success(`${"BUILD TIME".padEnd(20)} ${totalElapsed.toString().padStart(4)}ms`);
+    this.logger.success(
+      `${"BUILD TIME".padEnd(20)} ${totalElapsed.toString().padStart(4)}ms`
+    );
     this.logger.success("=" + "=".repeat(33) + "=");
 
     // Log detailed error information if there were failures

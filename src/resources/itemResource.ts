@@ -5,7 +5,7 @@ import KvClient from "../libraries/kvClient";
 
 import { ResourcePaths } from "../resources/resourcePaths";
 import { ItemProperties } from "../interfaces/resource";
-import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
+import { tryParseInt, cleanString } from "../helpers/parsing";
 import { BaseResource } from "../abstract/baseResource";
 
 export class ItemResources extends BaseResource {
@@ -24,7 +24,10 @@ export class ItemResources extends BaseResource {
   public async get(
     itemIdentifier: string | number
   ): Promise<ItemProperties | null> {
-    const itemId = typeof itemIdentifier === "number" ? itemIdentifier : await this.redisClient.hget("itemDefines", itemIdentifier);
+    const itemId =
+      typeof itemIdentifier === "number"
+        ? itemIdentifier
+        : await this.redisClient.hget("itemDefines", itemIdentifier);
     if (!_.isNil(itemId)) {
       const data = await this.redisClient.hgetall(`item:${itemId}`);
       return data ? this.parseItemProperties(data) : null;
@@ -32,7 +35,9 @@ export class ItemResources extends BaseResource {
     return null;
   }
 
-  public async where(predicate: (item: ItemProperties) => boolean): Promise<ItemProperties[]> {
+  public async where(
+    predicate: (item: ItemProperties) => boolean
+  ): Promise<ItemProperties[]> {
     const items: ItemProperties[] = [];
     try {
       const keys = await this.redisClient.keys("item:%");

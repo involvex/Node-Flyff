@@ -56,7 +56,9 @@ export class MapResources {
     return this.mapsById.get(id) || null;
   }
 
-  public async getByIdentifier(identifier: string): Promise<MapProperties | null> {
+  public async getByIdentifier(
+    identifier: string
+  ): Promise<MapProperties | null> {
     // Try cache first
     const cached = await this.redisClient.hgetall(`mapById:${identifier}`);
     if (cached && Object.keys(cached).length > 0) {
@@ -87,14 +89,18 @@ export class MapResources {
         }
 
         if (!worldNames.has(mapIdentifier)) {
-          this.logger.warn(`Failed to load map '${mapIdentifier}'. Not declared in world script.`);
+          this.logger.warn(
+            `Failed to load map '${mapIdentifier}'. Not declared in world script.`
+          );
           continue;
         }
 
         const worldName = worldNames.get(mapIdentifier)!;
 
         if (!this.defines.has(mapIdentifier)) {
-          this.logger.warn(`Failed to load map '${mapIdentifier}'. ID not defined.`);
+          this.logger.warn(
+            `Failed to load map '${mapIdentifier}'. ID not defined.`
+          );
           continue;
         }
 
@@ -102,16 +108,23 @@ export class MapResources {
 
         const worldInformation = this.loadWorldInformation(worldName);
 
-        const bounds = new Rectangle(0, 0,
+        const bounds = new Rectangle(
+          0,
+          0,
           worldInformation.width * worldInformation.mpu * 128,
-          worldInformation.length * worldInformation.mpu * 128);
+          worldInformation.length * worldInformation.mpu * 128
+        );
 
         const map = new MapProperties(
           mapId,
           worldName,
           worldInformation.width,
           worldInformation.length,
-          this.loadHeights(worldName, worldInformation.width, worldInformation.length),
+          this.loadHeights(
+            worldName,
+            worldInformation.width,
+            worldInformation.length
+          ),
           worldInformation.revivalMapId,
           worldInformation.mpu,
           bounds,
@@ -147,19 +160,37 @@ export class MapResources {
     return worlds;
   }
 
-  private loadWorldInformation(worldName: string): { width: number, length: number, mpu: number, revivalMapId: number } {
-    const wldPath = path.join(ResourcePaths.world, worldName, `${worldName}.wld`);
+  private loadWorldInformation(worldName: string): {
+    width: number;
+    length: number;
+    mpu: number;
+    revivalMapId: number;
+  } {
+    const wldPath = path.join(
+      ResourcePaths.world,
+      worldName,
+      `${worldName}.wld`
+    );
     if (!fs.existsSync(wldPath)) {
       this.logger.warn(`World file not found: ${wldPath}`);
       return { width: 0, length: 0, mpu: 1, revivalMapId: 0 };
     }
 
     const worldFile = new WldFile(wldPath);
-    return worldFile.worldData || { width: 0, length: 0, mpu: 1, revivalMapId: 0 };
+    return (
+      worldFile.worldData || { width: 0, length: 0, mpu: 1, revivalMapId: 0 }
+    );
   }
 
-  private loadRegions(worldName: string, revivalMapId: number): MapRegionProperties[] {
-    const rgnPath = path.join(ResourcePaths.world, worldName, `${worldName}.rgn`);
+  private loadRegions(
+    worldName: string,
+    revivalMapId: number
+  ): MapRegionProperties[] {
+    const rgnPath = path.join(
+      ResourcePaths.world,
+      worldName,
+      `${worldName}.rgn`
+    );
     if (!fs.existsSync(rgnPath)) {
       this.logger.warn(`Regions file not found: ${rgnPath}`);
       return [];
@@ -169,17 +200,22 @@ export class MapResources {
     const rgnFile = new RgnFile(rgnPath);
 
     // Respawn regions
-    const respawners = rgnFile.getElements<RgnRespawn7>().map(region => new MapRespawnRegionProperties(
-      region.left,
-      region.top,
-      region.width,
-      region.length,
-      region.time,
-      region.position.y,
-      region.type,
-      region.model,
-      region.count
-    ));
+    const respawners = rgnFile
+      .getElements<RgnRespawn7>()
+      .map(
+        (region) =>
+          new MapRespawnRegionProperties(
+            region.left,
+            region.top,
+            region.width,
+            region.length,
+            region.time,
+            region.position.y,
+            region.type,
+            region.model,
+            region.count
+          )
+      );
     regions.push(...respawners);
 
     // Other regions
@@ -215,30 +251,46 @@ export class MapResources {
   }
 
   private loadObjects(worldName: string): MapObjectProperties[] {
-    const dyoPath = path.join(ResourcePaths.world, worldName, `${worldName}.dyo`);
+    const dyoPath = path.join(
+      ResourcePaths.world,
+      worldName,
+      `${worldName}.dyo`
+    );
     if (!fs.existsSync(dyoPath)) {
       this.logger.warn(`Objects file not found: ${dyoPath}`);
       return [];
     }
 
     const dyoFile = new DyoFile(dyoPath);
-    return dyoFile.getElements<DyoNpcElement>()
-      .filter(element => element !== null)
-      .map(element => new MapObjectProperties(
-        element.index,
-        element.position.clone(),
-        element.angle,
-        element.characterKey
-      ));
+    return dyoFile
+      .getElements<DyoNpcElement>()
+      .filter((element) => element !== null)
+      .map(
+        (element) =>
+          new MapObjectProperties(
+            element.index,
+            element.position.clone(),
+            element.angle,
+            element.characterKey
+          )
+      );
   }
 
-  private loadHeights(worldName: string, width: number, length: number): number[] {
+  private loadHeights(
+    worldName: string,
+    width: number,
+    length: number
+  ): number[] {
     const heights: number[] = [];
     const landscapeSize = 128;
 
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < length; y++) {
-        const lndPath = path.join(ResourcePaths.world, worldName, `${worldName}${x.toString().padStart(2, "0")}-${y.toString().padStart(2, "0")}.lnd`);
+        const lndPath = path.join(
+          ResourcePaths.world,
+          worldName,
+          `${worldName}${x.toString().padStart(2, "0")}-${y.toString().padStart(2, "0")}.lnd`
+        );
         if (fs.existsSync(lndPath)) {
           const buffer = fs.readFileSync(lndPath);
           const dataView = new DataView(buffer.buffer);

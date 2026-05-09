@@ -1,0 +1,93 @@
+server:
+  host: "127.0.0.1"
+  port: 5400
+security:
+  master-password: "StrongPassword"
+settings:
+  name: "Channel 1"
+  maximum-users: 100
+  pk-enabled: false
+  language: "en"
+  maps:
+    - "WI_WORLD_MADRIGAL"
+    - "WI_DUNGEON_FL_MAS"
+  rates:
+    gold: 1
+    experience: 1
+    drop: 1
+  npc-buff:
+    default:
+      - name: MaFl_Helper_ver12
+        min: 1
+        max: 20
+        buffs:
+          - skill-id: SI_ASS_HEAL_PATIENCE
+            level: 7
+            time: 3600
+          - skill-id: SI_ASS_CHEER_HEAPUP
+            level: 7
+            time: 3600
+    additional:
+      - name: MaFl_Helper_ver12
+        min: 1
+        max: 120
+        buffs:
+          - skill-id: SI_ASS_HEAL_PATIENCE
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_QUICKSTEP
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_HASTE
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_CATSREFLEX
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_CANNONBALL
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_MENTALSIGN
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_HEAPUP
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_BEEFUP
+            level: 20
+            time: 3600
+          - skill-id: SI_ASS_CHEER_ACCURACY
+            level: 20
+            time: 3600
+          - skill-id: SI_RIN_SUP_PROTECT
+            level: 10
+            time: 3600
+# Inter-server communication (replaces Redis)
+inter-server:
+  enabled: true
+  host: "127.0.0.1"
+  port: 5401
+  cluster-server:
+    host: "127.0.0.1"
+    port: 28001
+# Database configuration (Bun SQLite optimized)
+database:
+  provider: "sqlite"
+  database: "data/flyff.db"
+  synchronize: true
+  logging: false
+# Session management (in-memory, replaces Redis)
+sessions:
+  default-duration: 3600
+  cleanup-interval: 60
+# Asset configuration
+assets:
+  client-path: "I:\\ClockworksFlyff Client\\"
+  cache-path: "data/assets/"
+  enable-caching: true
+# Performance settings
+performance:
+  max-players-per-channel: 100
+  visibility-range: 50
+  update-interval: 100
+  save-interval: 30000

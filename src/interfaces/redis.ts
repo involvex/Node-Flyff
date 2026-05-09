@@ -11,16 +11,26 @@ export interface IRedisClient {
   updateChannel(clusterName: string, updatedChannel: IChannel): Promise<void>;
   getChannel(
     clusterName: string,
-    channelName: string
+    channelName: string,
   ): Promise<IChannel | null>;
   deleteChannel(clusterName: string, channelName: string): Promise<void>;
   getChannelById(
     clusterName: string,
-    id: number
+    id: number,
   ): Promise<IChannel | undefined>;
-  getNumpadId(username: string): Promise<number | null>
-  setNumpadId(username: string, numPadId: number): Promise<void>
-  setCharacterSession(sessionKey: number, characterId: number, username: string, password: string, expireInSeconds: number): Promise<void>
-  getCharacterSession(sessionKey: number): Promise<{characterId: number, username: string, password: string} | null>
-  deleteCharacterSession(sessionKey: number): Promise<void>
+  getNumpadId(username: string): Promise<number | null>;
+  setNumpadId(username: string, numPadId: number): Promise<void>;
+  setCharacterSession(
+    sessionKey: number,
+    characterId: number,
+    username: string,
+    password: string,
+    expireInSeconds: number,
+  ): Promise<void>;
+  getCharacterSession(sessionKey: number): Promise<{
+    characterId: number;
+    username: string;
+    password: string;
+  } | null>;
+  deleteCharacterSession(sessionKey: number): Promise<void>;
 }

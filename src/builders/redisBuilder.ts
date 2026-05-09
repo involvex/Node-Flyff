@@ -3,8 +3,6 @@ import { Logger } from "../helpers/logger";
 import { BuilderType } from "../common/builderType";
 import { IRedisClient } from "../interfaces/redis";
 import { RedisClient } from "../libraries/redis";
-;
-
 export class RedisBuilder {
   private logger: Logger;
   options: any;
@@ -22,7 +20,7 @@ export class RedisBuilder {
     subscriber: any | null;
     publisher: any | null;
     client: IRedisClient | null;
-  } {
+    } {
     // Attempt to build synchronously (best-effort). If Redis is unreachable
     // the async build path in InstanceBuilder will be used instead.
     // Synchronous build: do not attempt to create real Redis connections.
@@ -36,7 +34,10 @@ export class RedisBuilder {
         client
       };
     } catch (err) {
-      this.logger.warn("Initialization failed, falling back to local sqlite storage:", err);
+      this.logger.warn(
+        "Initialization failed, falling back to local sqlite storage:",
+        err
+      );
       try {
         // lazy import to avoid adding binary deps unless needed
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -49,7 +50,10 @@ export class RedisBuilder {
           client: sqliteClient
         };
       } catch (sqliteErr) {
-        this.logger.warn("Sqlite fallback initialization failed, continuing without Redis/sqlite:", sqliteErr);
+        this.logger.warn(
+          "Sqlite fallback initialization failed, continuing without Redis/sqlite:",
+          sqliteErr
+        );
         return {
           subscriber: null,
           publisher: null,
@@ -71,14 +75,20 @@ export class RedisBuilder {
       this.logger.success("KV-backed Redis client initialized (async)");
       return { subscriber: null, publisher: null, client };
     } catch (err) {
-      this.logger.warn("Initialization failed, falling back to local sqlite storage:", err?.message ?? err);
+      this.logger.warn(
+        "Initialization failed, falling back to local sqlite storage:",
+        err?.message ?? err
+      );
       try {
         const SqliteClient = require("../libraries/sqliteClient").default;
         const sqliteClient = new SqliteClient();
         this.logger.success("Sqlite fallback client initialized");
         return { subscriber: null, publisher: null, client: sqliteClient };
       } catch (sqliteErr) {
-        this.logger.warn("Sqlite fallback initialization failed, continuing without Redis/sqlite:", sqliteErr);
+        this.logger.warn(
+          "Sqlite fallback initialization failed, continuing without Redis/sqlite:",
+          sqliteErr
+        );
         return { subscriber: null, publisher: null, client: null };
       }
     }

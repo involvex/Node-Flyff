@@ -23,7 +23,9 @@ export async function loadImage(path: string): Promise<HTMLImageElement> {
   });
 }
 
-export async function loadAvatarParts(): Promise<Record<string, HTMLImageElement[]>> {
+export async function loadAvatarParts(): Promise<
+  Record<string, HTMLImageElement[]>
+  > {
   const manifest = await loadManifest();
   const avatar = manifest.assets?.avatar || {};
   const result: Record<string, HTMLImageElement[]> = {};

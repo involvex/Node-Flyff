@@ -7,7 +7,8 @@ import { CharacterExpTableProperties } from "../interfaces/characterExpTableProp
 export class ExperienceTableResources {
   private readonly logger: Logger;
   private expDropLuck: number[][] = [];
-  private characterExpTable: Map<number, CharacterExpTableProperties> = new Map();
+  private characterExpTable: Map<number, CharacterExpTableProperties> =
+    new Map();
 
   constructor() {
     this.logger = new Logger("ExperienceTableResources");
@@ -18,23 +19,32 @@ export class ExperienceTableResources {
     const expTablePath = ResourcePaths.expTablePath;
 
     if (!fs.existsSync(expTablePath)) {
-      this.logger.warn(`Unable to load exp table. Reason: Cannot find '${expTablePath}' file.`);
+      this.logger.warn(
+        `Unable to load exp table. Reason: Cannot find '${expTablePath}' file.`
+      );
       return;
     }
 
     try {
-      const expTableFile = new IncludeFile(expTablePath, "([(){}=,;\\n\\r\\t ])");
+      const expTableFile = new IncludeFile(
+        expTablePath,
+        "([(){}=,;\\n\\r\\t ])"
+      );
 
       const dropLuckBlock = expTableFile.getBlock("expDropLuck");
       if (!dropLuckBlock) {
-        this.logger.warn("Unable to load exp table. Reason: Cannot find drop luck data.");
+        this.logger.warn(
+          "Unable to load exp table. Reason: Cannot find drop luck data."
+        );
         expTableFile.dispose();
         return;
       }
 
       const expCharacterBlock = expTableFile.getBlock("expCharacter");
       if (!expCharacterBlock) {
-        this.logger.warn("Unable to load exp table. Reason: Cannot find character experience data.");
+        this.logger.warn(
+          "Unable to load exp table. Reason: Cannot find character experience data."
+        );
         expTableFile.dispose();
         return;
       }
@@ -47,7 +57,9 @@ export class ExperienceTableResources {
       const elapsed = Date.now() - startTime;
       this.logger.info(`Experience tables loaded in ${elapsed}ms.`);
     } catch (error) {
-      this.logger.error(`Failed to load experience tables: ${error instanceof Error ? error.message : String(error)}`);
+      this.logger.error(
+        `Failed to load experience tables: ${error instanceof Error ? error.message : String(error)}`
+      );
     }
   }
 
@@ -69,7 +81,7 @@ export class ExperienceTableResources {
   }
 
   private loadDropLuck(dropLuckBlock: Block): number[][] {
-    const values = dropLuckBlock.unknownStatements.map(x => parseInt(x, 10));
+    const values = dropLuckBlock.unknownStatements.map((x) => parseInt(x, 10));
     const result: number[][] = [];
 
     for (let i = 0; i < values.length; i += 11) {
@@ -82,7 +94,9 @@ export class ExperienceTableResources {
     return result;
   }
 
-  private loadCharacterExperience(expTableBlock: Block): Map<number, CharacterExpTableProperties> {
+  private loadCharacterExperience(
+    expTableBlock: Block
+  ): Map<number, CharacterExpTableProperties> {
     const values = expTableBlock.unknownStatements;
     const result = new Map<number, CharacterExpTableProperties>();
 

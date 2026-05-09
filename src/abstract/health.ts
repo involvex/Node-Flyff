@@ -87,7 +87,11 @@ export class Health {
     // this.sendHealth();
   }
 
-  public die(killer: Mover, attackType: AttackType, sendHitPoints: boolean = false): void {
+  public die(
+    killer: Mover,
+    attackType: AttackType,
+    sendHitPoints: boolean = false
+  ): void {
     this.hp = 0;
 
     if (this._mover instanceof Player && killer instanceof Player) {
@@ -95,11 +99,9 @@ export class Health {
     } else {
       // const moverDeathSnapshot = new FlyffSnapshot();
       // moverDeathSnapshot.merge(new MoverDeathSnapshot(this._mover, killer, attackType));
-
       // if (sendHitPoints) {
       //     moverDeathSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_HP, this.hp));
       // }
-
       // this._mover.sendToVisible(moverDeathSnapshot, true);
     }
 
@@ -107,19 +109,20 @@ export class Health {
     // killer.onTargetKilled(this._mover);
   }
 
-  sufferDamages(attacker: Mover, damages: number, attackType: AttackType, attackFlags: AttackFlags = AttackFlags.AF_GENERIC): void {
+  sufferDamages(
+    attacker: Mover,
+    damages: number,
+    attackType: AttackType,
+    attackFlags: AttackFlags = AttackFlags.AF_GENERIC
+  ): void {
     // const damagesToInflict = Math.min(this.hp, damages);
     // const damageSnapshots = new FFSnapshot();
-
     // damageSnapshots.merge(new AddDamageSnapshot(this._mover, attacker, attackFlags, damagesToInflict));
-
     // if (damagesToInflict > 0) {
     //     this.hp -= damagesToInflict;
     //     damageSnapshots.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_HP, this.hp));
     // }
-
     // this._mover.sendToVisible(damageSnapshots, true);
-
     // if (this.hp <= 0) {
     //     this.die(attacker, attackType, true);
     // }
@@ -129,15 +132,12 @@ export class Health {
     // if (this.hp <= 0 || this._nextHealTime > Date.now()) {
     //     return;
     // }
-
     // const NextIdleHealSit = 2;
     // const NextIdleHealStand = 3;
     // this._nextHealTime = Date.now() + (this._mover.objectState === ObjectState.OBJSTA_SIT ? NextIdleHealSit : NextIdleHealStand);
-
     // this.hp += HealthFormulas.getHpRecovery(this._mover);
     // this.mp += HealthFormulas.getMpRecovery(this._mover);
     // this.fp += HealthFormulas.getFpRecovery(this._mover);
-
     // this.sendHealth();
   }
 
@@ -145,13 +145,10 @@ export class Health {
     // if (this.hp > 0 || !(this._mover instanceof Player)) {
     //     return;
     // }
-
     // const recoveryRate = GameResources.current.penalties.getRevivalPenalty(this._mover.level) / 100;
-
     // this.hp = Math.round(this.maxHp * recoveryRate);
     // this.mp = Math.round(this.maxMp * recoveryRate);
     // this.fp = Math.round(this.maxFp * recoveryRate);
-
     // if (sendToPlayer) {
     //     this.sendHealth();
     // }
@@ -207,7 +204,6 @@ export class Health {
     // healthSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_HP, this.hp));
     // healthSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_MP, this.mp));
     // healthSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_FP, this.fp));
-
     // this._mover.sendToVisible(healthSnapshot, true);
   }
 }

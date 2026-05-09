@@ -11,9 +11,11 @@ export function encodeCertify(account: string, password: string) {
   dv.setUint16(0, a.length + 1 + p.length + 1, true);
   dv.setUint8(2, 1); // type 1 = CERTIFY (demo)
   let offset = 3;
-  new Uint8Array(buf, offset, a.length).set(a); offset += a.length;
+  new Uint8Array(buf, offset, a.length).set(a);
+  offset += a.length;
   dv.setUint8(offset++, 0);
-  new Uint8Array(buf, offset, p.length).set(p); offset += p.length;
+  new Uint8Array(buf, offset, p.length).set(p);
+  offset += p.length;
   dv.setUint8(offset++, 0);
   return buf;
 }
@@ -49,7 +51,8 @@ export function encodeSelectServer(name: string) {
   dv.setUint16(0, n.length + 1 + 1, true);
   dv.setUint8(2, 4); // type 4 = SELECT_SERVER (demo)
   let offset = 3;
-  new Uint8Array(buf, offset, n.length).set(n); offset += n.length;
+  new Uint8Array(buf, offset, n.length).set(n);
+  offset += n.length;
   dv.setUint8(offset++, 0);
   return buf;
 }
@@ -71,7 +74,8 @@ export function encodeSelectCharacter(name: string) {
   dv.setUint16(0, n.length + 1 + 1, true);
   dv.setUint8(2, 6); // type 6 = SELECT_CHARACTER
   let offset = 3;
-  new Uint8Array(buf, offset, n.length).set(n); offset += n.length;
+  new Uint8Array(buf, offset, n.length).set(n);
+  offset += n.length;
   dv.setUint8(offset++, 0);
   return buf;
 }

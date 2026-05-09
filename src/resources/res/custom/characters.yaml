@@ -4,11 +4,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
     structure: SRT_QUESTOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000000
     output: false
     dialog: MaFl_Mikyel.txt"
@@ -18,11 +18,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000002
     output: false
     dialog: MaFl_Benku.txt"
@@ -32,11 +32,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000004
     output: false
     dialog: MaFl_Macus.txt"
@@ -46,11 +46,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000006
     output: false
     dialog: MaFl_Zaikun.txt"
@@ -60,11 +60,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000008
     output: false
     dialog: MaFl_Roji.txt"
@@ -74,11 +74,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000010
     output: false
     dialog: MaFl_Noier.txt"
@@ -88,11 +88,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000012
     output: false
     dialog: MaFl_Herney.txt"
@@ -102,11 +102,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000014
     output: false
     dialog: MaFl_Geron.txt"
@@ -116,11 +116,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000016
     output: false
     dialog: MaFl_SgRadion.txt"
@@ -130,11 +130,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000018
     output: false
     dialog: MaFl_Pheeby.txt"
@@ -153,7 +153,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -193,7 +193,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000020
     output: false
     dialog: MaFl_Boboku.txt"
@@ -212,7 +212,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -288,7 +288,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000026
     output: false
     dialog: MaFl_Boboko.txt"
@@ -307,7 +307,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -353,7 +353,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_BUCKLER
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000032
     output: false
     dialog: MaFl_Luda.txt"
@@ -370,7 +370,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BCHARM
@@ -404,7 +404,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000038
     output: false
     dialog: MaFl_Lui.txt"
@@ -417,7 +417,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -427,7 +427,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000044
     output: false
     dialog: MaFl_Losha.txt"
@@ -446,7 +446,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_WAND
@@ -498,7 +498,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_MAGIC
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000050
     output: false
     dialog: MaFl_Marche.txt"
@@ -513,7 +513,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -523,7 +523,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_PUBLICOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000056
     output: false
     dialog: MaFl_Juria.txt"
@@ -542,7 +542,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_STICK
@@ -564,7 +564,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_STATION
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000058
     output: false
     dialog: MaFl_Dior.txt"
@@ -577,7 +577,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_MASK
@@ -586,8 +586,8 @@
         max: 2
         qty: 100
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000064
     output: false
     dialog: MaFl_Is.txt"
@@ -597,14 +597,14 @@
   settings:
     menu:
       - MMI_BEAUTYSHOP
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000067
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_FaceOff
   name: IDS_CHARACTER_INC_000629
   vendorSlots: []
@@ -613,25 +613,25 @@
       - MMI_BEAUTYSHOP_SKIN
       - MMI_BEAUTYSHOP
       - MMI_LOOKCHANGE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000628
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_Ispim
   name: IDS_CHARACTER_INC_000070
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000069
     output: false
     dialog: MaFl_Ispim.txt"
@@ -644,7 +644,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_HAT
@@ -653,8 +653,8 @@
         max: 2
         qty: 100
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000071
     output: false
     dialog: MaFl_Isruel.txt"
@@ -664,11 +664,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000074
     output: false
     dialog: MaFl_Ismeralda.txt"
@@ -678,11 +678,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000076
     output: false
     dialog: MaFl_Mule.txt"
@@ -692,11 +692,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000078
     output: false
     dialog: MaFl_Valin.txt"
@@ -706,11 +706,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000080
     output: false
     dialog: MaFl_Rooney.txt"
@@ -721,11 +721,11 @@
     menu:
       - MMI_DIALOG
       - MMI_MARKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000082
     output: false
     dialog: MaFl_LodeLight.txt"
@@ -735,11 +735,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000084
     output: false
     dialog: MaFl_Paul.txt"
@@ -749,11 +749,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000086
     output: false
     dialog: MaFl_Dunkan.txt"
@@ -763,11 +763,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000088
     output: false
     dialog: MaFl_Stin.txt"
@@ -777,11 +777,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000090
     output: false
     dialog: MaFl_Jeff.txt"
@@ -791,11 +791,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000092
     output: false
     dialog: MaFl_Tommy.txt"
@@ -805,11 +805,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000094
     output: false
     dialog: MaFl_Masa.txt"
@@ -819,11 +819,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000096
     output: false
     dialog: MaFl_Demian.txt"
@@ -833,11 +833,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000098
     output: false
     dialog: MaFl_Tucani.txt"
@@ -847,11 +847,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000100
     output: false
     dialog: MaFl_Radyon.txt"
@@ -861,11 +861,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000102
     output: false
     dialog: MaFl_Kimel.txt"
@@ -875,11 +875,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000104
     output: false
     dialog: MaFl_Leily.txt"
@@ -889,11 +889,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000106
     output: false
     dialog: MaSa_Molang.txt"
@@ -903,11 +903,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000108
     output: false
     dialog: MaSa_Neidan.txt"
@@ -917,11 +917,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000110
     output: false
     dialog: MaSa_Brodeay.txt"
@@ -931,11 +931,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000112
     output: false
     dialog: MaSa_Troupemember1.txt"
@@ -945,11 +945,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000114
     output: false
     dialog: MaSa_Troupemember2.txt"
@@ -959,11 +959,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000116
     output: false
     dialog: MaSa_Troupemember3.txt"
@@ -973,11 +973,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000118
     output: false
     dialog: MaSa_Troupemember4.txt"
@@ -987,11 +987,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000120
     output: false
     dialog: MaSa_Troupemember5.txt"
@@ -1001,11 +1001,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000122
     output: false
     dialog: MaSa_Kheymerhan.txt"
@@ -1015,11 +1015,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
     structure: SRT_QUESTOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000124
     output: false
     dialog: MaSa_Lancomi.txt"
@@ -1034,7 +1034,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -1044,7 +1044,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_PUBLICOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000126
     output: false
     dialog: MaSa_Helena.txt"
@@ -1063,7 +1063,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_WAND
@@ -1115,7 +1115,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_MAGIC
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000128
     output: false
     dialog: MaSa_Martin.txt"
@@ -1134,7 +1134,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BCHARM
@@ -1174,7 +1174,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000134
     output: false
     dialog: MaSa_Bill.txt"
@@ -1193,7 +1193,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_STICK
@@ -1215,7 +1215,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_STATION
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000140
     output: false
     dialog: MaSa_Tina.txt"
@@ -1235,7 +1235,7 @@
       - MMI_DIALOG
       - MMI_TRADE
       - MMI_PIERCING
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -1275,7 +1275,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000146
     output: false
     dialog: MaSa_Bulrox.txt"
@@ -1294,7 +1294,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -1370,7 +1370,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000152
     output: false
     dialog: MaSa_Bozman.txt"
@@ -1389,7 +1389,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SHIELD
@@ -1399,7 +1399,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_BUCKLER
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000158
     output: false
     dialog: MaSa_Colack.txt"
@@ -1418,7 +1418,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -1428,7 +1428,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000164
     output: false
     dialog: MaSa_Karin.txt"
@@ -1441,7 +1441,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_MASK
@@ -1462,8 +1462,8 @@
         max: 1
         qty: 30
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000170
     output: false
     dialog: MaSa_Leann.txt"
@@ -1473,11 +1473,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000173
     output: false
     dialog: MaSa_Ann.txt"
@@ -1487,11 +1487,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000175
     output: false
     dialog: MaSa_Herth.txt"
@@ -1501,11 +1501,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000177
     output: false
     dialog: MaSa_Janne.txt"
@@ -1515,11 +1515,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000179
     output: false
     dialog: MaSa_Kimberley.txt"
@@ -1529,11 +1529,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000181
     output: false
     dialog: MaSa_Masa.txt"
@@ -1543,11 +1543,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000183
     output: false
     dialog: MaSa_Maki.txt"
@@ -1558,11 +1558,11 @@
     menu:
       - MMI_DIALOG
       - MMI_MARKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000185
     output: false
     dialog: MaSa_LodeLight.txt"
@@ -1572,11 +1572,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000187
     output: false
     dialog: MaFl_IspimEve1.txt"
@@ -1586,11 +1586,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000189
     output: false
     dialog: MaDa_Adin.txt"
@@ -1600,11 +1600,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000191
     output: false
     dialog: MaDa_Kerhi.txt"
@@ -1614,11 +1614,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000193
     output: false
     dialog: MaDa_PstVenken.txt"
@@ -1628,11 +1628,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000195
     output: false
     dialog: MaDa_PstLuellui.txt"
@@ -1642,11 +1642,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000197
     output: false
     dialog: MaDa_PstDien.txt"
@@ -1656,11 +1656,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000199
     output: false
     dialog: MaMa_Ancimys.txt"
@@ -1670,11 +1670,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000201
     output: false
     dialog: MaDa_ClrTubearto.txt"
@@ -1684,11 +1684,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000203
     output: false
     dialog: MaDa_ClrFebeitoe.txt"
@@ -1698,11 +1698,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000205
     output: false
     dialog: MaDa_ClrShyrilepe.txt"
@@ -1712,11 +1712,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000207
     output: false
     dialog: MaDa_ClrRuenpharel.txt"
@@ -1726,11 +1726,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000209
     output: false
     dialog: MaDa_ClrPasteil.txt"
@@ -1740,11 +1740,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000211
     output: false
     dialog: MaDa_ClrHondurel.txt"
@@ -1754,11 +1754,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000213
     output: false
     dialog: MaDa_Guardian01.txt"
@@ -1768,11 +1768,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000215
     output: false
     dialog: MaDa_Guardian02.txt"
@@ -1782,11 +1782,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000217
     output: false
     dialog: MaDa_Guardian03.txt"
@@ -1796,11 +1796,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000219
     output: false
     dialog: MaDa_Guardian04.txt"
@@ -1810,11 +1810,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000221
     output: false
     dialog: MaDa_Guardian05.txt"
@@ -1824,11 +1824,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000223
     output: false
     dialog: MaDa_Guardian06.txt"
@@ -1838,11 +1838,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
     structure: SRT_QUESTOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000225
     output: false
     dialog: MaDa_Lurif.txt"
@@ -1853,11 +1853,11 @@
     menu:
       - MMI_DIALOG
       - MMI_MARKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000227
     output: false
     dialog: MaDa_LodeLight.txt"
@@ -1876,7 +1876,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -1928,7 +1928,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000229
     output: false
     dialog: MaDa_Stima.txt"
@@ -1947,7 +1947,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -2047,7 +2047,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000235
     output: false
     dialog: MaDa_Phacham.txt"
@@ -2057,11 +2057,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000241
     output: false
     dialog: MaDa_DwarpetRedy.txt"
@@ -2071,11 +2071,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000243
     output: false
     dialog: MaDa_DwarpetRedyJunior.txt"
@@ -2085,11 +2085,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000245
     output: false
     dialog: MaDa_DwarpetDodo.txt"
@@ -2099,11 +2099,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000247
     output: false
     dialog: MaDa_DwarpetKenny.txt"
@@ -2113,11 +2113,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000249
     output: false
     dialog: MaDa_DwarpetJodan.txt"
@@ -2127,11 +2127,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000251
     output: false
     dialog: MaDa_DwarpetDig.txt"
@@ -2141,11 +2141,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000253
     output: false
     dialog: MaDa_DwarpetFlick.txt"
@@ -2155,11 +2155,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000255
     output: false
     dialog: MaDa_DwarpetMine.txt"
@@ -2169,11 +2169,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000257
     output: false
     dialog: MaDa_DwarpetActo.txt"
@@ -2192,7 +2192,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BCHARM
@@ -2232,7 +2232,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000259
     output: false
     dialog: MaDa_Achaben.txt"
@@ -2251,7 +2251,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_STICK
@@ -2273,7 +2273,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_STATION
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000265
     output: false
     dialog: MaDa_Almani.txt"
@@ -2292,7 +2292,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -2302,7 +2302,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000271
     output: false
     dialog: MaDa_Bolpor.txt"
@@ -2312,11 +2312,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000277
     output: false
     dialog: MaDa_Chitller.txt"
@@ -2326,11 +2326,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000279
     output: false
     dialog: MaDa_Eshylop.txt"
@@ -2340,11 +2340,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000281
     output: false
     dialog: MaDa_CloneEshylop.txt"
@@ -2363,7 +2363,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_WAND
@@ -2463,7 +2463,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_MAGIC
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000283
     output: false
     dialog: MaDa_Haven.txt"
@@ -2478,7 +2478,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -2488,7 +2488,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_PUBLICOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000289
     output: false
     dialog: MaDa_Ollien.txt"
@@ -2507,7 +2507,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -2655,7 +2655,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000291
     output: false
     dialog: MaDa_Roocky.txt"
@@ -2675,7 +2675,7 @@
       - MMI_DIALOG
       - MMI_TRADE
       - MMI_PIERCING
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -2727,7 +2727,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000297
     output: false
     dialog: MaDa_Remine.txt"
@@ -2746,7 +2746,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SHIELD
@@ -2756,7 +2756,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_BUCKLER
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000303
     output: false
     dialog: MaDa_Krinton.txt"
@@ -2766,11 +2766,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000309
     output: false
     dialog: MaDa_DrEst.txt"
@@ -2780,11 +2780,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000311
     output: false
     dialog: MaFl_DrEstly.txt"
@@ -2794,11 +2794,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000313
     output: false
     dialog: MaSa_DrEstern.txt"
@@ -2809,11 +2809,11 @@
     menu:
       - MMI_DIALOG
       - MMI_MARKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000315
     output: false
     dialog: MaDa_LodeLight2.txt"
@@ -2833,7 +2833,7 @@
       - MMI_DIALOG
       - MMI_TRADE
       - MMI_PIERCING
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -2897,7 +2897,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000317
     output: false
     dialog: MaDa_Kablloc.txt"
@@ -2916,7 +2916,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -3112,7 +3112,7 @@
         qty: 17
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000323
     output: false
     dialog: MaDa_Chenbing.txt"
@@ -3131,7 +3131,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -3141,7 +3141,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000329
     output: false
     dialog: MaDa_Jinitte.txt"
@@ -3158,7 +3158,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BLINKWING
@@ -3210,7 +3210,7 @@
         qty: 25
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000335
     output: false
     dialog: MaDa_Tandy.txt"
@@ -3220,11 +3220,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000341
     output: false
     dialog: MaDa_Hent.txt"
@@ -3234,11 +3234,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000343
     output: false
     dialog: MaDa_Pyre.txt"
@@ -3248,11 +3248,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000345
     output: false
     dialog: MaDa_Tailer.txt"
@@ -3262,11 +3262,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000347
     output: false
     dialog: MaDa_Lorein.txt"
@@ -3276,11 +3276,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000349
     output: false
     dialog: MaDa_Homeit.txt"
@@ -3290,11 +3290,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000351
     output: false
     dialog: MaDa_Heingard.txt"
@@ -3304,11 +3304,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000353
     output: false
     dialog: MaDa_Eliff.txt"
@@ -3318,11 +3318,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000355
     output: false
     dialog: MaDa_Liekyen.txt"
@@ -3332,11 +3332,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000357
     output: false
     dialog: MaDa_Rupim.txt"
@@ -3346,11 +3346,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000359
     output: false
     dialog: MaDa_Kailreard.txt"
@@ -3360,11 +3360,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000361
     output: false
     dialog: MaFl_Santa.txt"
@@ -3374,11 +3374,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000363
     output: false
     dialog: MaFl_Prist.txt"
@@ -3388,11 +3388,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000365
     output: false
     dialog: MaFl_Hans.txt"
@@ -3403,11 +3403,11 @@
     menu:
       - MMI_INPUT_REWARD
       - MMI_SHOW_REWARD
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000367
     output: false
     dialog: '"'
@@ -3456,7 +3456,7 @@
       - MMI_DIALOG
       - MMI_TRADE
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -3820,7 +3820,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000395
     output: false
     dialog: KePe_Heron.txt"
@@ -3830,11 +3830,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000397
     output: false
     dialog: MaDa_Cell.txt"
@@ -3846,11 +3846,11 @@
       - MMI_DIALOG
       - MMI_DIALOG
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000405
     output: false
     dialog: DuDk_Nevil.txt"
@@ -3861,11 +3861,11 @@
     menu:
       - MMI_DIALOG
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000409
     output: false
     dialog: DuDk_Kazen.txt"
@@ -3875,11 +3875,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000411
     output: false
     dialog: MaDa_Andre.txt"
@@ -3889,11 +3889,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000413
     output: false
     dialog: MaDa_Nein.txt"
@@ -3903,11 +3903,11 @@
   settings:
     menu:
       - MMI_BANKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000415
     output: false
     dialog: MaFl_Juria.txt"
@@ -3917,11 +3917,11 @@
   settings:
     menu:
       - MMI_BANKING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000417
     output: false
     dialog: '"'
@@ -3940,7 +3940,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -3986,7 +3986,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000419
     output: false
     dialog: Mada_Guildcombatshop.txt"
@@ -4005,7 +4005,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -4050,8 +4050,8 @@
         max: 5
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000419
     output: false
     dialog: Mada_Guildcombatshop.txt"
@@ -4061,11 +4061,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000425
     output: false
     dialog: MaFl_Furan.txt"
@@ -4075,11 +4075,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000427
     output: false
     dialog: MaSa_Furan.txt"
@@ -4089,11 +4089,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000429
     output: false
     dialog: MaDa_Furan.txt"
@@ -4103,11 +4103,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000431
     output: false
     dialog: MaFl_Flraness.txt"
@@ -4124,11 +4124,11 @@
       - MMI_GUILDCOMBAT_INFO_BOARD1
       - MMI_GUILDCOMBAT_INFO_BOARD2
       - MMI_GUILDCOMBAT_INFO_BOARD3
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000433
     output: false
     dialog: MaFl_GuildWarser.txt"
@@ -4143,11 +4143,11 @@
       - MMI_GUILDCOMBAT_JACKPOT
       - MMI_GUILDCOMBAT_JACKPOT2
       - MMI_GUILDCOMBAT_INFO_TEX
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000435
     output: false
     dialog: MaFl_Donaris.txt"
@@ -4157,11 +4157,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000437
     output: false
     dialog: MaFl_Buruto.txt"
@@ -4171,11 +4171,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000439
     output: false
     dialog: MaFl_Aramy.txt"
@@ -4185,11 +4185,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000441
     output: false
     dialog: MaFl_Atto.txt"
@@ -4199,11 +4199,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000443
     output: false
     dialog: MaFl_Juglin.txt"
@@ -4213,11 +4213,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000445
     output: false
     dialog: MaFl_Chorus1.txt"
@@ -4227,11 +4227,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000447
     output: false
     dialog: MaFl_Chorus2.txt"
@@ -4241,11 +4241,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000449
     output: false
     dialog: MaFl_Chorus3.txt"
@@ -4255,11 +4255,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000451
     output: false
     dialog: MaFl_Chorus4.txt"
@@ -4269,11 +4269,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000453
     output: false
     dialog: MaDa_Hachal.txt"
@@ -4283,11 +4283,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000455
     output: false
     dialog: MaDa_Hachal.txt"
@@ -4297,11 +4297,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000457
     output: false
     dialog: MaDa_Laloa.txt"
@@ -4311,11 +4311,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000459
     output: false
     dialog: MaFl_Himadel.txt"
@@ -4325,11 +4325,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000461
     output: false
     dialog: MaFl_Gornus.txt"
@@ -4339,11 +4339,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000463
     output: false
     dialog: MaFl_Kanane.txt"
@@ -4353,11 +4353,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000465
     output: false
     dialog: MaFl_Mustang.txt"
@@ -4367,11 +4367,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000467
     output: false
     dialog: MaFl_Andy.txt"
@@ -4381,11 +4381,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000469
     output: false
     dialog: MaFl_Langdrong.txt"
@@ -4395,11 +4395,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000471
     output: false
     dialog: MaFl_Hyuit.txt"
@@ -4409,11 +4409,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000473
     output: false
     dialog: MaFl_Elic.txt"
@@ -4423,11 +4423,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000475
     output: false
     dialog: MaFl_Maki.txt"
@@ -4437,11 +4437,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000477
     output: false
     dialog: MaFl_Goripeg.txt"
@@ -4451,11 +4451,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000479
     output: false
     dialog: MaFl_Kidmen.txt"
@@ -4465,11 +4465,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000481
     output: false
     dialog: MaFl_Hastan.txt"
@@ -4479,11 +4479,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000483
     output: false
     dialog: MaFl_Rudvihil.txt"
@@ -4493,11 +4493,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000485
     output: false
     dialog: MaFl_Ancimys.txt"
@@ -4507,11 +4507,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000487
     output: false
     dialog: MaFl_Martinyc.txt"
@@ -4522,11 +4522,11 @@
     menu:
       - MMI_DIALOG
       - MMI_SECRET_TAXRATES_CHECK
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000489
     output: false
     dialog: MaFl_FlaMayor.txt"
@@ -4536,11 +4536,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000491
     output: false
     dialog: MaFl_Official.txt"
@@ -4550,11 +4550,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000493
     output: false
     dialog: MaFl_Gergantes.txt"
@@ -4564,11 +4564,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000495
     output: false
     dialog: MaSa_Wingyei.txt"
@@ -4578,11 +4578,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000497
     output: false
     dialog: MaSa_Hee.txt"
@@ -4592,11 +4592,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000499
     output: false
     dialog: MaSa_Lopaze.txt"
@@ -4606,11 +4606,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000501
     output: false
     dialog: MaSa_Helgar.txt"
@@ -4620,11 +4620,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000503
     output: false
     dialog: MaSa_Heltung.txt"
@@ -4634,11 +4634,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000505
     output: false
     dialog: MaSa_QueerCollector.txt"
@@ -4648,11 +4648,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000507
     output: false
     dialog: MaSa_Bowler.txt"
@@ -4662,11 +4662,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000509
     output: false
     dialog: MaSa_JeongHwa.txt"
@@ -4676,11 +4676,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000511
     output: false
     dialog: MaSa_Porgo.txt"
@@ -4691,11 +4691,11 @@
     menu:
       - MMI_DIALOG
       - MMI_SECRET_TAXRATES_CHECK
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000513
     output: false
     dialog: MaSa_SainMayor.txt"
@@ -4705,11 +4705,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000515
     output: false
     dialog: MaSa_Gothante.txt"
@@ -4719,11 +4719,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000517
     output: false
     dialog: MaSa_Rovanett.txt"
@@ -4733,11 +4733,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000519
     output: false
     dialog: MaDa_Colar.txt"
@@ -4747,11 +4747,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000521
     output: false
     dialog: MaDa_Amadolka.txt"
@@ -4761,11 +4761,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000523
     output: false
     dialog: MaFl_Nina.txt"
@@ -4775,11 +4775,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000525
     output: false
     dialog: MaFl_ChiChi.txt"
@@ -4789,11 +4789,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000527
     output: false
     dialog: MaFl_PiPi.txt"
@@ -4803,11 +4803,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000529
     output: false
     dialog: MaFl_Loyah.txt"
@@ -4817,11 +4817,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000531
     output: false
     dialog: MaSa_MaYun.txt"
@@ -4831,11 +4831,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000533
     output: false
     dialog: MaFl_SsoTta.txt"
@@ -4845,11 +4845,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000535
     output: false
     dialog: MaDa_Karanduru.txt"
@@ -4859,11 +4859,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000537
     output: false
     dialog: MaFl_Hormes.txt"
@@ -4873,11 +4873,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000539
     output: false
     dialog: MaFl_Kurumin.txt"
@@ -4887,11 +4887,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000541
     output: false
     dialog: MaDa_Lobiet.txt"
@@ -4901,11 +4901,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000543
     output: false
     dialog: MaDa_Boneper.txt"
@@ -4915,11 +4915,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000545
     output: false
     dialog: MaDa_Corel.txt"
@@ -4929,11 +4929,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000547
     output: false
     dialog: MaFl_Guabrill.txt"
@@ -4943,11 +4943,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000549
     output: false
     dialog: MaFl_Ata.txt"
@@ -4957,11 +4957,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000551
     output: false
     dialog: MaDa_Jeperdy.txt"
@@ -4971,11 +4971,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000553
     output: false
     dialog: MaDa_Sencyrit.txt"
@@ -4985,11 +4985,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000555
     output: false
     dialog: MaDa_Ride.txt"
@@ -4999,11 +4999,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000557
     output: false
     dialog: MaFl_Domek.txt"
@@ -5013,11 +5013,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000559
     output: false
     dialog: MaFl_Segho.txt"
@@ -5027,11 +5027,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000561
     output: false
     dialog: MaDa_Fera.txt"
@@ -5041,11 +5041,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000563
     output: false
     dialog: MaDa_Capafe.txt"
@@ -5055,11 +5055,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000565
     output: false
     dialog: MaDa_Ellend.txt"
@@ -5069,11 +5069,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000567
     output: false
     dialog: MaFl_Clamb.txt"
@@ -5083,11 +5083,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000569
     output: false
     dialog: MaFl_Teshar.txt"
@@ -5097,11 +5097,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000571
     output: false
     dialog: MaDa_Heedan.txt"
@@ -5111,11 +5111,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000573
     output: false
     dialog: MaDa_Romvoette.txt"
@@ -5125,11 +5125,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000575
     output: false
     dialog: MaDa_Cylor.txt"
@@ -5139,11 +5139,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000577
     output: false
     dialog: MaFl_Cuarine.txt"
@@ -5153,11 +5153,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000579
     output: false
     dialog: MaFl_Ryupang.txt"
@@ -5167,11 +5167,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000581
     output: false
     dialog: MaDa_Pereb.txt"
@@ -5181,11 +5181,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000583
     output: false
     dialog: MaDa_Shyniff.txt"
@@ -5195,11 +5195,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000585
     output: false
     dialog: MaDa_Horison.txt"
@@ -5209,11 +5209,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000587
     output: false
     dialog: MaFl_Cuzrill.txt"
@@ -5223,11 +5223,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000589
     output: false
     dialog: MaSa_Parine.txt"
@@ -5237,11 +5237,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000591
     output: false
     dialog: MaDa_Condram.txt"
@@ -5251,11 +5251,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000593
     output: false
     dialog: MaDa_Wendien.txt"
@@ -5265,11 +5265,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000595
     output: false
     dialog: MaFl_Tomba.txt"
@@ -5279,11 +5279,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000597
     output: false
     dialog: MaFl_Eoners.txt"
@@ -5293,11 +5293,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000599
     output: false
     dialog: MaFl_Ghalade.txt"
@@ -5307,11 +5307,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000601
     output: false
     dialog: MaFl_Phoho.txt"
@@ -5322,11 +5322,11 @@
     menu:
       - MMI_DIALOG
       - MMI_SECRET_TAXRATES_CHECK
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000603
     output: false
     dialog: MaDa_DarMayor.txt"
@@ -5336,11 +5336,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000605
     output: false
     dialog: MaSa_Daz.txt"
@@ -5350,11 +5350,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000607
     output: false
     dialog: MaFl_Iblis01.txt"
@@ -5364,11 +5364,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000609
     output: false
     dialog: MaFl_Iblis02.txt"
@@ -5378,11 +5378,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000611
     output: false
     dialog: MaFl_Iblis03.txt"
@@ -5392,11 +5392,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000613
     output: false
     dialog: MaFl_Iblis04.txt"
@@ -5406,11 +5406,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000615
     output: false
     dialog: MaFl_Iblis05.txt"
@@ -5422,7 +5422,7 @@
   settings:
     menu:
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_DRINK
@@ -5432,7 +5432,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000617
     output: false
     dialog: '"'
@@ -5442,11 +5442,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000620
     output: false
     dialog: MaFl_AutumnEvent01.txt"
@@ -5456,11 +5456,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000622
     output: false
     dialog: MaFl_AutumnEvent02.txt"
@@ -5470,11 +5470,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000624
     output: false
     dialog: MaFl_AutumnEvent03.txt"
@@ -5484,11 +5484,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000626
     output: false
     dialog: MaFl_AutumnEvent04.txt"
@@ -5499,11 +5499,11 @@
     menu:
       - MMI_DIALOG
       - MMI_SUMMON_ANGEL
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000630
     output: false
     dialog: MaMa_PKNPC01.txt"
@@ -5513,25 +5513,25 @@
   settings:
     menu:
       - MMI_POST
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000632
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_Teacher01
   name: IDS_CHARACTER_INC_000635
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000634
     output: false
     dialog: MaFl_Teacher01.txt"
@@ -5541,11 +5541,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000636
     output: false
     dialog: MaFl_Teacher02.txt"
@@ -5555,11 +5555,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000638
     output: false
     dialog: MaFl_Teacher03.txt"
@@ -5569,11 +5569,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000640
     output: false
     dialog: MaFl_Cooker01.txt"
@@ -5583,11 +5583,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000642
     output: false
     dialog: MaFl_Cooker02.txt"
@@ -5597,11 +5597,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000652
     output: false
     dialog: MaFl_Arborday01.txt"
@@ -5611,11 +5611,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000654
     output: false
     dialog: MaFl_Arborday02.txt"
@@ -5625,11 +5625,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000656
     output: false
     dialog: MaFl_Arborday03.txt"
@@ -5639,40 +5639,40 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000658
     output: false
     dialog: MaFl_Arborday04.txt"
 - id: MaFl_Pet
-  name: ''
+  name: ""
   vendorSlots: []
   settings:
     menu:
       - MMI_PET_STATUS
       - MMI_PET_RELEASE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000660
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_KAWIBAWIBO
   name: IDS_CHARACTER_INC_000645
   vendorSlots: []
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000644
     output: false
     dialog: MaFl_Kawibawibo.txt"
@@ -5682,11 +5682,11 @@
   settings:
     menu:
       - MMI_FINDWORD
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000646
     output: false
     dialog: MaFl_Findword.txt"
@@ -5696,11 +5696,11 @@
   settings:
     menu:
       - MMI_FIVESYSTEM
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000648
     output: false
     dialog: MaFl_Fivesystem.txt"
@@ -5710,11 +5710,11 @@
   settings:
     menu:
       - MMI_REASSEMBLE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000650
     output: false
     dialog: MaFl_Reassemble.txt"
@@ -5728,11 +5728,11 @@
       - MMI_SMELT_EXTRACTION
       - MMI_SMELT_CHANGEGWEAPON
       - MMI_SMELT_CHANGEUWEAPON
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000650
     output: false
     dialog: MaFl_Teacher01.txt"
@@ -5742,25 +5742,25 @@
   settings:
     menu:
       - MMI_EVENT_MAY
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000650
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_KAWIBAWIBO01
   name: IDS_CHARACTER_INC_000665
   vendorSlots: []
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000664
     output: false
     dialog: MaFl_KAWIBAWIBO01.txt"
@@ -5770,11 +5770,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000662
     output: false
     dialog: MaFl_Pang.txt"
@@ -5784,11 +5784,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000680
     output: false
     dialog: MaFl_Nestle02.txt"
@@ -5798,11 +5798,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000682
     output: false
     dialog: MaFl_Nestle02.txt"
@@ -5812,11 +5812,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000684
     output: false
     dialog: MaFl_Nestle02.txt"
@@ -5826,11 +5826,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000686
     output: false
     dialog: MaFl_Nestle03.txt"
@@ -5840,11 +5840,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000666
     output: false
     dialog: MaDa_RedRobeMan.txt"
@@ -5855,11 +5855,11 @@
     menu:
       - MMI_DIALOG
       - MMI_LEGEND_SKILLUP
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000668
     output: false
     dialog: MaDa_RedRobeGirl.txt"
@@ -5875,11 +5875,11 @@
       - MMI_PET_RES01
       - MMI_PET_AWAK_CANCEL
       - MMI_RENAME_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000670
     output: false
     dialog: MaFl_PetTamer.txt"
@@ -5889,11 +5889,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000672
     output: false
     dialog: MaDa_GateKeeper.txt"
@@ -5903,11 +5903,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000674
     output: false
     dialog: MaFl_July01.txt"
@@ -5917,11 +5917,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000676
     output: false
     dialog: MaFl_July02.txt"
@@ -5941,11 +5941,11 @@
       - MMI_SMELT_SAFETY_ACCESSORY
       - MMI_SMELT_SAFETY_PIERCING
       - MMI_SMELT_SAFETY_ELEMENT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000678
     output: false
     dialog: MaFl_Bobochan.txt"
@@ -5955,11 +5955,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000664
     output: false
     dialog: MaFl_KAWIBAWIBO01.txt"
@@ -5969,11 +5969,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000688
     output: false
     dialog: MaFl_KAWIBAWIBO03.txt"
@@ -5983,11 +5983,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000690
     output: false
     dialog: MaFl_StrangeCollector.txt"
@@ -6004,11 +6004,11 @@
       - MMI_GUILDCOMBAT_1TO1_GUIDE_ENTRY
       - MMI_GUILDCOMBAT_1TO1_GUIDE_RULE
       - MMI_GUILDCOMBAT_1TO1_GUIDE_WIN
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000692
     output: false
     dialog: MaFl_Amos.txt"
@@ -6022,11 +6022,11 @@
       - MMI_GUILDCOMBAT_1TO1_REPAYMENT
       - MMI_GUILDCOMBAT_1TO1_GUIDE_PRIZE
       - MMI_GUILDCOMBAT_1TO1_GUIDE_TEX
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000694
     output: false
     dialog: MaFl_Annie.txt"
@@ -6045,7 +6045,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: '1'
+    vendorType: "1"
     vendorItems:
       - slot: 0
         id: II_SYS_SYS_SCR_BXMKNT120SET
@@ -6144,8 +6144,8 @@
         max: .nan
         qty: .nan
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000696
     output: false
     dialog: MaFl_Waforu.txt"
@@ -6159,7 +6159,7 @@
       - MMI_COLLECT01
       - MMI_COLLECT02
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_COLLECTER
@@ -6174,8 +6174,8 @@
         max: 151
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000698
     output: false
     dialog: MaFl_Colinse.txt"
@@ -6185,11 +6185,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000700
     output: false
     dialog: MaFl_Santa01.txt"
@@ -6200,11 +6200,11 @@
     menu:
       - MMI_DIALOG
       - MMI_NPC_BUFF
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000703
     output: false
     dialog: MaFl_Helper.txt"
@@ -6215,11 +6215,11 @@
     menu:
       - MMI_DIALOG
       - MMI_ARENA_EXIT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000705
     output: false
     dialog: MaFl_Harold.txt"
@@ -6238,7 +6238,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -6283,8 +6283,8 @@
         max: 5
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000707
     output: false
     dialog: MaFl_Dick.txt"
@@ -6294,11 +6294,11 @@
   settings:
     menu:
       - MMI_EVENT_HAPPY_TWN
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000709
     output: false
     dialog: MaFl_Happy_TWN.txt"
@@ -6309,11 +6309,11 @@
     menu:
       - MMI_DIALOG
       - MMI_ARENA_ENTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000711
     output: false
     dialog: MaFl_Ray.txt"
@@ -6323,11 +6323,11 @@
   settings:
     menu:
       - MMI_EVENT_HAPPY_USA2010
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000709
     output: false
     dialog: MaFl_Happy_TWN.txt"
@@ -6337,11 +6337,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000713
     output: false
     dialog: MaFl_ForestManager.txt"
@@ -6351,11 +6351,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000715
     output: false
     dialog: MaFl_CollectorManager.txt"
@@ -6365,11 +6365,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000717
     output: false
     dialog: MaSa_Karin_EVENT.txt"
@@ -6379,11 +6379,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000719
     output: false
     dialog: MaFl_Door.txt"
@@ -6408,7 +6408,7 @@
       - MMI_SECRET_ENTRANCE
       - MMI_SECRET_BOARD
       - MMI_SECRET_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_ULTIMATE
@@ -6417,8 +6417,8 @@
         max: 200
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000721
     output: false
     dialog: MaFl_SecretRoom_EAST.txt"
@@ -6445,7 +6445,7 @@
       - MMI_SECRET_ENTRANCE_1
       - MMI_SECRET_CANCEL
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_ULTIMATE
@@ -6454,8 +6454,8 @@
         max: 200
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000723
     output: false
     dialog: MaFl_SecretRoom_WEST.txt"
@@ -6466,11 +6466,11 @@
     menu:
       - MMI_DIALOG
       - MMI_REASSEMBLE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000725
     output: false
     dialog: MaFl_Priest.txt"
@@ -6480,11 +6480,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000727
     output: false
     dialog: MaFl_ForestManager.txt"
@@ -6494,11 +6494,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000729
     output: false
     dialog: MaFl_PrepaidCard.txt"
@@ -6508,11 +6508,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000731
     output: false
     dialog: MaFl_July03.txt"
@@ -6522,11 +6522,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000733
     output: false
     dialog: MaFl_July04.txt"
@@ -6540,11 +6540,11 @@
       - MMI_LORD_VOTE
       - MMI_LORD_STATE
       - MMI_LORD_EVENT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000735
     output: false
     dialog: MaFl_KINGAIDE.txt"
@@ -6556,11 +6556,11 @@
       - MMI_DIALOG
       - MMI_EXCHANGE_WEAPONCARD
       - MMI_EXCHANGE_ARMORCARD
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000737
     output: false
     dialog: MaFl_CardMaster.txt"
@@ -6570,11 +6570,11 @@
   settings:
     menu:
       - MMI_HEAVEN_TOWER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000739
     output: false
     dialog: MaFl_HEAVENMAN.txt"
@@ -6598,7 +6598,7 @@
       - MMI_SMELT_JEWEL
       - MMI_LVREQDOWN_CANCEL
       - MMI_BLESSING_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_GENERAL_RANDOMOPTION_GEN
@@ -6613,8 +6613,8 @@
         max: 190
         qty: 100
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000741
     output: false
     dialog: MaFl_Peach.txt"
@@ -6625,11 +6625,11 @@
     menu:
       - MMI_DIALOG
       - MMI_NPC_BUFF
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000703
     output: false
     dialog: MaFl_Helper.txt"
@@ -6639,11 +6639,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000744
     output: false
     dialog: MaFl_Miniwheel.txt"
@@ -6653,11 +6653,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000746
     output: false
     dialog: MaFl_Eventball.txt"
@@ -6667,25 +6667,25 @@
   settings:
     menu:
       - MMI_FASHION_PHP
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000748
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_RedRobeGirl
   name: IDS_CHARACTER_INC_000751
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000750
     output: false
     dialog: MaFl_RedRobeGirl.txt"
@@ -6700,11 +6700,11 @@
       - MMI_LORD_RAINBOWTOPTEN
       - MMI_LORD_RAINBOWWIN
       - MMI_LORD_RAINBOWEND
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000752
     output: false
     dialog: MaFl_RainbowStart"
@@ -6714,11 +6714,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000754
     output: false
     dialog: MaFl_RainbowRed.txt"
@@ -6728,11 +6728,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_DICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000756
     output: false
     dialog: MaFl_RainbowOrange.txt"
@@ -6742,11 +6742,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_ARITHMETIC
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000758
     output: false
     dialog: MaFl_RainbowYellow.txt"
@@ -6756,11 +6756,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_STOPWATCH
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000760
     output: false
     dialog: MaFl_RainbowGreen.txt"
@@ -6770,11 +6770,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_TYPING
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000762
     output: false
     dialog: MaFl_RainbowBlue.txt"
@@ -6784,11 +6784,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_CARD
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000764
     output: false
     dialog: MaFl_RainbowIndogo.txt"
@@ -6798,11 +6798,11 @@
   settings:
     menu:
       - MMI_LORD_RAINBOW_LADDER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000766
     output: false
     dialog: MaFl_RainbowViolet.txt"
@@ -6813,11 +6813,11 @@
     menu:
       - MMI_RETURNTO_WORLD
       - MMI_VISIT_FRIEND
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000768
     output: false
     dialog: MaFl_Door.txt"
@@ -6838,7 +6838,7 @@
       - MMI_TRADE
       - MMI_VISIT_MYROOM
       - MMI_VISIT_FRIEND
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BED
@@ -6877,8 +6877,8 @@
         max: 30
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000770
     output: false
     dialog: MaFl_Charlie.txt"
@@ -6888,11 +6888,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000776
     output: false
     dialog: MaFl_Snowman01.txt"
@@ -6902,11 +6902,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000778
     output: false
     dialog: MaFl_Snowman02.txt"
@@ -6916,11 +6916,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000788
     output: false
     dialog: MaFl_Grahoo.txt"
@@ -6930,11 +6930,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000790
     output: false
     dialog: MaFl_Aberoo.txt"
@@ -6944,11 +6944,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000792
     output: false
     dialog: MaFl_Cook01.txt"
@@ -6958,11 +6958,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000794
     output: false
     dialog: MaFl_Alice.txt"
@@ -6972,11 +6972,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000796
     output: false
     dialog: MaFl_Oasis.txt"
@@ -6985,11 +6985,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000164
     output: false
     dialog: MaSa_Karin.txt"
@@ -6999,11 +6999,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000798
     output: false
     dialog: MaFl_July04.txt"
@@ -7013,11 +7013,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
     structure: SRT_QUESTOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000800
     output: false
     dialog: MaHa_Jano.txt"
@@ -7036,7 +7036,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -7094,7 +7094,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000802
     output: false
     dialog: MaHa_Luca.txt"
@@ -7105,11 +7105,11 @@
     menu:
       - MMI_DIALOG
       - MMI_SECRET_TAXRATES_CHECK
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000804
     output: false
     dialog: MaHa_Vespu.txt"
@@ -7119,11 +7119,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000810
     output: false
     dialog: MaHa_Lasa.txt"
@@ -7133,11 +7133,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000812
     output: false
     dialog: MaHa_Ryan.txt"
@@ -7147,11 +7147,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000814
     output: false
     dialog: MaDa_Esof.txt"
@@ -7161,11 +7161,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000816
     output: false
     dialog: MaFl_Meron.txt"
@@ -7175,11 +7175,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000818
     output: false
     dialog: MaFl_August.txt"
@@ -7188,11 +7188,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000820
     output: false
     dialog: MaFl_Picksirose.txt"
@@ -7203,11 +7203,11 @@
     menu:
       - MMI_DIALOG
       - MMI_QUIZ_ENTRANCE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000822
     output: false
     dialog: MaFl_ete.txt"
@@ -7219,40 +7219,40 @@
       - MMI_DIALOG
       - MMI_QUIZ_TELE_QUIZZONE
       - MMI_QUIZ_EXIT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000824
     output: false
     dialog: MaFl_tonge.txt"
 - id: MaFl_BuffPet
-  name: ''
+  name: ""
   vendorSlots: []
   settings:
     menu:
       - MMI_BUFFPET_STATUS
       - MMI_BUFFPET_RELEASE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
-    image: ''
+    structure: ""
+    music: ""
+    image: ""
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_Heroevent01
   name: IDS_CHARACTER_INC_000827
   vendorSlots: []
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000826
     output: false
     dialog: MaFl_Heroevent01.txt"
@@ -7262,11 +7262,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000828
     output: false
     dialog: MaFl_missvtn.txt"
@@ -7276,11 +7276,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000830
     output: false
     dialog: MaFl_vanharlen.txt"
@@ -7291,11 +7291,11 @@
     menu:
       - MMI_DIALOG
       - MMI_TELEPORTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000832
     output: false
     dialog: MaFl_teleporter_03nomal.txt"
@@ -7309,11 +7309,11 @@
       - MMI_GUILDHOUSE_SALE
       - MMI_GUILDHOUSE_ENTER
       - MMI_GUILDHOUSE_AUCTION01
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000834
     output: false
     dialog: MaFl_guildhousesale.txt"
@@ -7323,11 +7323,11 @@
   settings:
     menu:
       - MMI_GUILDHOUSE_OUT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000836
     output: false
     dialog: MaFl_Door.txt"
@@ -7337,11 +7337,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000838
     output: false
     dialog: MaFl_christmas_romeo.txt"
@@ -7351,11 +7351,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000840
     output: false
     dialog: MaFl_christmas_juliet.txt"
@@ -7366,11 +7366,11 @@
     menu:
       - MMI_DIALOG
       - MMI_TELEPORTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000842
     output: false
     dialog: MaFl_teleporter_03veteran.txt"
@@ -7381,11 +7381,11 @@
     menu:
       - MMI_DIALOG
       - MMI_TELEPORTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001044
     output: false
     dialog: MaFl_teleporter_2.txt"
@@ -7398,7 +7398,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -7408,7 +7408,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000844
     output: false
     dialog: MaFl_commoner03.txt"
@@ -7421,7 +7421,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -7431,7 +7431,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000844
     output: false
     dialog: MaFl_commoner03.txt"
@@ -7441,11 +7441,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000846
     output: false
     dialog: MaDa_Icinis.txt"
@@ -7465,11 +7465,11 @@
       - MMI_SMELT_SAFETY_ACCESSORY
       - MMI_SMELT_SAFETY_PIERCING
       - MMI_SMELT_SAFETY_ELEMENT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000848
     output: false
     dialog: MaDa_Laydian.txt"
@@ -7479,11 +7479,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000850
     output: false
     dialog: MaFl_Cupid.txt"
@@ -7493,11 +7493,11 @@
   settings:
     menu:
       - MMI_EVENT_LUCKYBOX
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000852
     output: false
     dialog: MaFl_Correspondent.txt"
@@ -7507,11 +7507,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000854
     output: false
     dialog: MaFl_Newbie.txt"
@@ -7521,11 +7521,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000856
     output: false
     dialog: MaFl_Bubble.txt"
@@ -7535,11 +7535,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000858
     output: false
     dialog: MaFl_Leprechaun.txt"
@@ -7549,11 +7549,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000860
     output: false
     dialog: MaFl_Cupid02.txt"
@@ -7563,11 +7563,11 @@
   settings:
     menu:
       - MMI_CHANGEGG01
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000862
     output: false
     dialog: MaFl_Door.txt"
@@ -7577,11 +7577,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000864
     output: false
     dialog: MaFl_Demian_EVENT.txt"
@@ -7591,11 +7591,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000866
     output: false
     dialog: MaFl_Leprechaun.txt"
@@ -7604,11 +7604,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000868
     output: false
     dialog: MaFl_Door.txt"
@@ -7618,11 +7618,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000870
     output: false
     dialog: MaFl_Bullsfestival.txt"
@@ -7637,7 +7637,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -7647,7 +7647,7 @@
         qty: 1
     vendorItems2: []
     structure: SRT_PUBLICOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000872
     output: false
     dialog: MaEw_Ruidan.txt"
@@ -7657,11 +7657,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000874
     output: false
     dialog: MaEw_Huntrang.txt"
@@ -7671,11 +7671,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
     structure: SRT_QUESTOFFICE
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000876
     output: false
     dialog: MaEw_Miorang.txt"
@@ -7694,7 +7694,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_WAND
@@ -7794,7 +7794,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_MAGIC
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000880
     output: false
     dialog: MaEw_Mawrang.txt"
@@ -7814,7 +7814,7 @@
       - MMI_DIALOG
       - MMI_TRADE
       - MMI_PIERCING
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SWD
@@ -7878,7 +7878,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_WEAPON
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000882
     output: false
     dialog: MaEw_Kanrang.txt"
@@ -7889,11 +7889,11 @@
     menu:
       - MMI_DIALOG
       - MMI_ARENA_ENTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000884
     output: false
     dialog: MaEw_Ralbadan.txt"
@@ -7903,11 +7903,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000886
     output: false
     dialog: MaEw_Relgantus.txt"
@@ -7917,11 +7917,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000888
     output: false
     dialog: MaEw_Miriun.txt"
@@ -7940,7 +7940,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SUIT
@@ -8136,7 +8136,7 @@
         qty: 17
     vendorItems2: []
     structure: SRT_SHIELD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000890
     output: false
     dialog: MaEw_Karang.txt"
@@ -8155,7 +8155,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SHIELD
@@ -8165,7 +8165,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_BUCKLER
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000892
     output: false
     dialog: MaEw_Kurang.txt"
@@ -8184,7 +8184,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_STICK
@@ -8206,7 +8206,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_STATION
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000894
     output: false
     dialog: MaEw_Heirang.txt"
@@ -8225,7 +8225,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_INSTANT
@@ -8235,7 +8235,7 @@
         qty: 100
     vendorItems2: []
     structure: SRT_FOOD
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000896
     output: false
     dialog: MaEw_Arang.txt"
@@ -8254,7 +8254,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BCHARM
@@ -8312,7 +8312,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000898
     output: false
     dialog: MaEw_Maurang.txt"
@@ -8322,11 +8322,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000900
     output: false
     dialog: MaEw_Bato.txt"
@@ -8336,11 +8336,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000902
     output: false
     dialog: MaEw_Meialune.txt"
@@ -8350,11 +8350,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000904
     output: false
     dialog: MaEw_Hawrang.txt"
@@ -8374,11 +8374,11 @@
       - MMI_SMELT_SAFETY_ACCESSORY
       - MMI_SMELT_SAFETY_PIERCING
       - MMI_SMELT_SAFETY_ELEMENT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000906
     output: false
     dialog: MaEw_Rutam.txt"
@@ -8402,7 +8402,7 @@
       - MMI_SMELT_JEWEL
       - MMI_LVREQDOWN_CANCEL
       - MMI_BLESSING_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_GENERAL_RANDOMOPTION_GEN
@@ -8417,8 +8417,8 @@
         max: 190
         qty: 100
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000908
     output: false
     dialog: MaEw_Raya.txt"
@@ -8439,7 +8439,7 @@
       - MMI_TRADE
       - MMI_VISIT_MYROOM
       - MMI_VISIT_FRIEND
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BED
@@ -8478,8 +8478,8 @@
         max: 30
         qty: 50
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000910
     output: false
     dialog: MaEw_Harlie.txt"
@@ -8493,11 +8493,11 @@
       - MMI_GUILDHOUSE_SALE
       - MMI_GUILDHOUSE_ENTER
       - MMI_GUILDHOUSE_AUCTION01
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000912
     output: false
     dialog: MaEw_Rodella.txt"
@@ -8509,11 +8509,11 @@
       - MMI_DIALOG
       - MMI_EXCHANGE_WEAPONCARD
       - MMI_EXCHANGE_ARMORCARD
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000914
     output: false
     dialog: MaEw_Epie.txt"
@@ -8525,11 +8525,11 @@
       - MMI_BEAUTYSHOP_SKIN
       - MMI_BEAUTYSHOP
       - MMI_LOOKCHANGE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000916
     output: false
     dialog: MaEw_Huri.txt"
@@ -8539,11 +8539,11 @@
   settings:
     menu:
       - MMI_BEAUTYSHOP
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000918
     output: false
     dialog: MaEw_Gelga.txt"
@@ -8562,7 +8562,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: '1'
+    vendorType: "1"
     vendorItems:
       - slot: 0
         id: II_SYS_SYS_SCR_BXMKNT120SET
@@ -8661,8 +8661,8 @@
         max: .nan
         qty: .nan
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000920
     output: false
     dialog: MaEw_Ruoboru.txt"
@@ -8672,11 +8672,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000733
     output: false
     dialog: MaFl_July04.txt"
@@ -8686,11 +8686,11 @@
   settings:
     menu:
       - MMI_EVENT_MATCHMAKER_FOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000922
     output: false
     dialog: MaFl_Door.txt"
@@ -8700,11 +8700,11 @@
   settings:
     menu:
       - MMI_EVENT_ALICE_PHP_FOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000924
     output: false
     dialog: MaFl_Door.txt"
@@ -8714,11 +8714,11 @@
   settings:
     menu:
       - MMI_EVENT_AROTTO_KOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000926
     output: false
     dialog: MaFl_Door.txt"
@@ -8728,11 +8728,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000928
     output: false
     dialog: MaFl_Romina.txt"
@@ -8748,11 +8748,11 @@
       - MMI_PET_RES01
       - MMI_PET_AWAK_CANCEL
       - MMI_RENAME_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000930
     output: false
     dialog: MaEw_Cheirang.txt"
@@ -8762,11 +8762,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000932
     output: false
     dialog: MaEw_Karl.txt"
@@ -8776,11 +8776,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000934
     output: false
     dialog: MaEw_Isilis.txt"
@@ -8790,11 +8790,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000936
     output: false
     dialog: MaEw_Romain.txt"
@@ -8804,11 +8804,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000940
     output: false
     dialog: MaEw_Branka.txt"
@@ -8854,11 +8854,11 @@
       - MMI_BARUNA_ELEMENT_SMELT
       - MMI_BARUNA_WAKEUP
       - MMI_BARUNA_WAKEUP_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001018
     output: false
     dialog: Pet_Seltpudi.txt"
@@ -8867,11 +8867,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000946
     output: false
     dialog: MaEw_Mewrang.txt"
@@ -8881,11 +8881,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000950
     output: false
     dialog: MaFl_Demian.txt"
@@ -8895,11 +8895,11 @@
   settings:
     menu:
       - MMI_EVENT_TRADE_ASIA
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000952
     output: false
     dialog: MaFl_Door.txt"
@@ -8909,11 +8909,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000954
     output: false
     dialog: MaSa_Light.txt"
@@ -8923,11 +8923,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000956
     output: false
     dialog: MaDa_Dark.txt"
@@ -8941,11 +8941,11 @@
       - MMI_GUILDHOUSE_SALE
       - MMI_GUILDHOUSE_ENTER
       - MMI_GUILDHOUSE_AUCTION01
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000834
     output: false
     dialog: MaSa_Roa.txt"
@@ -8959,11 +8959,11 @@
       - MMI_GUILDHOUSE_SALE
       - MMI_GUILDHOUSE_ENTER
       - MMI_GUILDHOUSE_AUCTION01
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000834
     output: false
     dialog: MaEw_Troy.txt"
@@ -8973,476 +8973,476 @@
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSDOOR_02
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSDOOR_03
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSDOOR_04
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSDOOR_05
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_01
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_02
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_03
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_04
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_05
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_06
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_07
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_08
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSDOOR_09
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSDOOR_01
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSDOOR_02
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSDOOR_03
   name: IDS_CHARACTER_INC_000959
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_ENTER_DOOR
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000958
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSNOTICE_01
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSNOTICE_02
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSNOTICE_03
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSNOTICE_04
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_GUILDHOUSNOTICE_05
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_01
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_02
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_03
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_04
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_05
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_06
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_07
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_08
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaSa_GUILDHOUSNOTICE_09
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSNOTICE_01
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSNOTICE_02
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaEw_GUILDHOUSNOTICE_03
   name: IDS_CHARACTER_INC_000965
   vendorSlots: []
   settings:
     menu:
       - MMI_GUILDHOUSE_NOTICE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000964
     output: false
-    dialog: ''
+    dialog: ""
 - id: MaFl_Helper_ver13
   name: IDS_CHARACTER_INC_000967
   vendorSlots: []
@@ -9450,11 +9450,11 @@
     menu:
       - MMI_DIALOG
       - MMI_NPC_BUFF
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000966
     output: false
     dialog: MaFl_Helper.txt"
@@ -9464,11 +9464,11 @@
   settings:
     menu:
       - MMI_GUILDHOUSE_OUT
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000768
     output: false
     dialog: MaFl_Door.txt"
@@ -9478,11 +9478,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000960
     output: false
     dialog: MaFl_Romero.txt"
@@ -9492,11 +9492,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000962
     output: false
     dialog: MaFl_Frankenstein.txt"
@@ -9510,11 +9510,11 @@
       - MMI_ZOMBIES_CHANGE2
       - MMI_ZOMBIES_CHANGE3
       - MMI_ZOMBIES_CHANGE4
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000968
     output: false
     dialog: MaFl_Brooks.txt"
@@ -9524,11 +9524,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000970
     output: false
     dialog: MaFl_Atma.txt"
@@ -9539,11 +9539,11 @@
     menu:
       - MMI_DIALOG
       - MMI_JAP_CHANGE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000972
     output: false
     dialog: MaFl_Chance.txt"
@@ -9553,11 +9553,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000976
     output: false
     dialog: MaEw_Rukas.txt"
@@ -9576,7 +9576,7 @@
     menu:
       - MMI_DIALOG
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_BCHARM
@@ -9634,7 +9634,7 @@
         qty: 50
     vendorItems2: []
     structure: SRT_GENERAL
-    music: ''
+    music: ""
     image: IDS_CHARACTER_INC_000978
     output: false
     dialog: MaEw_Pinanoco.txt"
@@ -9649,11 +9649,11 @@
       - MMI_HOLDEMEVENT03
       - MMI_HOLDEMEVENT04
       - MMI_HOLDEMEVENT05
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000974
     output: false
     dialog: masa_jacklin_pott.txt"
@@ -9663,11 +9663,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000980
     output: false
     dialog: MaEw_Raundas.txt"
@@ -9677,11 +9677,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000984
     output: false
     dialog: MaEw_Idelruna.txt"
@@ -9691,11 +9691,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000986
     output: false
     dialog: MaEw_Gigaka.txt"
@@ -9705,11 +9705,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000992
     output: false
     dialog: MaFl_Zandark.txt"
@@ -9719,11 +9719,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000994
     output: false
     dialog: MaFl_Asis.txt"
@@ -9733,11 +9733,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000996
     output: false
     dialog: MaFl_Ssunder.txt"
@@ -9747,11 +9747,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000998
     output: false
     dialog: MaFl_Masics.txt"
@@ -9761,11 +9761,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001000
     output: false
     dialog: MaFl_Ringda.txt"
@@ -9775,11 +9775,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001002
     output: false
     dialog: MaFl_Ria.txt"
@@ -9789,11 +9789,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001004
     output: false
     dialog: MaFl_Ruks.txt"
@@ -9803,11 +9803,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001006
     output: false
     dialog: MaFl_Pire.txt"
@@ -9817,11 +9817,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000982
     output: false
     dialog: MaFl_KAWIBAWIBO04.txt"
@@ -9832,11 +9832,11 @@
     menu:
       - MMI_DIALOG
       - MMI_CRISTMASRUBETRADEMENU
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000988
     output: false
     dialog: masa_christmasrubi.txt"
@@ -9846,11 +9846,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000990
     output: false
     dialog: MaDa_christmassnow.txt"
@@ -9860,11 +9860,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001008
     output: false
     dialog: MaFl_Santa01.txt"
@@ -9876,11 +9876,11 @@
       - MMI_DIALOG
       - MMI_COLOSSEUM_COLOENTER01
       - MMI_COLOSSEUM_COLOENTER02
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001010
     output: false
     dialog: MaFl_ColoNpc.txt"
@@ -9895,11 +9895,11 @@
       - MMI_CHRISTMASFAIRY03
       - MMI_CHRISTMASFAIRY04
       - MMI_CHRISTMASFAIRY05
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000988
     output: false
     dialog: masa_christmasrubi.txt"
@@ -9909,11 +9909,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001012
     output: false
     dialog: NPC_FLYFFKIMPD.txt"
@@ -9923,11 +9923,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001014
     output: false
     dialog: MaSa_Karin_EVENT.txt"
@@ -9941,11 +9941,11 @@
       - MMI_SEAKINGLOOKCHANGEMENU
       - MMI_SEAKINGMASKCHANGEMENU
       - MMI_SEAKINGMASKCHANGEMENU_1
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001020
     output: false
     dialog: mafl_costumenerupa.txt"
@@ -9955,11 +9955,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001022
     output: false
     dialog: mafl_angel.txt"
@@ -9969,11 +9969,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001024
     output: false
     dialog: mafl_devil.txt"
@@ -9985,11 +9985,11 @@
       - MMI_DIALOG
       - MMI_DONATION
       - MMI_DONATION_RANK
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001026
     output: false
     dialog: mafl_donation.txt"
@@ -10002,11 +10002,11 @@
       - MMI_WHITEDAY_EXCHANGE02
       - MMI_WHITEDAY_EXCHANGE03
       - MMI_WHITEDAY_EXCHANGE04
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001028
     output: false
     dialog: mafl_bongbo.txt"
@@ -10019,11 +10019,11 @@
       - MMI_PEARSEED2011
       - MMI_PINESEED2011
       - MMI_PERSIMSEED2011
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001030
     output: false
     dialog: mafl_stake.txt"
@@ -10042,11 +10042,11 @@
       - MMI_BEHEMOTHSMELTEVENT_STICK
       - MMI_BEHEMOTHSMELTEVENT_WAND
       - MMI_BEHEMOTHSMELTEVENT_STAFF
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001032
     output: false
     dialog: mafl_jakgui.txt"
@@ -10056,11 +10056,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001034
     output: false
     dialog: mafl_ryar.txt"
@@ -10070,11 +10070,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001036
     output: false
     dialog: mafl_angel.txt"
@@ -10084,11 +10084,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001038
     output: false
     dialog: mafl_devil.txt"
@@ -10098,11 +10098,11 @@
   settings:
     menu:
       - MMI_KAWIBAWIBO
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001040
     output: false
     dialog: mafl_goni.txt"
@@ -10112,11 +10112,11 @@
   settings:
     menu:
       - MMI_EXCHANGEBLOSSOM
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001042
     output: false
     dialog: mafl_festival.txt"
@@ -10126,11 +10126,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001046
     output: false
     dialog: masp_sanpres.txt"
@@ -10140,11 +10140,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001048
     output: false
     dialog: mahe_raelra.txt"
@@ -10154,11 +10154,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001050
     output: false
     dialog: masp_sancherco.txt"
@@ -10168,11 +10168,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001052
     output: false
     dialog: mahe_raila.txt"
@@ -10182,11 +10182,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001054
     output: false
     dialog: mafl_flame.txt"
@@ -10196,11 +10196,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001056
     output: false
     dialog: mafl_flame.txt"
@@ -10210,11 +10210,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001058
     output: false
     dialog: masp_tomas.txt"
@@ -10224,11 +10224,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001060
     output: false
     dialog: mahe_reo.txt"
@@ -10238,11 +10238,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001062
     output: false
     dialog: masp_smith.txt"
@@ -10252,11 +10252,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001064
     output: false
     dialog: mahe_rio.txt"
@@ -10266,11 +10266,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001066
     output: false
     dialog: mafl_reonan.txt"
@@ -10280,11 +10280,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001068
     output: false
     dialog: mafl_nerco.txt"
@@ -10294,11 +10294,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001070
     output: false
     dialog: mafl_hael.txt"
@@ -10308,11 +10308,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000164
     output: false
     dialog: masa_luzina.txt"
@@ -10322,11 +10322,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000798
     output: false
     dialog: masa_nercha.txt"
@@ -10336,11 +10336,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001072
     output: false
     dialog: mafl_hendel.txt"
@@ -10350,11 +10350,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001074
     output: false
     dialog: mafl_zoro.txt"
@@ -10364,11 +10364,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001076
     output: false
     dialog: mafl_ellain.txt"
@@ -10378,11 +10378,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001078
     output: false
     dialog: mafl_ainher.txt"
@@ -10392,11 +10392,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001080
     output: false
     dialog: mafl_reodos.txt"
@@ -10407,11 +10407,11 @@
     menu:
       - MMI_DIALOG
       - MMI_EVENTARENA_ENTER
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001084
     output: false
     dialog: mafl_fwcenter.txt"
@@ -10421,11 +10421,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001082
     output: false
     dialog: mafl_sury.txt"
@@ -10435,11 +10435,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001086
     output: false
     dialog: mafl_bongbo.txt"
@@ -10449,11 +10449,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001088
     output: false
     dialog: mafl_bongbo.txt"
@@ -10463,11 +10463,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001090
     output: false
     dialog: mafl_bongbo.txt"
@@ -10477,11 +10477,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001092
     output: false
     dialog: mafl_bongbo.txt"
@@ -10491,11 +10491,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001094
     output: false
     dialog: mafl_stake.txt"
@@ -10505,11 +10505,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001096
     output: false
     dialog: mafl_stake.txt"
@@ -10519,11 +10519,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001098
     output: false
     dialog: mafl_stake.txt"
@@ -10533,11 +10533,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001110
     output: false
     dialog: mafl_stake.txt"
@@ -10551,11 +10551,11 @@
       - MMI_COLOSSEUM_REWARD_WEAPON_2
       - MMI_COLOSSEUM_REWARD_WEAPON_3
       - MMI_COLOSSEUM_REWARD_MIX
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001112
     output: false
     dialog: MaFl_Romina.txt"
@@ -10566,11 +10566,11 @@
     menu:
       - MMI_DIALOG
       - MMI_CYCLONECARD2011
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001118
     output: false
     dialog: mafl_jakgui.txt"
@@ -10581,11 +10581,11 @@
     menu:
       - MMI_EVENT_AROTTO_KOR
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001122
     output: false
     dialog: DuDk_Drico.txt"
@@ -10594,11 +10594,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001124
     output: false
     dialog: MaFl_Door.txt"
@@ -10607,11 +10607,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001126
     output: false
     dialog: mafl_shain.txt"
@@ -10621,11 +10621,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001128
     output: false
     dialog: mafl_rangpang.txt"
@@ -10635,11 +10635,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001130
     output: false
     dialog: mafl_poneang.txt"
@@ -10649,11 +10649,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001132
     output: false
     dialog: mafl_reong.txt"
@@ -10663,11 +10663,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001134
     output: false
     dialog: mafl_tamtam.txt"
@@ -10677,11 +10677,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001136
     output: false
     dialog: mafl_ranggo.txt"
@@ -10691,11 +10691,11 @@
   settings:
     menu:
       - MMI_MARKET_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001138
     output: false
     dialog: mafl_toto.txt"
@@ -10710,7 +10710,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10719,8 +10719,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001140
     output: false
     dialog: mafl_Sebrance.txt"
@@ -10735,7 +10735,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10744,8 +10744,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001142
     output: false
     dialog: mafl_donjobanni.txt"
@@ -10760,7 +10760,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10769,8 +10769,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001144
     output: false
     dialog: mafl_mordolrin.txt"
@@ -10785,7 +10785,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10794,8 +10794,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001146
     output: false
     dialog: mafl_jarcoba.txt"
@@ -10810,7 +10810,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10819,8 +10819,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001148
     output: false
     dialog: mafl_moneyjoba.txt"
@@ -10835,7 +10835,7 @@
       - MMI_BANKING
       - MMI_GUILDBANKING
       - MMI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems:
       - slot: 0
         id: IK3_SCROLL
@@ -10844,8 +10844,8 @@
         max: 150
         qty: 1
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001150
     output: false
     dialog: mafl_givemoney.txt"
@@ -10855,11 +10855,11 @@
   settings:
     menu:
       - MMI_HANGAWI_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001152
     output: false
     dialog: MaFl_Door.txt"
@@ -10869,11 +10869,11 @@
   settings:
     menu:
       - MMI_TWBOXTRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001154
     output: false
     dialog: MaFl_Door.txt"
@@ -10883,11 +10883,11 @@
   settings:
     menu:
       - MMI_MAPLE_TRADE
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001156
     output: false
     dialog: MaFl_Door.txt"
@@ -10896,11 +10896,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001158
     output: false
     dialog: mafl_devil.txt"
@@ -10910,11 +10910,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001160
     output: false
     dialog: mafl_snakedak.txt"
@@ -10925,11 +10925,11 @@
     menu:
       - MMI_TWOHANDEDWEAPONMERGE
       - MMI_TWOHANDEDWEAPONMERGE_CANCEL
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001162
     output: false
     dialog: MaFl_Door.txt"
@@ -10939,11 +10939,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001164
     output: false
     dialog: MaEw_Mewrang.txt"
@@ -10953,11 +10953,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_000361
     output: false
     dialog: MaFl_Santa01.txt"
@@ -10967,11 +10967,11 @@
   settings:
     menu:
       - MMI_CHRISTMASENCHANTEVENTMENU
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001166
     output: false
     dialog: MaFl_Door.txt"
@@ -10980,11 +10980,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001168
     output: false
     dialog: MaFl_Door.txt"
@@ -10993,11 +10993,11 @@
   vendorSlots: []
   settings:
     menu: []
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001170
     output: false
     dialog: MaFl_Door.txt"
@@ -11007,11 +11007,11 @@
   settings:
     menu:
       - MMI_EVENT_2012HAPPYMONEYMENU
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001172
     output: false
     dialog: MaFl_Door.txt"
@@ -11021,11 +11021,11 @@
   settings:
     menu:
       - MMI_FIVESYSTEM
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001174
     output: false
     dialog: MaFl_Door.txt"
@@ -11035,11 +11035,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001176
     output: false
     dialog: mafl_wonmiin.txt"
@@ -11051,11 +11051,11 @@
       - MMI_DIALOG
       - MMI_FLYFFPIECE_CHANGE
       - MMI_FLYFFCOUPONSHOP
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001178
     output: false
     dialog: mafl_couponpang.txt"
@@ -11066,11 +11066,11 @@
     menu:
       - MMI_DIALOG
       - MMI_MUSICFESTIVALETC
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001180
     output: false
     dialog: mafl_musichandael.txt"
@@ -11080,11 +11080,11 @@
   settings:
     menu:
       - MMI_DIALOG
-    vendorType: ''
+    vendorType: ""
     vendorItems: []
     vendorItems2: []
-    structure: ''
-    music: ''
+    structure: ""
+    music: ""
     image: IDS_CHARACTER_INC_001182
     output: false
     dialog: mafl_musicflami.txt"

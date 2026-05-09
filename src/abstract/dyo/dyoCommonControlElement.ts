@@ -26,8 +26,14 @@ export class DyoCommonControlElement extends DyoElement {
   maxItemNum: number;
   insideItemKind: number[] = new Array<number>(this.MaxControlDropItem);
   insideItemPer: number[] = new Array<number>(this.MaxControlDropItem);
-  monsterResistanceKind: number[] = new Array<number>(this.MaxControlDropMonster);
-  monsterResistanceNum: number[] = new Array<number>(this.MaxControlDropMonster);
+  monsterResistanceKind: number[] = new Array<number>(
+    this.MaxControlDropMonster
+  );
+
+  monsterResistanceNum: number[] = new Array<number>(
+    this.MaxControlDropMonster
+  );
+
   monsterActionAttack: number[] = new Array<number>(this.MaxControlDropMonster);
   trapOperTime: number;
   trapRandomPer: number;
@@ -96,7 +102,9 @@ export class DyoCommonControlElement extends DyoElement {
         this.trapLevel[i] = streamReader.readUInt32();
       }
 
-      this.linkControlKey = streamReader.readBytes(this.MaxKey).toString("utf8");
+      this.linkControlKey = streamReader
+        .readBytes(this.MaxKey)
+        .toString("utf8");
       this.controlKey = streamReader.readBytes(this.MaxKey).toString("utf8");
 
       this.setQuestNum1 = streamReader.readUInt32();
@@ -138,7 +146,9 @@ export class DyoCommonControlElement extends DyoElement {
         this.trapLevel[i] = streamReader.readUInt32();
       }
 
-      this.linkControlKey = streamReader.readBytes(this.MaxKey).toString("utf8");
+      this.linkControlKey = streamReader
+        .readBytes(this.MaxKey)
+        .toString("utf8");
       this.controlKey = streamReader.readBytes(this.MaxKey).toString("utf8");
 
       this.setQuestNum1 = streamReader.readUInt32();

@@ -201,7 +201,7 @@ export class UserConnection {
   }
 
   // Method called when data is received (can be overridden)
-  protected async onData(packet: FlyffPacket): Promise<void> {}
+  protected async onData(_packet: FlyffPacket): Promise<void> {}
 
   // Method to send a packet to the client
   send(packet: FlyffPacket): void {

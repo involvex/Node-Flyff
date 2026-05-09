@@ -22,6 +22,9 @@ export default class InventoryEntity extends BaseEntity {
   @Column({ default: 0 })
     gold: number;
 
-  @OneToMany(() => InventoryItemEntity, (inventoryItem) => inventoryItem.inventory)
+  @OneToMany(
+    () => InventoryItemEntity,
+    (inventoryItem) => inventoryItem.inventory
+  )
     items: InventoryItemEntity[];
 }

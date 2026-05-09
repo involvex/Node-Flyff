@@ -3,15 +3,15 @@ import fs from "fs";
 import { Logger } from "../helpers/logger";
 import { join } from "path";
 import { DataSource, DataSourceOptions } from "typeorm";
+
+import { BuilderType } from "../common/builderType";
+import { IDataSource, IDatabaseOptions } from "../interfaces/database";
+import { DatabaseType } from "../common/databaseType";
 // Some TypeORM driver-specific option types are not available in this environment
 // Use permissive aliases to avoid hard build failures while keeping runtime behavior.
 type MysqlConnectionOptions = any;
 type SqliteConnectionOptions = any;
 type PostgresConnectionOptions = any;
-
-import { BuilderType } from "../common/builderType";
-import { IDataSource, IDatabaseOptions } from "../interfaces/database";
-import { DatabaseType } from "../common/databaseType";
 
 export class DatabaseBuilder {
   private logger: Logger;

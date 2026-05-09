@@ -57,9 +57,12 @@ class Inventory {
   }
 
   getEquippedItems(): Item[] {
-    return this.getRange(Inventory.INVENTORY_SIZE, Inventory.INVENTORY_EQUIP_PARTS)
-      .map(slot => slot.item)
-      .filter(item => item !== null) as Item[];
+    return this.getRange(
+      Inventory.INVENTORY_SIZE,
+      Inventory.INVENTORY_EQUIP_PARTS
+    )
+      .map((slot) => slot.item)
+      .filter((item) => item !== null) as Item[];
   }
 
   // Compatibility: return equipped item for a given part (best-effort)
@@ -272,9 +275,14 @@ export class Player extends Mover {
     }
 
     // TODO: Implement getVisibleObjects method in MapLayer
-    const currentVisibleEntities: import("../abstract/worldObject").WorldObject[] = [];
-    const appearingEntities = currentVisibleEntities.filter(entity => !this.visibleObjects.includes(entity));
-    const disappearingEntities = this.visibleObjects.filter(entity => !currentVisibleEntities.includes(entity));
+    const currentVisibleEntities: import("../abstract/worldObject").WorldObject[] =
+      [];
+    const appearingEntities = currentVisibleEntities.filter(
+      (entity) => !this.visibleObjects.includes(entity)
+    );
+    const disappearingEntities = this.visibleObjects.filter(
+      (entity) => !currentVisibleEntities.includes(entity)
+    );
 
     if (appearingEntities.length > 0 || disappearingEntities.length > 0) {
       // TODO: Implement proper snapshot system
@@ -293,16 +301,26 @@ export class Player extends Mover {
     return this.inventory.getEquippedItems();
   }
 
-  public updateStatistics(strength: number, stamina: number, dexterity: number, intelligence: number): void {
+  public updateStatistics(
+    strength: number,
+    stamina: number,
+    dexterity: number,
+    intelligence: number
+  ): void {
     const total = strength + stamina + dexterity + intelligence;
 
     if (this.availablePoints <= 0 || total > this.availablePoints) {
       throw new Error(`${this.name} doesn't have enough statistic points.`);
     }
 
-    if (strength > this.availablePoints || stamina > this.availablePoints ||
-        dexterity > this.availablePoints || intelligence > this.availablePoints || total <= 0 ||
-        total > USHORT_MAX_VALUE) {
+    if (
+      strength > this.availablePoints ||
+      stamina > this.availablePoints ||
+      dexterity > this.availablePoints ||
+      intelligence > this.availablePoints ||
+      total <= 0 ||
+      total > USHORT_MAX_VALUE
+    ) {
       throw new Error("Statistics point bad calculation. (Hack attempt)");
     }
 
@@ -321,9 +339,10 @@ export class Player extends Mover {
   }
 
   public resetStatistics(): void {
-    const defaultCharacter = this.appearance.gender === GenderType.Male
-      ? GameOptions.Current.DefaultCharacter.Man
-      : GameOptions.Current.DefaultCharacter.Woman;
+    const defaultCharacter =
+      this.appearance.gender === GenderType.Male
+        ? GameOptions.Current.DefaultCharacter.Man
+        : GameOptions.Current.DefaultCharacter.Woman;
 
     this.statistics.strength = defaultCharacter.Strength;
     this.statistics.stamina = defaultCharacter.Stamina;
@@ -351,7 +370,9 @@ export class Player extends Mover {
 
   public resetSkills(): void {
     for (const skill of this.skills) {
-      this.skillPoints += (skill.level || 0) * (SkillTree.SkillPointUsage[skill.properties?.jobType] || 1);
+      this.skillPoints +=
+        (skill.level || 0) *
+        (SkillTree.SkillPointUsage[skill.properties?.jobType] || 1);
       skill.level = 0;
     }
   }
@@ -362,7 +383,6 @@ export class Player extends Mover {
 
   public changeJob(job: DefineJob): void {
     if (this.job.id === job) {
-
     }
 
     // TODO: Implement job resources lookup
@@ -403,7 +423,10 @@ export class Player extends Mover {
 
   public pickupItem(mapItem: MapItemObject, sendPickupMotion = true): void {
     if (mapItem.owner && mapItem.owner !== this) {
-      this.sendDefinedText(DefineText.TID_GAME_PRIORITYITEMPER, `"${mapItem.item.name}"`);
+      this.sendDefinedText(
+        DefineText.TID_GAME_PRIORITYITEMPER,
+        `"${mapItem.item.name}"`
+      );
       return;
     }
 
@@ -413,7 +436,10 @@ export class Player extends Mover {
       itemPickedUp = this.gold.increase(mapItem.item.quantity);
     } else {
       itemPickedUp = this.inventory.createItem(mapItem.item) > -1;
-      this.sendDefinedText(DefineText.TID_GAME_REAPITEM, `"${mapItem.item.name}"`);
+      this.sendDefinedText(
+        DefineText.TID_GAME_REAPITEM,
+        `"${mapItem.item.name}"`
+      );
     }
 
     if (itemPickedUp) {
@@ -426,7 +452,10 @@ export class Player extends Mover {
     }
 
     if (sendPickupMotion) {
-      const motionSnapshot = new MotionSnapshot(this, ObjectMessageType.OBJMSG_PICKUP);
+      const motionSnapshot = new MotionSnapshot(
+        this,
+        ObjectMessageType.OBJMSG_PICKUP
+      );
       this.sendToVisible(motionSnapshot, true);
     }
   }
@@ -440,7 +469,9 @@ export class Player extends Mover {
 
     if (this.map?.id === mapId) {
       if (!this.map.isInBounds(position)) {
-        throw new Error(`Attempt to teleport '${this.name}' to an invalid position: ${position} in map: '${this.map.name}'.`);
+        throw new Error(
+          `Attempt to teleport '${this.name}' to an invalid position: ${position} in map: '${this.map.name}'.`
+        );
       }
 
       setPlayerPosition(position);
@@ -457,30 +488,23 @@ export class Player extends Mover {
       // if (!destinationMap) {
       //   throw new Error(`Cannot teleport to map with id: '${mapId}'. Map not found.`);
       // }
-
       // if (!destinationMap.isInBounds(position)) {
       //   throw new Error(`Attempt to teleport '${this.name}' to an invalid position: ${position} in map: '${destinationMap.name}'.`);
       // }
-
       // this.isSpawned = false;
       // this.mapLayer?.removePlayer(this);
-
       // setPlayerPosition(position);
-
       // this.map = destinationMap;
       // this.mapLayer = destinationMap.getDefaultLayer() || null;
       // if (this.mapLayer) this.mapLayer.addPlayer(this);
-
       // if (sendToPlayer) {
       //   const snapshots = new FFSnapshot([
       //     new ReplaceSnapshot(this),
       //     new WorldReadInfoSnapshot(this),
       //     new AddObjectSnapshot(this)
       //   ]);
-
       //   this.send(snapshots);
       // }
-
       // this.isSpawned = true;
     }
   }
@@ -492,7 +516,9 @@ export class Player extends Mover {
       // Check if target has monster properties
       const monster = target as Monster;
       if (monster.properties?.dwExpValue) {
-        this.experience.increase(monster.properties.dwExpValue * GameOptions.Current.Rates.Experience);
+        this.experience.increase(
+          monster.properties.dwExpValue * GameOptions.Current.Rates.Experience
+        );
         this.questDiary.onMonsterKilled(monster);
       }
     }
@@ -535,7 +561,9 @@ export class Player extends Mover {
     this._connection.send(packet);
   }
 
-  private addVisibleEntity(entity: import("../abstract/worldObject").WorldObject): void {
+  private addVisibleEntity(
+    entity: import("../abstract/worldObject").WorldObject
+  ): void {
     if (!this.visibleObjects.includes(entity)) {
       this.visibleObjects.push(entity);
     }
@@ -545,7 +573,9 @@ export class Player extends Mover {
     }
   }
 
-  private removeVisibleEntity(entity: import("../abstract/worldObject").WorldObject): void {
+  private removeVisibleEntity(
+    entity: import("../abstract/worldObject").WorldObject
+  ): void {
     const index = this.visibleObjects.indexOf(entity);
     if (index > -1) {
       this.visibleObjects.splice(index, 1);
