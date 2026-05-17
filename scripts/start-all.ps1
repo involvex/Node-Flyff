@@ -23,12 +23,14 @@ if ($wait -ge $maxWait) {
 
 Write-Output "Building project (bun build)..."
 bun install
-bun build ./src/main.ts --outdir ./dist --target bun
+# bun build ./src/main.ts --outdir ./dist --target bun
+bun run build
 
 Write-Output "Starting servers: login, cluster, world"
-Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','login'
-Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','cluster'
-Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','world'
+# Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','login'
+# Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','cluster'
+# Start-Process -NoNewWindow -FilePath bun -ArgumentList 'run','src/main.ts','world'
+bunx conc "bun start login" "bun start world" "bun start cluster" "bun dev:client"
 
 Write-Output "All services started."
 Pop-Location
