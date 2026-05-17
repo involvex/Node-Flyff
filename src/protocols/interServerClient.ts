@@ -31,7 +31,7 @@ export class InterServerClient extends EventEmitter {
 
   constructor (serverType: ServerType, host: string, port: number) {
     super();
-    this.logger = new Logger(`InterServer-${ServerType[serverType]}`);
+    this.logger = new Logger(`InterServer-${serverType}`);
     this.serverType = serverType;
     this.host = host;
     this.port = port;
@@ -62,19 +62,19 @@ export class InterServerClient extends EventEmitter {
     targetPort: number
   ): Promise<void> {
     if (this.connections.has(targetServer)) {
-      this.logger.warn(`Already connected to ${ServerType[targetServer]}`);
+      this.logger.warn(`Already connected to ${targetServer}`);
       return;
     }
 
     this.logger.info(
-      `Connecting to ${ServerType[targetServer]} at ${targetHost}:${targetPort}`
+      `Connecting to ${targetServer} at ${targetHost}:${targetPort}`
     );
 
     return new Promise((resolve, reject) => {
       const socket = createConnection(
         { host: targetHost, port: targetPort },
         () => {
-          this.logger.success(`Connected to ${ServerType[targetServer]}`);
+          this.logger.success(`Connected to ${targetServer}`);
 
           const connection: ServerConnection = {
             serverType: targetServer,
@@ -91,10 +91,7 @@ export class InterServerClient extends EventEmitter {
       );
 
       socket.on("error", (error) => {
-        this.logger.error(
-          `Failed to connect to ${ServerType[targetServer]}:`,
-          error
-        );
+        this.logger.error(`Failed to connect to ${targetServer}:`, error);
         reject(error);
       });
     });
@@ -117,17 +114,17 @@ export class InterServerClient extends EventEmitter {
     socket.on("data", (data) => this.handleMessage(data, socket));
 
     socket.on("error", (error) => {
-      this.logger.error(`Error with ${ServerType[serverType]}:`, error);
+      this.logger.error(`Error with ${serverType}:`, error);
       this.handleDisconnection(serverType);
     });
 
     socket.on("close", () => {
-      this.logger.warn(`Connection to ${ServerType[serverType]} closed`);
+      this.logger.warn(`Connection to ${serverType} closed`);
       this.handleDisconnection(serverType);
     });
 
     socket.on("end", () => {
-      this.logger.info(`${ServerType[serverType]} ended connection`);
+      this.logger.info(`${serverType} ended connection`);
       this.handleDisconnection(serverType);
     });
   }
@@ -153,7 +150,7 @@ export class InterServerClient extends EventEmitter {
 
   private handleIncomingMessage (message: InterServerMessage): void {
     this.logger.info(
-      `Received message from ${ServerType[message.source]}: ${message.type}`
+      `Received message from ${message.source}: ${message.type}`
     );
 
     // Emit to event listeners
@@ -182,9 +179,7 @@ export class InterServerClient extends EventEmitter {
 
       // Attempt reconnection after delay
       setTimeout(() => {
-        this.logger.info(
-          `Attempting to reconnect to ${ServerType[serverType]}...`
-        );
+        this.logger.info(`Attempting to reconnect to ${serverType}...`);
         // Reconnection logic would go here
       }, 5000);
     }
@@ -198,7 +193,7 @@ export class InterServerClient extends EventEmitter {
     const connection = this.connections.get(targetServer);
 
     if (!connection || !connection.connected) {
-      this.logger.warn(`Not connected to ${ServerType[targetServer]}`);
+      this.logger.warn(`Not connected to ${targetServer}`);
       return false;
     }
 
@@ -214,13 +209,10 @@ export class InterServerClient extends EventEmitter {
       const serialized = this.serializeMessage(message);
       connection.socket.write(serialized);
 
-      this.logger.info(`Sent ${messageType} to ${ServerType[targetServer]}`);
+      this.logger.info(`Sent ${messageType} to ${targetServer}`);
       return true;
     } catch (error) {
-      this.logger.error(
-        `Failed to send message to ${ServerType[targetServer]}:`,
-        error
-      );
+      this.logger.error(`Failed to send message to ${targetServer}:`, error);
       return false;
     }
   }
@@ -273,9 +265,7 @@ export class InterServerClient extends EventEmitter {
         if (connection.connected) {
           // Check if connection is stale (no ping for 30 seconds)
           if (now - connection.lastPing > 30000) {
-            this.logger.warn(
-              `Connection to ${ServerType[serverType]} appears stale`
-            );
+            this.logger.warn(`Connection to ${serverType} appears stale`);
             this.handleDisconnection(serverType);
           } else {
             // Send heartbeat

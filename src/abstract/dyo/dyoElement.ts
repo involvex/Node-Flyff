@@ -2,16 +2,16 @@ import { Vector3 } from "../vector3";
 import { BinaryStream } from "../../libraries/binaryStream";
 
 export class DyoElement {
-  elementType: number;
-  angle: number;
+  elementType: number = 0;
+  angle: number = 0;
   axis: Vector3;
   position: Vector3;
   scale: Vector3;
-  type: number;
-  index: number;
-  motion: number;
-  iaInterface: number;
-  ia2: number;
+  type: number = 0;
+  index: number = 0;
+  motion: number = 0;
+  iaInterface: number = 0;
+  ia2: number = 0;
 
   constructor () {
     this.axis = new Vector3();

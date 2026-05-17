@@ -13,17 +13,17 @@ export class DyoCommonControlElement extends DyoElement {
   // Define the size of the data structure
   private readonly Size = 432;
 
-  version: number;
-  set: number;
-  setItem: number;
-  setLevel: number;
-  setQuestNum: number;
-  setFlagNum: number;
-  setGender: number;
+  version: number = 0;
+  set: number = 0;
+  setItem: number = 0;
+  setLevel: number = 0;
+  setQuestNum: number = 0;
+  setFlagNum: number = 0;
+  setGender: number = 0;
   setJob: boolean[] = new Array<boolean>(JobMax.MAX_JOB);
-  setEndu: number;
-  minItemNum: number;
-  maxItemNum: number;
+  setEndu: number = 0;
+  minItemNum: number = 0;
+  maxItemNum: number = 0;
   insideItemKind: number[] = new Array<number>(this.MaxControlDropItem);
   insideItemPer: number[] = new Array<number>(this.MaxControlDropItem);
   monsterResistanceKind: number[] = new Array<number>(
@@ -35,22 +35,22 @@ export class DyoCommonControlElement extends DyoElement {
   );
 
   monsterActionAttack: number[] = new Array<number>(this.MaxControlDropMonster);
-  trapOperTime: number;
-  trapRandomPer: number;
-  trapDelay: number;
+  trapOperTime: number = 0;
+  trapRandomPer: number = 0;
+  trapDelay: number = 0;
   trapKind: number[] = new Array<number>(this.MaxTrap);
   trapLevel: number[] = new Array<number>(this.MaxTrap);
-  linkControlKey: string;
-  controlKey: string;
-  setQuestNum1: number;
-  setFlagNum1: number;
-  setQuestNum2: number;
-  setFlagNum2: number;
-  setItemCount: number;
-  teleportWorldId: number;
-  teleportX: number;
-  teleportY: number;
-  teleportZ: number;
+  linkControlKey: string = "";
+  controlKey: string = "";
+  setQuestNum1: number = 0;
+  setFlagNum1: number = 0;
+  setQuestNum2: number = 0;
+  setFlagNum2: number = 0;
+  setItemCount: number = 0;
+  teleportWorldId: number = 0;
+  teleportX: number = 0;
+  teleportY: number = 0;
+  teleportZ: number = 0;
 
   constructor () {
     super();

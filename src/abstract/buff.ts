@@ -7,7 +7,7 @@ export class Buff {
   private static uniqueIdCounter: number = 0;
 
   id: number;
-  type: BuffType;
+  type: BuffType = BuffType.Unknown;
   owner: Mover;
   attributes: ReadonlyMap<DefineAttributes, number>;
   remainingTime: number;

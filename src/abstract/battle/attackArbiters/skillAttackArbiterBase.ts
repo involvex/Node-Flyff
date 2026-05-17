@@ -7,6 +7,7 @@ import { FFRandom } from "../../../helpers/FFRandom";
 import { RangeHelper } from "../../range";
 import { Skill } from "../../skill";
 import { AttackArbiterBase } from "./attackArbiterBase";
+import { ItemProperties } from "../../../interfaces/resource";
 
 export class SkillAttackArbiterBase extends AttackArbiterBase {
   protected readonly skill: Skill;
@@ -17,14 +18,10 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
   }
 
   protected getAttackerSkillPower (): number {
-    const skillProps: any =
-      (this.skill as any).Properties ?? (this.skill as any).properties ?? {};
-    const levelProps: any =
-      (this.skill as any).levelProperties ??
-      (this.skill as any).LevelProperties ??
-      {};
-    const skillLevel: number =
-      (this.skill as any).Level ?? (this.skill as any).level ?? 0;
+    const skillProps = this.skill.Properties ?? this.skill.properties ?? {};
+    const levelProps =
+      this.skill.levelProperties ?? this.skill.levelProperties ?? {};
+    const skillLevel: number = this.skill.Level ?? this.skill.level ?? 0;
 
     let referStatistic1: number = this.attacker.attributes.get(
       skillProps.referStat1
@@ -77,8 +74,7 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
       weaponItem
     );
 
-    const weaponProps =
-      (weaponItem as any)?.Properties ?? weaponItem?.properties;
+    const weaponProps = weaponItem?.properties as ItemProperties | undefined;
     const attackMin = attack.minimum + (weaponProps?.attackSkillMin ?? 0);
     const attackMax = attack.maximum + (weaponProps?.attackSkillMax ?? 0);
 

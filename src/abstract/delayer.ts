@@ -46,7 +46,7 @@ export class Delayer {
 }
 
 class DelayedAction {
-  private _timerId: ReturnType<typeof setTimeout>;
+  private _timerId: ReturnType<typeof setTimeout> | null = null;
 
   constructor (
     private _actionToExecute: () => void,
@@ -61,6 +61,9 @@ class DelayedAction {
 
   /** Cancels the delayed action. */
   public cancel (): void {
-    clearTimeout(this._timerId);
+    if (this._timerId !== null) {
+      clearTimeout(this._timerId);
+      this._timerId = null;
+    }
   }
 }

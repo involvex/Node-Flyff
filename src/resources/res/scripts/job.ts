@@ -68,7 +68,8 @@ fs.readFile(path.join(__dirname, "../data", "propJob.inc"), "utf8", (
   });
 
   function getJobTypeId (type: string) {
-    return JobType[type];
+    const jobTypeId = JobType[type as keyof typeof JobType];
+    return jobTypeId !== undefined ? jobTypeId : 0; // Default to JTYPE_BASE if not found
   }
 
   function getMinLevel (type: JobType) {

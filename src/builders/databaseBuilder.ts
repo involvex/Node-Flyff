@@ -84,8 +84,12 @@ export class DatabaseBuilder {
     try {
       await this.database.initialize();
       await this.database.synchronize();
-    } catch (e) {
-      this.logger.warn(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        this.logger.warn(e.message);
+      } else {
+        this.logger.warn(String(e));
+      }
     }
     this.logger.success("Database successfully loaded");
     return this.database;

@@ -2,6 +2,7 @@ import { AttackFlags } from "../../../common/attackFlag";
 import { DefineAttributes } from "../../../common/defineAttributes";
 import { Mover } from "../../../entities/mover";
 import { Player } from "../../../entities/player";
+import { Monster } from "../../../entities/monster";
 import { FFRandom } from "../../../helpers/FFRandom";
 import { RangeHelper } from "../../range";
 import { AttackResult } from "../attackResult";
@@ -33,13 +34,17 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
 
     let attackRange: RangeHelper<number> | null = null;
 
-    // if (this.attacker instanceof Player) {
-    //     const weapon = this.attacker.inventory.getEquipedItem(ItemPartType.RightWeapon);
-    //     const weaponAttack = this.getWeaponAttackDamages(this.attacker, weapon.properties.weaponType);
-    //     attackRange = new RangeHelper<number>(weapon.properties.abilityMin * 2 + weaponAttack, weapon.properties.abilityMax * 2 + weaponAttack);
-    // } else if (this.attacker instanceof Monster) {
-    //     attackRange = new RangeHelper<number>(this.attacker.properties.attackMin, this.attacker.properties.attackMax);
-    // }
+    if (this.attacker instanceof Player) {
+      // TODO: Implement weapon attack damages
+      // const weapon = this.attacker.inventory.getEquipedItem(ItemPartType.RightWeapon);
+      // const weaponAttack = this.getWeaponAttackDamages(this.attacker, weapon.properties.weaponType);
+      // attackRange = new RangeHelper<number>(weapon.properties.abilityMin * 2 + weaponAttack, weapon.properties.abilityMax * 2 + weaponAttack);
+    } else if (this.attacker instanceof Monster) {
+      attackRange = new RangeHelper<number>(
+        this.attacker.properties.dwAtkMin,
+        this.attacker.properties.dwAtkMax
+      );
+    }
 
     if (!attackRange) {
       return AttackResult.miss();
@@ -54,10 +59,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       }
     }
 
-    let damages = FFRandom.random(
-      attackRange?.maximum as number,
-      attackRange?.maximum as number
-    );
+    let damages = FFRandom.random(attackRange.minimum, attackRange.maximum);
 
     if (flags & AttackFlags.AF_RANGE) {
       damages = Math.round(damages * this.getChargeAttackMultiplier());
@@ -72,9 +74,9 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     const escapeRating = this.getEscapeRating(this.defender);
 
     // if (this.attacker instanceof Monster && this.defender instanceof Player) {
-    //     hitRate = (hitRating * 1.5 / (hitRating + escapeRating) * 2.0 * (this.attacker.level * 0.5 / (this.attacker.level + this.defender.level * 0.3)) * 100.0);
+    //   hitRate = (hitRating * 1.5 / (hitRating + escapeRating) * 2.0 * (this.attacker.level * 0.5 / (this.attacker.level + this.defender.level * 0.3)) * 100.0);
     // } else {
-    //     hitRate = (hitRating * 1.6 / (hitRating + escapeRating) * 1.5 * (this.attacker.level * 1.2 / (this.attacker.level + this.defender.level)) * 100.0);
+    //   hitRate = (hitRating * 1.6 / (hitRating + escapeRating) * 1.5 * (this.attacker.level * 1.2 / (this.attacker.level + this.defender.level)) * 100.0);
     // }
 
     // Basic fallback calculation until full formula is implemented
@@ -82,8 +84,8 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       hitRate = ((hitRating * 1.6) / (hitRating + escapeRating)) * 1.5;
       // incorporate simple level scaling when available
       try {
-        const attLevel = (this.attacker as any).level ?? 1;
-        const defLevel = (this.defender as any).level ?? 1;
+        const attLevel = (this.attacker as { level?: number }).level ?? 1;
+        const defLevel = (this.defender as { level?: number }).level ?? 1;
         hitRate = hitRate * ((attLevel * 1.2) / (attLevel + defLevel));
       } catch {
         // ignore and keep hitRate as-is
@@ -103,13 +105,30 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       : AttackFlags.AF_MISS;
   }
 
-  private getHitRating (_entity: Mover): number {
-    // if (entity instanceof Player) {
-    //     return entity.statistics.dexterity + entity.attributes.get(DefineAttributes.DST_DEX);
-    // } else if (entity instanceof Monster) {
-    //     return entity.properties.hitRating;
-    // }
+  public getHitRating (entity: Mover): number {
+    if (entity instanceof Player) {
+      return (
+        entity.statistics.dexterity +
+        entity.attributes.get(DefineAttributes.DST_DEX)
+      );
+    } else if (entity instanceof Monster) {
+      return entity.properties.dwHR;
+    }
+    return 0;
+  }
 
+  public getEscapeRating (entity: Mover): number {
+    if (entity instanceof Player) {
+      // For players, escape rating might be based on dexterity? Or maybe agility?
+      // Since we don't have agility, let's use dexterity for now.
+      return (
+        entity.statistics.dexterity +
+        entity.attributes.get(DefineAttributes.DST_DEX)
+      );
+    } else if (entity instanceof Monster) {
+      // For monsters, maybe they have an escape rating property?
+      return entity.properties.dwER ?? 0;
+    }
     return 0;
   }
 
@@ -124,16 +143,16 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       return false;
     }
 
-    let baseDexterity;
-    let criticalJobFactor;
+    let baseDexterity: number = 0;
+    let criticalJobFactor: number = 0;
 
-    // if (attacker instanceof Player) {
-    //     baseDexterity = attacker.statistics.dexterity;
-    //     criticalJobFactor = attacker.job.critical;
-    // } else if (attacker instanceof Monster) {
-    //     baseDexterity = attacker.statistics.dexterity;
-    //     criticalJobFactor = 1;
-    // }
+    if (attacker instanceof Player) {
+      baseDexterity = attacker.statistics.dexterity;
+      criticalJobFactor = attacker.job.critical;
+    } else if (attacker instanceof Monster) {
+      baseDexterity = attacker.statistics.dexterity;
+      criticalJobFactor = 1;
+    }
 
     let criticalProbability = Math.round(
       ((baseDexterity + attacker.attributes.get(DefineAttributes.DST_DEX)) /
@@ -155,13 +174,13 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     const criticalMax = 1.4;
 
     // if (this.attacker.level > this.defender.level) {
-    //     if (this.defender instanceof Monster) {
-    //         criticalMin = 1.2;
-    //         criticalMax = 2.0;
-    //     } else {
-    //         criticalMin = 1.4;
-    //         criticalMax = 1.8;
-    //     }
+    //   if (this.defender instanceof Monster) {
+    //     criticalMin = 1.2;
+    //     criticalMax = 2.0;
+    //   } else {
+    //     criticalMin = 1.4;
+    //     criticalMax = 1.8;
+    //   }
     // }
 
     let criticalBonus = 1; // TODO: 1 + (DST_CRITICAL_BONUS / 100)
@@ -188,19 +207,19 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     }
 
     // if (this.attacker instanceof Player) {
-    //     const weapon = this.attacker.inventory.getEquipedItem(ItemPartType.RightWeapon);
+    //   const weapon = this.attacker.inventory.getEquipedItem(ItemPartType.RightWeapon);
 
-    //     if (weapon.properties.weaponType === WeaponType.MELEE_YOYO || attackerAttackFlags & AttackFlags.AF_FORCE) {
-    //         return false;
-    //     }
+    //   if (weapon.properties.weaponType === WeaponType.MELEE_YOYO || attackerAttackFlags & AttackFlags.AF_FORCE) {
+    //     return false;
+    //   }
     // }
 
     const canFly = false;
 
     // if (this.defender.objectState & ObjectState.OBJSTA_DMG_FLY_ALL && this.defender instanceof Monster) {
-    //     canFly = this.defender.properties.class !== MoverClassType.RANK_SUPER &&
-    //         this.defender.properties.class !== MoverClassType.RANK_MATERIAL &&
-    //         this.defender.properties.class !== MoverClassType.RANK_MID_BOSS;
+    //   canFly = this.defender.properties.class !== MoverClassType.RANK_SUPER &&
+    //       this.defender.properties.class !== MoverClassType.RANK_MATERIAL &&
+    //       this.defender.properties.class !== MoverClassType.RANK_MID_BOSS;
     // }
 
     return canFly && knockbackChance;

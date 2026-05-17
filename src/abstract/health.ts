@@ -7,9 +7,9 @@ import { HealthFormulas } from "./healthFomula";
 
 export class Health {
   private _mover: Mover;
-  private _hp: number;
-  private _mp: number;
-  private _fp: number;
+  private _hp: number = 0;
+  private _mp: number = 0;
+  private _fp: number = 0;
   private _nextHealTime: number;
 
   public constructor (mover: Mover) {

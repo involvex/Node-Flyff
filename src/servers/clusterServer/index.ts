@@ -83,7 +83,7 @@ async function clusterIntercom (instance: IInstance) {
   // const clusterKey = `cluster:${initCluster.name}`;
 
   /// /// MAIN //////////
-  subscriber?.subscribe(...redisChannels, (err) => {
+  subscriber?.subscribe(...redisChannels, (err: any) => {
     if (!err) {
       sendMessage(
         RedisChannel.CORE_CHANNEL,
@@ -95,7 +95,9 @@ async function clusterIntercom (instance: IInstance) {
       logger?.error(err);
     }
   });
-  subscriber?.on("message", processChannelMessage.bind(this));
+  subscriber?.on("message", (channel, message) => {
+    this.processChannelMessage(channel, message);
+  });
 
   cron.schedule("*/30 * * * * *", async () => {
     const channels = await client?.getAllChannels(initCluster.name);

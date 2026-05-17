@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 import { AuthorityType } from "../common/authorityType";
-import CharacterEntity from "./character";
+import type CharacterEntity from "./character";
 
 @Entity("Account")
 export default class AccountEntity extends BaseEntity {
@@ -38,6 +38,6 @@ export default class AccountEntity extends BaseEntity {
   @Column({ nullable: true, default: 0 })
   lastActivity!: number;
 
-  @OneToMany(() => CharacterEntity, (character) => character.account)
+  @OneToMany("Character", (character: CharacterEntity) => character.account)
   characters!: CharacterEntity[];
 }

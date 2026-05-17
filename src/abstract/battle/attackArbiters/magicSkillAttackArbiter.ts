@@ -16,8 +16,7 @@ export class MagicSkillAttackArbiter extends SkillAttackArbiterBase {
     let skillMastryAttribute: DefineAttributes | undefined;
 
     const spellType =
-      (this.skill as any).properties?.spellType ??
-      (this.skill as any).Properties?.spellType;
+      this.skill.Properties?.spellType ?? this.skill.properties?.spellType;
     switch (spellType) {
       case SpellType.Fire:
         skillMastryAttribute = DefineAttributes.DST_MASTRY_FIRE;

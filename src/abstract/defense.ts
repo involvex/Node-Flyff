@@ -5,10 +5,10 @@ export class Defense {
   private _mover: Mover;
 
   /** Gets the minimum defense. */
-  public minimum: number;
+  public minimum: number = 0;
 
   /** Gets the maximum defense. */
-  public maximum: number;
+  public maximum: number = 0;
 
   constructor (mover: Mover) {
     this._mover = mover;

@@ -7,15 +7,15 @@ import {
   ManyToOne
 } from "typeorm";
 import { GenderType } from "../common/genderType";
+import type AccountEntity from "./account";
 import type EquipmentItemEntity from "./equipmentItem";
-import AccountEntity from "./account";
 
 @Entity("Character")
 export default class CharacterEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => AccountEntity, (account) => account.characters)
+  @ManyToOne("Account", (account: any) => account.characters)
   account!: AccountEntity;
 
   @Column({ nullable: false })
@@ -101,7 +101,7 @@ export default class CharacterEntity extends BaseEntity {
 
   @OneToMany(
     "EquipmentItemEntity",
-    (equipmentItem: EquipmentItemEntity) => equipmentItem.character
+    (equipmentItem: any) => equipmentItem.character
   )
   equipments!: EquipmentItemEntity[];
 

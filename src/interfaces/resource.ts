@@ -80,6 +80,8 @@ export interface ItemProperties {
   dwReflect: number;
   dwQuestID: number;
   szComment: string;
+  attackSkillMin?: number;
+  attackSkillMax?: number;
   readonly stackable?: boolean;
   readonly Params?: Readonly<Record<DefineAttributes, number>>;
 }

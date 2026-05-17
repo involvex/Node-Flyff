@@ -201,10 +201,7 @@ export class Mover extends WorldObject {
       // TODO: Implement MeleeAttackArbiter when available
       // const arbiter = new MeleeAttackArbiter(this, target);
       // attackResult = arbiter.calculateDamages();
-      attackResult = {
-        damages: 10, // Placeholder damage
-        flags: AttackFlags.AF_GENERIC
-      };
+      attackResult = new AttackResult(10, AttackFlags.AF_GENERIC);
 
       if (!(attackResult.flags & AttackFlags.AF_MISS)) {
         // TODO: Implement MeleeAttackReducer when available
@@ -259,10 +256,10 @@ export class Mover extends WorldObject {
     attackType: AttackType
   ): { success: boolean; attackResult?: AttackResult } {
     if (this instanceof Player && this.mode.includes(ModeType.ONEKILL_MODE)) {
-      const attackResult: AttackResult = {
-        damages: target.health.hp,
-        flags: AttackFlags.AF_GENERIC
-      };
+      const attackResult = new AttackResult(
+        target.health.hp,
+        AttackFlags.AF_GENERIC
+      );
 
       this.inflictDamages(target, attackResult, attackType);
       return { success: true, attackResult };

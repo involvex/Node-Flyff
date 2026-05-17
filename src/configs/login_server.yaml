@@ -15,10 +15,6 @@ redis:
   password: ""
   tls: false
 database:
-  provider: "postgres"
-  host: "127.0.0.1"
-  port: 5432
-  username: "flyff"
-  password: "flyffpass"
-  database: "nodeflyff"
+  provider: "sqlite"
+  database: "data/flyff.db"
   # connection-string and url are optional for postgres

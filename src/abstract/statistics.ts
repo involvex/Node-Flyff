@@ -4,16 +4,16 @@ export class Statistics {
   private readonly _mover: Mover;
 
   /** Gets or sets the original strength points. */
-  public strength: number;
+  public strength: number = 0;
 
   /** Gets or sets the original stamina points. */
-  public stamina: number;
+  public stamina: number = 0;
 
   /** Gets or sets the original dexterity points. */
-  public dexterity: number;
+  public dexterity: number = 0;
 
   /** Gets or sets the original intelligence points. */
-  public intelligence: number;
+  public intelligence: number = 0;
 
   constructor (owner: Mover) {
     if (!owner) {

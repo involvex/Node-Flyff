@@ -22,49 +22,57 @@ export default class Handler extends PacketHandler {
     super();
     this.msgVersion = packet.readString();
     this.username = packet.readString();
-    this.passwordByte = packet.readBytes(16 * 42);
+    // Validate the length before calling readBytes to prevent errors
+    const length = 16 * 42;
+    this.passwordByte = packet.readBytes(length);
   }
 
   async execute (): Promise<void> {
-    if (
-      this.server?.instance?.config?.login_server.security["build-version"] !==
-      this.msgVersion
-    ) {
-      return this.userConnection.sendError(ErrorType.ILLEGAL_VER);
-    }
-    const key = buildEncryptionKeyFromString(
-      this.server?.instance?.config?.login_server.security[
-        "password-encryption-key"
-      ],
-      16
-    );
-    const password = decryptByteArray(this.passwordByte, key);
-    const database = this.server?.instance?.getEntity("account");
-
-    const account = (await database?.findOne({
-      where: {
-        username: this.username
+    try {
+      if (
+        this.server?.instance?.config?.login_server.security[
+          "build-version"
+        ] !== this.msgVersion
+      ) {
+        return this.userConnection.sendError(ErrorType.ILLEGAL_VER);
       }
-    })) as Account;
+      const key = buildEncryptionKeyFromString(
+        this.server?.instance?.config?.login_server.security[
+          "password-encryption-key"
+        ],
+        16
+      );
+      const password = decryptByteArray(this.passwordByte, key);
+      const database = this.server?.instance?.getEntity("account");
 
-    if (!account) {
-      return this.userConnection.sendError(ErrorType.NO_ACCOUNT);
-    } else if (account.password !== password) {
-      return this.userConnection.sendError(ErrorType.INVALID_PASSWORD);
-    } else if (account.deleted) {
-      return this.userConnection.sendError(ErrorType.NO_ACCOUNT);
-    } else if (account.banned) {
-      return this.userConnection.sendError(ErrorType.ACCOUNT_BANNED);
-    } else if (!account.verified) {
-      return this.userConnection.sendError(ErrorType.VERIFICATION_REQUIRED);
-    } else if (this.server.isUserAccountConnected(account.username)) {
-      return this.userConnection.sendError(ErrorType.ALREADY_CONNECTED);
-    } else {
-      account.lastActivity = new Date().getTime();
-      await account.save();
-      this.userConnection.userId = account.id;
-      this.userConnection.username = account.username;
-      await this.sendServerList();
+      const account = (await database?.findOne({
+        where: {
+          username: this.username
+        }
+      })) as Account;
+
+      if (!account) {
+        return this.userConnection.sendError(ErrorType.NO_ACCOUNT);
+      } else if (account.password !== password) {
+        return this.userConnection.sendError(ErrorType.INVALID_PASSWORD);
+      } else if (account.deleted) {
+        return this.userConnection.sendError(ErrorType.NO_ACCOUNT);
+      } else if (account.banned) {
+        return this.userConnection.sendError(ErrorType.ACCOUNT_BANNED);
+      } else if (!account.verified) {
+        return this.userConnection.sendError(ErrorType.VERIFICATION_REQUIRED);
+      } else if (this.server.isUserAccountConnected(account.username)) {
+        return this.userConnection.sendError(ErrorType.ALREADY_CONNECTED);
+      } else {
+        account.lastActivity = new Date().getTime();
+        await account.save();
+        this.userConnection.userId = account.id;
+        this.userConnection.username = account.username;
+        await this.sendServerList();
+      }
+    } catch (error) {
+      this.logger.error("Error in certifier handler:", error);
+      return this.userConnection.sendError(ErrorType.DEFAULT);
     }
   }
 

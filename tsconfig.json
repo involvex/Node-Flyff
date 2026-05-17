@@ -15,7 +15,7 @@
     "allowJs": true,
     "noEmit": true,
     "rootDir": "src",
-    "types": ["node"],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

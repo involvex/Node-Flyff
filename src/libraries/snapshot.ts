@@ -10,7 +10,7 @@ export class FlyffSnapshot extends FlyffPacket {
   static readonly SnapshotContentOffset: number =
     FlyffSnapshot.SnapshotAmountOffset + 2;
 
-  count: number;
+  count: number = 0;
 
   constructor ();
   constructor (snapshots: FlyffSnapshot[]);

@@ -11,7 +11,8 @@ const serverType = args[0];
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-global.projectPath = __dirname;
+global.projectPath = __dirname as string;
+global.TimeStarted = 0 as number;
 
 switch (serverType) {
   case "login":

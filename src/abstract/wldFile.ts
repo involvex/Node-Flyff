@@ -4,7 +4,15 @@ import { WorldData } from "../interfaces/resource";
 
 export class WldFile {
   private static readonly DefaultMPU: number = 4;
-  public worldData: WorldData;
+  public worldData: WorldData = {
+    width: 0,
+    length: 0,
+    mpu: 0,
+    indoor: false,
+    fly: false,
+    revivalMapId: 0,
+    revivalKey: ""
+  };
 
   constructor (filePath: string) {
     this.read(filePath);

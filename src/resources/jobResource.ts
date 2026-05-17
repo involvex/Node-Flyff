@@ -130,7 +130,7 @@ export class JobResources {
       blocking: tryParseFloat(data.blocking),
       meleeYoyo: tryParseFloat(data.meleeYoyo),
       critical: tryParseFloat(data.critical),
-      type: JobType[data.type],
+      type: JobType[data.type as keyof typeof JobType],
       parent: tryParseInt(data.parent),
       minLevel: tryParseInt(data.minLevel),
       maxLevel: tryParseInt(data.maxLevel)

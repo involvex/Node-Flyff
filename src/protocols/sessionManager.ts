@@ -256,7 +256,7 @@ export class SessionManager {
         activeCount++;
       }
 
-      const serverName = ServerType[session.serverType];
+      const serverName = session.serverType;
       sessionsByServer[serverName] = (sessionsByServer[serverName] || 0) + 1;
     }
 

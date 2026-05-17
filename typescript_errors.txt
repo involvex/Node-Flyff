@@ -1,0 +1,10 @@
+src/main.ts(14,8): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/resources/jobResource.ts(133,21): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/resources/res/scripts/job.ts(71,20): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/servers/clusterServer/index.ts(86,44): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/servers/clusterServer/index.ts(98,56): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/servers/loginServer/index.ts(64,53): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/servers/loginServer/index.ts(71,56): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/servers/worldServer/index.ts(63,10): error TS7017: Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+src/servers/worldServer/index.ts(88,57): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/servers/worldServer/index.ts(98,56): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.

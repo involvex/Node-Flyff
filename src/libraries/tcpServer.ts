@@ -25,14 +25,14 @@ export interface IServerConfig {
 export class TcpServer {
   private serverType: ServerType;
   private options: IServerConfig;
-  time: number;
+  time: number = 0;
   server!: Server;
   handlers: Map<PacketType, HandlerConstructor> = new Map();
   connections: Map<number, IUserConnection> = new Map();
   instance!: IInstance;
   redisClient!: IRedisClient;
-  logger: Logger;
-  config: IConfig;
+  logger: Logger = new Logger(ServerType.LOGIN_SERVER); // Default, will be overridden in constructor
+  config: IConfig = {} as IConfig;
 
   // Constructor to initialize TcpServer instance
   constructor (serverType: ServerType, options: IServerConfig) {
@@ -210,7 +210,7 @@ export class UserConnection {
   sendError (errorType: ErrorType): void {
     const packet = new FlyffPacket(PacketType.ERROR);
     packet.writeUInt32LE(errorType);
-    return this.send(packet);
+    this.send(packet);
   }
 
   sendCharacterList (characters: Character[], authKey: number): void {
@@ -254,7 +254,7 @@ export class UserConnection {
       });
     });
     packet.writeInt32LE(0);
-    return this.send(packet);
+    this.send(packet);
   }
 
   disconnect (): void {

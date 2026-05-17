@@ -2,11 +2,11 @@ import { BinaryStream } from "../../libraries/binaryStream";
 import { DyoElement } from "./dyoElement";
 
 export class DyoNpcElement extends DyoElement {
-  public name: string;
-  public dialogName: string;
-  public characterKey: string;
-  public belligerence: number;
-  public extraFlag: number;
+  public name: string = "";
+  public dialogName: string = "";
+  public characterKey: string = "";
+  public belligerence: number = 0;
+  public extraFlag: number = 0;
 
   public read (streamReader: BinaryStream): void {
     super.read(streamReader);

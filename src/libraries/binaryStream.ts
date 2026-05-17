@@ -216,6 +216,12 @@ export class BinaryStream {
   }
 
   readBytes (length: number) {
+    // Validate length to prevent RangeError when length is NaN or negative
+    if (isNaN(length) || length < 0 || length > 0xffffffff) {
+      console.error("Invalid length value:", length);
+      return Buffer.alloc(0);
+    }
+
     const bytes = Buffer.alloc(length);
     const bytesRead = this.buffer.copy(
       bytes,
@@ -228,6 +234,12 @@ export class BinaryStream {
   }
 
   readBytesLE (length: number) {
+    // Validate length to prevent RangeError when length is NaN or negative
+    if (isNaN(length) || length < 0 || length > 0xffffffff) {
+      console.error("Invalid length value:", length);
+      return Buffer.alloc(0);
+    }
+
     const bytes = Buffer.alloc(length);
     const bytesRead = this.buffer.copy(
       bytes,
