@@ -4,3 +4,6 @@ build
 *.log
 *.err
 .fresh
+dist
+web-client/dist
+web-client/node_modules
