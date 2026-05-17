@@ -63,7 +63,7 @@ export class WldFile {
         indoor: isIndoor,
         fly: canFly,
         revivalMapId,
-        revivalKey,
+        revivalKey
       };
     } catch (error) {
       console.error("Error reading file:", error);

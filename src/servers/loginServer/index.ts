@@ -19,11 +19,11 @@ import {
   decryptString,
   encryptMessage,
   isValidEncryptionString,
-  parseMessage,
+  parseMessage
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 
-export default async () => {
+export default async() => {
   const instanceBuilder = new InstanceBuilder();
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
@@ -46,7 +46,7 @@ export default async () => {
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.LOGIN_SERVER);
     builder.addServer(
-      new LoginServer(instanceBuilder.config?.login_server.server),
+      new LoginServer(instanceBuilder.config?.login_server.server)
     );
   });
   const instance = await instanceBuilder.build();
@@ -57,7 +57,7 @@ async function coreIntercom(instance: IInstance) {
   const { config, server, publisher, subscriber, client } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
-    config?.login_server.security["master-password"],
+    config?.login_server.security["master-password"]
   ).toString("hex");
 
   /// //////// MAIN //////////
@@ -70,9 +70,9 @@ async function coreIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/10 * * * * *", async () => {
+  cron.schedule("*/10 * * * * *", async() => {
     const clusters = await client?.getAllClusters();
-    clusters?.forEach(async (cluster) => {
+    clusters?.forEach(async(cluster) => {
       // console.log(cluster.lastPing, new Date().getTime());
       if (
         cluster.lastPing &&
@@ -83,7 +83,7 @@ async function coreIntercom(instance: IInstance) {
         logger?.warn(
           "Cluster",
           cluster.name,
-          "has been removed. Reason: Timeout",
+          "has been removed. Reason: Timeout"
         );
       }
     });
@@ -113,7 +113,7 @@ async function coreIntercom(instance: IInstance) {
         case MessageCommand.GET_CLUSTER_LIST: {
           sendMessage(
             MessageCommand.CLUSTER_LIST,
-            await client?.getAllClusters(),
+            await client?.getAllClusters()
           );
           break;
         }
@@ -124,14 +124,14 @@ async function coreIntercom(instance: IInstance) {
           if (!cluster) {
             const newCluster = {
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             };
             await client?.insertCluster(newCluster);
             logger?.info("Cluster", newCluster.name, "has been added.");
           } else {
             await client?.updateCluster({
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             });
             logger?.info("Cluster", decrypted.data.name, "has been updated.");
           }
@@ -145,7 +145,7 @@ async function coreIntercom(instance: IInstance) {
           if (cluster) {
             const newCluster = {
               ...decrypted.data,
-              lastPing: new Date().getTime(),
+              lastPing: new Date().getTime()
             };
             await client?.updateCluster(newCluster);
           }
@@ -160,13 +160,13 @@ async function coreIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-              sender: ServerType.LOGIN_SERVER,
-              command,
-              data: message,
-            })
+            sender: ServerType.LOGIN_SERVER,
+            command,
+            data: message
+          })
           : message,
-        master,
-      ),
+        master
+      )
     );
   }
 }

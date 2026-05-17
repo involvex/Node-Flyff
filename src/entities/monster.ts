@@ -8,7 +8,7 @@ import { Item } from "../common/item";
 import { MoverProperties } from "../interfaces/resource";
 import {
   DropItemProperties,
-  DropItemKindProperties,
+  DropItemKindProperties
 } from "../interfaces/dropItemProperties";
 import { FFRandom } from "../helpers/FFRandom";
 import { timeInSeconds } from "../helpers/time";
@@ -31,9 +31,9 @@ const GameOptions = {
   Current: {
     Rates: {
       Gold: 1,
-      Drop: 1,
-    },
-  },
+      Drop: 1
+    }
+  }
 };
 
 export class Monster extends Mover {
@@ -50,7 +50,7 @@ export class Monster extends Mover {
   constructor(
     properties: MonsterProperties,
     respawnTime: number = 30,
-    region?: Rectangle,
+    region?: Rectangle
   ) {
     super(properties);
 
@@ -82,7 +82,7 @@ export class Monster extends Mover {
           this.followTarget &&
           this.position.isInCircle(
             this.followTarget.position,
-            this.followDistance,
+            this.followDistance
           )
         ) {
           if (this._nextAttackTime < Date.now()) {
@@ -157,7 +157,7 @@ export class Monster extends Mover {
   protected onSufferDamages(
     attacker: Mover,
     damages: number,
-    attackFlags: AttackFlags,
+    attackFlags: AttackFlags
   ): void {
     if (this.isDead) {
       this.unfollow();
@@ -236,7 +236,7 @@ export class Monster extends Mover {
     const goldAmount =
       Math.max(
         0,
-        FFRandom.random(monsterProps.dropGoldMin, monsterProps.dropGoldMax),
+        FFRandom.random(monsterProps.dropGoldMin, monsterProps.dropGoldMax)
       ) * goldMultiplier;
 
     if (goldAmount > 0) {
@@ -258,7 +258,7 @@ export class Monster extends Mover {
       // this.dropItem(goldItem, owner);
 
       console.log(
-        `Monster ${this.name} would drop ${goldAmount} gold (item ID: ${goldItemId})`,
+        `Monster ${this.name} would drop ${goldAmount} gold (item ID: ${goldItemId})`
       );
     }
   }
@@ -290,7 +290,7 @@ export class Monster extends Mover {
         // this.dropItem(itemToDrop, owner);
 
         console.log(
-          `Monster ${this.name} would drop item ID: ${dropItemProperties.itemId} with refine: ${itemRefine}`,
+          `Monster ${this.name} would drop item ID: ${dropItemProperties.itemId} with refine: ${itemRefine}`
         );
         itemCount++;
       }
@@ -300,7 +300,7 @@ export class Monster extends Mover {
     for (const dropItemKind of monsterProps.dropItemsKind || []) {
       // TODO: Implement item kind drops when GameResources is available
       console.log(
-        `Monster ${this.name} would potentially drop item kind: ${dropItemKind.itemKind}`,
+        `Monster ${this.name} would potentially drop item kind: ${dropItemKind.itemKind}`
       );
     }
   }

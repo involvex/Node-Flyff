@@ -30,12 +30,12 @@ export class RgnRegion3 extends RgnElement {
       new Vector3(
         parseInt(regionData[3]),
         parseInt(regionData[4]),
-        parseInt(regionData[5]),
+        parseInt(regionData[5])
       ),
       parseInt(regionData[15]),
       parseInt(regionData[16]),
       parseInt(regionData[17]),
-      parseInt(regionData[18]),
+      parseInt(regionData[18])
     );
 
     this.index = parseInt(regionData[2]);
@@ -48,7 +48,7 @@ export class RgnRegion3 extends RgnElement {
     this.teleportPosition = new Vector3(
       parseFloat(regionData[12]),
       parseFloat(regionData[13]),
-      parseFloat(regionData[14]),
+      parseFloat(regionData[14])
     );
     this.key = regionData[19].replace(/"/g, "");
     this.targetKey = parseInt(regionData[20]) === 1;

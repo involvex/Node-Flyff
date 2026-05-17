@@ -72,7 +72,7 @@ export class ModelLoader {
     // Check cache
     const cachedData = await this.assetCache.loadAssetFromCache(
       "models",
-      modelId,
+      modelId
     );
     if (cachedData) {
       const model = this.parseModelData(cachedData, modelId);
@@ -91,7 +91,7 @@ export class ModelLoader {
       for (const cwfFile of cwfFiles) {
         try {
           const extracted = await this.cwfExtractor.extractCwfFile(
-            path.join(clientPath, "model", cwfFile),
+            path.join(clientPath, "model", cwfFile)
           );
 
           // Look for the model file in extracted data
@@ -142,8 +142,8 @@ export class ModelLoader {
         animations: [],
         boundingBox: {
           min: [0, 0, 0],
-          max: [1, 1, 1],
-        },
+          max: [1, 1, 1]
+        }
       };
 
       // Try to detect format and parse accordingly
@@ -153,7 +153,7 @@ export class ModelLoader {
         return this.parseXModel(buffer, modelId);
       } else {
         this.logger.warn(
-          `Unknown model format for ${modelId}, using placeholder`,
+          `Unknown model format for ${modelId}, using placeholder`
         );
         return model;
       }
@@ -194,8 +194,8 @@ export class ModelLoader {
       animations: [],
       boundingBox: {
         min: [0, 0, 0],
-        max: [1, 1, 1],
-      },
+        max: [1, 1, 1]
+      }
     };
 
     try {
@@ -205,7 +205,7 @@ export class ModelLoader {
       const faceCount = buffer.readUInt32LE(12);
 
       this.logger.info(
-        `O3D Version: ${version}, Vertices: ${vertexCount}, Faces: ${faceCount}`,
+        `O3D Version: ${version}, Vertices: ${vertexCount}, Faces: ${faceCount}`
       );
 
       // Read vertices (placeholder - actual implementation would parse properly)
@@ -265,8 +265,8 @@ export class ModelLoader {
       animations: [],
       boundingBox: {
         min: [0, 0, 0],
-        max: [1, 1, 1],
-      },
+        max: [1, 1, 1]
+      }
     };
 
     // X file parsing would be implemented here
@@ -301,7 +301,7 @@ export class ModelLoader {
 
     model.boundingBox = {
       min: [minX, minY, minZ],
-      max: [maxX, maxY, maxZ],
+      max: [maxX, maxY, maxZ]
     };
   }
 
@@ -345,7 +345,7 @@ export class ModelLoader {
     totalVertices: number;
     totalIndices: number;
     memoryUsage: number;
-  } {
+    } {
     let totalVertices = 0;
     let totalIndices = 0;
     let memoryUsage = 0;
@@ -360,7 +360,7 @@ export class ModelLoader {
       loadedModels: this.loadedModels.size,
       totalVertices,
       totalIndices,
-      memoryUsage,
+      memoryUsage
     };
   }
 }

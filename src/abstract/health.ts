@@ -90,7 +90,7 @@ export class Health {
   public die(
     killer: Mover,
     attackType: AttackType,
-    sendHitPoints: boolean = false,
+    sendHitPoints: boolean = false
   ): void {
     this.hp = 0;
 
@@ -113,7 +113,7 @@ export class Health {
     attacker: Mover,
     damages: number,
     attackType: AttackType,
-    attackFlags: AttackFlags = AttackFlags.AF_GENERIC,
+    attackFlags: AttackFlags = AttackFlags.AF_GENERIC
   ): void {
     // const damagesToInflict = Math.min(this.hp, damages);
     // const damageSnapshots = new FFSnapshot();

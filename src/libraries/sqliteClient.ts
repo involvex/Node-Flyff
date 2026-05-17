@@ -32,7 +32,7 @@ export class SqliteClient implements IRedisClient {
         enabled INTEGER,
         channels TEXT
       )
-    `,
+    `
       )
       .run();
 
@@ -43,7 +43,7 @@ export class SqliteClient implements IRedisClient {
         username TEXT PRIMARY KEY,
         numpad INTEGER
       )
-    `,
+    `
       )
       .run();
 
@@ -57,7 +57,7 @@ export class SqliteClient implements IRedisClient {
         password TEXT,
         expireAt INTEGER
       )
-    `,
+    `
       )
       .run();
   }
@@ -70,14 +70,14 @@ export class SqliteClient implements IRedisClient {
       port: r.port,
       lastPing: r.lastPing || 0,
       channels: JSON.parse(r.channels || "[]"),
-      enabled: !!r.enabled,
+      enabled: !!r.enabled
     }));
   }
 
   async insertCluster(cluster: ICluster): Promise<void> {
     this.db
       .prepare(
-        "INSERT OR REPLACE INTO clusters (name, host, port, lastPing, enabled, channels) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT OR REPLACE INTO clusters (name, host, port, lastPing, enabled, channels) VALUES (?, ?, ?, ?, ?, ?)"
       )
       .run(
         cluster.name,
@@ -85,7 +85,7 @@ export class SqliteClient implements IRedisClient {
         cluster.port,
         cluster.lastPing || 0,
         cluster.enabled ? 1 : 0,
-        JSON.stringify(cluster.channels || []),
+        JSON.stringify(cluster.channels || [])
       );
   }
 
@@ -108,7 +108,7 @@ export class SqliteClient implements IRedisClient {
       port: row.port,
       lastPing: row.lastPing || 0,
       channels: JSON.parse(row.channels || "[]"),
-      enabled: !!row.enabled,
+      enabled: !!row.enabled
     };
   }
 
@@ -126,7 +126,7 @@ export class SqliteClient implements IRedisClient {
         port: 0,
         lastPing: 0,
         channels: [],
-        enabled: true,
+        enabled: true
       } as ICluster);
     if (_.some(cluster.channels, (c) => c.name === channel.name)) return;
     cluster.channels.push(channel);
@@ -135,7 +135,7 @@ export class SqliteClient implements IRedisClient {
 
   async updateChannel(
     clusterName: string,
-    updatedChannel: IChannel,
+    updatedChannel: IChannel
   ): Promise<void> {
     const cluster = await this.getCluster(clusterName);
     if (!cluster) return;
@@ -148,7 +148,7 @@ export class SqliteClient implements IRedisClient {
 
   async getChannel(
     clusterName: string,
-    channelName: string,
+    channelName: string
   ): Promise<IChannel | null> {
     const cluster = await this.getCluster(clusterName);
     return _.find(cluster?.channels, { name: channelName }) || null;
@@ -159,14 +159,14 @@ export class SqliteClient implements IRedisClient {
     if (!cluster) return;
     cluster.channels = _.filter(
       cluster.channels,
-      (c) => c.name !== channelName,
+      (c) => c.name !== channelName
     );
     await this.insertCluster(cluster);
   }
 
   async getChannelById(
     clusterName: string,
-    id: number,
+    id: number
   ): Promise<IChannel | undefined> {
     const channels = await this.getAllChannels(clusterName);
     return _.find(channels, { id });
@@ -190,12 +190,12 @@ export class SqliteClient implements IRedisClient {
     characterId: number,
     username: string,
     password: string,
-    expireInSeconds: number,
+    expireInSeconds: number
   ): Promise<void> {
     const expireAt = Date.now() + expireInSeconds * 1000;
     this.db
       .prepare(
-        "INSERT OR REPLACE INTO sessions (sessionKey, characterId, username, password, expireAt) VALUES (?, ?, ?, ?, ?)",
+        "INSERT OR REPLACE INTO sessions (sessionKey, characterId, username, password, expireAt) VALUES (?, ?, ?, ?, ?)"
       )
       .run(sessionKey, characterId, username, password, expireAt);
   }
@@ -218,7 +218,7 @@ export class SqliteClient implements IRedisClient {
     return {
       characterId: row.characterId,
       username: row.username,
-      password: row.password,
+      password: row.password
     };
   }
 

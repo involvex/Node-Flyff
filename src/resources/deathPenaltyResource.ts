@@ -19,7 +19,7 @@ export class DeathPenaltyResources {
   }
 
   public async getRevivalPenalty(
-    level: string | number,
+    level: string | number
   ): Promise<PenaltyValue | null> {
     const data = await this.redisClient.hgetall(`revivalPenalty:${level}`);
     if (!data) return null;
@@ -27,7 +27,7 @@ export class DeathPenaltyResources {
   }
 
   public async getDecreaseExpPenalty(
-    level: string | number,
+    level: string | number
   ): Promise<PenaltyValue | null> {
     const data = await this.redisClient.hgetall(`decreaseExpPenalty:${level}`);
     if (!data) return null;
@@ -35,7 +35,7 @@ export class DeathPenaltyResources {
   }
 
   public async getLevelDownPenalty(
-    level: string | number,
+    level: string | number
   ): Promise<PenaltyValue | null> {
     const data = await this.redisClient.hgetall(`levelDownPenalty:${level}`);
     if (!data) return null;
@@ -46,26 +46,26 @@ export class DeathPenaltyResources {
     const absolutePath = path.resolve(ResourcePaths.deathPenalty);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load exp character. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load exp character. Reason: cannot find '${absolutePath}' file.`
       );
     }
 
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as DeathPenalty;
 
-    _.forEach(data.revivalPenalty, async (penalty) => {
+    _.forEach(data.revivalPenalty, async(penalty) => {
       await this.redisClient.hmset(`revivalPenalty:${penalty.level}`, penalty);
     });
-    _.forEach(data.decreaseExpPenalty, async (penalty) => {
+    _.forEach(data.decreaseExpPenalty, async(penalty) => {
       await this.redisClient.hmset(
         `decreaseExpPenalty:${penalty.level}`,
-        penalty,
+        penalty
       );
     });
-    _.forEach(data.levelDownPenalty, async (penalty) => {
+    _.forEach(data.levelDownPenalty, async(penalty) => {
       await this.redisClient.hmset(
         `levelDownPenalty:${penalty.level}`,
-        penalty,
+        penalty
       );
     });
     this.logger.main("Death penalty loaded.");

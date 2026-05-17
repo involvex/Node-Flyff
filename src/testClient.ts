@@ -3,7 +3,7 @@ import { FlyffPacket } from "./libraries/flyffPacket";
 import { PacketType } from "./common/packetType";
 import {
   encryptByteArray,
-  buildEncryptionKeyFromString,
+  buildEncryptionKeyFromString
 } from "./libraries/crypto";
 
 enum ClientState {
@@ -72,7 +72,7 @@ class TestClient {
     console.log(packet);
 
     console.log(
-      `Received packet: ${PacketType[packet.PacketType]} (${packet.PacketType.toString(16)})`,
+      `Received packet: ${PacketType[packet.PacketType]} (${packet.PacketType.toString(16)})`
     );
 
     if (packet.PacketType === PacketType.WELCOME) {

@@ -45,7 +45,7 @@ export class DatabaseBuilder {
       const entities = await this.loadEntities();
       this.database = new DataSource({
         ...this.getOptionByType(options.dataSource),
-        entities: [...entities] as string[],
+        entities: [...entities] as string[]
       });
     } catch (error) {
       console.log(error);
@@ -62,7 +62,7 @@ export class DatabaseBuilder {
       const files = fs.readdirSync(join(this.entitiesPath));
       if (_.isEmpty(files)) return [];
       await Promise.all(
-        _.map(files, async (file: string) => {
+        _.map(files, async(file: string) => {
           if (
             file.endsWith(".ts") &&
             fs.existsSync(join(this.entitiesPath, file))
@@ -70,7 +70,7 @@ export class DatabaseBuilder {
             // const module = await import();
             entities.add(join(this.entitiesPath, file));
           }
-        }),
+        })
       );
       this.logger.main(`${entities.size} entities loaded`);
     } catch (error) {

@@ -18,7 +18,7 @@ export class SkillResources {
   }
 
   public async get(
-    skillIdentifier: string | number,
+    skillIdentifier: string | number
   ): Promise<SkillProperties | null> {
     const skillId =
       typeof skillIdentifier === "number"
@@ -32,7 +32,7 @@ export class SkillResources {
   }
 
   public async getLevel(
-    skillLevelIdentifier: string | number,
+    skillLevelIdentifier: string | number
   ): Promise<SkillLevelProperties | null> {
     const skillLevelId =
       typeof skillLevelIdentifier === "number"
@@ -46,7 +46,7 @@ export class SkillResources {
   }
 
   public async where(
-    predicate: (skill: SkillProperties) => boolean,
+    predicate: (skill: SkillProperties) => boolean
   ): Promise<SkillProperties[]> {
     const skills: SkillProperties[] = [];
     try {
@@ -67,7 +67,7 @@ export class SkillResources {
   }
 
   public async whereLevel(
-    predicate: (skill: SkillLevelProperties) => boolean,
+    predicate: (skill: SkillLevelProperties) => boolean
   ): Promise<SkillLevelProperties[]> {
     const skills: SkillLevelProperties[] = [];
     try {
@@ -91,14 +91,14 @@ export class SkillResources {
     const absolutePath = path.resolve(ResourcePaths.defineSkill);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`
       );
     }
 
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -115,7 +115,7 @@ export class SkillResources {
     const absolutePath = path.resolve(ResourcePaths.skillsText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
@@ -126,7 +126,7 @@ export class SkillResources {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, i) => {
+      _.forEach(pairs, async(pair, i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("skillNames", idName, name);
@@ -141,19 +141,19 @@ export class SkillResources {
     const absolutePath = path.resolve(ResourcePaths.skillsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load skill add. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load skill add. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
       this.logger.warn(
-        "Unable to load skill add. Reason: skill defines is empty",
+        "Unable to load skill add. Reason: skill defines is empty"
       );
     }
 
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const parts = line.trim().split(",");
 
       const id = await this.redisClient.hget("skillDefines", parts[1]);
@@ -193,7 +193,7 @@ export class SkillResources {
           dwSkillCount: tryParseInt(parts[33]),
           dwSkillExp: tryParseInt(parts[35]),
           dwExp: tryParseInt(parts[36]),
-          dwComboSkillTime: tryParseInt(parts[38]),
+          dwComboSkillTime: tryParseInt(parts[38])
         };
 
         if (skillLevel.id) {
@@ -209,7 +209,7 @@ export class SkillResources {
     const absolutePath = path.resolve(ResourcePaths.skillsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load skills. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("skillDefines"))) {
@@ -221,7 +221,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const skills = line.trim().split("\t");
 
       const id = await this.redisClient.hget("skillDefines", skills[1]);
@@ -233,10 +233,10 @@ export class SkillResources {
         const szComment =
           (await this.redisClient.hget(
             "skillDescriptions",
-            cleanString(skills[123]),
+            cleanString(skills[123])
           )) || "";
         const skillLevels = await this.whereLevel(
-          (skill) => skill.dwName === szName,
+          (skill) => skill.dwName === szName
         );
         // TODO skill parse properties
         const skill: SkillProperties = {
@@ -275,7 +275,7 @@ export class SkillResources {
           dwReferTarget2: cleanString(skills[94]),
           dwReferValue2: tryParseInt(skills[96]),
           szComment,
-          skillLevels,
+          skillLevels
         };
 
         if (skill.skillLevels) {
@@ -332,7 +332,7 @@ export class SkillResources {
       dwReferValue1: tryParseInt(data.dwReferValue1),
       dwReferTarget2: data.dwReferTarget2,
       dwReferValue2: tryParseInt(data.dwReferValue2),
-      szComment: data.szComment,
+      szComment: data.szComment
     };
   }
 
@@ -369,7 +369,7 @@ export class SkillResources {
       dwSkillCount: tryParseInt(data.dwSkillCount),
       dwSkillExp: tryParseInt(data.dwSkillExp),
       dwExp: tryParseInt(data.dwExp),
-      dwComboSkillTime: tryParseInt(data.dwComboSkillTime),
+      dwComboSkillTime: tryParseInt(data.dwComboSkillTime)
     };
   }
 

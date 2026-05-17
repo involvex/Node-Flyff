@@ -89,7 +89,7 @@ export class LuaParser {
   }
 
   private tokenize(
-    content: string,
+    content: string
   ): Array<{ type: "assignment" | "value"; key?: string; value: string }> {
     const tokens: Array<{
       type: "assignment" | "value";
@@ -128,7 +128,7 @@ export class LuaParser {
         tokens.push({
           type: "assignment",
           key: assignmentMatch.key,
-          value: assignmentMatch.value,
+          value: assignmentMatch.value
         });
         i = assignmentMatch.endIndex;
         continue;
@@ -159,7 +159,7 @@ export class LuaParser {
     for (let i = start; i < content.length; i++) {
       const char = content[i];
 
-      if (!inString && (char === '"' || char === "'")) {
+      if (!inString && (char === "\"" || char === "'")) {
         inString = true;
         stringChar = char;
       } else if (inString && char === stringChar) {
@@ -181,7 +181,7 @@ export class LuaParser {
 
   private findAssignment(
     content: string,
-    start: number,
+    start: number
   ): { key: string; value: string; endIndex: number } | null {
     let i = start;
 
@@ -224,7 +224,7 @@ export class LuaParser {
     return {
       key,
       value,
-      endIndex: valueEnd,
+      endIndex: valueEnd
     };
   }
 
@@ -236,7 +236,7 @@ export class LuaParser {
     while (i < content.length) {
       const char = content[i];
 
-      if (!inString && (char === '"' || char === "'")) {
+      if (!inString && (char === "\"" || char === "'")) {
         inString = true;
         stringChar = char;
       } else if (inString && char === stringChar) {
@@ -268,7 +268,7 @@ export class LuaParser {
 
     // String values
     if (
-      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("\"") && value.endsWith("\"")) ||
       (value.startsWith("'") && value.endsWith("'"))
     ) {
       return value.slice(1, -1);

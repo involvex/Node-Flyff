@@ -49,7 +49,7 @@ export class ConfigBuilder {
       } else {
         const configFile = fs.readFileSync(filePath, "utf8");
         this.config[file.split(".").shift()!] = yaml.load(
-          configFile,
+          configFile
         ) as IConfig;
       }
     });

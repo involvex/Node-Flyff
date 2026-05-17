@@ -32,7 +32,7 @@ export class InventorySystem {
   addItem(
     characterId: number,
     item: ItemEntity,
-    quantity: number = 1,
+    quantity: number = 1
   ): boolean {
     const inventory = this.getInventory(characterId);
 
@@ -50,7 +50,7 @@ export class InventorySystem {
 
             if (quantity === 0) {
               this.logger.info(
-                `Added ${canAdd} items to existing stack in slot ${slotId}`,
+                `Added ${canAdd} items to existing stack in slot ${slotId}`
               );
               return true;
             }
@@ -81,7 +81,7 @@ export class InventorySystem {
   removeItem(
     characterId: number,
     slotId: number,
-    quantity: number = 1,
+    quantity: number = 1
   ): boolean {
     const inventory = this.getInventory(characterId);
     const inventoryItem = inventory.get(slotId);
@@ -128,7 +128,7 @@ export class InventorySystem {
         const maxStack = this.getMaxStackById(fromItem.item.itemId);
         const canStack = Math.min(
           maxStack - toItem.quantity,
-          fromItem.quantity,
+          fromItem.quantity
         );
 
         if (canStack > 0) {
@@ -140,7 +140,7 @@ export class InventorySystem {
           }
 
           this.logger.info(
-            `Stacked ${canStack} items from slot ${fromSlot} to ${toSlot}`,
+            `Stacked ${canStack} items from slot ${fromSlot} to ${toSlot}`
           );
           return true;
         }
@@ -163,7 +163,7 @@ export class InventorySystem {
   equipItem(
     characterId: number,
     inventorySlot: number,
-    equipSlot: number,
+    equipSlot: number
   ): boolean {
     const inventory = this.getInventory(characterId);
     const inventoryItem = inventory.get(inventorySlot);
@@ -193,7 +193,7 @@ export class InventorySystem {
     inventory.delete(inventorySlot);
 
     this.logger.info(
-      `Equipped item from inventory slot ${inventorySlot} to equipment slot ${equipSlot}`,
+      `Equipped item from inventory slot ${inventorySlot} to equipment slot ${equipSlot}`
     );
     return true;
   }
@@ -225,7 +225,7 @@ export class InventorySystem {
     charEquipment.delete(equipSlot);
 
     this.logger.info(
-      `Unequipped item from ${equipSlot} to inventory slot ${emptySlot}`,
+      `Unequipped item from ${equipSlot} to inventory slot ${emptySlot}`
     );
     return true;
   }
@@ -246,7 +246,7 @@ export class InventorySystem {
 
   getInventorySlot(
     characterId: number,
-    slotId: number,
+    slotId: number
   ): InventoryItemEntity | null {
     const inventory = this.getInventory(characterId);
     return inventory.get(slotId) || null;
@@ -254,7 +254,7 @@ export class InventorySystem {
 
   getEquipmentSlot(
     characterId: number,
-    equipSlot: number,
+    equipSlot: number
   ): EquipmentItemEntity | null {
     const equipment = this.getEquipment(characterId);
     return equipment.get(equipSlot) || null;
@@ -269,7 +269,7 @@ export class InventorySystem {
       slots.push({
         slotId: i,
         item: item || null,
-        isEmpty: !item,
+        isEmpty: !item
       });
     }
 
@@ -285,7 +285,7 @@ export class InventorySystem {
         slotId,
         item: item || null,
         isEmpty: !item,
-        slotType: this.getSlotTypeName(slotId),
+        slotType: this.getSlotTypeName(slotId)
       });
     }
 
@@ -300,7 +300,7 @@ export class InventorySystem {
       "body",
       "hands",
       "feet",
-      "back",
+      "back"
     ];
     return slotTypes[slotId] || `slot_${slotId}`;
   }
@@ -406,7 +406,7 @@ export class InventorySystem {
     totalItems: number;
     totalEquipment: number;
     averageItemsPerCharacter: number;
-  } {
+    } {
     let totalItems = 0;
     let totalEquipment = 0;
 
@@ -425,7 +425,7 @@ export class InventorySystem {
       totalCharacters,
       totalItems,
       totalEquipment,
-      averageItemsPerCharacter: averageItems,
+      averageItemsPerCharacter: averageItems
     };
   }
 

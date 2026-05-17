@@ -25,7 +25,7 @@ export class AssetManager {
     this.assetCache = new AssetCache(
       config.clientPath,
       config.cachePath,
-      config.enableCache,
+      config.enableCache
     );
 
     this.cwfExtractor = new CwfExtractor(this.assetCache);
@@ -62,7 +62,7 @@ export class AssetManager {
 
     return await this.modelLoader.loadModel(
       modelId,
-      this.assetCache.getClientPath(),
+      this.assetCache.getClientPath()
     );
   }
 
@@ -73,7 +73,7 @@ export class AssetManager {
 
     return await this.worldLoader.loadWorld(
       worldId,
-      this.assetCache.getClientPath(),
+      this.assetCache.getClientPath()
     );
   }
 
@@ -90,8 +90,8 @@ export class AssetManager {
       promises.push(
         this.modelLoader.preloadModels(
           modelIds,
-          this.assetCache.getClientPath(),
-        ),
+          this.assetCache.getClientPath()
+        )
       );
     }
 
@@ -99,8 +99,8 @@ export class AssetManager {
       promises.push(
         this.worldLoader.preloadWorlds(
           worldIds,
-          this.assetCache.getClientPath(),
-        ),
+          this.assetCache.getClientPath()
+        )
       );
     }
 
@@ -117,7 +117,7 @@ export class AssetManager {
 
     try {
       await this.cwfExtractor.extractAllCwfFiles(
-        this.assetCache.getClientPath(),
+        this.assetCache.getClientPath()
       );
       this.logger.success("CWF archive extraction complete");
     } catch (error) {
@@ -155,12 +155,12 @@ export class AssetManager {
     cache: any;
     models: any;
     worlds: any;
-  } {
+    } {
     return {
       initialized: this.initialized,
       cache: this.getCacheStats(),
       models: this.getModelStats(),
-      worlds: this.getWorldStats(),
+      worlds: this.getWorldStats()
     };
   }
 

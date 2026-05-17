@@ -47,7 +47,7 @@ fs.readFile(
             exp: parseFloat(parts[0]),
             pxp: parseFloat(parts[1]),
             gp: parseFloat(parts[2]),
-            limitExp: parseFloat(parts[3]),
+            limitExp: parseFloat(parts[3])
           });
           level++;
         });
@@ -66,9 +66,9 @@ fs.readFile(
           return;
         }
         console.log(
-          "Conversion completed. Output written to expCharacter.yaml",
+          "Conversion completed. Output written to expCharacter.yaml"
         );
-      },
+      }
     );
-  },
+  }
 );

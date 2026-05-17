@@ -7,7 +7,7 @@ import { ResourcePaths } from "./resourcePaths";
 import { MoverProperties } from "../interfaces/resource";
 import {
   DropItemProperties,
-  DropItemKindProperties,
+  DropItemKindProperties
 } from "../interfaces/dropItemProperties";
 import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
 import { ResourceTableFile } from "../helpers/resourceTableFile";
@@ -46,7 +46,7 @@ export class MonsterResources {
   }
 
   public async getAsync(
-    monsterIdentifier: string | number,
+    monsterIdentifier: string | number
   ): Promise<MoverProperties | null> {
     if (this.moversById.size > 0) {
       if (typeof monsterIdentifier === "number") {
@@ -68,7 +68,7 @@ export class MonsterResources {
   }
 
   public where(
-    predicate: (monster: MoverProperties) => boolean,
+    predicate: (monster: MoverProperties) => boolean
   ): MoverProperties[] {
     const monsters: MoverProperties[] = [];
     for (const monster of this.moversById.values()) {
@@ -80,7 +80,7 @@ export class MonsterResources {
   }
 
   public async whereAsync(
-    predicate: (monster: MoverProperties) => boolean,
+    predicate: (monster: MoverProperties) => boolean
   ): Promise<MoverProperties[]> {
     if (this.moversById.size > 0) {
       return this.where(predicate);
@@ -101,7 +101,7 @@ export class MonsterResources {
     } catch (err) {
       this.logger.error(
         "Error retrieving monsters from KV store:",
-        err as Error,
+        err as Error
       );
     }
     return monsters;
@@ -115,7 +115,7 @@ export class MonsterResources {
     const absolutePath = path.resolve(ResourcePaths.defineObject);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load monster defines. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load monster defines. Reason: cannot find '${absolutePath}' file.`
       );
       return;
     }
@@ -145,13 +145,13 @@ export class MonsterResources {
 
     if (!fs.existsSync(ResourcePaths.moversProp)) {
       throw new Error(
-        `Unable to load mover properties. Reason: cannot find '${ResourcePaths.moversProp}' file.`,
+        `Unable to load mover properties. Reason: cannot find '${ResourcePaths.moversProp}' file.`
       );
     }
 
     if (!fs.existsSync(ResourcePaths.moversPropExPath)) {
       throw new Error(
-        `Unable to load extended mover properties. Reason: cannot find '${ResourcePaths.moversPropExPath}' file.`,
+        `Unable to load extended mover properties. Reason: cannot find '${ResourcePaths.moversPropExPath}' file.`
       );
     }
 
@@ -160,7 +160,7 @@ export class MonsterResources {
     const resourceTable = new ResourceTableFile(
       ResourcePaths.moversProp,
       0,
-      this.defines,
+      this.defines
     );
     const movers = resourceTable.getRecords<any>();
 
@@ -178,25 +178,25 @@ export class MonsterResources {
         name: mover.szName,
         level: mover.dwLevel,
         dropItems: [],
-        dropItemsKind: [],
+        dropItemsKind: []
       };
 
       if (!this.moversById.has(moverProperties.id)) {
         this.moversById.set(moverProperties.id, moverProperties);
       } else {
         this.logger.warn(
-          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`,
+          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`
         );
       }
 
       if (!this.moversByIdentifierName.has(moverProperties.identifierName!)) {
         this.moversByIdentifierName.set(
           moverProperties.identifierName!,
-          moverProperties,
+          moverProperties
         );
       } else {
         this.logger.warn(
-          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`,
+          `Failed to add mover: ${moverProperties.identifierName} (${moverProperties.name}). Mover already exists.`
         );
       }
     }
@@ -233,7 +233,7 @@ export class MonsterResources {
 
   private loadDropGold(
     mover: MoverProperties,
-    dropGoldInstruction: Instruction | null,
+    dropGoldInstruction: Instruction | null
   ): void {
     if (!dropGoldInstruction) {
       return;
@@ -241,7 +241,7 @@ export class MonsterResources {
 
     if (dropGoldInstruction.parameters.length < 2) {
       this.logger.warn(
-        `Cannot load 'DropGold' instruction for mover ${mover.name}. Reason: Missing parameters.`,
+        `Cannot load 'DropGold' instruction for mover ${mover.name}. Reason: Missing parameters.`
       );
       return;
     }
@@ -263,7 +263,7 @@ export class MonsterResources {
 
   private loadDropItems(
     mover: MoverProperties,
-    dropItemInstructions: Instruction[],
+    dropItemInstructions: Instruction[]
   ): void {
     if (!dropItemInstructions || dropItemInstructions.length === 0) {
       return;
@@ -274,7 +274,7 @@ export class MonsterResources {
         itemId: 0,
         probability: 0,
         itemMaxRefine: 0,
-        count: 0,
+        count: 0
       };
 
       const dropItemName = dropItemInstruction.parameters[0];
@@ -284,7 +284,7 @@ export class MonsterResources {
         dropItem.itemId = itemId;
       } else {
         this.logger.warn(
-          `Cannot find drop item id: ${dropItemName} for mover ${mover.name}.`,
+          `Cannot find drop item id: ${dropItemName} for mover ${mover.name}.`
         );
         continue;
       }
@@ -294,7 +294,7 @@ export class MonsterResources {
         dropItem.probability = probability;
       } else {
         this.logger.warn(
-          `Cannot read drop item probability for item ${dropItemName} and mover ${mover.name}.`,
+          `Cannot read drop item probability for item ${dropItemName} and mover ${mover.name}.`
         );
       }
 
@@ -303,7 +303,7 @@ export class MonsterResources {
         dropItem.itemMaxRefine = itemMaxRefine;
       } else {
         this.logger.warn(
-          `Cannot read drop item refine max for item ${dropItemName} and mover ${mover.name}.`,
+          `Cannot read drop item refine max for item ${dropItemName} and mover ${mover.name}.`
         );
       }
 
@@ -312,7 +312,7 @@ export class MonsterResources {
         dropItem.count = itemCount;
       } else {
         this.logger.warn(
-          `Cannot read drop item count for item ${dropItemName} and mover ${mover.name}.`,
+          `Cannot read drop item count for item ${dropItemName} and mover ${mover.name}.`
         );
       }
 
@@ -322,7 +322,7 @@ export class MonsterResources {
 
   private loadDropItemsKind(
     mover: MoverProperties,
-    instructions: Instruction[],
+    instructions: Instruction[]
   ): void {
     if (!instructions || instructions.length === 0) {
       return;
@@ -334,14 +334,14 @@ export class MonsterResources {
         dropItemKindInstruction.parameters.length > 3
       ) {
         this.logger.warn(
-          `Cannot load 'DropKind' instruction for mover ${mover.name}. Reason: Missing parameters.`,
+          `Cannot load 'DropKind' instruction for mover ${mover.name}. Reason: Missing parameters.`
         );
         continue;
       }
 
       const itemKindStr = dropItemKindInstruction.parameters[0].replace(
         "IK3_",
-        "",
+        ""
       );
       let itemKind: ItemKind3;
 
@@ -349,7 +349,7 @@ export class MonsterResources {
         itemKind = ItemKind3[itemKindStr as keyof typeof ItemKind3];
       } catch {
         this.logger.warn(
-          `Cannot parse ItemKind3: ${itemKindStr} for mover ${mover.name}.`,
+          `Cannot parse ItemKind3: ${itemKindStr} for mover ${mover.name}.`
         );
         continue;
       }
@@ -357,7 +357,7 @@ export class MonsterResources {
       const dropItemKind: DropItemKindProperties = {
         itemKind,
         uniqueMin: Math.max((mover.level || 1) - 5, 1),
-        uniqueMax: Math.max((mover.level || 1) - 2, 1),
+        uniqueMax: Math.max((mover.level || 1) - 2, 1)
       };
 
       mover.dropItemsKind!.push(dropItemKind);
@@ -368,12 +368,12 @@ export class MonsterResources {
     const absolutePath = path.resolve(ResourcePaths.moversText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load monsters. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load monsters. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("objectDefines"))) {
       this.logger.warn(
-        "Unable to load monsters. Reason: monster defines is empty",
+        "Unable to load monsters. Reason: monster defines is empty"
       );
     }
 
@@ -381,7 +381,7 @@ export class MonsterResources {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, i) => {
+      _.forEach(pairs, async(pair, i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("monsterNames", idName, name);
@@ -396,13 +396,13 @@ export class MonsterResources {
     const absolutePath = path.resolve(ResourcePaths.moversProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load monsters. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load monsters. Reason: cannot find '${absolutePath}' file.`
       );
       return;
     }
     if (!(await this.redisClient.exists("objectDefines"))) {
       this.logger.warn(
-        "Unable to load monsters. Reason: monster defines is empty",
+        "Unable to load monsters. Reason: monster defines is empty"
       );
       return;
     }
@@ -411,7 +411,7 @@ export class MonsterResources {
 
     const data = fs.readFileSync(absolutePath, "utf8");
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       const monsterData = line.trim().split("\t");
       const id = await this.redisClient.hget("objectDefines", monsterData[0]);
 
@@ -503,7 +503,7 @@ export class MonsterResources {
           szComment: cleanString(monsterData[82]),
           dwAreaColor: tryParseInt(monsterData[83]),
           szNpcMark: cleanString(monsterData[84]),
-          dwMadrigalGiftPoint: tryParseInt(monsterData[85]),
+          dwMadrigalGiftPoint: tryParseInt(monsterData[85])
         };
 
         if (monster.id) {
@@ -603,7 +603,7 @@ export class MonsterResources {
       szComment: data.szComment,
       dwAreaColor: tryParseInt(data.dwAreaColor),
       szNpcMark: data.szNpcMark,
-      dwMadrigalGiftPoint: tryParseInt(data.dwMadrigalGiftPoint),
+      dwMadrigalGiftPoint: tryParseInt(data.dwMadrigalGiftPoint)
     };
   }
 

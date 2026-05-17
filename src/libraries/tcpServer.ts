@@ -51,7 +51,7 @@ export class TcpServer {
     this.server.listen(
       this.options.port,
       this.options.host,
-      this.onServerStart.bind(this),
+      this.onServerStart.bind(this)
     );
   }
 
@@ -70,7 +70,7 @@ export class TcpServer {
   // Method called when server starts listening
   protected onServerStart(): void {
     this.logger.info(
-      `Server listening on ${this.options.host}:${this.options.port}`,
+      `Server listening on ${this.options.host}:${this.options.port}`
     );
     this.time = new Date().getTime();
   }
@@ -81,7 +81,7 @@ export class TcpServer {
     if (this.isUserConnected(userConnection)) return;
     this.connections.set(userConnection.sessionId, userConnection);
     this.logger.success(
-      `New connection established with session ID: ${userConnection.sessionId} (${socket.remoteAddress}:${socket.remotePort})`,
+      `New connection established with session ID: ${userConnection.sessionId} (${socket.remoteAddress}:${socket.remotePort})`
     );
 
     if (this.serverType !== ServerType.CORE_SERVER) {
@@ -93,23 +93,23 @@ export class TcpServer {
     }
 
     // Attach event listeners for data, close, and error events
-    socket.on("data", async (data) => {
+    socket.on("data", async(data) => {
       await this.onData(data, userConnection);
     });
     socket.on("close", () => this.onDisconnect(userConnection.sessionId));
     socket.on("error", (error) =>
-      this.onError(error, userConnection.sessionId),
+      this.onError(error, userConnection.sessionId)
     );
   }
 
   // Method called when data is received from a client
   protected async onData(
     data: Buffer,
-    userConnection: IUserConnection,
+    userConnection: IUserConnection
   ): Promise<void> {
     const packet = new FlyffPacket(
       data,
-      this.serverType === ServerType.LOGIN_SERVER,
+      this.serverType === ServerType.LOGIN_SERVER
     );
 
     const HandlerClass = this.handlers.get(packet.PacketType);
@@ -123,8 +123,8 @@ export class TcpServer {
       // Log unimplemented packet type
       this.logger.warn(
         `Unimplemented packet ${this.getPacketTypeId(
-          packet.PacketType,
-        )} (${ToStringHex(packet.PacketType)})`,
+          packet.PacketType
+        )} (${ToStringHex(packet.PacketType)})`
       );
     }
   }

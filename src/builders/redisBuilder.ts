@@ -31,12 +31,12 @@ export class RedisBuilder {
       return {
         subscriber: null,
         publisher: null,
-        client,
+        client
       };
     } catch (err) {
       this.logger.warn(
         "Initialization failed, falling back to local sqlite storage:",
-        err,
+        err
       );
       try {
         // lazy import to avoid adding binary deps unless needed
@@ -47,17 +47,17 @@ export class RedisBuilder {
         return {
           subscriber: null,
           publisher: null,
-          client: sqliteClient,
+          client: sqliteClient
         };
       } catch (sqliteErr) {
         this.logger.warn(
           "Sqlite fallback initialization failed, continuing without Redis/sqlite:",
-          sqliteErr,
+          sqliteErr
         );
         return {
           subscriber: null,
           publisher: null,
-          client: null,
+          client: null
         };
       }
     }
@@ -77,7 +77,7 @@ export class RedisBuilder {
     } catch (err) {
       this.logger.warn(
         "Initialization failed, falling back to local sqlite storage:",
-        err?.message ?? err,
+        err?.message ?? err
       );
       try {
         const { default: SqliteClient } =
@@ -88,7 +88,7 @@ export class RedisBuilder {
       } catch (sqliteErr) {
         this.logger.warn(
           "Sqlite fallback initialization failed, continuing without Redis/sqlite:",
-          sqliteErr,
+          sqliteErr
         );
         return { subscriber: null, publisher: null, client: null };
       }

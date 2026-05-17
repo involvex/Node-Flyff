@@ -35,9 +35,9 @@ export default class Handler extends PacketHandler {
     const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
-      relations: ["characters"],
+      relations: ["characters"]
     })) as Account;
 
     if (!account) {
@@ -46,21 +46,21 @@ export default class Handler extends PacketHandler {
         this.characterId,
         ". Reason: Account",
         this.username,
-        "not found.",
+        "not found."
       );
       return this.userConnection.sendError(ErrorType.NO_ACCOUNT);
     }
 
     const character = _.find(
       account.characters,
-      (i) => i.id === this.characterId,
+      (i) => i.id === this.characterId
     ) as Character;
 
     if (_.isNil(character) || _.isUndefined(character)) {
       this.logger.warn(
         "Unable to delete character",
         this.characterId,
-        ". Reason: Character not found.",
+        ". Reason: Character not found."
       );
       return this.userConnection.sendError(ErrorType.INVALID_SERVICE_PLAYER);
     }
@@ -70,7 +70,7 @@ export default class Handler extends PacketHandler {
         this.logger.warn(
           "Unable to delete character",
           this.characterId,
-          ". Reason: Character is already deleted.",
+          ". Reason: Character is already deleted."
         );
         return this.userConnection.sendError(ErrorType.INVALID_SERVICE_PLAYER);
       }
@@ -79,7 +79,7 @@ export default class Handler extends PacketHandler {
         this.logger.warn(
           "Unable to delete character",
           this.characterId,
-          ". Reason: Password is incorrect.",
+          ". Reason: Password is incorrect."
         );
         return this.userConnection.sendError(ErrorType.INVALID_PASSWORD);
       }
@@ -89,10 +89,10 @@ export default class Handler extends PacketHandler {
       const userCharacters = (await characters?.find({
         where: {
           account: {
-            username: this.username,
-          },
+            username: this.username
+          }
         },
-        relations: ["account", "equipments", "equipments.item"],
+        relations: ["account", "equipments", "equipments.item"]
       })) as Character[];
       this.userConnection.sendCharacterList(userCharacters, this.authKey);
     }

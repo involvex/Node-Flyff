@@ -14,7 +14,7 @@ export class RgnElement {
     left: number,
     top: number,
     right: number,
-    bottom: number,
+    bottom: number
   ) {
     this._type = type;
     this._position = position;

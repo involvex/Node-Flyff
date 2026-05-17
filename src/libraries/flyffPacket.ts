@@ -12,7 +12,7 @@ export class FlyffPacket extends BinaryStream {
   constructor(
     bufferOrHeader?: Buffer | PacketType,
     login = false,
-    ignoreHeaders = false,
+    ignoreHeaders = false
   ) {
     super(bufferOrHeader instanceof Buffer ? bufferOrHeader : Buffer.alloc(0));
     if (bufferOrHeader instanceof Buffer) {

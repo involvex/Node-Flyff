@@ -32,7 +32,7 @@ export class MobilitySystem {
     }
 
     this.logger.info(
-      `Starting mobility system (interval: ${this.updateInterval}ms)`,
+      `Starting mobility system (interval: ${this.updateInterval}ms)`
     );
 
     this.updateTimer = setInterval(() => {
@@ -72,7 +72,7 @@ export class MobilitySystem {
     const speed = Math.sqrt(
       update.velocity.x * update.velocity.x +
         update.velocity.y * update.velocity.y +
-        update.velocity.z * update.velocity.z,
+        update.velocity.z * update.velocity.z
     );
 
     if (speed < 0.1) {
@@ -88,7 +88,7 @@ export class MobilitySystem {
   startMovement(
     entity: WorldObject,
     targetPosition: Vector3,
-    speed: number = 1.0,
+    speed: number = 1.0
   ): void {
     const direction = this.calculateDirection(entity.position, targetPosition);
     const velocity = this.calculateVelocity(direction, speed);
@@ -99,7 +99,7 @@ export class MobilitySystem {
       rotation: entity.rotationAngle,
       velocity,
       isMoving: true,
-      timestamp: Date.now(),
+      timestamp: Date.now()
     };
 
     this.movementUpdates.set(entity.objectId, update);
@@ -127,7 +127,7 @@ export class MobilitySystem {
         rotation: entity.rotationAngle,
         velocity: velocity.clone(),
         isMoving: true,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
       this.movementUpdates.set(entity.objectId, update);
     } else {
@@ -146,7 +146,7 @@ export class MobilitySystem {
         rotation: entity.rotationAngle,
         velocity: new Vector3(),
         isMoving: false,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
       this.movementUpdates.set(entity.objectId, update);
     } else {
@@ -164,7 +164,7 @@ export class MobilitySystem {
         rotation,
         velocity: new Vector3(),
         isMoving: false,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
       this.movementUpdates.set(entity.objectId, update);
     } else {
@@ -191,7 +191,7 @@ export class MobilitySystem {
     const length = Math.sqrt(
       direction.x * direction.x +
         direction.y * direction.y +
-        direction.z * direction.z,
+        direction.z * direction.z
     );
 
     if (length > 0) {
@@ -208,7 +208,7 @@ export class MobilitySystem {
     return new Vector3(
       direction.x * clampedSpeed,
       direction.y * clampedSpeed,
-      direction.z * clampedSpeed,
+      direction.z * clampedSpeed
     );
   }
 
@@ -249,7 +249,7 @@ export class MobilitySystem {
     maxVelocity: number;
     acceleration: number;
     friction: number;
-  } {
+    } {
     let movingCount = 0;
     for (const update of this.movementUpdates.values()) {
       if (update.isMoving) {
@@ -262,7 +262,7 @@ export class MobilitySystem {
       movingEntities: movingCount,
       maxVelocity: this.maxVelocity,
       acceleration: this.acceleration,
-      friction: this.friction,
+      friction: this.friction
     };
   }
 

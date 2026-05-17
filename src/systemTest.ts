@@ -15,7 +15,7 @@ async function testInterServerCommunication() {
     const client = new InterServerClient(
       ServerType.LOGIN_SERVER,
       "127.0.0.1",
-      23001,
+      23001
     );
 
     logger.success("✓ InterServerClient created successfully");
@@ -26,7 +26,7 @@ async function testInterServerCommunication() {
       source: ServerType.LOGIN_SERVER,
       target: ServerType.CLUSTER_SERVER,
       timestamp: Date.now(),
-      data: { test: "data" },
+      data: { test: "data" }
     };
 
     logger.success("✓ Message structure valid");
@@ -53,7 +53,7 @@ async function testSessionManager() {
       "testuser",
       "TestCharacter",
       ServerType.WORLD_SERVER,
-      3600, // 1 hour
+      3600 // 1 hour
     );
 
     logger.success(`✓ Session created: ${sessionId}`);
@@ -70,7 +70,7 @@ async function testSessionManager() {
     const isValid = sessionManager.validateSession(
       sessionId,
       1, // accountId
-      1, // characterId
+      1 // characterId
     );
 
     if (!isValid) {
@@ -101,7 +101,7 @@ async function testDatabaseManager() {
       database: "data/test_flyff.db",
       synchronize: true,
       logging: false,
-      entities: ["src/database/**/*.ts"],
+      entities: ["src/database/**/*.ts"]
     });
 
     logger.success("✓ DatabaseManager created successfully");

@@ -27,11 +27,11 @@ export class DyoCommonControlElement extends DyoElement {
   insideItemKind: number[] = new Array<number>(this.MaxControlDropItem);
   insideItemPer: number[] = new Array<number>(this.MaxControlDropItem);
   monsterResistanceKind: number[] = new Array<number>(
-    this.MaxControlDropMonster,
+    this.MaxControlDropMonster
   );
 
   monsterResistanceNum: number[] = new Array<number>(
-    this.MaxControlDropMonster,
+    this.MaxControlDropMonster
   );
 
   monsterActionAttack: number[] = new Array<number>(this.MaxControlDropMonster);

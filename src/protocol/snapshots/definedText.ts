@@ -13,7 +13,7 @@ export class DefinedTextSnapshot extends FlyffSnapshot {
       parameters.length > 0
         ? SnapshotType.DEFINED_TEXT
         : SnapshotType.DEFINED_TEXT,
-      worldObject.objectId,
+      worldObject.objectId
     );
 
     this.writeInt32(textId);

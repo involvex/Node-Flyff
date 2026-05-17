@@ -20,7 +20,7 @@ export class ExperienceTableResources {
 
     if (!fs.existsSync(expTablePath)) {
       this.logger.warn(
-        `Unable to load exp table. Reason: Cannot find '${expTablePath}' file.`,
+        `Unable to load exp table. Reason: Cannot find '${expTablePath}' file.`
       );
       return;
     }
@@ -28,13 +28,13 @@ export class ExperienceTableResources {
     try {
       const expTableFile = new IncludeFile(
         expTablePath,
-        "([(){}=,;\\n\\r\\t ])",
+        "([(){}=,;\\n\\r\\t ])"
       );
 
       const dropLuckBlock = expTableFile.getBlock("expDropLuck");
       if (!dropLuckBlock) {
         this.logger.warn(
-          "Unable to load exp table. Reason: Cannot find drop luck data.",
+          "Unable to load exp table. Reason: Cannot find drop luck data."
         );
         expTableFile.dispose();
         return;
@@ -43,7 +43,7 @@ export class ExperienceTableResources {
       const expCharacterBlock = expTableFile.getBlock("expCharacter");
       if (!expCharacterBlock) {
         this.logger.warn(
-          "Unable to load exp table. Reason: Cannot find character experience data.",
+          "Unable to load exp table. Reason: Cannot find character experience data."
         );
         expTableFile.dispose();
         return;
@@ -58,7 +58,7 @@ export class ExperienceTableResources {
       this.logger.info(`Experience tables loaded in ${elapsed}ms.`);
     } catch (error) {
       this.logger.error(
-        `Failed to load experience tables: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to load experience tables: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -95,7 +95,7 @@ export class ExperienceTableResources {
   }
 
   private loadCharacterExperience(
-    expTableBlock: Block,
+    expTableBlock: Block
   ): Map<number, CharacterExpTableProperties> {
     const values = expTableBlock.unknownStatements;
     const result = new Map<number, CharacterExpTableProperties>();
@@ -108,7 +108,7 @@ export class ExperienceTableResources {
           nextLevelExp: parseInt(values[i], 10),
           deathExp: parseInt(values[i + 1], 10),
           betExp: parseInt(values[i + 2], 10),
-          nextDeathExp: parseInt(values[i + 3], 10),
+          nextDeathExp: parseInt(values[i + 3], 10)
         };
 
         result.set(level, properties);

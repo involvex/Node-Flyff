@@ -5,7 +5,7 @@ import {
   JoinColumn,
   OneToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import CharacterEntity from "./character";
 import InventoryItemEntity from "./inventoryItem";
@@ -13,18 +13,18 @@ import InventoryItemEntity from "./inventoryItem";
 @Entity("Inventory")
 export default class InventoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
-  id: number;
+    id: number;
 
   @OneToOne((type) => CharacterEntity)
   @JoinColumn()
-  character: CharacterEntity;
+    character: CharacterEntity;
 
   @Column({ default: 0 })
-  gold: number;
+    gold: number;
 
   @OneToMany(
     () => InventoryItemEntity,
-    (inventoryItem) => inventoryItem.inventory,
+    (inventoryItem) => inventoryItem.inventory
   )
-  items: InventoryItemEntity[];
+    items: InventoryItemEntity[];
 }

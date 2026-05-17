@@ -32,13 +32,13 @@ fs.readFile(
       const parts = line
         .trim()
         .replace(/\s/g, "")
-        .split('"')
+        .split("\"")
         .map((i) => i.trim());
       if (parts[1] === "SetTitle" || parts[2] === "SetTitle") return;
       if (parts.length < 2) return;
       parsedData.push({
         id: parts[0],
-        name: parts[1],
+        name: parts[1]
       });
     });
 
@@ -54,7 +54,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to world.yaml");
-      },
+      }
     );
-  },
+  }
 );

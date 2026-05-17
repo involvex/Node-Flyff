@@ -37,7 +37,7 @@ export class RedisClient implements IRedisClient {
       port: cluster.port,
       lastPing: cluster.lastPing || 0,
       channels: JSON.stringify(cluster.channels),
-      enabled: cluster.enabled ? "true" : "false",
+      enabled: cluster.enabled ? "true" : "false"
     };
     await this.client.hmset(key, clusterData);
   }
@@ -50,7 +50,7 @@ export class RedisClient implements IRedisClient {
       port: cluster.port,
       lastPing: cluster.lastPing || 0,
       channels: JSON.stringify(cluster.channels),
-      enabled: cluster.enabled ? "true" : "false",
+      enabled: cluster.enabled ? "true" : "false"
     };
 
     await this.client.hmset(key, clusterData);
@@ -64,7 +64,7 @@ export class RedisClient implements IRedisClient {
     const cluster: any = await this.client.hgetall(
       clusterName?.includes("cluster:")
         ? clusterName
-        : `cluster:${clusterName}`,
+        : `cluster:${clusterName}`
     );
     let channels: IChannel[] = [];
     if (cluster.channels) {
@@ -77,7 +77,7 @@ export class RedisClient implements IRedisClient {
         maxUsers: channelData.maxUsers,
         currentUsers: channelData.currentUsers,
         enabled: channelData.enabled,
-        pkEnabled: channelData.pkEnabled,
+        pkEnabled: channelData.pkEnabled
       }));
     }
 
@@ -88,7 +88,7 @@ export class RedisClient implements IRedisClient {
         port: parseInt(cluster.port),
         lastPing: parseInt(cluster.lastPing),
         channels,
-        enabled: cluster.enabled === "true",
+        enabled: cluster.enabled === "true"
       };
     }
     return null;
@@ -114,7 +114,7 @@ export class RedisClient implements IRedisClient {
         currentUsers: channel.currentUsers,
         enabled: channel.enabled,
         lastPing: channel.lastPing || 0,
-        pkEnabled: channel.pkEnabled,
+        pkEnabled: channel.pkEnabled
       };
       clusterData.channels.push(channelData);
       await this.client.hmset(clusterKey, {
@@ -122,26 +122,26 @@ export class RedisClient implements IRedisClient {
         channels:
           typeof clusterData.channels === "object"
             ? JSON.stringify(clusterData.channels)
-            : clusterData.channels,
+            : clusterData.channels
       });
     }
   }
 
   async updateChannel(
     clusterName: string,
-    updatedChannel: IChannel,
+    updatedChannel: IChannel
   ): Promise<void> {
     const clusterData = await this.getCluster(clusterName);
     const clusterKey = `cluster:${clusterName}`;
 
     if (clusterData) {
       const existIndex = _.findIndex(clusterData.channels, {
-        name: updatedChannel.name,
+        name: updatedChannel.name
       });
       if (existIndex >= 0) {
         clusterData.channels[existIndex] = {
           ...clusterData.channels[existIndex],
-          ...updatedChannel,
+          ...updatedChannel
         };
       } else {
         clusterData.channels.push(updatedChannel);
@@ -151,14 +151,14 @@ export class RedisClient implements IRedisClient {
         channels:
           typeof clusterData.channels === "object"
             ? JSON.stringify(clusterData.channels)
-            : clusterData.channels,
+            : clusterData.channels
       });
     }
   }
 
   async getChannel(
     clusterName: string,
-    channelName: string,
+    channelName: string
   ): Promise<IChannel | null> {
     const cluster = await this.getCluster(clusterName);
     return _.find(cluster?.channels, { name: channelName }) || null;
@@ -187,7 +187,7 @@ export class RedisClient implements IRedisClient {
 
   async getChannelById(
     clusterName: string,
-    id: number,
+    id: number
   ): Promise<IChannel | undefined> {
     const channels = await this.getAllChannels(clusterName);
     return _.find(channels, { id });
@@ -209,13 +209,13 @@ export class RedisClient implements IRedisClient {
     characterId: number,
     username: string,
     password: string,
-    expireInSeconds: number,
+    expireInSeconds: number
   ): Promise<void> {
     const key = `session:${sessionKey}`;
     const sessionData = {
       characterId: characterId.toString(),
       username,
-      password,
+      password
     };
     await this.client.hmset(key, sessionData);
     await this.client.expire(key, expireInSeconds);
@@ -236,7 +236,7 @@ export class RedisClient implements IRedisClient {
     return {
       characterId: parseInt(sessionData.characterId),
       username: sessionData.username,
-      password: sessionData.password,
+      password: sessionData.password
     };
   }
 

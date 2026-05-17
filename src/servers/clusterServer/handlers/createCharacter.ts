@@ -56,22 +56,22 @@ export default class Handler extends PacketHandler {
     const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
-      relations: ["characters", "characters.equipments"],
+      relations: ["characters", "characters.equipments"]
     })) as Account;
 
     if (!account) {
       this.logger.warn(
         "Unable to create character for",
         this.username,
-        ". Reason: Incorrect credentials.",
+        ". Reason: Incorrect credentials."
       );
       this.userConnection.disconnect();
     }
 
     const usernameTaken = await characters?.existsBy({
-      name: this.characterName,
+      name: this.characterName
     });
 
     if (usernameTaken) {
@@ -80,7 +80,7 @@ export default class Handler extends PacketHandler {
         this.username,
         ". Reason: Character name",
         this.characterName,
-        "already taken",
+        "already taken"
       );
       return this.userConnection.sendError(ErrorType.USER_EXISTS);
     }
@@ -91,7 +91,7 @@ export default class Handler extends PacketHandler {
 
     const defaultCharacter: IConfig = _.get(
       this.server.instance.config?.settings,
-      "default-character",
+      "default-character"
     );
 
     const newCharacter = new Character();
@@ -122,42 +122,42 @@ export default class Handler extends PacketHandler {
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender].hat,
-      ItemPartType.Hat,
+      ItemPartType.Hat
     );
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender].body,
-      ItemPartType.UpperBody,
+      ItemPartType.UpperBody
     );
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender].hand,
-      ItemPartType.Hand,
+      ItemPartType.Hand
     );
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender]["right-weapon"],
-      ItemPartType.RightWeapon,
+      ItemPartType.RightWeapon
     );
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender]["left-weapon"],
-      ItemPartType.LeftWeapon,
+      ItemPartType.LeftWeapon
     );
     await this.createPlayerItem(
       newCharacter,
       defaultCharacter.equipped[gender].boots,
-      ItemPartType.Foot,
+      ItemPartType.Foot
     );
     await newCharacter.save();
 
     const userCharacters = (await characters?.find({
       where: {
         account: {
-          username: this.username,
-        },
+          username: this.username
+        }
       },
-      relations: ["account", "equipments", "equipments.item"],
+      relations: ["account", "equipments", "equipments.item"]
     })) as Character[];
     this.userConnection.sendCharacterList(userCharacters, this.authKey);
   }
@@ -169,11 +169,11 @@ export default class Handler extends PacketHandler {
     quantity: number = 1,
     refinement: number = 0,
     element: number = 0,
-    elementRefinement: number = 0,
+    elementRefinement: number = 0
   ) {
     const item =
       await this.server.instance.gameResources?.itemResources?.get(
-        itemIdentifier,
+        itemIdentifier
       );
     if (!_.isNil(item) && !_.isUndefined(item) && !_.isNaN(item.id)) {
       const itemEntity = new Item();

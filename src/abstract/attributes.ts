@@ -26,7 +26,7 @@ export class Attributes {
   increase(
     attribute: DefineAttributes,
     value: number,
-    sendToEntity = true,
+    sendToEntity = true
   ): void {
     switch (attribute) {
       case DefineAttributes.DST_RESIST_ALL:
@@ -34,7 +34,7 @@ export class Attributes {
         this.increase(
           DefineAttributes.DST_RESIST_ELECTRICITY,
           value,
-          sendToEntity,
+          sendToEntity
         );
         this.increase(DefineAttributes.DST_RESIST_WATER, value, sendToEntity);
         this.increase(DefineAttributes.DST_RESIST_WIND, value, sendToEntity);
@@ -58,7 +58,7 @@ export class Attributes {
   decrease(
     attribute: DefineAttributes,
     value: number,
-    sendToEntity = true,
+    sendToEntity = true
   ): void {
     switch (attribute) {
       case DefineAttributes.DST_RESIST_ALL:
@@ -66,7 +66,7 @@ export class Attributes {
         this.decrease(
           DefineAttributes.DST_RESIST_ELECTRICITY,
           value,
-          sendToEntity,
+          sendToEntity
         );
         this.decrease(DefineAttributes.DST_RESIST_WATER, value, sendToEntity);
         this.decrease(DefineAttributes.DST_RESIST_WIND, value, sendToEntity);

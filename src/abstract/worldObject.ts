@@ -38,10 +38,10 @@ export class WorldObject {
   }
 
   public getVisibleObject<TEntity extends WorldObject>(
-    objectId: number,
+    objectId: number
   ): TEntity | null {
     return this.visibleObjects.find(
-      (obj) => obj.objectId === objectId,
+      (obj) => obj.objectId === objectId
     ) as TEntity | null;
   }
 
@@ -52,12 +52,12 @@ export class WorldObject {
 
   public sendSpecialEffect(
     specialEffect: DefineSpecialEffects,
-    followObject: boolean = true,
+    followObject: boolean = true
   ): void {
     const snapshot = new CreateSfxObjectSnapshot(
       this,
       specialEffect,
-      followObject,
+      followObject
     );
     this.sendToVisible(snapshot, true);
   }

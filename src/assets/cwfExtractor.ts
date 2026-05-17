@@ -22,7 +22,7 @@ export class CwfExtractor {
 
   async extractCwfFile(
     cwfPath: string,
-    targetDir?: string,
+    targetDir?: string
   ): Promise<Map<string, Buffer>> {
     try {
       this.logger.info(`Extracting CWF file: ${cwfPath}`);
@@ -64,7 +64,7 @@ export class CwfExtractor {
       const entryCount = buffer.readUInt32LE(8);
 
       this.logger.info(
-        `CWF Header - Magic: 0x${magic.toString(16)}, Version: ${version}, Entries: ${entryCount}`,
+        `CWF Header - Magic: 0x${magic.toString(16)}, Version: ${version}, Entries: ${entryCount}`
       );
 
       // Parse entries (starting at offset 12)
@@ -75,7 +75,7 @@ export class CwfExtractor {
           offset: buffer.readUInt32LE(offset + 256),
           size: buffer.readUInt32LE(offset + 260),
           compressedSize: buffer.readUInt32LE(offset + 264),
-          checksum: buffer.readUInt32LE(offset + 268),
+          checksum: buffer.readUInt32LE(offset + 268)
         };
 
         entries.push(entry);
@@ -105,7 +105,7 @@ export class CwfExtractor {
           const name = buffer.toString(
             "utf8",
             currentOffset + 1,
-            currentOffset + 1 + nameLength,
+            currentOffset + 1 + nameLength
           );
 
           if (this.isValidFileName(name)) {
@@ -114,9 +114,9 @@ export class CwfExtractor {
               offset: buffer.readUInt32LE(currentOffset + 1 + nameLength),
               size: buffer.readUInt32LE(currentOffset + 5 + nameLength),
               compressedSize: buffer.readUInt32LE(
-                currentOffset + 9 + nameLength,
+                currentOffset + 9 + nameLength
               ),
-              checksum: 0,
+              checksum: 0
             };
 
             entries.push(entry);
@@ -128,7 +128,7 @@ export class CwfExtractor {
       }
 
       this.logger.info(
-        `Found ${entries.length} entries using alternative parsing`,
+        `Found ${entries.length} entries using alternative parsing`
       );
       return entries;
     } catch (error) {
@@ -191,7 +191,7 @@ export class CwfExtractor {
       ".mp3",
       ".txt",
       ".xml",
-      ".lua",
+      ".lua"
     ];
     return (
       validExtensions.some((ext) => name.toLowerCase().endsWith(ext)) ||
@@ -231,7 +231,7 @@ export class CwfExtractor {
   }
 
   async extractAllCwfFiles(
-    clientPath: string,
+    clientPath: string
   ): Promise<Map<string, Map<string, Buffer>>> {
     this.logger.info("Extracting all CWF files from client...");
 

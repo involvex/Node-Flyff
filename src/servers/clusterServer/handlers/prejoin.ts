@@ -30,9 +30,9 @@ export default class Handler extends PacketHandler {
 
     const account = (await accounts?.findOne({
       where: {
-        username: this.username,
+        username: this.username
       },
-      relations: ["characters"],
+      relations: ["characters"]
     })) as Account;
 
     if (!account) {
@@ -41,21 +41,21 @@ export default class Handler extends PacketHandler {
         this.characterName,
         ". Reason: Account",
         this.username,
-        "not found.",
+        "not found."
       );
       return this.userConnection.disconnect();
     }
 
     const character = _.find(
       account.characters,
-      (i) => i.name === this.characterName,
+      (i) => i.name === this.characterName
     );
 
     if (_.isNil(character) || _.isUndefined(character)) {
       this.logger.warn(
         "Unable to pre-join character",
         this.characterName,
-        ". Reason: Character not found.",
+        ". Reason: Character not found."
       );
       return this.userConnection.disconnect();
     }
@@ -65,7 +65,7 @@ export default class Handler extends PacketHandler {
         this.logger.warn(
           "Unable to pre-join character",
           this.characterName,
-          ". Reason: Character is deleted.",
+          ". Reason: Character is deleted."
         );
         return this.userConnection.disconnect();
       }

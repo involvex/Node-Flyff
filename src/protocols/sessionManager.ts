@@ -20,7 +20,7 @@ export class SessionManager {
     username: string,
     characterName: string,
     serverType: ServerType,
-    durationSeconds: number = 3600,
+    durationSeconds: number = 3600
   ): number {
     const sessionId = this.generateSessionId();
     const now = Date.now();
@@ -33,7 +33,7 @@ export class SessionManager {
       characterName,
       serverType,
       createdAt: now,
-      expiresAt: now + durationSeconds * 1000,
+      expiresAt: now + durationSeconds * 1000
     };
 
     this.sessions.set(sessionId, sessionData);
@@ -41,7 +41,7 @@ export class SessionManager {
     this.accountSessions.set(accountId, sessionId);
 
     this.logger.info(
-      `Created session ${sessionId} for account ${username} (${accountId}), character ${characterName} (${characterId})`,
+      `Created session ${sessionId} for account ${username} (${accountId}), character ${characterName} (${characterId})`
     );
 
     return sessionId;
@@ -83,7 +83,7 @@ export class SessionManager {
   validateSession(
     sessionId: number,
     expectedAccountId?: number,
-    expectedCharacterId?: number,
+    expectedCharacterId?: number
   ): boolean {
     const session = this.getSession(sessionId);
 
@@ -112,7 +112,7 @@ export class SessionManager {
 
   updateSession(
     sessionId: number,
-    updates: Partial<PlayerSessionData>,
+    updates: Partial<PlayerSessionData>
   ): boolean {
     const session = this.sessions.get(sessionId);
 
@@ -134,7 +134,7 @@ export class SessionManager {
 
     session.expiresAt = Date.now() + additionalSeconds * 1000;
     this.logger.info(
-      `Extended session ${sessionId} by ${additionalSeconds} seconds`,
+      `Extended session ${sessionId} by ${additionalSeconds} seconds`
     );
     return true;
   }
@@ -209,7 +209,7 @@ export class SessionManager {
 
     if (expiredSessions.length > 0) {
       this.logger.info(
-        `Cleaning up ${expiredSessions.length} expired sessions`,
+        `Cleaning up ${expiredSessions.length} expired sessions`
       );
 
       for (const sessionId of expiredSessions) {
@@ -243,7 +243,7 @@ export class SessionManager {
     activeSessions: number;
     expiredSessions: number;
     sessionsByServer: Record<string, number>;
-  } {
+    } {
     const now = Date.now();
     let activeCount = 0;
     let expiredCount = 0;
@@ -264,7 +264,7 @@ export class SessionManager {
       totalSessions: this.sessions.size,
       activeSessions: activeCount,
       expiredSessions: expiredCount,
-      sessionsByServer,
+      sessionsByServer
     };
   }
 }

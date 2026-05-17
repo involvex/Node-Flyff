@@ -22,7 +22,7 @@ export class ItemResources extends BaseResource {
   }
 
   public async get(
-    itemIdentifier: string | number,
+    itemIdentifier: string | number
   ): Promise<ItemProperties | null> {
     const itemId =
       typeof itemIdentifier === "number"
@@ -36,7 +36,7 @@ export class ItemResources extends BaseResource {
   }
 
   public async where(
-    predicate: (item: ItemProperties) => boolean,
+    predicate: (item: ItemProperties) => boolean
   ): Promise<ItemProperties[]> {
     const items: ItemProperties[] = [];
     try {
@@ -65,7 +65,7 @@ export class ItemResources extends BaseResource {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -82,7 +82,7 @@ export class ItemResources extends BaseResource {
     const absolutePath = path.resolve(ResourcePaths.itemsText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load items. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load items. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
@@ -93,7 +93,7 @@ export class ItemResources extends BaseResource {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((_i) => _i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async (pair, _i) => {
+      _.forEach(pairs, async(pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("itemNames", idName, name);
@@ -108,7 +108,7 @@ export class ItemResources extends BaseResource {
     const absolutePath = path.resolve(ResourcePaths.itemsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load items. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load items. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
@@ -120,7 +120,7 @@ export class ItemResources extends BaseResource {
     const _data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = _data.split("\n");
-    _.forEach(lines, async (_line) => {
+    _.forEach(lines, async(_line) => {
       const items = _line.trim().split("\t");
 
       const id = await this.redisClient.hget("itemDefines", items[1]);
@@ -132,7 +132,7 @@ export class ItemResources extends BaseResource {
         const szComment =
           (await this.redisClient.hget(
             "itemDescriptions",
-            cleanString(items[123]),
+            cleanString(items[123])
           )) || "";
 
         const item: ItemProperties = {
@@ -192,7 +192,7 @@ export class ItemResources extends BaseResource {
           dwAFuelReMax: tryParseInt(items[114]),
           dwReflect: tryParseInt(items[117]),
           dwQuestID: tryParseInt(items[121]),
-          szComment,
+          szComment
         };
 
         if (item.id) {
@@ -262,7 +262,7 @@ export class ItemResources extends BaseResource {
       dwAFuelReMax: parseInt(_data.dwAFuelReMax),
       dwReflect: parseInt(_data.dwReflect),
       dwQuestID: parseInt(_data.dwQuestID),
-      szComment: _data.szComment,
+      szComment: _data.szComment
     };
   }
 

@@ -37,7 +37,7 @@ export class Skill {
   constructor(skillProperties: any, owner: any, level: number) {
     if (!skillProperties) {
       throw new Error(
-        "Cannot create a skill instance with undefined skill properties.",
+        "Cannot create a skill instance with undefined skill properties."
       );
     }
     this.Properties = skillProperties;
@@ -95,7 +95,7 @@ export class Skill {
       return 1000;
     } else {
       let castingTime = Math.floor(
-        (this.Properties.CastingTime / 1000) * (60 / 4),
+        (this.Properties.CastingTime / 1000) * (60 / 4)
       );
       castingTime -=
         castingTime *
@@ -155,7 +155,7 @@ export class Skill {
     if (this.Owner instanceof Player) {
       if (this.Properties.LinkKind) {
         const rightWeapon = this.Owner.Inventory.GetEquipedItem(
-          ItemPartType.RightWeapon,
+          ItemPartType.RightWeapon
         );
         const rightWeaponKind = rightWeapon.Properties.ItemKind3;
         let playerHasCorrectWeapon = false;
@@ -189,7 +189,7 @@ export class Skill {
 
       if (this.Properties.BulletLinkKind) {
         const bulletItem = this.Owner.Inventory.GetEquipedItem(
-          ItemPartType.Bullet,
+          ItemPartType.Bullet
         );
 
         if (
@@ -233,7 +233,7 @@ export class Skill {
         break;
       default:
         throw new Error(
-          `Unknown ${this.Properties.ExecuteTarget} for ${this.Name}`,
+          `Unknown ${this.Properties.ExecuteTarget} for ${this.Name}`
         );
     }
   }
@@ -251,7 +251,7 @@ export class Skill {
         skillUseType,
         () => {
           this.Execute(target);
-        },
+        }
       );
     }
   }
@@ -269,7 +269,7 @@ export class Skill {
         skillUseType,
         () => {
           this.Execute(target);
-        },
+        }
       );
     }
   }
@@ -282,7 +282,7 @@ export class Skill {
       this,
       () => {
         this.Execute(target, false);
-      },
+      }
     );
     this.Owner.Projectiles.Add(projectile);
 
@@ -293,7 +293,7 @@ export class Skill {
       skillUseType,
       () => {
         this.ReduceCasterPoints();
-      },
+      }
     );
   }
 
@@ -326,18 +326,18 @@ export class Skill {
     const timeBonusValues = [
       this.Properties.ReferTarget1 === SkillReferTargetType.Time
         ? this.GetReferBonus(
-            this.Properties.ReferStat1,
-            this.Properties.ReferValue1,
-            this.Level,
-          )
+          this.Properties.ReferStat1,
+          this.Properties.ReferValue1,
+          this.Level
+        )
         : 0,
       this.Properties.ReferTarget2 === SkillReferTargetType.Time
         ? this.GetReferBonus(
-            this.Properties.ReferStat2,
-            this.Properties.ReferValue2,
-            this.Level,
-          )
-        : 0,
+          this.Properties.ReferStat2,
+          this.Properties.ReferValue2,
+          this.Level
+        )
+        : 0
     ];
 
     const buffTime =
@@ -350,13 +350,13 @@ export class Skill {
       if (this.LevelProperties.DestParam1 > 0) {
         attributes.set(
           this.LevelProperties.DestParam1,
-          this.LevelProperties.DestParam1Value,
+          this.LevelProperties.DestParam1Value
         );
       }
       if (this.LevelProperties.DestParam2 > 0) {
         attributes.set(
           this.LevelProperties.DestParam2,
-          this.LevelProperties.DestParam2Value,
+          this.LevelProperties.DestParam2Value
         );
       }
 
@@ -365,7 +365,7 @@ export class Skill {
           target,
           attributes,
           this.Properties,
-          this.Level,
+          this.Level
         );
         buff.RemainingTime = buffTime;
 
@@ -374,7 +374,7 @@ export class Skill {
             target,
             this.Id,
             this.Level,
-            buffTime,
+            buffTime
           );
           target.sendToVisible(snapshot, true);
         }
@@ -390,7 +390,7 @@ export class Skill {
     skillCastingTime: number,
     skillDelayTime: number,
     skillUseType: SkillUseType,
-    skillActionCallback: () => void,
+    skillActionCallback: () => void
   ): void {
     if (!skillActionCallback) {
       throw new Error("skillActionCallback cannot be null");
@@ -421,35 +421,35 @@ export class Skill {
     ) {
       attackResult = {
         damages: target.health.hp,
-        flags: AttackFlags.AF_GENERIC,
+        flags: AttackFlags.AF_GENERIC
       };
     } else {
       if (skillAttackType.CausesMeleeSkill()) {
         attackResult = new MeleeSkillAttackArbiter(
           this.Owner,
           target,
-          this,
+          this
         ).calculateDamages();
 
         if (!(attackResult.Flags & AttackFlags.AF_MISS)) {
           attackResult = new MeleeSkillAttackReducer(
             this.Owner,
             target,
-            this,
+            this
           ).reduceDamages(attackResult);
         }
       } else if (skillAttackType.CausesMagicSkill()) {
         attackResult = new MagicSkillAttackArbiter(
           this.Owner,
           target,
-          this,
+          this
         ).calculateDamages();
 
         if (!(attackResult.Flags & AttackFlags.AF_MISS)) {
           attackResult = new MagicSkillAttackReducer(
             this.Owner,
             target,
-            this,
+            this
           ).reduceDamages(attackResult);
         }
       }
@@ -459,7 +459,7 @@ export class Skill {
       (this.Owner as Mover).inflictDamages(
         target,
         attackResult,
-        skillAttackType,
+        skillAttackType
       );
       this.SetCoolTime(this.LevelProperties.CooldownTime);
 
@@ -479,8 +479,8 @@ export class Skill {
         new UpdateParamPointSnapshot(
           this.Owner,
           DefineAttributes.DST_FP,
-          (this.Owner as Mover).health.fp,
-        ),
+          (this.Owner as Mover).health.fp
+        )
       );
     }
 
@@ -490,8 +490,8 @@ export class Skill {
         new UpdateParamPointSnapshot(
           this.Owner,
           DefineAttributes.DST_MP,
-          (this.Owner as Mover).health.mp,
-        ),
+          (this.Owner as Mover).health.mp
+        )
       );
     }
 
@@ -503,14 +503,14 @@ export class Skill {
   private SendSkillMotion(
     target: Mover,
     skillCastingTime: number,
-    skillUseType: SkillUseType,
+    skillUseType: SkillUseType
   ): void {
     const snapshot = new UseSkillSnapshot(
       this.Owner,
       target,
       this,
       skillCastingTime,
-      skillUseType,
+      skillUseType
     );
 
     (this.Owner as Mover).sendToVisible(snapshot, true);
@@ -519,7 +519,7 @@ export class Skill {
   private GetReferBonus(
     attribute: DefineAttributes,
     value: number,
-    skillLevel: number,
+    skillLevel: number
   ): number {
     let attributeValue = 1;
     switch (attribute) {
@@ -541,7 +541,7 @@ export class Skill {
     }
 
     return Math.floor(
-      (value / 10) * attributeValue + skillLevel * (attributeValue / 50),
+      (value / 10) * attributeValue + skillLevel * (attributeValue / 50)
     );
   }
 
@@ -553,18 +553,18 @@ export class Skill {
       const hpValues = [
         this.Properties.ReferTarget1 === SkillReferTargetType.Heal
           ? this.GetReferBonus(
-              this.Properties.ReferStat1,
-              this.Properties.ReferValue1,
-              this.Level,
-            )
+            this.Properties.ReferStat1,
+            this.Properties.ReferValue1,
+            this.Level
+          )
           : 0,
         this.Properties.ReferTarget2 === SkillReferTargetType.Heal
           ? this.GetReferBonus(
-              this.Properties.ReferStat2,
-              this.Properties.ReferValue2,
-              this.Level,
-            )
-          : 0,
+            this.Properties.ReferStat2,
+            this.Properties.ReferValue2,
+            this.Level
+          )
+          : 0
       ];
 
       const recoveredHp =

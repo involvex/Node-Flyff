@@ -41,7 +41,7 @@ export class MagicSkillAttackArbiter extends SkillAttackArbiterBase {
     if (skillMastryAttribute !== undefined) {
       const ratio: number = Math.max(
         0,
-        this.attacker.attributes.get(skillMastryAttribute) / 100,
+        this.attacker.attributes.get(skillMastryAttribute) / 100
       );
       damages += damages * ratio;
     }

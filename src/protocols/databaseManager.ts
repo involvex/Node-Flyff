@@ -53,7 +53,7 @@ export class DatabaseManager {
       database: this.config.database,
       synchronize: this.config.synchronize ?? true,
       logging: this.config.logging ?? false,
-      entities: this.config.entities,
+      entities: this.config.entities
     };
 
     switch (this.config.type) {
@@ -62,8 +62,8 @@ export class DatabaseManager {
           ...baseOptions,
           // Bun SQLite optimizations
           extra: {
-            mode: (this.getSqliteMode?.() as any) || 0,
-          },
+            mode: (this.getSqliteMode?.() as any) || 0
+          }
         } as DataSourceOptions;
 
       case DatabaseType.MYSQL:
@@ -78,8 +78,8 @@ export class DatabaseManager {
           extra: {
             connectionLimit: 10,
             acquireTimeout: 60000,
-            timeout: 60000,
-          },
+            timeout: 60000
+          }
         } as DataSourceOptions;
 
       case DatabaseType.POSTGRES:
@@ -93,8 +93,8 @@ export class DatabaseManager {
           extra: {
             max: 10,
             idleTimeoutMillis: 30000,
-            connectionTimeoutMillis: 2000,
-          },
+            connectionTimeoutMillis: 2000
+          }
         } as DataSourceOptions;
 
       default:
@@ -154,7 +154,7 @@ export class DatabaseManager {
   }
 
   async transaction<T>(
-    callback: (entityManager: any) => Promise<T>,
+    callback: (entityManager: any) => Promise<T>
   ): Promise<T> {
     if (!this.dataSource || !this.dataSource.isInitialized) {
       throw new Error("Database not initialized");
@@ -197,7 +197,7 @@ export class DatabaseManager {
       connected,
       type: this.config.type,
       database: this.config.database,
-      entityCount: this.config.entities.length,
+      entityCount: this.config.entities.length
     };
   }
 }

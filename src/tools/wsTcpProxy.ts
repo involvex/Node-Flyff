@@ -7,11 +7,11 @@ const listenPort = parseInt(args[0] || process.env.WS_PROXY_PORT || "8080", 10);
 const targetHost = args[1] || process.env.WS_PROXY_TARGET_HOST || "127.0.0.1";
 const targetPort = parseInt(
   args[2] || process.env.WS_PROXY_TARGET_PORT || "23000",
-  10,
+  10
 );
 
 console.log(
-  `Starting WebSocket->TCP proxy: ws://0.0.0.0:${listenPort} -> ${targetHost}:${targetPort}`,
+  `Starting WebSocket->TCP proxy: ws://0.0.0.0:${listenPort} -> ${targetHost}:${targetPort}`
 );
 
 const wss = new WebSocketServer({ port: listenPort } as any);
@@ -72,7 +72,7 @@ wss.on("connection", (ws: any) => {
 });
 
 wss.on("listening", () =>
-  console.log("WS->TCP proxy listening on port", listenPort),
+  console.log("WS->TCP proxy listening on port", listenPort)
 );
 
 export {};

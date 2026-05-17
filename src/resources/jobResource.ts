@@ -21,7 +21,7 @@ export class JobResources {
   }
 
   public async get(
-    jobIdentifier: string | number,
+    jobIdentifier: string | number
   ): Promise<JobProperties | null> {
     const jobId =
       typeof jobIdentifier === "number"
@@ -35,7 +35,7 @@ export class JobResources {
   }
 
   public async where(
-    predicate: (job: JobProperties) => boolean,
+    predicate: (job: JobProperties) => boolean
   ): Promise<JobProperties[]> {
     const jobs: JobProperties[] = [];
     try {
@@ -59,14 +59,14 @@ export class JobResources {
     const absolutePath = path.resolve(ResourcePaths.defineJob);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load jobs. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load jobs. Reason: cannot find '${absolutePath}' file.`
       );
     }
 
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async (line) => {
+    _.forEach(lines, async(line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -83,7 +83,7 @@ export class JobResources {
     const absolutePath = path.resolve(ResourcePaths.job);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
-        `Unable to load jobs. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load jobs. Reason: cannot find '${absolutePath}' file.`
       );
     }
     if (!(await this.redisClient.exists("itemDefines"))) {
@@ -95,11 +95,11 @@ export class JobResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as JobProperties[];
 
-    _.forEach(data, async (job) => {
+    _.forEach(data, async(job) => {
       const formattedJob = {
         ...job,
         id: DefineJob[job.id],
-        identifier: job.id,
+        identifier: job.id
       };
       if (formattedJob.id) {
         await this.redisClient.hmset(`job:${formattedJob.id}`, formattedJob);
@@ -133,7 +133,7 @@ export class JobResources {
       type: JobType[data.type],
       parent: tryParseInt(data.parent),
       minLevel: tryParseInt(data.minLevel),
-      maxLevel: tryParseInt(data.maxLevel),
+      maxLevel: tryParseInt(data.maxLevel)
     };
   }
 

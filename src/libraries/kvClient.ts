@@ -27,7 +27,7 @@ export class KvClient {
       this.logger.main("Using better-sqlite3 for KV storage.");
     } catch (err) {
       this.logger.warn(
-        "better-sqlite3 not available or failed to initialize, falling back to in-memory KV store.",
+        "better-sqlite3 not available or failed to initialize, falling back to in-memory KV store."
       );
       this.memory = new Map<string, string>();
       this.expiresMemory = new Map<string, number>();
@@ -43,7 +43,7 @@ export class KvClient {
         key TEXT PRIMARY KEY,
         value TEXT
       )
-    `,
+    `
       )
       .run();
     this.db
@@ -53,7 +53,7 @@ export class KvClient {
         key TEXT PRIMARY KEY,
         expireAt INTEGER
       )
-    `,
+    `
       )
       .run();
   }

@@ -60,7 +60,7 @@ export class WorldMap {
   public isInBounds(
     xOrPosition: number | Vector3,
     y?: number,
-    z?: number,
+    z?: number
   ): boolean {
     if (typeof xOrPosition === "number") {
       const x = xOrPosition;
@@ -76,7 +76,7 @@ export class WorldMap {
 
   public getNearestRevivalRegion(
     position: Vector3,
-    isChaoMode: boolean,
+    isChaoMode: boolean
   ): MapRevivalRegionProperties | undefined {
     const definedRevivalRegion = this.properties.regions
       .filter((x) => x instanceof MapRevivalRegionProperties)
@@ -85,7 +85,7 @@ export class WorldMap {
           x.mapId === this.id &&
           x.contains(position) &&
           x.isChaoRegion === isChaoMode &&
-          x.targetRevivalKey,
+          x.targetRevivalKey
       ) as MapRevivalRegionProperties | undefined;
 
     if (definedRevivalRegion) {
@@ -96,19 +96,19 @@ export class WorldMap {
       .filter((x) => x instanceof MapRevivalRegionProperties)
       .filter(
         (x: MapRevivalRegionProperties) =>
-          x.isChaoRegion === isChaoMode && !x.targetRevivalKey,
+          x.isChaoRegion === isChaoMode && !x.targetRevivalKey
       )
       .sort(
         (a: MapRevivalRegionProperties, b: MapRevivalRegionProperties) =>
           position.getDistance3D(a.revivalPosition) -
-          position.getDistance3D(b.revivalPosition),
+          position.getDistance3D(b.revivalPosition)
       )
       .shift() as MapRevivalRegionProperties | undefined;
   }
 
   public getRevivalRegion(
     revivalKey: string,
-    isChaoMode: boolean,
+    isChaoMode: boolean
   ): MapRevivalRegionProperties | undefined {
     return this.properties.regions
       .filter((x) => x instanceof MapRevivalRegionProperties)
@@ -116,7 +116,7 @@ export class WorldMap {
         (x: MapRevivalRegionProperties) =>
           x.key.toLowerCase() === revivalKey.toLowerCase() &&
           x.isChaoRegion === isChaoMode &&
-          !x.targetRevivalKey,
+          !x.targetRevivalKey
       ) as MapRevivalRegionProperties | undefined;
   }
 

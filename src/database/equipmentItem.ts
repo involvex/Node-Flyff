@@ -5,7 +5,7 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import ItemEntity from "./item";
 import type CharacterEntity from "./character";
@@ -13,21 +13,21 @@ import type CharacterEntity from "./character";
 @Entity("EquipmentItem")
 export default class EquipmentItemEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
-  id: number;
+    id: number;
 
   @ManyToOne(
     "CharacterEntity",
-    (character: CharacterEntity) => character.equipments,
+    (character: CharacterEntity) => character.equipments
   )
-  character: CharacterEntity;
+    character: CharacterEntity;
 
   @Column({ default: 0 })
-  slot: number;
+    slot: number;
 
   @OneToOne((type) => ItemEntity)
   @JoinColumn()
-  item: ItemEntity;
+    item: ItemEntity;
 
   @Column({ default: 1 })
-  quantity: number;
+    quantity: number;
 }

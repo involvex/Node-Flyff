@@ -25,7 +25,7 @@ export class Item {
     element: ElementType,
     elementRefine: number,
     creatorId?: number,
-    serialNumber?: number,
+    serialNumber?: number
   ) {
     this.id = id;
     this.name = name;
@@ -78,7 +78,7 @@ export class Item {
       this.element,
       this.elementRefine,
       this.creatorId,
-      this.serialNumber,
+      this.serialNumber
     );
   }
 

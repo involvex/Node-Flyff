@@ -7,7 +7,7 @@ export class CreateSfxObjectSnapshot extends FlyffSnapshot {
   constructor(
     worldObject: WorldObject,
     specialEffect: DefineSpecialEffects,
-    followObject: boolean = true,
+    followObject: boolean = true
   ) {
     super(SnapshotType.CREATE_SFX_OBJ, worldObject.objectId);
 

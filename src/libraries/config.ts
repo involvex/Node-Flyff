@@ -23,7 +23,7 @@ export class ConfigLoader {
     const configPath = path.join(
       __dirname,
       "../configs",
-      `${this.serverName}.yaml`,
+      `${this.serverName}.yaml`
     );
     try {
       const configFile = fs.readFileSync(configPath, "utf8");
@@ -31,7 +31,7 @@ export class ConfigLoader {
     } catch (err) {
       this.logger.error(
         `Error loading configuration for server ${this.serverName}:`,
-        err,
+        err
       );
     }
   }

@@ -22,7 +22,7 @@ export function toObjectMessageType(attackType: AttackType): ObjectMessageType {
       return ObjectMessageType.OBJMSG_MAGICSKILL;
     default:
       throw new Error(
-        `The attack type ${attackType} does not have a matching ObjectMessageType.`,
+        `The attack type ${attackType} does not have a matching ObjectMessageType.`
       );
   }
 }

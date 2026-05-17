@@ -29,13 +29,13 @@ export default class Handler extends PacketHandler {
   async execute(): Promise<void> {
     const channel = await this.server?.redisClient?.getChannelById(
       this.server?.config?.settings?.name,
-      this.channelId,
+      this.channelId
     );
     if (!channel) {
       this.logger.warn(
         "Unable to get character list for",
         this.username,
-        ". Reason: Channel not found.",
+        ". Reason: Channel not found."
       );
       this.userConnection.disconnect();
     }
@@ -43,19 +43,19 @@ export default class Handler extends PacketHandler {
     const account = (await accounts?.findOne({
       where: {
         username: this.username,
-        password: this.password,
+        password: this.password
       },
       relations: [
         "characters",
         "characters.equipments",
-        "characters.equipments.item",
-      ],
+        "characters.equipments.item"
+      ]
     })) as Account;
     if (!account) {
       this.logger.warn(
         "Unable to get character list for",
         this.username,
-        ". Reason: Incorrect credentials.",
+        ". Reason: Incorrect credentials."
       );
       this.userConnection.disconnect();
     }

@@ -22,7 +22,7 @@ export class Delayer {
   /** Delay an action using milliseconds as time unit. */
   public delayActionMilliseconds(
     delayMilliseconds: number,
-    action: () => void,
+    action: () => void
   ): string {
     return this.delayAction(delayMilliseconds, action);
   }
@@ -50,7 +50,7 @@ class DelayedAction {
 
   constructor(
     private _actionToExecute: () => void,
-    private _delayTime: number,
+    private _delayTime: number
   ) {}
 
   public start(): void {

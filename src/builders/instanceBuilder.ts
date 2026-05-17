@@ -83,9 +83,9 @@ export class InstanceBuilder {
           host: _.get(this.config?.database, "host"),
           port: _.get(this.config?.database, "port"),
           username: _.get(this.config?.database, "username"),
-          password: _.get(this.config?.database, "password"),
+          password: _.get(this.config?.database, "password")
         },
-        entities: [],
+        entities: []
       } as IDatabaseOptions);
       database = await this.databaseBuilder.build();
     }
@@ -126,7 +126,7 @@ export class InstanceBuilder {
       gameResources,
       getEntity: (entityName: string) => {
         return database?.getRepository(entityName);
-      },
+      }
     };
 
     if (server) {

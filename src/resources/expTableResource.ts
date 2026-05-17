@@ -19,7 +19,7 @@ export class ExpTableResources {
   }
 
   public async getExpCharacter(
-    level: string | number,
+    level: string | number
   ): Promise<CharacterExp | null> {
     const data = await this.redisClient.hgetall(`expCharacter:${level}`);
     if (!data) return null;
@@ -28,7 +28,7 @@ export class ExpTableResources {
       exp: tryParseFloat(data.level),
       pxp: tryParseFloat(data.level),
       gp: tryParseFloat(data.level),
-      limitExp: tryParseFloat(data.level),
+      limitExp: tryParseFloat(data.level)
     };
   }
 
@@ -37,7 +37,7 @@ export class ExpTableResources {
     if (!data) return null;
     return {
       level: parseInt(data.level),
-      chance: JSON.parse(data.chance),
+      chance: JSON.parse(data.chance)
     };
   }
 
@@ -45,14 +45,14 @@ export class ExpTableResources {
     const absolutePath = path.resolve(ResourcePaths.expCharacter);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load exp character. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load exp character. Reason: cannot find '${absolutePath}' file.`
       );
     }
 
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as CharacterExp[];
 
-    _.forEach(data, async (exp) => {
+    _.forEach(data, async(exp) => {
       await this.redisClient.hmset(`expCharacter:${exp.level}`, exp);
     });
     this.logger.main(`${data.length} exp character loaded.`);
@@ -62,17 +62,17 @@ export class ExpTableResources {
     const absolutePath = path.resolve(ResourcePaths.expDropLuck);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
-        `Unable to load exp drop luck. Reason: cannot find '${absolutePath}' file.`,
+        `Unable to load exp drop luck. Reason: cannot find '${absolutePath}' file.`
       );
     }
 
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as DropLuck[];
 
-    _.forEach(data, async (dropLuck) => {
+    _.forEach(data, async(dropLuck) => {
       await this.redisClient.hmset(`expDropLuck:${dropLuck.level}`, {
         level: dropLuck.level,
-        chance: JSON.stringify(dropLuck.chance),
+        chance: JSON.stringify(dropLuck.chance)
       });
     });
     this.logger.main(`${data.length} exp drop luck loaded.`);

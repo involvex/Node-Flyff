@@ -2,7 +2,7 @@ import { DefineAttributes } from "../../../common/defineAttributes";
 import { Item } from "../../../common/item";
 import {
   WeaponKindType,
-  getWeaponKindType,
+  getWeaponKindType
 } from "../../../common/weaponKindType";
 import { WeaponType } from "../../../common/weaponType";
 import { Mover } from "../../../entities/mover";
@@ -13,7 +13,7 @@ import { AttackResult } from "../attackResult";
 export class AttackArbiterBase {
   constructor(
     public attacker: Mover,
-    public defender: Mover,
+    public defender: Mover
   ) {}
 
   calculateDamages(): AttackResult {
@@ -112,7 +112,7 @@ export class AttackArbiterBase {
 
   getWeaponAttackPower(
     entity: Mover,
-    weapon: Item | null,
+    weapon: Item | null
   ): RangeHelper<number> {
     const multiplier = this.getWeaponItemMultiplier(weapon);
     const refine = weapon?.refine ?? 0;
@@ -124,12 +124,12 @@ export class AttackArbiterBase {
     return new RangeHelper<number>(
       Math.round(
         (entity.attributes.get(DefineAttributes.DST_ABILITY_MIN) + abilityMin) *
-          multiplier,
+          multiplier
       ) + power,
       Math.round(
         (entity.attributes.get(DefineAttributes.DST_ABILITY_MAX) + abilityMax) *
-          multiplier,
-      ) + power,
+          multiplier
+      ) + power
     );
   }
 

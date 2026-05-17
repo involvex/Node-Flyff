@@ -54,26 +54,26 @@ fs.readFile(
 
         // Extract and format DropKinds property
         const dropKindsMatches = section.matchAll(
-          /DropKind\((\w+),\s*(\d+),\s*(\d+)\);/g,
+          /DropKind\((\w+),\s*(\d+),\s*(\d+)\);/g
         );
         parsedSection.dropKinds = [];
         for (const match of dropKindsMatches) {
           parsedSection.dropKinds.push({
             id: match[1],
-            qty: [parseInt(match[2]), parseInt(match[3])],
+            qty: [parseInt(match[2]), parseInt(match[3])]
           });
         }
 
         // Extract and format DropItems property
         const dropItemsMatches = section.matchAll(
-          /DropItem\((\w+),\s*(\d+),\s*(\d+),\s*(\d+)\);/g,
+          /DropItem\((\w+),\s*(\d+),\s*(\d+),\s*(\d+)\);/g
         );
         parsedSection.dropItems = [];
         for (const match of dropItemsMatches) {
           parsedSection.dropItems.push({
             id: match[1],
             chance: parseFloat(match[2]) / 3000000000,
-            qty: [parseInt(match[3]), parseInt(match[4])],
+            qty: [parseInt(match[3]), parseInt(match[4])]
           });
         }
 
@@ -97,7 +97,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to propMoverEx.yaml");
-      },
+      }
     );
-  },
+  }
 );

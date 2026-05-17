@@ -106,7 +106,7 @@ export class BinaryStream {
   writeBuffer(
     buffer: any,
     value: bigint | number | undefined = undefined,
-    method: string = "",
+    method: string = ""
   ) {
     if (value && method) {
       buffer[method](value, 0);
@@ -118,7 +118,7 @@ export class BinaryStream {
     this.buffer = Buffer.concat([
       this.buffer.subarray(0, this.position),
       buffer,
-      this.buffer.subarray(this.position),
+      this.buffer.subarray(this.position)
     ]);
     this.position += buffer.length;
   }
@@ -221,7 +221,7 @@ export class BinaryStream {
       bytes,
       0,
       this.position,
-      this.position + length,
+      this.position + length
     );
     this.position += bytesRead;
     return bytesRead < 0 ? Buffer.alloc(0) : bytes;
@@ -233,7 +233,7 @@ export class BinaryStream {
       bytes,
       0,
       this.position,
-      this.position + length,
+      this.position + length
     );
     this.position += bytesRead;
     return bytesRead < 0 ? Buffer.alloc(0) : bytes.reverse();
