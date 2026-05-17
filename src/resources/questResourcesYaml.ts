@@ -11,7 +11,7 @@ import {
   QuestItemDropProperties,
   QuestItemProperties,
   QuestMonsterProperties,
-  QuestPatrolProperties
+  QuestPatrolProperties,
 } from "../interfaces/questProperties";
 import { DefineJob } from "../common/defineJob";
 import { GenderType } from "../common/genderType";
@@ -84,7 +84,7 @@ export class QuestResourcesYaml {
     this.defines = defines;
     this.questsYamlPath = path.join(
       path.dirname(ResourcePaths.questsPath),
-      "quests-yaml"
+      "quests-yaml",
     );
   }
 
@@ -93,7 +93,7 @@ export class QuestResourcesYaml {
 
     if (!fs.existsSync(ResourcePaths.defineQuest)) {
       this.logger.warn(
-        `Quest defines file not found: ${ResourcePaths.defineQuest}`
+        `Quest defines file not found: ${ResourcePaths.defineQuest}`,
       );
       return;
     }
@@ -116,7 +116,7 @@ export class QuestResourcesYaml {
 
       const elapsed = Date.now() - startTime;
       this.logger.info(
-        `${this.defines.size} quest defines loaded in ${elapsed}ms`
+        `${this.defines.size} quest defines loaded in ${elapsed}ms`,
       );
     } catch (error) {
       this.logger.error("Failed to load quest defines:", error);
@@ -137,7 +137,7 @@ export class QuestResourcesYaml {
   }
 
   public where(
-    predicate: (quest: QuestProperties) => boolean
+    predicate: (quest: QuestProperties) => boolean,
   ): QuestProperties[] {
     const results: QuestProperties[] = [];
     for (const quest of this.quests.values()) {
@@ -157,7 +157,7 @@ export class QuestResourcesYaml {
 
     if (!fs.existsSync(this.questsYamlPath)) {
       this.logger.warn(
-        `Quests YAML directory not found: ${this.questsYamlPath}`
+        `Quests YAML directory not found: ${this.questsYamlPath}`,
       );
       this.logger.info("Falling back to Lua quest loading...");
       return;
@@ -194,7 +194,7 @@ export class QuestResourcesYaml {
 
     const elapsed = Date.now() - startTime;
     this.logger.info(
-      `${loadedCount} YAML quests loaded in ${elapsed}ms (${errorCount} errors)`
+      `${loadedCount} YAML quests loaded in ${elapsed}ms (${errorCount} errors)`,
     );
   }
 
@@ -211,7 +211,7 @@ export class QuestResourcesYaml {
       const questId = this.tryGetQuestId(yamlData.quest_id);
       if (!questId) {
         this.logger.warn(
-          `Cannot find quest id for quest: '${yamlData.quest_id}' in ${filePath}`
+          `Cannot find quest id for quest: '${yamlData.quest_id}' in ${filePath}`,
         );
         return null;
       }
@@ -225,7 +225,7 @@ export class QuestResourcesYaml {
 
   private convertYamlToQuestProperties(
     yamlData: YamlQuestData,
-    questId: number
+    questId: number,
   ): QuestProperties {
     return {
       id: questId,
@@ -234,7 +234,7 @@ export class QuestResourcesYaml {
       startCharacter: yamlData.character || "",
       endCharacter: yamlData.end_character || yamlData.character || "",
       startRequirements: this.convertStartRequirements(
-        yamlData.start_requirements
+        yamlData.start_requirements,
       ),
       questEndCondition: this.convertEndConditions(yamlData.end_conditions),
       rewards: this.convertRewards(yamlData.rewards),
@@ -243,19 +243,19 @@ export class QuestResourcesYaml {
       acceptedDialogs: yamlData.dialogs?.begin_yes || [],
       declinedDialogs: yamlData.dialogs?.begin_no || [],
       completedDialogs: yamlData.dialogs?.completed || [],
-      notFinishedDialogs: yamlData.dialogs?.not_finished || []
+      notFinishedDialogs: yamlData.dialogs?.not_finished || [],
     };
   }
 
   private convertStartRequirements(
-    data?: YamlQuestData["start_requirements"]
+    data?: YamlQuestData["start_requirements"],
   ): QuestStartRequirementsProperties {
     if (!data) {
       return {
         previousQuestId: undefined,
         minLevel: 0,
         maxLevel: 0,
-        jobs: undefined
+        jobs: undefined,
       };
     }
 
@@ -268,18 +268,18 @@ export class QuestResourcesYaml {
           const jobKey = jobStr as keyof typeof DefineJob;
           return DefineJob[jobKey];
         })
-        .filter((job) => job !== undefined)
+        .filter((job) => job !== undefined),
     };
   }
 
   private convertEndConditions(
-    data?: YamlQuestData["end_conditions"]
+    data?: YamlQuestData["end_conditions"],
   ): QuestEndConditionProperties {
     if (!data) {
       return {
         items: undefined,
         monsters: undefined,
-        patrols: undefined
+        patrols: undefined,
       };
     }
 
@@ -288,31 +288,31 @@ export class QuestResourcesYaml {
         id: item.id,
         quantity: item.quantity,
         sex: this.parseGenderType(item.sex),
-        remove: item.remove
+        remove: item.remove,
       })),
       monsters: data.monsters?.map((monster) => ({
         id: monster.id,
-        amount: monster.amount
+        amount: monster.amount,
       })),
       patrols: data.patrols?.map((patrol) => ({
         mapId: patrol.map_id,
         left: patrol.left,
         top: patrol.top,
         right: patrol.right,
-        bottom: patrol.bottom
-      }))
+        bottom: patrol.bottom,
+      })),
     };
   }
 
   private convertRewards(
-    data?: YamlQuestData["rewards"]
+    data?: YamlQuestData["rewards"],
   ): QuestRewardProperties {
     if (!data) {
       return {
         exp: undefined,
         gold: undefined,
         skillPoints: undefined,
-        items: undefined
+        items: undefined,
       };
     }
 
@@ -324,13 +324,13 @@ export class QuestResourcesYaml {
         id: item.id,
         quantity: item.quantity,
         sex: this.parseGenderType(item.sex),
-        remove: item.remove
-      }))
+        remove: item.remove,
+      })),
     };
   }
 
   private convertDrops(
-    data?: YamlQuestData["drops"]
+    data?: YamlQuestData["drops"],
   ): QuestItemDropProperties[] {
     if (!data) return [];
 
@@ -344,7 +344,7 @@ export class QuestResourcesYaml {
           itemId: drop.item_id,
           monsterId,
           probability: drop.probability,
-          quantity: drop.quantity || 1
+          quantity: drop.quantity || 1,
         });
       }
     }

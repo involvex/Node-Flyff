@@ -57,7 +57,7 @@ export function isValidEncryptionString(input: any, key: any) {
 export function buildEncryptionKeyFromString(
   encryptionKey: string,
   keySize = 16,
-  encoding: BufferEncoding = "utf8"
+  encoding: BufferEncoding = "utf8",
 ) {
   if (keySize > 16) {
     keySize = 16;
@@ -66,7 +66,7 @@ export function buildEncryptionKeyFromString(
   if (keyBytes.length < keySize) {
     return Buffer.concat([
       keyBytes,
-      Buffer.alloc(keySize - keyBytes.length, 0)
+      Buffer.alloc(keySize - keyBytes.length, 0),
     ]);
   } else {
     return keyBytes.subarray(0, keySize);
@@ -87,7 +87,7 @@ export function generateKeyPair() {
 export function signMessage(message: string | Buffer, key: Buffer) {
   const hmac = crypto.createHmac("sha256", key);
   hmac.update(
-    typeof message === "string" ? Buffer.from(message, "hex") : message
+    typeof message === "string" ? Buffer.from(message, "hex") : message,
   );
   return hmac.digest("hex");
 }
@@ -95,7 +95,7 @@ export function signMessage(message: string | Buffer, key: Buffer) {
 export function verify(
   message: string | Buffer,
   signature: string,
-  key: Buffer
+  key: Buffer,
 ) {
   const calculatedSignature = signMessage(message, key);
   return signature === calculatedSignature;

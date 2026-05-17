@@ -56,17 +56,17 @@ export class ResourceBuilder {
         criticalResources.some(
           (critical) =>
             result.resourceType.includes(critical) ||
-            critical.includes(result.resourceType)
-        )
+            critical.includes(result.resourceType),
+        ),
     );
 
     if (failedCritical.length > 0) {
       this.logger.error(
-        "CRITICAL ERROR: Essential game resources failed to load!"
+        "CRITICAL ERROR: Essential game resources failed to load!",
       );
       failedCritical.forEach((failure) => {
         this.logger.error(
-          `- ${failure.resourceType}: ${failure.error?.message}`
+          `- ${failure.resourceType}: ${failure.error?.message}`,
         );
       });
       return false;
@@ -80,7 +80,7 @@ export class ResourceBuilder {
     successful: number;
     failed: number;
     errors: ResourceLoadResult[];
-    } {
+  } {
     const successful = this.loadErrors.filter((result) => result.success);
     const failed = this.loadErrors.filter((result) => !result.success);
 
@@ -88,7 +88,7 @@ export class ResourceBuilder {
       total: this.loadErrors.length,
       successful: successful.length,
       failed: failed.length,
-      errors: failed
+      errors: failed,
     };
   }
 
@@ -121,14 +121,14 @@ export class ResourceBuilder {
       } catch (error) {
         this.logger.error("Failed to initialize resource instances:", error);
         throw new Error(
-          `Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`
+          `Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`,
         );
       }
 
       if (this.load) {
         this.logger.info("Loading game resources...");
         // Load items with error handling
-        await this.loadResourceSafely("Items", async() => {
+        await this.loadResourceSafely("Items", async () => {
           this.logger.info("Loading items...");
           await this.itemResources.loadDefines();
           await this.itemResources.loadItemsPropStrings();
@@ -136,14 +136,14 @@ export class ResourceBuilder {
         });
 
         // Load monsters with error handling and fallback
-        await this.loadResourceSafely("Monsters/Movers", async() => {
+        await this.loadResourceSafely("Monsters/Movers", async () => {
           this.logger.info("Loading monsters/movers...");
           try {
             await this.monsterResources.load();
           } catch (error) {
             this.logger.warn(
               "Failed to load with new method, falling back to Redis-based loading:",
-              error
+              error,
             );
             await this.monsterResources.loadDefines();
             await this.monsterResources.loadMonstersPropStrings();
@@ -152,33 +152,33 @@ export class ResourceBuilder {
         });
 
         // Load NPCs with error handling
-        await this.loadResourceSafely("NPCs", async() => {
+        await this.loadResourceSafely("NPCs", async () => {
           this.logger.info("Loading NPCs...");
           await this.npcResources.load();
         });
 
         // Load jobs with error handling
-        await this.loadResourceSafely("Jobs", async() => {
+        await this.loadResourceSafely("Jobs", async () => {
           this.logger.info("Loading jobs...");
           await this.jobResources.loadDefines();
           await this.jobResources.loadJobsProp();
         });
 
         // Load experience tables with error handling
-        await this.loadResourceSafely("Experience Tables", async() => {
+        await this.loadResourceSafely("Experience Tables", async () => {
           this.logger.info("Loading experience tables...");
           await this.expTableResources.loadExpCharacter();
           await this.expTableResources.loadExpDropLuck();
         });
 
         // Load death penalties with error handling
-        await this.loadResourceSafely("Death Penalties", async() => {
+        await this.loadResourceSafely("Death Penalties", async () => {
           this.logger.info("Loading death penalties...");
           await this.deathPenaltyResource.loadDeathPenalty();
         });
 
         // Load maps with error handling
-        await this.loadResourceSafely("Maps", async() => {
+        await this.loadResourceSafely("Maps", async () => {
           this.logger.info("Loading maps and worlds...");
           await this.mapResource.loadDefines();
           await this.mapResource.loadWorldPaths();
@@ -186,7 +186,7 @@ export class ResourceBuilder {
         });
 
         // Load skills with error handling
-        await this.loadResourceSafely("Skills", async() => {
+        await this.loadResourceSafely("Skills", async () => {
           this.logger.info("Loading skills...");
           await this.skillResource.loadDefines();
           await this.skillResource.loadSkillsPropStrings();
@@ -196,13 +196,13 @@ export class ResourceBuilder {
         // Load quests with error handling (non-critical)
         await this.loadResourceSafely(
           "Quests",
-          async() => {
+          async () => {
             this.logger.info("Loading quest defines...");
             await this.questResources.loadDefines();
             this.logger.info("Loading quests...");
             this.questResources.load();
           },
-          false
+          false,
         ); // Non-critical resource
 
         // Log summary of loaded resources
@@ -211,7 +211,7 @@ export class ResourceBuilder {
         // Validate critical resources
         if (!this.validateCriticalResources()) {
           throw new Error(
-            "Critical resources failed to load. Server cannot start safely."
+            "Critical resources failed to load. Server cannot start safely.",
           );
         }
       }
@@ -230,14 +230,14 @@ export class ResourceBuilder {
       expTableResources: this.expTableResources,
       deathPenaltyResource: this.deathPenaltyResource,
       mapResource: this.mapResource,
-      questResources: this.questResources
+      questResources: this.questResources,
     };
   }
 
   private async loadResourceSafely(
     resourceType: string,
     loadFunction: () => Promise<void> | void,
-    critical: boolean = true
+    critical: boolean = true,
   ): Promise<void> {
     const startTime = Date.now();
 
@@ -248,7 +248,7 @@ export class ResourceBuilder {
       this.loadErrors.push({
         success: true,
         resourceType,
-        elapsed
+        elapsed,
       });
     } catch (error) {
       const elapsed = Date.now() - startTime;
@@ -259,24 +259,24 @@ export class ResourceBuilder {
         success: false,
         resourceType,
         error: loadError,
-        elapsed
+        elapsed,
       });
 
       if (critical) {
         this.logger.error(
           `CRITICAL: Failed to load ${resourceType}:`,
-          loadError.message
+          loadError.message,
         );
         throw new Error(
-          `Critical resource loading failed: ${resourceType} - ${loadError.message}`
+          `Critical resource loading failed: ${resourceType} - ${loadError.message}`,
         );
       } else {
         this.logger.warn(
           `NON-CRITICAL: Failed to load ${resourceType}:`,
-          loadError.message
+          loadError.message,
         );
         this.logger.warn(
-          `Server will continue without ${resourceType} functionality.`
+          `Server will continue without ${resourceType} functionality.`,
         );
       }
     }
@@ -290,7 +290,7 @@ export class ResourceBuilder {
 
       failures.forEach((failure) => {
         this.logger.error(
-          `${failure.resourceType}: ${failure.error?.message || "Unknown error"}`
+          `${failure.resourceType}: ${failure.error?.message || "Unknown error"}`,
         );
       });
 
@@ -313,7 +313,7 @@ export class ResourceBuilder {
       const loadResult = this.loadErrors.find(
         (result) =>
           result.resourceType === resourceType ||
-          resourceType.includes(result.resourceType.split("/")[0])
+          resourceType.includes(result.resourceType.split("/")[0]),
       );
 
       let statusIndicator = "";
@@ -332,17 +332,17 @@ export class ResourceBuilder {
         loadResult?.success !== false ? this.logger.success : this.logger.error;
       logMethod.call(
         this.logger,
-        `${resourceType.padEnd(20)} ${countStr.padStart(6)} ${statusIndicator}`
+        `${resourceType.padEnd(20)} ${countStr.padStart(6)} ${statusIndicator}`,
       );
     });
 
     // Calculate total (excluding unknown counts)
     const knownCounts = Object.values(resourceCounts).filter(
-      (count) => count >= 0
+      (count) => count >= 0,
     );
     const totalResources = knownCounts.reduce((sum, count) => sum + count, 0);
     const hasUnknownCounts = Object.values(resourceCounts).some(
-      (count) => count === -1
+      (count) => count === -1,
     );
 
     this.logger.success("=".repeat(35));
@@ -350,18 +350,18 @@ export class ResourceBuilder {
       ? `${totalResources}+`
       : totalResources.toString();
     this.logger.success(
-      `${"TOTAL RESOURCES".padEnd(20)} ${totalStr.padStart(6)} loaded`
+      `${"TOTAL RESOURCES".padEnd(20)} ${totalStr.padStart(6)} loaded`,
     );
 
     // Add error summary to main summary
     if (failedLoads.length > 0) {
       this.logger.error(
-        `${"FAILED RESOURCES".padEnd(20)} ${failedLoads.length.toString().padStart(6)} failed`
+        `${"FAILED RESOURCES".padEnd(20)} ${failedLoads.length.toString().padStart(6)} failed`,
       );
     }
 
     this.logger.success(
-      `${"BUILD TIME".padEnd(20)} ${totalElapsed.toString().padStart(4)}ms`
+      `${"BUILD TIME".padEnd(20)} ${totalElapsed.toString().padStart(4)}ms`,
     );
     this.logger.success("=" + "=".repeat(33) + "=");
 

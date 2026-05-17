@@ -37,7 +37,7 @@ export class HandlerBuilder {
     if (!files.length) return;
 
     await Promise.all(
-      _.map(files, async(file: string) => {
+      _.map(files, async (file: string) => {
         const handlerModule = await import(join(handlersFolder, file));
         if (handlerModule && handlerModule.default) {
           const HandlerClass = handlerModule.default as HandlerConstructor;
@@ -46,7 +46,7 @@ export class HandlerBuilder {
             this.handlers.set(decoratedKey, HandlerClass);
           }
         }
-      })
+      }),
     );
   }
 

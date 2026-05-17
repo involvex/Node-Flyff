@@ -7,7 +7,7 @@ import { ResourcePaths } from "./resourcePaths";
 import {
   NpcProperties,
   ShopProperties,
-  DialogProperties
+  DialogProperties,
 } from "../interfaces/resource";
 
 export class NpcResources {
@@ -52,7 +52,7 @@ export class NpcResources {
       dialog: data.dialog ? JSON.parse(data.dialog) : null,
       hasShop: !!data.shop,
       hasDialog: !!data.dialog,
-      canBuff: data.canBuff === "true"
+      canBuff: data.canBuff === "true",
     };
   }
 
@@ -71,7 +71,7 @@ export class NpcResources {
       const dialogPath = path.join(dialogDir, file);
       try {
         const dialog: DialogProperties = JSON.parse(
-          fs.readFileSync(dialogPath, "utf8")
+          fs.readFileSync(dialogPath, "utf8"),
         );
         if (this.npcs.has(npcId)) {
           (this.npcs.get(npcId) as any).dialog = dialog;
@@ -81,7 +81,7 @@ export class NpcResources {
           await this.redisClient.hset(
             `npc:${npcId}`,
             "dialog",
-            JSON.stringify(dialog)
+            JSON.stringify(dialog),
           );
         }
       } catch (e) {
@@ -104,7 +104,7 @@ export class NpcResources {
       const shopPath = path.join(ResourcePaths.shopsDir, file);
       try {
         const shop: ShopProperties = JSON.parse(
-          fs.readFileSync(shopPath, "utf8")
+          fs.readFileSync(shopPath, "utf8"),
         );
         if (this.npcs.has(npcId)) {
           (this.npcs.get(npcId) as any).shop = shop;
@@ -114,7 +114,7 @@ export class NpcResources {
           await this.redisClient.hset(
             `npc:${npcId}`,
             "shop",
-            JSON.stringify(shop)
+            JSON.stringify(shop),
           );
         }
       } catch (e) {
@@ -128,7 +128,7 @@ export class NpcResources {
     const propPath = path.join(
       ResourcePaths.resPath,
       "data",
-      "character.txt.txt"
+      "character.txt.txt",
     );
     if (!fs.existsSync(propPath)) {
       this.logger.info("No NPC prop strings file found (stub)");
@@ -139,7 +139,7 @@ export class NpcResources {
     const lines = content.split("\n");
     const pairs = _.chunk(
       lines.filter((l) => l.trim()),
-      2
+      2,
     );
 
     for (const pair of pairs) {
@@ -158,7 +158,7 @@ export class NpcResources {
     const propPath = path.join(
       ResourcePaths.resPath,
       "data",
-      "character-school.txt.txt"
+      "character-school.txt.txt",
     );
     if (!fs.existsSync(propPath)) {
       this.logger.info("No NPC school prop strings file found (stub)");
@@ -169,7 +169,7 @@ export class NpcResources {
     const lines = content.split("\n");
     const pairs = _.chunk(
       lines.filter((l) => l.trim()),
-      2
+      2,
     );
 
     for (const pair of pairs) {
@@ -241,7 +241,7 @@ export class NpcResources {
               items: [],
               hasShop: false,
               hasDialog: false,
-              canBuff
+              canBuff,
             };
 
             // Cache in Redis

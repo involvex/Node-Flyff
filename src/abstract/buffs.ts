@@ -15,7 +15,7 @@ export class Buffs implements Iterable<Buff> {
 
     if (this.contains(buff) && "skillId" in buff) {
       const existingBuff = this.buffs.find(
-        (b) => "skillId" in b && b.skillId === (buff as any).skillId
+        (b) => "skillId" in b && b.skillId === (buff as any).skillId,
       ) as Buff & { skillLevel: number };
 
       if (existingBuff) {
@@ -66,7 +66,7 @@ export class Buffs implements Iterable<Buff> {
 
     if ("skillId" in buff) {
       return this.buffs.some(
-        (b) => "skillId" in b && b.skillId === (buff as any).skillId
+        (b) => "skillId" in b && b.skillId === (buff as any).skillId,
       );
     }
 

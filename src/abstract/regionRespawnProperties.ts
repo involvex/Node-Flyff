@@ -27,7 +27,7 @@ export class MapRespawnRegionProperties extends MapRegionProperties {
     modelId: number,
     time: number,
     count: number,
-    height: number
+    height: number,
   ) {
     super(x, z, width, length);
     this.objectType = objectType;

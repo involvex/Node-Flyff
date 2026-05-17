@@ -13,12 +13,12 @@ export class RgnRespawn7 extends RgnElement {
       new Vector3(
         parseInt(respawnData[3]),
         parseInt(respawnData[4]),
-        parseInt(respawnData[5])
+        parseInt(respawnData[5]),
       ),
       parseInt(respawnData[9]),
       parseInt(respawnData[10]),
       parseInt(respawnData[11]),
-      parseInt(respawnData[12])
+      parseInt(respawnData[12]),
     );
 
     this._model = parseInt(respawnData[2]);

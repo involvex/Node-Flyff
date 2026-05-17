@@ -39,3 +39,5 @@ Thumbs.db
 *.log
 *.tgz
 *.tar.gz
+
+data

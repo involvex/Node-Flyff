@@ -20,16 +20,16 @@ export default class Handler extends PacketHandler {
     const characters = this.server?.instance?.getEntity("Character");
     const character = (await characters?.findOne({
       where: {
-        id: this.characterId
+        id: this.characterId,
       },
-      relations: ["account"]
+      relations: ["account"],
     })) as Character;
 
     if (!character || !character.account) {
       this.logger.warn(
         "Unable to select character with ID",
         this.characterId,
-        ". Reason: Character or account not found."
+        ". Reason: Character or account not found.",
       );
       return this.userConnection.disconnect();
     }
@@ -38,7 +38,7 @@ export default class Handler extends PacketHandler {
       this.logger.warn(
         "Unable to select character",
         character.name,
-        ". Reason: Character is deleted."
+        ". Reason: Character is deleted.",
       );
       return this.userConnection.disconnect();
     }
@@ -52,14 +52,14 @@ export default class Handler extends PacketHandler {
       character.id,
       character.account.username,
       character.account.password,
-      300 // 5 minutes expiry
+      300, // 5 minutes expiry
     );
 
     // Send world server connection info to client
     this.sendWorldServerInfo(sessionKey, character);
 
     this.logger.info(
-      `Character ${character.name} (ID: ${character.id}) selected by user ${character.account.username}. Redirecting to world server.`
+      `Character ${character.name} (ID: ${character.id}) selected by user ${character.account.username}. Redirecting to world server.`,
     );
   }
 

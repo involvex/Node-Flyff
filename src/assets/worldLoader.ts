@@ -46,7 +46,7 @@ export class WorldLoader {
         models: new Map(),
         textures: new Map(),
         sounds: new Map(),
-        loaded: false
+        loaded: false,
       };
 
       // Load WLD file
@@ -75,7 +75,7 @@ export class WorldLoader {
   private async loadWldFile(
     worldId: string,
     clientPath: string,
-    worldData: WorldData
+    worldData: WorldData,
   ): Promise<void> {
     try {
       const worldDir = path.join(clientPath, "world");
@@ -99,7 +99,7 @@ export class WorldLoader {
   private async loadDyoFile(
     worldId: string,
     clientPath: string,
-    worldData: WorldData
+    worldData: WorldData,
   ): Promise<void> {
     try {
       const worldDir = path.join(clientPath, "world");
@@ -115,7 +115,7 @@ export class WorldLoader {
       worldData.dyoObjects = dyoFile.Elements;
 
       this.logger.info(
-        `Loaded ${worldData.dyoObjects.length} DYO objects for ${worldId}`
+        `Loaded ${worldData.dyoObjects.length} DYO objects for ${worldId}`,
       );
     } catch (error) {
       this.logger.error(`Failed to load DYO file for ${worldId}:`, error);
@@ -125,7 +125,7 @@ export class WorldLoader {
   private async loadRgnFile(
     worldId: string,
     clientPath: string,
-    worldData: WorldData
+    worldData: WorldData,
   ): Promise<void> {
     try {
       const worldDir = path.join(clientPath, "world");
@@ -141,7 +141,7 @@ export class WorldLoader {
       worldData.rgnRegions = [...rgnFile.Elements];
 
       this.logger.info(
-        `Loaded ${worldData.rgnRegions.length} RGN regions for ${worldId}`
+        `Loaded ${worldData.rgnRegions.length} RGN regions for ${worldId}`,
       );
     } catch (error) {
       this.logger.error(`Failed to load RGN file for ${worldId}:`, error);
@@ -151,7 +151,7 @@ export class WorldLoader {
   private async loadWorldAssets(
     worldId: string,
     clientPath: string,
-    worldData: WorldData
+    worldData: WorldData,
   ): Promise<void> {
     try {
       this.logger.info(`Loading assets for world: ${worldId}`);
@@ -174,7 +174,7 @@ export class WorldLoader {
       }
 
       this.logger.info(
-        `Found ${modelIds.size} models, ${textureIds.size} textures, ${soundIds.size} sounds`
+        `Found ${modelIds.size} models, ${textureIds.size} textures, ${soundIds.size} sounds`,
       );
 
       // Load models (placeholder - would use ModelLoader)
@@ -194,7 +194,7 @@ export class WorldLoader {
         try {
           const textureData = await this.loadTextureAsset(
             textureId,
-            clientPath
+            clientPath,
           );
           if (textureData) {
             worldData.textures.set(textureId, textureData);
@@ -217,7 +217,7 @@ export class WorldLoader {
       }
 
       this.logger.success(
-        `Loaded assets for ${worldId}: ${worldData.models.size} models, ${worldData.textures.size} textures, ${worldData.sounds.size} sounds`
+        `Loaded assets for ${worldId}: ${worldData.models.size} models, ${worldData.textures.size} textures, ${worldData.sounds.size} sounds`,
       );
     } catch (error) {
       this.logger.error(`Failed to load assets for world ${worldId}:`, error);
@@ -226,7 +226,7 @@ export class WorldLoader {
 
   private async loadModelAsset(
     modelId: string,
-    clientPath: string
+    clientPath: string,
   ): Promise<any> {
     // Check cache first
     const cached = await this.assetCache.loadAssetFromCache("models", modelId);
@@ -239,7 +239,7 @@ export class WorldLoader {
     const possiblePaths = [
       path.join(modelDir, `${modelId}.o3d`),
       path.join(modelDir, `${modelId}.x`),
-      path.join(modelDir, `${modelId}.msh`)
+      path.join(modelDir, `${modelId}.msh`),
     ];
 
     for (const modelPath of possiblePaths) {
@@ -255,12 +255,12 @@ export class WorldLoader {
 
   private async loadTextureAsset(
     textureId: string,
-    clientPath: string
+    clientPath: string,
   ): Promise<any> {
     // Check cache first
     const cached = await this.assetCache.loadAssetFromCache(
       "textures",
-      textureId
+      textureId,
     );
     if (cached) {
       return { id: textureId, data: cached };
@@ -270,7 +270,7 @@ export class WorldLoader {
     const textureDirs = [
       path.join(clientPath, "model", "texture"),
       path.join(clientPath, "texture"),
-      path.join(clientPath, "theme")
+      path.join(clientPath, "theme"),
     ];
 
     const possibleExtensions = [".dds", ".tga", ".png", ".jpg"];
@@ -288,7 +288,7 @@ export class WorldLoader {
             "textures",
             textureId,
             texturePath,
-            data
+            data,
           );
           return { id: textureId, data };
         }
@@ -300,7 +300,7 @@ export class WorldLoader {
 
   private async loadSoundAsset(
     soundId: string,
-    clientPath: string
+    clientPath: string,
   ): Promise<any> {
     // Check cache first
     const cached = await this.assetCache.loadAssetFromCache("sounds", soundId);
@@ -312,7 +312,7 @@ export class WorldLoader {
     const soundDirs = [
       path.join(clientPath, "sfx"),
       path.join(clientPath, "Sound"),
-      path.join(clientPath, "Music")
+      path.join(clientPath, "Music"),
     ];
 
     const possibleExtensions = [".wav", ".mp3", ".ogg"];
@@ -373,7 +373,7 @@ export class WorldLoader {
     totalModels: number;
     totalTextures: number;
     totalSounds: number;
-    } {
+  } {
     let totalObjects = 0;
     let totalRegions = 0;
     let totalModels = 0;
@@ -394,7 +394,7 @@ export class WorldLoader {
       totalRegions,
       totalModels,
       totalTextures,
-      totalSounds
+      totalSounds,
     };
   }
 }

@@ -34,7 +34,7 @@ export class VisibilitySystem {
     }
 
     this.logger.info(
-      `Starting visibility system (range: ${this.visibilityRange}, interval: ${this.updateInterval}ms)`
+      `Starting visibility system (range: ${this.visibilityRange}, interval: ${this.updateInterval}ms)`,
     );
 
     this.updateTimer = setInterval(() => {
@@ -73,7 +73,7 @@ export class VisibilitySystem {
 
   getVisibleEntities(
     entity: WorldObject,
-    allEntities: WorldObject[]
+    allEntities: WorldObject[],
   ): WorldObject[] {
     const visible: WorldObject[] = [];
 
@@ -92,7 +92,7 @@ export class VisibilitySystem {
 
   getVisibilityUpdates(
     entity: WorldObject,
-    allEntities: WorldObject[]
+    allEntities: WorldObject[],
   ): VisibilityUpdate[] {
     const updates: VisibilityUpdate[] = [];
     const currentVisible = this.getVisibleEntities(entity, allEntities);
@@ -107,7 +107,7 @@ export class VisibilitySystem {
           entityType: other.constructor.name,
           position: other.position.clone(),
           visible: true,
-          distance: this.calculateDistance(entity, other)
+          distance: this.calculateDistance(entity, other),
         });
       }
     }
@@ -123,7 +123,7 @@ export class VisibilitySystem {
             entityType: other.constructor.name,
             position: other.position.clone(),
             visible: false,
-            distance: this.calculateDistance(entity, other)
+            distance: this.calculateDistance(entity, other),
           });
         }
       }
@@ -181,7 +181,7 @@ export class VisibilitySystem {
     updateInterval: number;
     trackedEntities: number;
     totalVisibilityConnections: number;
-    } {
+  } {
     let totalConnections = 0;
     for (const visibleSet of this.visibilityMap.values()) {
       totalConnections += visibleSet.size;
@@ -191,7 +191,7 @@ export class VisibilitySystem {
       visibilityRange: this.visibilityRange,
       updateInterval: this.updateInterval,
       trackedEntities: this.visibilityMap.size,
-      totalVisibilityConnections: totalConnections
+      totalVisibilityConnections: totalConnections,
     };
   }
 

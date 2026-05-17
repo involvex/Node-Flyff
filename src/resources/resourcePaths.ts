@@ -39,5 +39,5 @@ export const ResourcePaths = {
   expTablePath: path.join(resPath, "data", "expTable.inc"),
   moversPropExPath: path.join(resPath, "data", "propMoverEx.inc"),
   questsPath: path.join(__dirname, "quests"),
-  questsYamlPath: path.join(__dirname, "quests-yaml")
+  questsYamlPath: path.join(__dirname, "quests-yaml"),
 };

@@ -65,8 +65,8 @@ fs.readFile(
           level: parseInt(level.trim()),
           attributes: attributePair.map((i) => ({
             id: i[0],
-            value: parseInt(i[1])
-          }))
+            value: parseInt(i[1]),
+          })),
         });
       });
 
@@ -90,7 +90,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to accessory.yaml");
-      }
+      },
     );
-  }
+  },
 );

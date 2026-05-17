@@ -19,12 +19,12 @@ import {
   isValidEncryptionString,
   parseMessage,
   decryptString,
-  encryptMessage
+  encryptMessage,
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async() => {
+export default async () => {
   const instanceBuilder = new InstanceBuilder();
 
   const __filename = fileURLToPath(import.meta.url);
@@ -34,11 +34,11 @@ export default async() => {
     builder.setBasePath(join(__dirname, "../../configs"));
   });
 
-  instanceBuilder.buildDatabase(async(builder: DatabaseBuilder) => {
+  instanceBuilder.buildDatabase(async (builder: DatabaseBuilder) => {
     builder.setEntitiesPath(join(__dirname, "../../database"));
   });
 
-  instanceBuilder.buildHandlers(async(builder: HandlerBuilder) => {
+  instanceBuilder.buildHandlers(async (builder: HandlerBuilder) => {
     builder.setBasePath(__dirname);
   });
 
@@ -49,7 +49,7 @@ export default async() => {
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.CLUSTER_SERVER);
     builder.addServer(
-      new ClusterServer(instanceBuilder.config?.cluster_server.server)
+      new ClusterServer(instanceBuilder.config?.cluster_server.server),
     );
   });
 
@@ -66,11 +66,11 @@ async function clusterIntercom(instance: IInstance) {
   const { config, server, publisher, subscriber, client } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
-    config?.cluster_server.security["master-password"]
+    config?.cluster_server.security["master-password"],
   ).toString("hex");
   const redisChannels = [
     RedisChannel.CORE_CHANNEL,
-    RedisChannel.CLUSTER_CHANNEL
+    RedisChannel.CLUSTER_CHANNEL,
   ];
 
   const initCluster: ICluster = {
@@ -78,7 +78,7 @@ async function clusterIntercom(instance: IInstance) {
     host: config?.cluster_server.server.host,
     port: config?.cluster_server.server.port,
     enabled: true,
-    channels: []
+    channels: [],
   };
   // const clusterKey = `cluster:${initCluster.name}`;
 
@@ -88,7 +88,7 @@ async function clusterIntercom(instance: IInstance) {
       sendMessage(
         RedisChannel.CORE_CHANNEL,
         MessageCommand.ADD_CLUSTER,
-        initCluster
+        initCluster,
       );
       sendMessage(RedisChannel.CLUSTER_CHANNEL, MessageCommand.CLUSTER_ONLINE);
     } else {
@@ -97,9 +97,9 @@ async function clusterIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/30 * * * * *", async() => {
+  cron.schedule("*/30 * * * * *", async () => {
     const channels = await client?.getAllChannels(initCluster.name);
-    channels?.forEach(async(channel) => {
+    channels?.forEach(async (channel) => {
       if (
         channel.lastPing &&
         new Date().getTime() > channel.lastPing + 60 * 1000
@@ -108,12 +108,12 @@ async function clusterIntercom(instance: IInstance) {
         sendMessage(
           RedisChannel.CLUSTER_CHANNEL,
           MessageCommand.CLUSTER_REMOVED,
-          channel
+          channel,
         );
         logger?.info(
           "World Channel",
           channel.name,
-          "has been removed. Reason: Timeout"
+          "has been removed. Reason: Timeout",
         );
       }
     });
@@ -122,7 +122,7 @@ async function clusterIntercom(instance: IInstance) {
 
   async function processChannelMessage(
     redisChannel: RedisChannel,
-    message: string
+    message: string,
   ) {
     if (!redisChannels.includes(redisChannel)) return;
     if (!isValidEncryptionString(message, master)) return; // reject invalid messages
@@ -137,7 +137,7 @@ async function clusterIntercom(instance: IInstance) {
             sendMessage(
               RedisChannel.CORE_CHANNEL,
               MessageCommand.ADD_CLUSTER,
-              initCluster
+              initCluster,
             );
             break;
 
@@ -145,7 +145,7 @@ async function clusterIntercom(instance: IInstance) {
             if (decrypted.data?.name === initCluster.name) {
               cron.schedule("*/15 * * * * *", () => {
                 sendMessage(RedisChannel.CORE_CHANNEL, MessageCommand.PING, {
-                  name: initCluster.name
+                  name: initCluster.name,
                 });
               });
             }
@@ -156,7 +156,7 @@ async function clusterIntercom(instance: IInstance) {
               sendMessage(
                 RedisChannel.CORE_CHANNEL,
                 MessageCommand.ADD_CLUSTER,
-                initCluster
+                initCluster,
               );
             }
             break;
@@ -172,12 +172,12 @@ async function clusterIntercom(instance: IInstance) {
               logger?.warn(
                 "A channel with id",
                 decrypted.data.id,
-                "already exist."
+                "already exist.",
               );
               sendMessage(
                 RedisChannel.CLUSTER_CHANNEL,
                 MessageCommand.CHANNEL_ID_EXIST,
-                decrypted.data
+                decrypted.data,
               );
             } else if (
               await client?.getChannel(initCluster.name, decrypted.data.name)
@@ -186,18 +186,18 @@ async function clusterIntercom(instance: IInstance) {
               sendMessage(
                 RedisChannel.CLUSTER_CHANNEL,
                 MessageCommand.CHANNEL_EXIST,
-                decrypted.data
+                decrypted.data,
               );
             } else {
               const channel: IChannel = {
                 ...decrypted.data,
-                lastPing: new Date().getTime()
+                lastPing: new Date().getTime(),
               };
               await client?.insertChannel(initCluster.name, channel);
               sendMessage(
                 RedisChannel.CLUSTER_CHANNEL,
                 MessageCommand.CHANNEL_ADDED,
-                channel
+                channel,
               );
               logger?.info("Channel", decrypted.data.name, "has been added");
             }
@@ -209,7 +209,7 @@ async function clusterIntercom(instance: IInstance) {
             if (channel) {
               const updated: IChannel = {
                 ...channel,
-                lastPing: new Date().getTime()
+                lastPing: new Date().getTime(),
               };
               await client?.updateChannel(initCluster.name, updated);
             }
@@ -222,20 +222,20 @@ async function clusterIntercom(instance: IInstance) {
   function sendMessage(
     channel: RedisChannel,
     command: MessageCommand,
-    message: any = null
+    message: any = null,
   ) {
     publisher?.publish(
       channel,
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-            sender: ServerType.CLUSTER_SERVER,
-            command,
-            data: message
-          })
+              sender: ServerType.CLUSTER_SERVER,
+              command,
+              data: message,
+            })
           : message,
-        master
-      )
+        master,
+      ),
     );
   }
 }

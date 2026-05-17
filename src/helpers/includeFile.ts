@@ -4,7 +4,7 @@ import {
   BlockStatement,
   InstructionParser,
   Instruction,
-  Variable
+  Variable,
 } from "./instructionParser";
 
 export interface Block {
@@ -47,7 +47,7 @@ export class IncludeFile {
         },
         getVariable: (name: string) => {
           return statement.variables.find((v) => v.name === name) || null;
-        }
+        },
       };
 
       this.blocks.set(statement.name, block);

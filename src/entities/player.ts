@@ -59,7 +59,7 @@ class Inventory {
   getEquippedItems(): Item[] {
     return this.getRange(
       Inventory.INVENTORY_SIZE,
-      Inventory.INVENTORY_EQUIP_PARTS
+      Inventory.INVENTORY_EQUIP_PARTS,
     )
       .map((slot) => slot.item)
       .filter((item) => item !== null) as Item[];
@@ -124,7 +124,7 @@ class Skill {
   constructor(
     public readonly properties: any,
     public level: number = 0,
-    public readonly player: Player
+    public readonly player: Player,
   ) {}
 }
 
@@ -169,10 +169,10 @@ const GameOptions = {
   Current: {
     DefaultCharacter: {
       Man: { Strength: 15, Stamina: 15, Dexterity: 15, Intelligence: 15 },
-      Woman: { Strength: 15, Stamina: 15, Dexterity: 15, Intelligence: 15 }
+      Woman: { Strength: 15, Stamina: 15, Dexterity: 15, Intelligence: 15 },
     },
-    Rates: { Experience: 1 }
-  }
+    Rates: { Experience: 1 },
+  },
 };
 
 const USHORT_MAX_VALUE = 65535;
@@ -215,7 +215,7 @@ export class Player extends Mover {
       mode?: ModeType[];
       availablePoints?: number;
       skillPoints?: number;
-    }
+    },
   ) {
     super(properties);
 
@@ -240,15 +240,15 @@ export class Player extends Mover {
     // Compatibility aliases for legacy call sites
     Object.defineProperty(this, "Inventory", {
       get: () => this.inventory,
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "Mode", {
       get: () => ({ HasFlag: (flag: any) => this.mode.includes(flag) }),
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "CancelSkillUsage", {
       get: () => this.cancelSkillUsage.bind(this),
-      configurable: true
+      configurable: true,
     });
   }
 
@@ -278,10 +278,10 @@ export class Player extends Mover {
     const currentVisibleEntities: import("../abstract/worldObject").WorldObject[] =
       [];
     const appearingEntities = currentVisibleEntities.filter(
-      (entity) => !this.visibleObjects.includes(entity)
+      (entity) => !this.visibleObjects.includes(entity),
     );
     const disappearingEntities = this.visibleObjects.filter(
-      (entity) => !currentVisibleEntities.includes(entity)
+      (entity) => !currentVisibleEntities.includes(entity),
     );
 
     if (appearingEntities.length > 0 || disappearingEntities.length > 0) {
@@ -305,7 +305,7 @@ export class Player extends Mover {
     strength: number,
     stamina: number,
     dexterity: number,
-    intelligence: number
+    intelligence: number,
   ): void {
     const total = strength + stamina + dexterity + intelligence;
 
@@ -425,7 +425,7 @@ export class Player extends Mover {
     if (mapItem.owner && mapItem.owner !== this) {
       this.sendDefinedText(
         DefineText.TID_GAME_PRIORITYITEMPER,
-        `"${mapItem.item.name}"`
+        `"${mapItem.item.name}"`,
       );
       return;
     }
@@ -438,7 +438,7 @@ export class Player extends Mover {
       itemPickedUp = this.inventory.createItem(mapItem.item) > -1;
       this.sendDefinedText(
         DefineText.TID_GAME_REAPITEM,
-        `"${mapItem.item.name}"`
+        `"${mapItem.item.name}"`,
       );
     }
 
@@ -454,7 +454,7 @@ export class Player extends Mover {
     if (sendPickupMotion) {
       const motionSnapshot = new MotionSnapshot(
         this,
-        ObjectMessageType.OBJMSG_PICKUP
+        ObjectMessageType.OBJMSG_PICKUP,
       );
       this.sendToVisible(motionSnapshot, true);
     }
@@ -470,7 +470,7 @@ export class Player extends Mover {
     if (this.map?.id === mapId) {
       if (!this.map.isInBounds(position)) {
         throw new Error(
-          `Attempt to teleport '${this.name}' to an invalid position: ${position} in map: '${this.map.name}'.`
+          `Attempt to teleport '${this.name}' to an invalid position: ${position} in map: '${this.map.name}'.`,
         );
       }
 
@@ -517,7 +517,7 @@ export class Player extends Mover {
       const monster = target as Monster;
       if (monster.properties?.dwExpValue) {
         this.experience.increase(
-          monster.properties.dwExpValue * GameOptions.Current.Rates.Experience
+          monster.properties.dwExpValue * GameOptions.Current.Rates.Experience,
         );
         this.questDiary.onMonsterKilled(monster);
       }
@@ -562,7 +562,7 @@ export class Player extends Mover {
   }
 
   private addVisibleEntity(
-    entity: import("../abstract/worldObject").WorldObject
+    entity: import("../abstract/worldObject").WorldObject,
   ): void {
     if (!this.visibleObjects.includes(entity)) {
       this.visibleObjects.push(entity);
@@ -574,7 +574,7 @@ export class Player extends Mover {
   }
 
   private removeVisibleEntity(
-    entity: import("../abstract/worldObject").WorldObject
+    entity: import("../abstract/worldObject").WorldObject,
   ): void {
     const index = this.visibleObjects.indexOf(entity);
     if (index > -1) {

@@ -48,14 +48,14 @@ export default class Handler extends PacketHandler {
   async execute(): Promise<void> {
     // Validate session from Redis (sent from cluster server, equivalent to C# account/player DB check)
     const sessionData = await this.server?.redisClient?.getCharacterSession(
-      this.authKey
+      this.authKey,
     );
 
     if (!sessionData) {
       this.logger.warn(
         "Unable to join game for character",
         this.characterName,
-        ". Reason: Invalid or expired session."
+        ". Reason: Invalid or expired session.",
       );
       return this.userConnection.disconnect();
     }
@@ -64,16 +64,16 @@ export default class Handler extends PacketHandler {
     const characters = this.server?.instance?.getEntity("Character");
     const character = (await characters?.findOne({
       where: {
-        id: this.characterId
+        id: this.characterId,
       },
-      relations: ["account", "equipments", "equipments.item"]
+      relations: ["account", "equipments", "equipments.item"],
     })) as Character;
 
     if (!character || !character.account) {
       this.logger.warn(
         "Unable to join game for character ID",
         this.characterId,
-        ". Reason: Character not found."
+        ". Reason: Character not found.",
       );
       return this.userConnection.disconnect();
     }
@@ -86,7 +86,7 @@ export default class Handler extends PacketHandler {
       this.logger.warn(
         "Unable to join game for character",
         character.name,
-        ". Reason: Session data mismatch."
+        ". Reason: Session data mismatch.",
       );
       return this.userConnection.disconnect();
     }
@@ -95,7 +95,7 @@ export default class Handler extends PacketHandler {
       this.logger.warn(
         "Unable to join game for character",
         character.name,
-        ". Reason: Character is deleted."
+        ". Reason: Character is deleted.",
       );
       return this.userConnection.disconnect();
     }
@@ -121,7 +121,7 @@ export default class Handler extends PacketHandler {
         positionX: character.positionX,
         positionY: character.positionY,
         positionZ: character.positionZ,
-        mapId: character.mapId
+        mapId: character.mapId,
       });
       this.logger.info(`Set initial spawn position for ${character.name}`);
     }
@@ -137,7 +137,7 @@ export default class Handler extends PacketHandler {
     const jobProperties = await gameResources.jobResources.get(character.jobId);
     if (!jobProperties) {
       this.logger.error(
-        `Job properties not found for jobId ${character.jobId}`
+        `Job properties not found for jobId ${character.jobId}`,
       );
       return this.userConnection.disconnect();
     }
@@ -146,7 +146,7 @@ export default class Handler extends PacketHandler {
     const position = new Vector3(
       character.positionX,
       character.positionY,
-      character.positionZ
+      character.positionZ,
     );
 
     // Basic MoverProperties (extend as needed, like C# GameResources.Current.Movers.Get(modelId))
@@ -237,7 +237,7 @@ export default class Handler extends PacketHandler {
       szComment: "",
       dwAreaColor: 0,
       szNpcMark: "",
-      dwMadrigalGiftPoint: 0
+      dwMadrigalGiftPoint: 0,
     };
 
     // Create player entity (like C# new Player(User, Mover))
@@ -252,12 +252,12 @@ export default class Handler extends PacketHandler {
         hairId: character.hairId || 0,
         hairColor: character.hairColor || 0,
         faceId: character.faceId || 0,
-        skinSetId: character.skinSetId || 0
+        skinSetId: character.skinSetId || 0,
       },
       deathLevel: 0,
       mode: [],
       availablePoints: character.statPoints || 0,
-      skillPoints: character.skillPoints || 0
+      skillPoints: character.skillPoints || 0,
     };
 
     const player = new Player(this.userConnection, moverProperties, playerData);
@@ -304,7 +304,7 @@ export default class Handler extends PacketHandler {
         if (layer && layer.addPlayer) {
           layer.addPlayer(player);
           this.logger.info(
-            `Added ${character.name} to map ${character.mapId} layer`
+            `Added ${character.name} to map ${character.mapId} layer`,
           );
         }
       }
@@ -314,12 +314,12 @@ export default class Handler extends PacketHandler {
       id: player.id,
       name: player.name,
       position: player.position,
-      level: player.level
+      level: player.level,
       // TODO: Include more data like C#
     });
     // TODO: Send initial snapshot to new player (like C# SendInitialSnapshot)
     this.logger.success(
-      `Character ${character.name} (ID: ${character.id}) joined world server successfully as player entity.`
+      `Character ${character.name} (ID: ${character.id}) joined world server successfully as player entity.`,
     );
   }
 }

@@ -18,7 +18,7 @@ export class MapRevivalRegionProperties extends MapRegionProperties {
     key: string,
     isChaoRegion: boolean,
     targetRevivalKey: boolean,
-    revivalPosition: Vector3
+    revivalPosition: Vector3,
   ) {
     super(x, z, width, length);
     this.mapId = mapId;

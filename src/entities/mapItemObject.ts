@@ -25,7 +25,7 @@ export class MapItemObject extends WorldObject {
     super();
     if (!item) {
       throw new Error(
-        "Cannot create a map object instance with an undefined item."
+        "Cannot create a map object instance with an undefined item.",
       );
     }
     this.item = item;

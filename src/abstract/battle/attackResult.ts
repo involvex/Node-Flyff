@@ -7,14 +7,14 @@ export class AttackResult {
   static miss(): AttackResult {
     return {
       damages: 0,
-      flags: AttackFlags.AF_MISS
+      flags: AttackFlags.AF_MISS,
     };
   }
 
   static success(damages: number, attackFlags: AttackFlags): AttackResult {
     return {
       damages,
-      flags: attackFlags
+      flags: attackFlags,
     };
   }
 }

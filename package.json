@@ -7,13 +7,16 @@
     "node": ">=22.0.0",
     "bun": ">=1.0.0"
   },
+  "workspaces": [
+    "web-client"
+  ],
   "scripts": {
     "start": "bun run src/main.ts",
     "dev": "bun --watch run src/main.ts",
     "dev:login": "bun dev login",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "bun run lint:fix",
-    "build": "bun build ./src/main.ts --outdir ./dist --target node",
+    "prebuild": "bun run format && bun run lint:fix && bun run typecheck",
+    "build": "bun build ./src/main.ts --outdir ./dist --target node && bun run build:web-client",
     "build:watch": "bun build ./src/main.ts --outdir ./dist --target node --watch",
     "build:release": "bun run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
     "lint": "eslint . --ext .ts --ext .mts",
@@ -21,7 +24,9 @@
     "format": "prettier --write .",
     "test-client": "bun run src/testClient.ts",
     "ws-proxy": "bun run src/tools/wsTcpProxy.ts",
-    "tsc:build": "tsc -p tsconfig.json"
+    "tsc:build": "tsc -p tsconfig.json",
+    "build:web-client": "bun run -F node-flyff-web-client build",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "better-sqlite3": "^8.2.0",
@@ -36,6 +41,7 @@
     "reflect-metadata": "^0.2.1",
     "sqlite3": "^6.0.1",
     "typeorm": "^0.3.20",
+    "uuid": "^14.0.0",
     "ws": "^8.13.0"
   },
   "devDependencies": {

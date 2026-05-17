@@ -30,7 +30,7 @@ async function main() {
     // Test visibility
     const visibleTo1 = visibilitySystem.getVisibleEntities(
       entity1,
-      allEntities
+      allEntities,
     );
     logger.success(`✓ Entity 1 can see ${visibleTo1.length} entities`);
 
@@ -60,7 +60,7 @@ async function main() {
     const moveUpdate = mobilitySystem.getMovementUpdate(entity1.objectId);
     if (moveUpdate) {
       logger.success(
-        `✓ Movement update: pos(${moveUpdate.position.x.toFixed(1)}, ${moveUpdate.position.y.toFixed(1)}, ${moveUpdate.position.z.toFixed(1)})`
+        `✓ Movement update: pos(${moveUpdate.position.x.toFixed(1)}, ${moveUpdate.position.y.toFixed(1)}, ${moveUpdate.position.z.toFixed(1)})`,
       );
     }
 
@@ -82,7 +82,7 @@ async function main() {
     const combatResult = combatSystem.performAttack(entity1, entity2, "melee");
     if (combatResult) {
       logger.success(
-        `✓ Attack result: ${combatResult.damage} damage, crit: ${combatResult.isCritical}, blocked: ${combatResult.isBlocked}`
+        `✓ Attack result: ${combatResult.damage} damage, crit: ${combatResult.isCritical}, blocked: ${combatResult.isBlocked}`,
       );
     }
 
@@ -91,7 +91,7 @@ async function main() {
 
     const overallCombatStats = combatSystem.getStats();
     logger.success(
-      `✓ Overall combat stats: ${JSON.stringify(overallCombatStats)}`
+      `✓ Overall combat stats: ${JSON.stringify(overallCombatStats)}`,
     );
 
     logger.success("✓ Combat system test passed");
@@ -141,14 +141,14 @@ function createTestEntity(id: number, position: Vector3): WorldObject {
     stateMode: 0,
     visibleObjects: [],
     type: 0,
-    getVisibleObject: function() {
+    getVisibleObject: function () {
       return null;
     },
-    sendDefinedText: function() {},
-    sendSpecialEffect: function() {},
-    send: function() {},
-    sendToVisible: function() {},
-    dispose: function() {}
+    sendDefinedText: function () {},
+    sendSpecialEffect: function () {},
+    send: function () {},
+    sendToVisible: function () {},
+    dispose: function () {},
   } as WorldObject;
 
   return entity;

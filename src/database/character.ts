@@ -4,7 +4,7 @@ import {
   Column,
   BaseEntity,
   OneToMany,
-  ManyToOne
+  ManyToOne,
 } from "typeorm";
 import { GenderType } from "../common/genderType";
 import type EquipmentItemEntity from "./equipmentItem";
@@ -13,98 +13,98 @@ import AccountEntity from "./account";
 @Entity("Character")
 export default class CharacterEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @ManyToOne(() => AccountEntity, (account) => account.characters)
-    account: AccountEntity;
+  account: AccountEntity;
 
   @Column({ nullable: false })
-    name: string;
+  name: string;
 
   @Column({ nullable: false })
-    gender: GenderType;
+  gender: GenderType;
 
   @Column({ nullable: false })
-    level: number;
+  level: number;
 
   @Column({ nullable: false })
-    slot: number;
+  slot: number;
 
   @Column({ nullable: false, default: 0 })
-    bankPin: number;
+  bankPin: number;
 
   @Column({ nullable: false })
-    mapId: number;
+  mapId: number;
 
   @Column({ nullable: false })
-    positionX: number;
+  positionX: number;
 
   @Column({ nullable: false })
-    positionY: number;
+  positionY: number;
 
   @Column({ nullable: false })
-    positionZ: number;
+  positionZ: number;
 
   @Column({ nullable: false })
-    skinSetId: number;
+  skinSetId: number;
 
   @Column({ nullable: false })
-    hairId: number;
+  hairId: number;
 
   @Column({ nullable: false })
-    hairColor: number;
+  hairColor: number;
 
   @Column({ nullable: false })
-    faceId: number;
+  faceId: number;
 
   @Column({ nullable: false })
-    jobId: number;
+  jobId: number;
 
   @Column({ nullable: false })
-    strength: number;
+  strength: number;
 
   @Column({ nullable: false })
-    stamina: number;
+  stamina: number;
 
   @Column({ nullable: false })
-    intelligence: number;
+  intelligence: number;
 
   @Column({ nullable: false })
-    dexterity: number;
+  dexterity: number;
 
   @Column({ nullable: false, default: 0 })
-    gold: number;
+  gold: number;
 
   @Column({ nullable: false, default: 0 })
-    statPoints: number;
+  statPoints: number;
 
   @Column({ nullable: false, default: 0 })
-    skillPoints: number;
+  skillPoints: number;
 
   @Column({ nullable: false, default: 0 })
-    experience: number;
+  experience: number;
 
   @Column({ nullable: false, default: 0 })
-    jobLevel: number;
+  jobLevel: number;
 
   @Column({ nullable: false, default: 0 })
-    jobExperience: number;
+  jobExperience: number;
 
   @Column({ nullable: false, default: 100 })
-    hitPoints: number;
+  hitPoints: number;
 
   @Column({ nullable: false, default: 50 })
-    manaPoints: number;
+  manaPoints: number;
 
   @Column({ nullable: false, default: 100 })
-    fatiguePoints: number;
+  fatiguePoints: number;
 
   @OneToMany(
     "EquipmentItemEntity",
-    (equipmentItem: EquipmentItemEntity) => equipmentItem.character
+    (equipmentItem: EquipmentItemEntity) => equipmentItem.character,
   )
-    equipments: EquipmentItemEntity[];
+  equipments: EquipmentItemEntity[];
 
   @Column({ default: false })
-    deleted: boolean;
+  deleted: boolean;
 }

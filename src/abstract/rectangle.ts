@@ -18,7 +18,7 @@ export class Rectangle {
     return new Vector3(
       FFRandom.floatRandomBetween(this.x, this.x + this.width),
       height,
-      FFRandom.floatRandomBetween(this.z, this.z + this.length)
+      FFRandom.floatRandomBetween(this.z, this.z + this.length),
     );
   }
 

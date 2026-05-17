@@ -44,7 +44,7 @@ fs.readFile(
           if (parts.length < 11) return;
           parsedData.push({
             level,
-            chance: [...parts.map((i) => parseFloat(i))]
+            chance: [...parts.map((i) => parseFloat(i))],
           });
           level++;
         });
@@ -63,7 +63,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to expDropLuck.yaml");
-      }
+      },
     );
-  }
+  },
 );

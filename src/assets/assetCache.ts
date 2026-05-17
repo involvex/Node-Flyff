@@ -44,7 +44,7 @@ export class AssetCache {
         "sounds",
         "music",
         "maps",
-        "animations"
+        "animations",
       ];
       for (const subdir of subdirs) {
         const dirPath = path.join(this.cachePath, subdir);
@@ -63,7 +63,7 @@ export class AssetCache {
     assetType: string,
     assetId: string,
     sourcePath: string,
-    data: Buffer
+    data: Buffer,
   ): Promise<string> {
     if (!this.enabled) {
       return sourcePath;
@@ -89,7 +89,7 @@ export class AssetCache {
         cachedPath: cacheFile,
         size: data.length,
         lastModified: Date.now(),
-        loaded: true
+        loaded: true,
       };
 
       this.assetIndex.set(`${assetType}:${assetId}`, assetInfo);
@@ -119,7 +119,7 @@ export class AssetCache {
 
   async loadAssetFromCache(
     assetType: string,
-    assetId: string
+    assetId: string,
   ): Promise<Buffer | null> {
     const cachedPath = this.getCachedAsset(assetType, assetId);
 
@@ -134,7 +134,7 @@ export class AssetCache {
     } catch (error) {
       this.logger.error(
         `Failed to load ${assetType}:${assetId} from cache:`,
-        error
+        error,
       );
       return null;
     }
@@ -175,12 +175,12 @@ export class AssetCache {
     totalAssets: number;
     totalSize: number;
     byType: Record<string, number>;
-    } {
+  } {
     const stats = {
       enabled: this.enabled,
       totalAssets: this.assetIndex.size,
       totalSize: 0,
-      byType: {} as Record<string, number>
+      byType: {} as Record<string, number>,
     };
 
     for (const assetInfo of this.assetIndex.values()) {
@@ -201,7 +201,7 @@ export class AssetCache {
         "sounds",
         "music",
         "maps",
-        "animations"
+        "animations",
       ];
 
       for (const type of types) {
@@ -224,7 +224,7 @@ export class AssetCache {
               cachedPath: filePath,
               size: stats.size,
               lastModified: stats.mtimeMs,
-              loaded: false
+              loaded: false,
             };
 
             this.assetIndex.set(`${type}:${assetId}`, assetInfo);

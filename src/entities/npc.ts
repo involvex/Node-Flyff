@@ -8,7 +8,7 @@ import {
   DialogProperties,
   DialogLink,
   ShopProperties,
-  ShopItemProperties
+  ShopItemProperties,
 } from "../interfaces/resource";
 import { FFRandom } from "../helpers/FFRandom";
 import { timeInSeconds } from "../helpers/time";
@@ -85,23 +85,23 @@ const DialogConstants = {
       id: QuestState.BeginYes,
       title: "Accept",
       questId: 0,
-      texts: new Set<string>()
+      texts: new Set<string>(),
     },
     {
       id: QuestState.BeginNo,
       title: "Decline",
       questId: 0,
-      texts: new Set<string>()
-    }
+      texts: new Set<string>(),
+    },
   ],
   QuestFinishButtons: [
     {
       id: QuestState.EndCompleted,
       title: "Complete",
       questId: 0,
-      texts: new Set<string>()
-    }
-  ]
+      texts: new Set<string>(),
+    },
+  ],
 };
 
 // Mock GameResources for now - TODO: Replace with actual implementation
@@ -111,12 +111,12 @@ const GameResources = {
       get: (id: number) => ({
         id,
         name: `Item_${id}`,
-        packMax: 999
-      })
+        packMax: 999,
+      }),
     },
     Quests: [] as QuestProperties[],
-    getText: (textId: string) => textId
-  }
+    getText: (textId: string) => textId,
+  },
 };
 
 export class Npc extends WorldObject {
@@ -178,7 +178,7 @@ export class Npc extends WorldObject {
           itemProperties.packMax,
           shopItem.refine,
           shopItem.element,
-          shopItem.elementRefine
+          shopItem.elementRefine,
         );
       });
 
@@ -188,7 +188,7 @@ export class Npc extends WorldObject {
   }
 
   private groupShopItemsByTab(
-    items: ShopItemProperties[]
+    items: ShopItemProperties[],
   ): ShopItemProperties[][] {
     // For now, put all items in one tab
     // TODO: Implement proper tab grouping logic
@@ -200,7 +200,7 @@ export class Npc extends WorldObject {
     const npcQuests = GameResources.Current.Quests.filter(
       (quest) =>
         quest.startCharacter &&
-        quest.startCharacter.toLowerCase() === this.name.toLowerCase()
+        quest.startCharacter.toLowerCase() === this.name.toLowerCase(),
     );
 
     (this as any).quests = npcQuests;
@@ -246,7 +246,7 @@ export class Npc extends WorldObject {
     texts?: string[],
     links?: DialogLink[],
     buttons?: DialogLink[],
-    questId: number = 0
+    questId: number = 0,
   ): void {
     // TODO: Implement proper snapshot system
     // For now, just log the dialog interaction
@@ -274,10 +274,10 @@ export class Npc extends WorldObject {
     player: Player,
     texts: string[],
     buttons: DialogLink[],
-    questId: number
+    questId: number,
   ): void {
     const questDialogs = texts.map((text) =>
-      GameResources.Current.getText(text)
+      GameResources.Current.getText(text),
     );
     this.showDialog(
       player,
@@ -286,7 +286,7 @@ export class Npc extends WorldObject {
         ? Array.from(this.properties.dialog.links)
         : undefined,
       buttons,
-      questId
+      questId,
     );
   }
 
@@ -300,7 +300,7 @@ export class Npc extends WorldObject {
 
   public suggestAvailableQuest(player: Player): boolean {
     const availableQuests = this.quests.filter((quest) =>
-      player.questDiary.canStartQuest(quest)
+      player.questDiary.canStartQuest(quest),
     );
 
     if (availableQuests.length > 0) {
@@ -309,7 +309,7 @@ export class Npc extends WorldObject {
         player,
         quest.beginDialogs,
         DialogConstants.QuestAcceptDeclineButtons,
-        quest.id
+        quest.id,
       );
       return true;
     }
@@ -321,7 +321,7 @@ export class Npc extends WorldObject {
     const playerQuestsToFinalize = player.questDiary.activeQuests.filter(
       (quest) =>
         quest.canFinish() &&
-        quest.properties.endCharacter.toLowerCase() === this.name.toLowerCase()
+        quest.properties.endCharacter.toLowerCase() === this.name.toLowerCase(),
     );
 
     if (playerQuestsToFinalize.length > 0) {
@@ -330,7 +330,7 @@ export class Npc extends WorldObject {
         player,
         quest.properties.completedDialogs,
         DialogConstants.QuestFinishButtons,
-        quest.id
+        quest.id,
       );
       return true;
     }
@@ -343,10 +343,10 @@ export class Npc extends WorldObject {
       if (this._lastSpeakTime <= timeInSeconds()) {
         const playersAround = this.visibleObjects
           .filter(
-            (obj) => obj instanceof Object && obj.constructor.name === "Player"
+            (obj) => obj instanceof Object && obj.constructor.name === "Player",
           ) // Type check for Player
           .filter((obj) =>
-            this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS)
+            this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS),
           );
 
         if (playersAround.length > 0) {
@@ -368,7 +368,7 @@ export class Npc extends WorldObject {
         id: QuestState.Suggest,
         title: GameResources.Current.getText(quest.title),
         questId: quest.id,
-        texts: new Set<string>()
+        texts: new Set<string>(),
       }));
 
     // Add quest in progress options
@@ -378,7 +378,7 @@ export class Npc extends WorldObject {
         id: QuestState.End,
         title: GameResources.Current.getText(quest.title),
         questId: quest.id,
-        texts: new Set<string>()
+        texts: new Set<string>(),
       }));
 
     // TODO: Add these to the dialog snapshot when implemented

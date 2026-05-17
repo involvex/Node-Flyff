@@ -23,7 +23,7 @@ export class Vector3 {
   getDistance2D(otherPosition: Vector3): number {
     return Math.sqrt(
       Math.pow(otherPosition.x - this.x, 2) +
-        Math.pow(otherPosition.z - this.z, 2)
+        Math.pow(otherPosition.z - this.z, 2),
     );
   }
 
@@ -31,7 +31,7 @@ export class Vector3 {
     return Math.sqrt(
       Math.pow(otherPosition.x - this.x, 2) +
         Math.pow(otherPosition.y - this.y, 2) +
-        Math.pow(otherPosition.z - this.z, 2)
+        Math.pow(otherPosition.z - this.z, 2),
     );
   }
 
@@ -111,7 +111,7 @@ export class Vector3 {
     return new Vector3(
       a.y * b.z - a.z * b.y,
       a.z * b.x - a.x * b.z,
-      a.x * b.y - a.y * b.x
+      a.x * b.y - a.y * b.x,
     );
   }
 

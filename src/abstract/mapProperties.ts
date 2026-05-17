@@ -28,7 +28,7 @@ export class MapProperties {
     mpu: number,
     bounds: Rectangle,
     regions: MapRegionProperties[],
-    objects: MapObjectProperties[]
+    objects: MapObjectProperties[],
   ) {
     this.id = id;
     this.name = name;

@@ -77,7 +77,7 @@ fs.readFile(
           const slotName = lines[i + 1].trim();
           addVendorSlot.push({
             slot: parseInt(slotIndex),
-            name: slotName
+            name: slotName,
           });
         } else if (
           trimmedLine.startsWith("AddVendorItem") ||
@@ -97,7 +97,7 @@ fs.readFile(
             job: parseInt(values[2]),
             min: parseInt(values[3]),
             max: parseInt(values[4]),
-            qty: parseInt(values[5])
+            qty: parseInt(values[5]),
           });
         } else if (
           trimmedLine.startsWith("AddVenderItem2") ||
@@ -113,7 +113,7 @@ fs.readFile(
             .map((i) => i.trim());
           addVendorItem2.push({
             slot: parseInt(values[0]),
-            id: values[1]
+            id: values[1],
           });
         } else if (trimmedLine.startsWith("SetName")) {
           setName = lines[i + 2].trim();
@@ -128,7 +128,7 @@ fs.readFile(
             .pop()!
             .split(";")
             .shift()!
-            .replace("\"", "")
+            .replace('"', "")
             .trim();
         } else if (trimmedLine.startsWith("m_nStructure")) {
           structure = trimmedLine.split("=").pop()!.split(";").shift()!.trim();
@@ -153,7 +153,7 @@ fs.readFile(
             level: parseInt(values[1]),
             minLevel: parseInt(values[2]),
             maxLevel: parseInt(values[3]),
-            duration: parseInt(values[4])
+            duration: parseInt(values[4]),
           });
         }
       }
@@ -175,8 +175,8 @@ fs.readFile(
             dialog,
             hasDialog: !!dialog,
             canBuff: setBuffSkill.length > 0,
-            buffs: setBuffSkill
-          }
+            buffs: setBuffSkill,
+          },
         });
       }
     });
@@ -193,7 +193,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to characters.yaml");
-      }
+      },
     );
-  }
+  },
 );

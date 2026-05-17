@@ -9,7 +9,7 @@ import { MapResources } from "../resources/mapResources";
 import { NpcResources } from "../resources/npcResource";
 import {
   DropItemProperties,
-  DropItemKindProperties
+  DropItemKindProperties,
 } from "./dropItemProperties";
 import { QuestResourcesYaml } from "../resources/questResourcesYaml";
 export interface GameResources {

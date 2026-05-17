@@ -21,7 +21,7 @@ export abstract class BaseResource {
   protected logLoadSuccess(count: number, elapsed: number): void {
     this.loadedCount = count;
     this.logger.success(
-      `${count} ${this.resourceType.toLowerCase()} loaded in ${elapsed}ms`
+      `${count} ${this.resourceType.toLowerCase()} loaded in ${elapsed}ms`,
     );
   }
 
@@ -39,7 +39,7 @@ export abstract class BaseResource {
 
   protected logDependencyMissing(dependency: string): void {
     this.logger.warn(
-      `${this.resourceType}: Missing dependency - ${dependency}`
+      `${this.resourceType}: Missing dependency - ${dependency}`,
     );
   }
 }

@@ -27,10 +27,10 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
       (this.skill as any).Level ?? (this.skill as any).level ?? 0;
 
     let referStatistic1: number = this.attacker.attributes.get(
-      skillProps.referStat1
+      skillProps.referStat1,
     );
     let referStatistic2: number = this.attacker.attributes.get(
-      skillProps.referStat2
+      skillProps.referStat2,
     );
 
     if (
@@ -55,26 +55,26 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
     const attack: RangeHelper<number> =
       this.attacker instanceof Player && this.defender instanceof Player
         ? new RangeHelper<number>(
-          levelProps.abilityMinPVP,
-          levelProps.abilityMaxPVP
-        )
+            levelProps.abilityMinPVP,
+            levelProps.abilityMaxPVP,
+          )
         : new RangeHelper<number>(levelProps.abilityMin, levelProps.abilityMax);
 
     let weaponItem: Item | null = null;
 
     if (this.attacker instanceof Player) {
       weaponItem = this.attacker.inventory.getEquipedItem(
-        ItemPartType.RightWeapon
+        ItemPartType.RightWeapon,
       );
     }
 
     const weaponAttackPower: RangeHelper<number> = this.getWeaponAttackPower(
       this.attacker,
-      weaponItem
+      weaponItem,
     );
     const weaponExtraDamages: number = this.getWeaponExtraDamages(
       this.attacker,
-      weaponItem
+      weaponItem,
     );
 
     const weaponProps =
@@ -102,7 +102,7 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
       powerMin +
         (FFRandom.floatRandomBetween
           ? FFRandom.floatRandomBetween(1, attackMinMax)
-          : FFRandom.floatRandom())
+          : FFRandom.floatRandom()),
     );
   }
 }

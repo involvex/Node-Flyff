@@ -21447,7 +21447,9 @@ var require_CannotReflectMethodParameterTypeError = __commonJS((exports) => {
   exports.CannotReflectMethodParameterTypeError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class CannotReflectMethodParameterTypeError extends TypeORMError_1.TypeORMError {
+  class CannotReflectMethodParameterTypeError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(target, methodName) {
       super(
         `Cannot get reflected type for a "${methodName}" method's parameter of "${target.name}" class. ` +
@@ -21970,7 +21972,9 @@ var require_CustomRepositoryCannotInheritRepositoryError = __commonJS(
     exports.CustomRepositoryCannotInheritRepositoryError = undefined;
     var TypeORMError_1 = require_TypeORMError();
 
-    class CustomRepositoryCannotInheritRepositoryError extends TypeORMError_1.TypeORMError {
+    class CustomRepositoryCannotInheritRepositoryError
+      extends TypeORMError_1.TypeORMError
+    {
       constructor(repository) {
         super(
           `Custom entity repository ${typeof repository === "function" ? repository.name : repository.constructor.name} ` +
@@ -21989,7 +21993,9 @@ var require_QueryRunnerProviderAlreadyReleasedError = __commonJS((exports) => {
   exports.QueryRunnerProviderAlreadyReleasedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class QueryRunnerProviderAlreadyReleasedError extends TypeORMError_1.TypeORMError {
+  class QueryRunnerProviderAlreadyReleasedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor() {
       super(
         `Database connection provided by a query runner was already ` +
@@ -22007,7 +22013,9 @@ var require_CannotAttachTreeChildrenEntityError = __commonJS((exports) => {
   exports.CannotAttachTreeChildrenEntityError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class CannotAttachTreeChildrenEntityError extends TypeORMError_1.TypeORMError {
+  class CannotAttachTreeChildrenEntityError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(entityName) {
       super(
         `Cannot attach entity "${entityName}" to its parent. Please make sure parent ` +
@@ -22025,7 +22033,9 @@ var require_CustomRepositoryDoesNotHaveEntityError = __commonJS((exports) => {
   exports.CustomRepositoryDoesNotHaveEntityError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class CustomRepositoryDoesNotHaveEntityError extends TypeORMError_1.TypeORMError {
+  class CustomRepositoryDoesNotHaveEntityError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(repository) {
       super(
         `Custom repository ${typeof repository === "function" ? repository.name : repository.constructor.name} does not have managed entity. ` +
@@ -22093,7 +22103,9 @@ var require_ReturningStatementNotSupportedError = __commonJS((exports) => {
   exports.ReturningStatementNotSupportedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class ReturningStatementNotSupportedError extends TypeORMError_1.TypeORMError {
+  class ReturningStatementNotSupportedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor() {
       super(
         `OUTPUT or RETURNING clause only supported by PostgreSQL, MariaDB, Microsoft SqlServer or Google Spanner.`,
@@ -22218,7 +22230,9 @@ var require_CannotGetEntityManagerNotConnectedError = __commonJS((exports) => {
   exports.CannotGetEntityManagerNotConnectedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class CannotGetEntityManagerNotConnectedError extends TypeORMError_1.TypeORMError {
+  class CannotGetEntityManagerNotConnectedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(connectionName) {
       super(
         `Cannot get entity manager for "${connectionName}" connection because connection is not yet established.`,
@@ -22294,7 +22308,9 @@ var require_MetadataWithSuchNameAlreadyExistsError = __commonJS((exports) => {
   exports.MetadataWithSuchNameAlreadyExistsError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class MetadataWithSuchNameAlreadyExistsError extends TypeORMError_1.TypeORMError {
+  class MetadataWithSuchNameAlreadyExistsError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(metadataType, name) {
       super(
         metadataType +
@@ -22351,7 +22367,9 @@ var require_PessimisticLockTransactionRequiredError = __commonJS((exports) => {
   exports.PessimisticLockTransactionRequiredError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class PessimisticLockTransactionRequiredError extends TypeORMError_1.TypeORMError {
+  class PessimisticLockTransactionRequiredError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor() {
       super(`An open transaction is required for pessimistic lock.`);
     }
@@ -22502,7 +22520,9 @@ var require_UsingJoinColumnOnlyOnOneSideAllowedError = __commonJS((exports) => {
   exports.UsingJoinColumnOnlyOnOneSideAllowedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class UsingJoinColumnOnlyOnOneSideAllowedError extends TypeORMError_1.TypeORMError {
+  class UsingJoinColumnOnlyOnOneSideAllowedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(entityMetadata, relation) {
       super(
         `Using JoinColumn is allowed only on one side of the one-to-one relationship. ` +
@@ -22521,7 +22541,9 @@ var require_UsingJoinTableOnlyOnOneSideAllowedError = __commonJS((exports) => {
   exports.UsingJoinTableOnlyOnOneSideAllowedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class UsingJoinTableOnlyOnOneSideAllowedError extends TypeORMError_1.TypeORMError {
+  class UsingJoinTableOnlyOnOneSideAllowedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(entityMetadata, relation) {
       super(
         `Using JoinTable is allowed only on one side of the many-to-many relationship. ` +
@@ -22623,7 +22645,9 @@ var require_OffsetWithoutLimitNotSupportedError = __commonJS((exports) => {
   exports.OffsetWithoutLimitNotSupportedError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class OffsetWithoutLimitNotSupportedError extends TypeORMError_1.TypeORMError {
+  class OffsetWithoutLimitNotSupportedError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor() {
       super(
         `RDBMS does not support OFFSET without LIMIT in SELECT statements. You must use limit in ` +
@@ -22675,7 +22699,9 @@ var require_ForbiddenTransactionModeOverrideError = __commonJS((exports) => {
   exports.ForbiddenTransactionModeOverrideError = undefined;
   var TypeORMError_1 = require_TypeORMError();
 
-  class ForbiddenTransactionModeOverrideError extends TypeORMError_1.TypeORMError {
+  class ForbiddenTransactionModeOverrideError
+    extends TypeORMError_1.TypeORMError
+  {
     constructor(migrationsOverridingTransactionMode) {
       const migrationNames = migrationsOverridingTransactionMode.map(
         (migration) => `"${migration.name}"`,
@@ -58319,7 +58345,9 @@ var require_SqliteQueryRunner = __commonJS((exports) => {
   var BroadcasterResult_1 = require_BroadcasterResult();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class SqliteQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class SqliteQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -59083,7 +59111,9 @@ var require_CordovaQueryRunner = __commonJS((exports) => {
   var BroadcasterResult_1 = require_BroadcasterResult();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class CordovaQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class CordovaQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -59288,7 +59318,9 @@ var require_ReactNativeQueryRunner = __commonJS((exports) => {
   var BroadcasterResult_1 = require_BroadcasterResult();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class ReactNativeQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class ReactNativeQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -59935,7 +59967,9 @@ var require_NativescriptQueryRunner = __commonJS((exports) => {
   var Broadcaster_1 = require_Broadcaster();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class NativescriptQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class NativescriptQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -60091,7 +60125,9 @@ var require_SqljsQueryRunner = __commonJS((exports) => {
   var BroadcasterResult_1 = require_BroadcasterResult();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class SqljsQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class SqljsQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.isDirty = false;
@@ -67860,7 +67896,9 @@ var require_ExpoQueryRunner = __commonJS((exports) => {
   var BroadcasterResult_1 = require_BroadcasterResult();
   var AbstractSqliteQueryRunner_1 = require_AbstractSqliteQueryRunner();
 
-  class ExpoQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class ExpoQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -67988,7 +68026,9 @@ var require_ExpoLegacyQueryRunner = __commonJS((exports) => {
   var QueryResult_1 = require_QueryResult();
   var BroadcasterResult_1 = require_BroadcasterResult();
 
-  class ExpoLegacyQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class ExpoLegacyQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -70773,7 +70813,9 @@ var require_AuroraPostgresQueryRunner = __commonJS((exports) => {
   var QueryResult_1 = require_QueryResult();
   var error_1 = require_error();
 
-  class PostgresQueryRunnerWrapper extends PostgresQueryRunner_1.PostgresQueryRunner {
+  class PostgresQueryRunnerWrapper
+    extends PostgresQueryRunner_1.PostgresQueryRunner
+  {
     constructor(driver, mode) {
       super(driver, mode);
     }
@@ -73861,7 +73903,9 @@ var require_BetterSqlite3QueryRunner = __commonJS((exports) => {
   var QueryResult_1 = require_QueryResult();
   var BroadcasterResult_1 = require_BroadcasterResult();
 
-  class BetterSqlite3QueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class BetterSqlite3QueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.stmtCache = new Map();
@@ -73986,7 +74030,9 @@ var require_BetterSqlite3Driver = __commonJS((exports) => {
   var BetterSqlite3QueryRunner_1 = require_BetterSqlite3QueryRunner();
   var PathUtils_1 = require_PathUtils();
 
-  class BetterSqlite3Driver extends AbstractSqliteDriver_1.AbstractSqliteDriver {
+  class BetterSqlite3Driver
+    extends AbstractSqliteDriver_1.AbstractSqliteDriver
+  {
     constructor(connection) {
       super(connection);
       this.connection = connection;
@@ -74113,7 +74159,9 @@ var require_CapacitorQueryRunner = __commonJS((exports) => {
   var Broadcaster_1 = require_Broadcaster();
   var QueryResult_1 = require_QueryResult();
 
-  class CapacitorQueryRunner extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner {
+  class CapacitorQueryRunner
+    extends AbstractSqliteQueryRunner_1.AbstractSqliteQueryRunner
+  {
     constructor(driver) {
       super();
       this.driver = driver;
@@ -91663,7 +91711,9 @@ var require_LegacyOracleNamingStrategy = __commonJS((exports) => {
   var DefaultNamingStrategy_1 = require_DefaultNamingStrategy();
   var error_1 = require_error();
 
-  class LegacyOracleNamingStrategy extends DefaultNamingStrategy_1.DefaultNamingStrategy {
+  class LegacyOracleNamingStrategy
+    extends DefaultNamingStrategy_1.DefaultNamingStrategy
+  {
     constructor(shortenStrategy = "hash") {
       super();
       this.IDENTIFIER_MAX_SIZE = 30;

@@ -11,7 +11,7 @@ export class MapTriggerRegionProperties extends MapRegionProperties {
     width: number,
     length: number,
     destinationMapId: number,
-    destinationMapPosition: Vector3
+    destinationMapPosition: Vector3,
   ) {
     super(x, z, width, length);
     this.destinationMapId = destinationMapId;

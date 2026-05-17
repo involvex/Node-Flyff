@@ -40,7 +40,7 @@ export class InstructionParser {
             name: blockName,
             instructions: [],
             variables: [],
-            blocks: []
+            blocks: [],
           };
         }
         braceLevel++;

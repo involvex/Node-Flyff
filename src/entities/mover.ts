@@ -63,23 +63,23 @@ export class Mover extends WorldObject {
     // runtime aliases to keep legacy PascalCase references working
     Object.defineProperty(this, "Health", {
       get: () => this.health,
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "Attributes", {
       get: () => this.attributes,
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "Statistics", {
       get: () => this.statistics,
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "Buffs", {
       get: () => this.buffs,
-      configurable: true
+      configurable: true,
     });
     Object.defineProperty(this, "SendToVisible", {
       get: () => this.sendToVisible.bind(this),
-      configurable: true
+      configurable: true,
     });
   }
 
@@ -122,7 +122,7 @@ export class Mover extends WorldObject {
     this.destinationPosition = new Vector3(x, y, z);
     this.rotationAngle = Vector3.angleBetween(
       this.position,
-      this.destinationPosition
+      this.destinationPosition,
     );
 
     const packet = new DestPositionSnapshot(this);
@@ -155,7 +155,7 @@ export class Mover extends WorldObject {
 
   public sendMotion(
     motion: ObjectMessageType,
-    sendToSelf: boolean = true
+    sendToSelf: boolean = true,
   ): void {
     const snapshot = new MotionSnapshot(this, motion);
     this.sendToVisible(snapshot, sendToSelf);
@@ -194,7 +194,7 @@ export class Mover extends WorldObject {
 
     const oneHitResult = this.tryInflictDamagesIfOneHitKillMode(
       target,
-      attackType
+      attackType,
     );
     let attackResult: AttackResult;
 
@@ -204,7 +204,7 @@ export class Mover extends WorldObject {
       // attackResult = arbiter.calculateDamages();
       attackResult = {
         damages: 10, // Placeholder damage
-        flags: AttackFlags.AF_GENERIC
+        flags: AttackFlags.AF_GENERIC,
       };
 
       if (!(attackResult.flags & AttackFlags.AF_MISS)) {
@@ -234,7 +234,7 @@ export class Mover extends WorldObject {
   public tryRangeAttack(
     target: Mover,
     power: number,
-    attackType: AttackType
+    attackType: AttackType,
   ): boolean {
     // Placeholder implementation
     return false;
@@ -243,26 +243,26 @@ export class Mover extends WorldObject {
   public inflictDamages(
     target: Mover,
     attackResult: AttackResult,
-    attackType: AttackType
+    attackType: AttackType,
   ): void {
     this.target = target;
     target.health.sufferDamages(
       this,
       Math.max(0, attackResult.damages),
       attackType,
-      attackResult.flags
+      attackResult.flags,
     );
     target.onSufferDamages(this, attackResult.damages, attackResult.flags);
   }
 
   private tryInflictDamagesIfOneHitKillMode(
     target: Mover,
-    attackType: AttackType
+    attackType: AttackType,
   ): { success: boolean; attackResult?: AttackResult } {
     if (this instanceof Player && this.mode.includes(ModeType.ONEKILL_MODE)) {
       const attackResult: AttackResult = {
         damages: target.health.hp,
-        flags: AttackFlags.AF_GENERIC
+        flags: AttackFlags.AF_GENERIC,
       };
 
       this.inflictDamages(target, attackResult, attackType);
@@ -317,7 +317,7 @@ export class Mover extends WorldObject {
   protected onSufferDamages(
     attacker: Mover,
     damages: number,
-    attackFlags: AttackFlags
+    attackFlags: AttackFlags,
   ): void {}
 
   public onKilled(killer: Mover): void {}

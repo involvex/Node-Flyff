@@ -13,7 +13,7 @@ async function main() {
     const assetManager = new AssetManager({
       clientPath: "I:\\ClockworksFlyff Client\\",
       cachePath: "data/assets/",
-      enableCache: true
+      enableCache: true,
     });
 
     logger.info("Step 1: Initializing AssetManager...");
@@ -29,7 +29,7 @@ async function main() {
     logger.success(`✓ Cache enabled: ${cacheStats.enabled}`);
     logger.success(`✓ Cached assets: ${cacheStats.totalAssets}`);
     logger.success(
-      `✓ Cache size: ${(cacheStats.totalSize / 1024 / 1024).toFixed(2)} MB`
+      `✓ Cache size: ${(cacheStats.totalSize / 1024 / 1024).toFixed(2)} MB`,
     );
 
     logger.info("Step 4: Listing available CWF files...");
@@ -50,7 +50,7 @@ async function main() {
     } catch (error) {
       logger.warn(
         "World loading test failed (expected if files not present):",
-        error
+        error,
       );
     }
 

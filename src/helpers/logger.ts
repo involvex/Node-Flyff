@@ -11,7 +11,7 @@ export class Logger {
     warn: clc.yellow,
     error: clc.red,
     success: clc.green,
-    main: clc.magenta
+    main: clc.magenta,
   };
 
   constructor(sender: ServerType | string) {
@@ -43,10 +43,10 @@ export class Logger {
       clc.blue(moment().format("LTS")) +
         " " +
         Logger.SeverityMap[level](
-          `[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`
+          `[${this.sender.toUpperCase()}] ${level.toUpperCase()} -`,
         ) +
         " " +
-        clc.white.bold(message.join(" "))
+        clc.white.bold(message.join(" ")),
     );
   }
 }

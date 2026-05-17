@@ -26,7 +26,7 @@ fs.readFile(
 
     const jobsDefinitionData = fs.readFileSync(
       path.join(__dirname, "../custom/jobsDefinitions.yaml"),
-      "utf-8"
+      "utf-8",
     );
     const jobsDefinition: any = yaml.load(jobsDefinitionData);
 
@@ -63,7 +63,7 @@ fs.readFile(
         type: jobsDefinition[parts[0]]?.Type,
         parent: jobsDefinition[parts[0]]?.Parent,
         minLevel: getMinLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type)),
-        maxLevel: getMaxLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type))
+        maxLevel: getMaxLevel(getJobTypeId(jobsDefinition[parts[0]]?.Type)),
       });
     });
 
@@ -135,7 +135,7 @@ fs.readFile(
           return;
         }
         console.log("Conversion completed. Output written to job.yaml");
-      }
+      },
     );
-  }
+  },
 );

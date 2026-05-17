@@ -12,7 +12,7 @@ export class ResourceTableFile {
   constructor(
     filePath: string,
     headerLineIndex: number = 0,
-    defines?: Map<string, number>
+    defines?: Map<string, number>,
   ) {
     this.logger = new Logger("ResourceTableFile");
     this.defines = defines || new Map();
@@ -36,7 +36,7 @@ export class ResourceTableFile {
       (line) =>
         line.startsWith("//") &&
         line.includes("dwID") &&
-        line.includes("szName")
+        line.includes("szName"),
     );
 
     if (commentedHeaderLine) {

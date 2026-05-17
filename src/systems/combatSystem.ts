@@ -38,7 +38,7 @@ export class CombatSystem {
   performAttack(
     attacker: WorldObject,
     target: WorldObject,
-    attackType: string = "melee"
+    attackType: string = "melee",
   ): CombatResult | null {
     // Check cooldown
     const cooldownEnd = this.combatCooldowns.get(attacker.objectId) || 0;
@@ -66,7 +66,7 @@ export class CombatSystem {
       isCritical,
       isBlocked,
       attackType,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     // Store result
@@ -80,7 +80,7 @@ export class CombatSystem {
 
     this.logger.info(
       `Attack: ${attacker.objectId} -> ${target.objectId}, ` +
-        `Damage: ${result.damage}, Crit: ${isCritical}, Blocked: ${isBlocked}`
+        `Damage: ${result.damage}, Crit: ${isCritical}, Blocked: ${isBlocked}`,
     );
 
     return result;
@@ -148,7 +148,7 @@ export class CombatSystem {
         totalCrits: 0,
         totalBlocks: 0,
         accuracy: 0,
-        averageDamage: 0
+        averageDamage: 0,
       };
     }
 
@@ -165,7 +165,7 @@ export class CombatSystem {
       totalCrits,
       totalBlocks,
       accuracy,
-      averageDamage
+      averageDamage,
     };
   }
 
@@ -189,7 +189,7 @@ export class CombatSystem {
   setCriticalHitChance(chance: number): void {
     this.criticalHitChance = Math.max(0, Math.min(1, chance));
     this.logger.info(
-      `Critical hit chance set to ${(this.criticalHitChance * 100).toFixed(1)}%`
+      `Critical hit chance set to ${(this.criticalHitChance * 100).toFixed(1)}%`,
     );
   }
 
@@ -200,7 +200,7 @@ export class CombatSystem {
   setBlockChance(chance: number): void {
     this.blockChance = Math.max(0, Math.min(1, chance));
     this.logger.info(
-      `Block chance set to ${(this.blockChance * 100).toFixed(1)}%`
+      `Block chance set to ${(this.blockChance * 100).toFixed(1)}%`,
     );
   }
 
@@ -220,7 +220,7 @@ export class CombatSystem {
     averageDamage: number;
     criticalRate: number;
     blockRate: number;
-    } {
+  } {
     let totalAttacks = 0;
     let totalDamage = 0;
     let totalCrits = 0;
@@ -243,7 +243,7 @@ export class CombatSystem {
       totalDamage,
       averageDamage,
       criticalRate,
-      blockRate
+      blockRate,
     };
   }
 
