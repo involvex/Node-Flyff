@@ -6,8 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "import-assets": "node tools/import-assets.js",
-    "generate-sheets": "node tools/generate-sprite-sheet.js"
+    "import-assets": "bun tools/import-assets.js",
+    "generate-sheets": "bun tools/generate-sprite-sheet.js"
   },
   "dependencies": {
     "react": "18.2.0",
