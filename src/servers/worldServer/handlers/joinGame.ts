@@ -28,7 +28,7 @@ export default class Handler extends PacketHandler {
   messengerState: number;
   messengerCount: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.channelId = packet.readInt32LE();
     this.characterId = packet.readInt32LE();
@@ -45,7 +45,7 @@ export default class Handler extends PacketHandler {
     this.messengerCount = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     // Validate session from Redis (sent from cluster server, equivalent to C# account/player DB check)
     const sessionData = await this.server?.redisClient?.getCharacterSession(
       this.authKey

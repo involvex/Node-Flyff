@@ -6,7 +6,7 @@ export enum ItemKind1 {
   RIDE = 4,
   SYSTEM = 5,
   CHARGED = 6,
-  HOUSING = 7,
+  HOUSING = 7
 }
 
 export enum ItemKind2 {
@@ -48,7 +48,7 @@ export enum ItemKind2 {
   GUILDHOUSE_FURNITURE = 38,
   GUILDHOUSE_NPC = 39,
   GUILDHOUSE_PAPERING = 40,
-  GUILDHOUES_COMEBACK = 41,
+  GUILDHOUES_COMEBACK = 41
 }
 
 export enum ItemKind3 {
@@ -163,5 +163,5 @@ export enum ItemKind3 {
   BATH = 145,
   DRAWER = 146,
   CRYSTAL = 147,
-  KEY = 148,
+  KEY = 148
 }

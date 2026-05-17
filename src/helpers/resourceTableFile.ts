@@ -9,7 +9,7 @@ export class ResourceTableFile {
   private records: string[][] = [];
   private defines: Map<string, number>;
 
-  constructor(
+  constructor (
     filePath: string,
     headerLineIndex: number = 0,
     defines?: Map<string, number>
@@ -25,7 +25,7 @@ export class ResourceTableFile {
     this.parseContent(headerLineIndex);
   }
 
-  private parseContent(headerLineIndex: number): void {
+  private parseContent (headerLineIndex: number): void {
     const allLines = this.content
       .split("\n")
       .map((line) => line.trim())
@@ -64,7 +64,7 @@ export class ResourceTableFile {
     }
   }
 
-  public getRecords<T>(): T[] {
+  public getRecords<T> (): T[] {
     const results: T[] = [];
 
     for (const record of this.records) {
@@ -93,7 +93,7 @@ export class ResourceTableFile {
     return results;
   }
 
-  public dispose(): void {
+  public dispose (): void {
     this.records = [];
     this.headers = [];
   }

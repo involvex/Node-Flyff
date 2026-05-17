@@ -71,7 +71,7 @@ export enum MessageType {
   // Statistics and monitoring
   PLAYER_COUNT_UPDATE = "player_count_update",
   SERVER_STATS = "server_stats",
-  ERROR_REPORT = "error_report",
+  ERROR_REPORT = "error_report"
 }
 
 export interface ChannelInfo {

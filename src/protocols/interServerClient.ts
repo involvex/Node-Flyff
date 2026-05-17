@@ -29,7 +29,7 @@ export class InterServerClient extends EventEmitter {
   private messageHandlers: Map<string, (message: InterServerMessage) => void> =
     new Map();
 
-  constructor(serverType: ServerType, host: string, port: number) {
+  constructor (serverType: ServerType, host: string, port: number) {
     super();
     this.logger = new Logger(`InterServer-${ServerType[serverType]}`);
     this.serverType = serverType;
@@ -37,7 +37,7 @@ export class InterServerClient extends EventEmitter {
     this.port = port;
   }
 
-  async start(): Promise<void> {
+  async start (): Promise<void> {
     this.logger.info(
       `Starting inter-server communication on ${this.host}:${this.port}`
     );
@@ -45,8 +45,7 @@ export class InterServerClient extends EventEmitter {
     // Start listening for incoming connections
     this.server = new NetServer();
     this.server.on("connection", (socket) =>
-      this.handleIncomingConnection(socket)
-    );
+      this.handleIncomingConnection(socket));
     this.server.listen(this.port, this.host, () => {
       this.logger.success(
         `Inter-server server listening on ${this.host}:${this.port}`
@@ -57,7 +56,7 @@ export class InterServerClient extends EventEmitter {
     this.startHeartbeat();
   }
 
-  async connectToServer(
+  async connectToServer (
     targetServer: ServerType,
     targetHost: string,
     targetPort: number
@@ -101,7 +100,7 @@ export class InterServerClient extends EventEmitter {
     });
   }
 
-  private handleIncomingConnection(socket: Socket): void {
+  private handleIncomingConnection (socket: Socket): void {
     const remoteAddress = `${socket.remoteAddress}:${socket.remotePort}`;
     this.logger.info(`Incoming connection from ${remoteAddress}`);
 
@@ -114,7 +113,7 @@ export class InterServerClient extends EventEmitter {
     });
   }
 
-  private setupSocketHandlers(socket: Socket, serverType: ServerType): void {
+  private setupSocketHandlers (socket: Socket, serverType: ServerType): void {
     socket.on("data", (data) => this.handleMessage(data, socket));
 
     socket.on("error", (error) => {
@@ -133,7 +132,7 @@ export class InterServerClient extends EventEmitter {
     });
   }
 
-  private handleMessage(data: Buffer, socket: Socket): void {
+  private handleMessage (data: Buffer, socket: Socket): void {
     try {
       const message = this.deserializeMessage(data);
 
@@ -152,7 +151,7 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  private handleIncomingMessage(message: InterServerMessage): void {
+  private handleIncomingMessage (message: InterServerMessage): void {
     this.logger.info(
       `Received message from ${ServerType[message.source]}: ${message.type}`
     );
@@ -174,7 +173,7 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  private handleDisconnection(serverType: ServerType): void {
+  private handleDisconnection (serverType: ServerType): void {
     const connection = this.connections.get(serverType);
     if (connection) {
       connection.connected = false;
@@ -191,7 +190,7 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  async sendMessage(
+  async sendMessage (
     targetServer: ServerType,
     messageType: string,
     data: any = {}
@@ -226,7 +225,7 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  broadcast(messageType: string, data: any = {}): void {
+  broadcast (messageType: string, data: any = {}): void {
     for (const [serverType, connection] of this.connections.entries()) {
       if (connection.connected) {
         this.sendMessage(serverType, messageType, data);
@@ -234,14 +233,14 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  onMessage(
+  onMessage (
     messageType: string,
     handler: (message: InterServerMessage) => void
   ): void {
     this.messageHandlers.set(messageType, handler);
   }
 
-  private serializeMessage(message: InterServerMessage): Buffer {
+  private serializeMessage (message: InterServerMessage): Buffer {
     const json = JSON.stringify(message);
     const length = Buffer.byteLength(json);
     const buffer = Buffer.allocUnsafe(4 + length);
@@ -252,7 +251,7 @@ export class InterServerClient extends EventEmitter {
     return buffer;
   }
 
-  private deserializeMessage(buffer: Buffer): InterServerMessage {
+  private deserializeMessage (buffer: Buffer): InterServerMessage {
     if (buffer.length < 4) {
       throw new Error("Invalid message: too short");
     }
@@ -266,7 +265,7 @@ export class InterServerClient extends EventEmitter {
     return JSON.parse(json);
   }
 
-  private startHeartbeat(): void {
+  private startHeartbeat (): void {
     this.heartbeatInterval = setInterval(() => {
       const now = Date.now();
 
@@ -287,7 +286,7 @@ export class InterServerClient extends EventEmitter {
     }, 10000); // Check every 10 seconds
   }
 
-  stop(): void {
+  stop (): void {
     this.logger.info("Stopping inter-server communication");
 
     if (this.heartbeatInterval) {
@@ -308,12 +307,12 @@ export class InterServerClient extends EventEmitter {
     }
   }
 
-  isConnected(targetServer: ServerType): boolean {
+  isConnected (targetServer: ServerType): boolean {
     const connection = this.connections.get(targetServer);
     return connection ? connection.connected : false;
   }
 
-  getConnectedServers(): ServerType[] {
+  getConnectedServers (): ServerType[] {
     const connected: ServerType[] = [];
     for (const [serverType, connection] of this.connections.entries()) {
       if (connection.connected) {

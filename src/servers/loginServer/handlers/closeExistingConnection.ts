@@ -6,13 +6,13 @@ import { FlyffPacket } from "../../../libraries/flyffPacket";
 @SetPacketType(PacketType.CLOSE_EXISTING_CONNECTION)
 export default class Handler extends PacketHandler {
   username: string;
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
 
     this.username = packet.readStringLE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     if (this.username) {
       const userConnection =
         this.server.instance?.server?.getConnectionByAccount(this.username);

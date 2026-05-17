@@ -1,12 +1,6 @@
 import { AttackFlags } from "../../../common/attackFlag";
-import { DefineAttributes } from "../../../common/defineAttributes";
-import { Item } from "../../../common/item";
-import { ItemPartType } from "../../../common/itemPartyType";
-import { WeaponType } from "../../../common/weaponType";
 import { Mover } from "../../../entities/mover";
 import { Player } from "../../../entities/player";
-import { FFRandom } from "../../../helpers/FFRandom";
-import { RangeHelper } from "../../range";
 import { AttackResult } from "../attackResult";
 import { AttackArbiterBase } from "./attackArbiterBase";
 
@@ -21,16 +15,16 @@ export class MagicAttackArbiter extends AttackArbiterBase {
 
   private readonly _magicPower: number;
 
-  constructor(attacker: Mover, defender: Mover, magicPower: number) {
+  constructor (attacker: Mover, defender: Mover, magicPower: number) {
     super(attacker, defender);
     this._magicPower = magicPower;
   }
 
-  public override calculateDamages(): AttackResult {
+  public override calculateDamages (): AttackResult {
     const damages: number = 0;
 
     if (this.attacker instanceof Player) {
-      const player: Player = this.attacker as Player;
+      const _player: Player = this.attacker as Player;
       // const wandWeapon: Item = player.inventory.getEquipedItem(ItemPartType.RightWeapon);
       // const weaponAttackResult: RangeHelper<number> = this.getWeaponAttackPower(player, wandWeapon);
       // const weaponAttackDamages: number = this.getWeaponAttackDamages(player, WeaponType.MAGIC_WAND);

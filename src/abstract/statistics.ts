@@ -15,7 +15,7 @@ export class Statistics {
   /** Gets or sets the original intelligence points. */
   public intelligence: number;
 
-  constructor(owner: Mover) {
+  constructor (owner: Mover) {
     if (!owner) {
       throw new Error("Cannot assign statistics to an unknown mover instance.");
     }

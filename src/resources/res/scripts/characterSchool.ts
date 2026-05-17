@@ -25,7 +25,7 @@ fs.readFile(
     // Split the content into sections based on the character name
     const sections = data.split(/\n(?=ma|npc_)/i);
 
-    sections.forEach((section, i) => {
+    sections.forEach((section, _i) => {
       // Skip empty sections and comment sections
       if (!section.trim() || section.startsWith("//")) {
         return;

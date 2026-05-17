@@ -4,5 +4,5 @@ export enum SeasonType {
   Summer,
   Fall,
   Winter,
-  Max,
+  Max
 }

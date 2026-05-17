@@ -3,7 +3,7 @@ import { ServerType } from "../../common/serverType";
 // Main TCP Server class
 export class ClusterServer extends TcpServer {
   // Constructor to initialize TcpServer instance
-  constructor(options: IServerConfig) {
+  constructor (options: IServerConfig) {
     super(ServerType.CLUSTER_SERVER, options);
   }
 }

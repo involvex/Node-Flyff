@@ -11,11 +11,11 @@ export class MapLayer {
 
   public readonly id: number;
 
-  public constructor(parentMap: WorldMap, layerId: number) {
+  public constructor (parentMap: WorldMap, layerId: number) {
     this.id = layerId;
   }
 
-  public addPlayer(player: Player): void {
+  public addPlayer (player: Player): void {
     if (!player) {
       throw new Error("Cannot add an undefined player instance.");
     }
@@ -25,7 +25,7 @@ export class MapLayer {
     }
   }
 
-  public removePlayer(player: Player): void {
+  public removePlayer (player: Player): void {
     if (!player) {
       throw new Error("Cannot remove an undefined player instance.");
     }
@@ -36,7 +36,7 @@ export class MapLayer {
     }
   }
 
-  public addItem(mapItem: any): void {
+  public addItem (mapItem: any): void {
     if (!mapItem) {
       throw new Error("Cannot add an undefined map item object instance.");
     }
@@ -46,7 +46,7 @@ export class MapLayer {
     }
   }
 
-  public removeItem(mapItem: any): void {
+  public removeItem (mapItem: any): void {
     if (!mapItem) {
       throw new Error("Cannot remove an undefined map item object instance.");
     }
@@ -57,7 +57,7 @@ export class MapLayer {
     }
   }
 
-  public update(): void {
+  public update (): void {
     for (const player of this._players) {
       player.update();
     }
@@ -67,7 +67,7 @@ export class MapLayer {
     }
   }
 
-  public updateSeconds(): void {
+  public updateSeconds (): void {
     for (const player of this._players) {
       player.buffs.update();
     }
@@ -85,16 +85,16 @@ export class MapLayer {
     }
   }
 
-  public dispose(): void {
+  public dispose (): void {
     this._players.length = 0;
   }
 
-  public static getVisibleObjects(player: Player): any[] {
+  public static getVisibleObjects (_player: Player): any[] {
     // Stub implementation - return empty array or implement based on logic
     return [];
   }
 
-  private getVisibleObjectsByType<T>(objects: T[], worldObject: any): T[] {
-    return objects.filter((x) => true); // Stub filter
+  private getVisibleObjectsByType<T> (objects: T[], _worldObject: any): T[] {
+    return objects.filter((_x) => true); // Stub filter
   }
 }

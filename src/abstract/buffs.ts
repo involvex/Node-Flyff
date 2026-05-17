@@ -6,9 +6,9 @@ import { Buff } from "./buff";
 export class Buffs implements Iterable<Buff> {
   private buffs: Buff[] = [];
 
-  constructor(public owner: Mover) {}
+  constructor (public owner: Mover) {}
 
-  add(buff: Buff): BuffResultType {
+  add (buff: Buff): BuffResultType {
     if (buff.hasExpired) {
       return BuffResultType.None;
     }
@@ -39,7 +39,7 @@ export class Buffs implements Iterable<Buff> {
     return BuffResultType.Added;
   }
 
-  remove(buff: Buff): boolean {
+  remove (buff: Buff): boolean {
     const index = this.buffs.indexOf(buff);
     if (index !== -1) {
       this.buffs.splice(index, 1);
@@ -53,13 +53,13 @@ export class Buffs implements Iterable<Buff> {
     return false;
   }
 
-  removeAll(): void {
+  removeAll (): void {
     for (const buff of this.buffs.slice()) {
       this.remove(buff);
     }
   }
 
-  contains(buff: Buff): boolean {
+  contains (buff: Buff): boolean {
     if (!buff) {
       return false;
     }
@@ -73,7 +73,7 @@ export class Buffs implements Iterable<Buff> {
     return this.buffs.some((b) => b.id === buff.id);
   }
 
-  update(): void {
+  update (): void {
     for (const buff of this.buffs.slice()) {
       buff.decreaseTime();
       if (buff.hasExpired) {
@@ -82,7 +82,7 @@ export class Buffs implements Iterable<Buff> {
     }
   }
 
-  serialize(packet: FlyffPacket): void {
+  serialize (packet: FlyffPacket): void {
     const activeBuffs = this.buffs.filter((b) => !b.hasExpired);
     packet.writeInt32(activeBuffs.length);
     for (const buff of activeBuffs) {
@@ -90,7 +90,7 @@ export class Buffs implements Iterable<Buff> {
     }
   }
 
-  [Symbol.iterator](): Iterator<Buff> {
+  [Symbol.iterator] (): Iterator<Buff> {
     return this.buffs[Symbol.iterator]();
   }
 }

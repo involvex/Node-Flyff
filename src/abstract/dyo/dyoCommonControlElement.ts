@@ -52,7 +52,7 @@ export class DyoCommonControlElement extends DyoElement {
   teleportY: number;
   teleportZ: number;
 
-  constructor() {
+  constructor () {
     super();
     this.insideItemKind.fill(0);
     this.insideItemPer.fill(0);
@@ -63,7 +63,7 @@ export class DyoCommonControlElement extends DyoElement {
     this.trapLevel.fill(0);
   }
 
-  read(streamReader: BinaryStream): void {
+  read (streamReader: BinaryStream): void {
     this.version = streamReader.readUInt32();
 
     if (this.version === this.CommonControlVersion1) {

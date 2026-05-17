@@ -6,11 +6,11 @@ export class WldFile {
   private static readonly DefaultMPU: number = 4;
   public worldData: WorldData;
 
-  constructor(filePath: string) {
+  constructor (filePath: string) {
     this.read(filePath);
   }
 
-  private read(filePath: string): void {
+  private read (filePath: string): void {
     try {
       const data: string = fs.readFileSync(filePath, "utf-8");
 
@@ -70,7 +70,7 @@ export class WldFile {
     }
   }
 
-  private readSize(lineArray: string[]): Vector3 {
+  private readSize (lineArray: string[]): Vector3 {
     const width: string = lineArray[1].replace(",", "");
     const length: string = lineArray[2];
 

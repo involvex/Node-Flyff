@@ -15,12 +15,12 @@ export class JobResources {
   logger: Logger;
   redisClient: any;
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("Job Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public async get(
+  public async get (
     jobIdentifier: string | number
   ): Promise<JobProperties | null> {
     const jobId =
@@ -34,7 +34,7 @@ export class JobResources {
     return null;
   }
 
-  public async where(
+  public async where (
     predicate: (job: JobProperties) => boolean
   ): Promise<JobProperties[]> {
     const jobs: JobProperties[] = [];
@@ -55,7 +55,7 @@ export class JobResources {
     return jobs;
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineJob);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
@@ -66,7 +66,7 @@ export class JobResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -79,7 +79,7 @@ export class JobResources {
     });
   }
 
-  public async loadJobsProp(): Promise<void> {
+  public async loadJobsProp (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.job);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -95,7 +95,7 @@ export class JobResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as JobProperties[];
 
-    _.forEach(data, async(job) => {
+    _.forEach(data, async (job) => {
       const formattedJob = {
         ...job,
         id: DefineJob[job.id],
@@ -109,7 +109,7 @@ export class JobResources {
     this.logger.main(`${data.length} jobs loaded.`);
   }
 
-  parseJobProperties(data: { [key: string]: string }): JobProperties {
+  parseJobProperties (data: { [key: string]: string }): JobProperties {
     return {
       id: tryParseInt(data.id),
       identifier: data.identifier,
@@ -137,7 +137,7 @@ export class JobResources {
     };
   }
 
-  async cleanCache() {
+  async cleanCache () {
     const keys = await this.redisClient.keys("job:*");
     if (!keys || keys.length === 0) return;
     await this.redisClient.del(...keys);

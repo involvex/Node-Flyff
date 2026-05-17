@@ -7,95 +7,95 @@ export class BinaryStream {
   buffer: Buffer;
   position: number;
 
-  constructor(buffer: Buffer) {
+  constructor (buffer: Buffer) {
     this.buffer = Buffer.from(buffer);
     this.position = 0;
   }
 
-  writeSByte(value: number) {
+  writeSByte (value: number) {
     this.writeByte(value);
   }
 
-  writeBoolean(value: boolean) {
+  writeBoolean (value: boolean) {
     this.writeByte(value ? 1 : 0);
   }
 
-  writeChar(value: string) {
+  writeChar (value: string) {
     this.writeString(value);
   }
 
-  writeInt16(value: number) {
+  writeInt16 (value: number) {
     this.writeBuffer(Buffer.alloc(2), value, "writeInt16BE");
   }
 
-  writeInt16LE(value: number) {
+  writeInt16LE (value: number) {
     this.writeBuffer(Buffer.alloc(2), value, "writeInt16LE");
   }
 
-  writeUInt16(value: number) {
+  writeUInt16 (value: number) {
     this.writeBuffer(Buffer.alloc(2), value, "writeUInt16BE");
   }
 
-  writeUInt16LE(value: number) {
+  writeUInt16LE (value: number) {
     this.writeBuffer(Buffer.alloc(2), value, "writeUInt16LE");
   }
 
-  writeInt32(value: number) {
+  writeInt32 (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeInt32BE");
   }
 
-  writeInt32LE(value: number) {
+  writeInt32LE (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeInt32LE");
   }
 
-  writeUInt32(value: number) {
+  writeUInt32 (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeUInt32BE");
   }
 
-  writeUInt32LE(value: number) {
+  writeUInt32LE (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeUInt32LE");
   }
 
-  writeInt64(value: number) {
+  writeInt64 (value: number) {
     this.writeBuffer(Buffer.alloc(8), BigInt(value), "writeBigInt64BE");
   }
 
-  writeInt64LE(value: number) {
+  writeInt64LE (value: number) {
     this.writeBuffer(Buffer.alloc(8), BigInt(value), "writeBigInt64LE");
   }
 
-  writeUInt64(value: number) {
+  writeUInt64 (value: number) {
     this.writeBuffer(Buffer.alloc(8), BigInt(value), "writeBigUInt64BE");
   }
 
-  writeUInt64LE(value: number) {
+  writeUInt64LE (value: number) {
     this.writeBuffer(Buffer.alloc(8), BigInt(value), "writeBigUInt64LE");
   }
 
-  writeSingle(value: number) {
+  writeSingle (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeFloatBE");
   }
 
-  writeSingleLE(value: number) {
+  writeSingleLE (value: number) {
     this.writeBuffer(Buffer.alloc(4), value, "writeFloatLE");
   }
 
-  writeDouble(value: number) {
+  writeDouble (value: number) {
     this.writeBuffer(Buffer.alloc(8), value, "writeDoubleBE");
   }
 
-  writeDoubleLE(value: number) {
+  writeDoubleLE (value: number) {
     this.writeBuffer(Buffer.alloc(8), value, "writeDoubleLE");
   }
 
-  writeString(value: string) {
+  writeString (value: string) {
     const stringValue = value ?? "";
     const buffer = Buffer.from(stringValue, "utf8");
     this.writeInt32(buffer.length);
     this.writeBuffer(buffer);
   }
 
-  writeByte(value: number) {
+  writeByte (value: number) {
     if (this.position >= this.buffer.length) {
       this.buffer = Buffer.concat([this.buffer, Buffer.alloc(1)]);
     }
@@ -103,7 +103,7 @@ export class BinaryStream {
     this.position += 1;
   }
 
-  writeBuffer(
+  writeBuffer (
     buffer: any,
     value: bigint | number | undefined = undefined,
     method: string = ""
@@ -114,7 +114,7 @@ export class BinaryStream {
     this.writeBytes(buffer);
   }
 
-  writeBytes(buffer: Buffer) {
+  writeBytes (buffer: Buffer) {
     this.buffer = Buffer.concat([
       this.buffer.subarray(0, this.position),
       buffer,
@@ -123,99 +123,99 @@ export class BinaryStream {
     this.position += buffer.length;
   }
 
-  readByte() {
+  readByte () {
     const value = this.buffer.readUInt8(this.position);
     this.position += 1;
     return value;
   }
 
-  readSByte() {
+  readSByte () {
     return this.readByte();
   }
 
-  readBoolean() {
+  readBoolean () {
     return this.readByte() !== 0;
   }
 
-  readChar() {
+  readChar () {
     return this.readString().charAt(0);
   }
 
-  readInt16() {
+  readInt16 () {
     return this.toInt(this.readBuffer(2));
   }
 
-  readInt16LE() {
+  readInt16LE () {
     return this.toInt(this.readBuffer(2).reverse());
   }
 
-  readUInt16() {
+  readUInt16 () {
     return this.toInt(this.readBuffer(2));
   }
 
-  readUInt16LE() {
+  readUInt16LE () {
     return this.toInt(this.readBuffer(2).reverse());
   }
 
-  readInt32() {
+  readInt32 () {
     return this.toInt(this.readBuffer(4));
   }
 
-  readInt32LE() {
+  readInt32LE () {
     return this.toInt(this.readBuffer(4).reverse());
   }
 
-  readUInt32() {
+  readUInt32 () {
     return this.toInt(this.readBuffer(4));
   }
 
-  readUInt32LE() {
+  readUInt32LE () {
     return this.toInt(this.readBuffer(4).reverse());
   }
 
-  readInt64() {
+  readInt64 () {
     return this.toInt(this.readBuffer(8));
   }
 
-  readInt64LE() {
+  readInt64LE () {
     return this.toInt(this.readBuffer(8).reverse());
   }
 
-  readUInt64() {
+  readUInt64 () {
     return this.toInt(this.readBuffer(8));
   }
 
-  readUInt64LE() {
+  readUInt64LE () {
     return this.toInt(this.readBuffer(8).reverse());
   }
 
-  readSingle() {
+  readSingle () {
     return this.toFloat(this.readBuffer(4), true);
   }
 
-  readSingleLE() {
+  readSingleLE () {
     return this.toFloat(this.readBuffer(4).reverse());
   }
 
-  readDouble() {
+  readDouble () {
     return this.toFloat(this.readBuffer(8), true);
   }
 
-  readDoubleLE() {
+  readDoubleLE () {
     return this.toFloat(this.readBuffer(8).reverse());
   }
 
-  readString() {
+  readString () {
     const length = this.readInt32();
     return BinaryStream.STRING_DECODER.decode(this.readBuffer(length));
   }
 
-  readStringLE() {
+  readStringLE () {
     const length = this.readInt32LE();
     return BinaryStream.STRING_DECODER.decode(this.readBuffer(length));
   }
 
-  readBytes(length: number) {
+  readBytes (length: number) {
     const bytes = Buffer.alloc(length);
     const bytesRead = this.buffer.copy(
       bytes,
@@ -227,7 +227,7 @@ export class BinaryStream {
     return bytesRead < 0 ? Buffer.alloc(0) : bytes;
   }
 
-  readBytesLE(length: number) {
+  readBytesLE (length: number) {
     const bytes = Buffer.alloc(length);
     const bytesRead = this.buffer.copy(
       bytes,
@@ -239,17 +239,17 @@ export class BinaryStream {
     return bytesRead < 0 ? Buffer.alloc(0) : bytes.reverse();
   }
 
-  readBuffer(length: number) {
+  readBuffer (length: number) {
     const buffer = this.buffer.subarray(this.position, this.position + length);
     this.position += length;
     return buffer;
   }
 
-  toInt(buffer: Buffer) {
+  toInt (buffer: Buffer) {
     return parseInt(buffer.toString("hex"), 16);
   }
 
-  toFloat(buffer: Buffer, le = false) {
+  toFloat (buffer: Buffer, le = false) {
     if (buffer.length === 4) {
       return le ? buffer.readFloatLE() : buffer.readFloatBE();
     } else if (buffer.length === 8) {
@@ -258,7 +258,7 @@ export class BinaryStream {
     return parseFloat(buffer.toString("hex"));
   }
 
-  merge(buffer: Buffer): void {
+  merge (buffer: Buffer): void {
     this.buffer = Buffer.concat([this.buffer, buffer]);
   }
 }

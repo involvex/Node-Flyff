@@ -11,7 +11,7 @@ export class SqliteClient implements IRedisClient {
   private logger: Logger;
   private db: any;
 
-  constructor(dbFile?: string) {
+  constructor (dbFile?: string) {
     this.logger = new Logger("Sqlite Redis Fallback");
     const dataDir = path.resolve(process.cwd(), "data");
     if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
@@ -20,7 +20,7 @@ export class SqliteClient implements IRedisClient {
     this.migrate();
   }
 
-  private migrate() {
+  private migrate () {
     this.db
       .prepare(
         `
@@ -62,7 +62,7 @@ export class SqliteClient implements IRedisClient {
       .run();
   }
 
-  async getAllClusters(): Promise<ICluster[]> {
+  async getAllClusters (): Promise<ICluster[]> {
     const rows = this.db.prepare("SELECT * FROM clusters").all();
     return rows.map((r: any) => ({
       name: r.name,
@@ -74,7 +74,7 @@ export class SqliteClient implements IRedisClient {
     }));
   }
 
-  async insertCluster(cluster: ICluster): Promise<void> {
+  async insertCluster (cluster: ICluster): Promise<void> {
     this.db
       .prepare(
         "INSERT OR REPLACE INTO clusters (name, host, port, lastPing, enabled, channels) VALUES (?, ?, ?, ?, ?, ?)"
@@ -89,15 +89,15 @@ export class SqliteClient implements IRedisClient {
       );
   }
 
-  async updateCluster(cluster: ICluster): Promise<void> {
+  async updateCluster (cluster: ICluster): Promise<void> {
     await this.insertCluster(cluster);
   }
 
-  async deleteCluster(clusterName: string): Promise<void> {
+  async deleteCluster (clusterName: string): Promise<void> {
     this.db.prepare("DELETE FROM clusters WHERE name = ?").run(clusterName);
   }
 
-  async getCluster(clusterName: string): Promise<ICluster | null> {
+  async getCluster (clusterName: string): Promise<ICluster | null> {
     const row = this.db
       .prepare("SELECT * FROM clusters WHERE name = ?")
       .get(clusterName);
@@ -112,12 +112,12 @@ export class SqliteClient implements IRedisClient {
     };
   }
 
-  async getAllChannels(clusterName: string): Promise<IChannel[]> {
+  async getAllChannels (clusterName: string): Promise<IChannel[]> {
     const cluster = await this.getCluster(clusterName);
     return cluster?.channels || [];
   }
 
-  async insertChannel(clusterName: string, channel: IChannel): Promise<void> {
+  async insertChannel (clusterName: string, channel: IChannel): Promise<void> {
     const cluster =
       (await this.getCluster(clusterName)) ||
       ({
@@ -133,7 +133,7 @@ export class SqliteClient implements IRedisClient {
     await this.insertCluster(cluster);
   }
 
-  async updateChannel(
+  async updateChannel (
     clusterName: string,
     updatedChannel: IChannel
   ): Promise<void> {
@@ -146,7 +146,7 @@ export class SqliteClient implements IRedisClient {
     await this.insertCluster(cluster);
   }
 
-  async getChannel(
+  async getChannel (
     clusterName: string,
     channelName: string
   ): Promise<IChannel | null> {
@@ -154,7 +154,10 @@ export class SqliteClient implements IRedisClient {
     return _.find(cluster?.channels, { name: channelName }) || null;
   }
 
-  async deleteChannel(clusterName: string, channelName: string): Promise<void> {
+  async deleteChannel (
+    clusterName: string,
+    channelName: string
+  ): Promise<void> {
     const cluster = await this.getCluster(clusterName);
     if (!cluster) return;
     cluster.channels = _.filter(
@@ -164,7 +167,7 @@ export class SqliteClient implements IRedisClient {
     await this.insertCluster(cluster);
   }
 
-  async getChannelById(
+  async getChannelById (
     clusterName: string,
     id: number
   ): Promise<IChannel | undefined> {
@@ -172,20 +175,20 @@ export class SqliteClient implements IRedisClient {
     return _.find(channels, { id });
   }
 
-  async getNumpadId(username: string): Promise<number | null> {
+  async getNumpadId (username: string): Promise<number | null> {
     const row = this.db
       .prepare("SELECT numpad FROM numpad WHERE username = ?")
       .get(username);
     return row ? row.numpad : null;
   }
 
-  async setNumpadId(username: string, numPadId: number): Promise<void> {
+  async setNumpadId (username: string, numPadId: number): Promise<void> {
     this.db
       .prepare("INSERT OR REPLACE INTO numpad (username, numpad) VALUES (?, ?)")
       .run(username, numPadId);
   }
 
-  async setCharacterSession(
+  async setCharacterSession (
     sessionKey: number,
     characterId: number,
     username: string,
@@ -200,7 +203,7 @@ export class SqliteClient implements IRedisClient {
       .run(sessionKey, characterId, username, password, expireAt);
   }
 
-  async getCharacterSession(sessionKey: number): Promise<{
+  async getCharacterSession (sessionKey: number): Promise<{
     characterId: number;
     username: string;
     password: string;
@@ -222,7 +225,7 @@ export class SqliteClient implements IRedisClient {
     };
   }
 
-  async deleteCharacterSession(sessionKey: number): Promise<void> {
+  async deleteCharacterSession (sessionKey: number): Promise<void> {
     this.db
       .prepare("DELETE FROM sessions WHERE sessionKey = ?")
       .run(sessionKey);

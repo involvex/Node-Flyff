@@ -6,5 +6,5 @@ export enum QuestState {
   End,
   EndCompleted,
   Ok,
-  Completed = 14,
+  Completed = 14
 }

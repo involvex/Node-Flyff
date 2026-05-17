@@ -11,8 +11,8 @@ import {
 } from "../interfaces/dropItemProperties";
 import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
 import { ResourceTableFile } from "../helpers/resourceTableFile";
-import { IncludeFile, Block } from "../helpers/includeFile";
-import { Instruction, Variable } from "../helpers/instructionParser";
+import { IncludeFile } from "../helpers/includeFile";
+import { Instruction } from "../helpers/instructionParser";
 import { ItemKind3 } from "../common/itemKind";
 
 export class MonsterResources {
@@ -23,16 +23,16 @@ export class MonsterResources {
   private readonly moversByIdentifierName: Map<string, MoverProperties> =
     new Map();
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("Monster Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public get(moverId: number): MoverProperties | null {
+  public get (moverId: number): MoverProperties | null {
     return this.moversById.get(moverId) || null;
   }
 
-  public getByIdentifier(moverIdentifier: string): MoverProperties | null {
+  public getByIdentifier (moverIdentifier: string): MoverProperties | null {
     const moverId = parseInt(moverIdentifier, 10);
     if (!isNaN(moverId)) {
       return this.get(moverId);
@@ -41,11 +41,11 @@ export class MonsterResources {
     }
   }
 
-  public getLoadedCount(): number {
+  public getLoadedCount (): number {
     return this.moversById.size;
   }
 
-  public async getAsync(
+  public async getAsync (
     monsterIdentifier: string | number
   ): Promise<MoverProperties | null> {
     if (this.moversById.size > 0) {
@@ -67,7 +67,7 @@ export class MonsterResources {
     return null;
   }
 
-  public where(
+  public where (
     predicate: (monster: MoverProperties) => boolean
   ): MoverProperties[] {
     const monsters: MoverProperties[] = [];
@@ -79,7 +79,7 @@ export class MonsterResources {
     return monsters;
   }
 
-  public async whereAsync(
+  public async whereAsync (
     predicate: (monster: MoverProperties) => boolean
   ): Promise<MoverProperties[]> {
     if (this.moversById.size > 0) {
@@ -107,11 +107,11 @@ export class MonsterResources {
     return monsters;
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     this.loadDefinesSync();
   }
 
-  private async loadDefinesSync(): Promise<void> {
+  private async loadDefinesSync (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineObject);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
@@ -140,7 +140,7 @@ export class MonsterResources {
     }
   }
 
-  public async load(): Promise<void> {
+  public async load (): Promise<void> {
     const startTime = Date.now();
 
     if (!fs.existsSync(ResourcePaths.moversProp)) {
@@ -231,7 +231,7 @@ export class MonsterResources {
     this.logger.info(`${this.moversById.size} movers loaded in ${elapsed}ms.`);
   }
 
-  private loadDropGold(
+  private loadDropGold (
     mover: MoverProperties,
     dropGoldInstruction: Instruction | null
   ): void {
@@ -261,7 +261,7 @@ export class MonsterResources {
     mover.dropGoldMax = maxGold;
   }
 
-  private loadDropItems(
+  private loadDropItems (
     mover: MoverProperties,
     dropItemInstructions: Instruction[]
   ): void {
@@ -320,7 +320,7 @@ export class MonsterResources {
     }
   }
 
-  private loadDropItemsKind(
+  private loadDropItemsKind (
     mover: MoverProperties,
     instructions: Instruction[]
   ): void {
@@ -364,7 +364,7 @@ export class MonsterResources {
     }
   }
 
-  public async loadMonstersPropStrings(): Promise<void> {
+  public async loadMonstersPropStrings (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.moversText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -381,7 +381,7 @@ export class MonsterResources {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async(pair, i) => {
+      _.forEach(pairs, async (pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("monsterNames", idName, name);
@@ -392,7 +392,7 @@ export class MonsterResources {
     }
   }
 
-  public async loadMonstersProp(): Promise<void> {
+  public async loadMonstersProp (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.moversProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -411,7 +411,7 @@ export class MonsterResources {
 
     const data = fs.readFileSync(absolutePath, "utf8");
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       const monsterData = line.trim().split("\t");
       const id = await this.redisClient.hget("objectDefines", monsterData[0]);
 
@@ -515,7 +515,7 @@ export class MonsterResources {
     this.logger.main(`${lines.length} monsters loaded.`);
   }
 
-  parseMoverProperties(data: { [key: string]: string }): MoverProperties {
+  parseMoverProperties (data: { [key: string]: string }): MoverProperties {
     return {
       id: tryParseInt(data.id),
       dwID: data.dwID,
@@ -607,7 +607,7 @@ export class MonsterResources {
     };
   }
 
-  async cleanCache() {
+  async cleanCache () {
     const keys = await this.redisClient.keys("monster:*");
     if (!keys || keys.length === 0) return;
     await this.redisClient.del(...keys);

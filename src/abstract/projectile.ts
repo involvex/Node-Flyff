@@ -12,7 +12,7 @@ export class Projectile {
   public onArrived: () => void;
 
   /** Gets the projectile attack type. */
-  public get type(): AttackFlags {
+  public get type (): AttackFlags {
     return AttackFlags.AF_GENERIC;
   }
 
@@ -22,7 +22,7 @@ export class Projectile {
    * @param target Projectile target.
    * @param onArrived Projectile action to execute when arrived at its target.
    */
-  constructor(owner: Mover, target: Mover, onArrived: () => void) {
+  constructor (owner: Mover, target: Mover, onArrived: () => void) {
     this.owner = owner;
     this.target = target;
     this.onArrived = onArrived;

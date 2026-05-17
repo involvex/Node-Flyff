@@ -31,7 +31,7 @@ export default class Handler extends PacketHandler {
   bankPin: number;
   authKey: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.username = packet.readString();
     this.password = packet.readString();
@@ -49,7 +49,7 @@ export default class Handler extends PacketHandler {
     this.authKey = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const accounts = this.server?.instance?.getEntity("Account");
     const characters = this.server?.instance?.getEntity("Character");
 
@@ -162,7 +162,7 @@ export default class Handler extends PacketHandler {
     this.userConnection.sendCharacterList(userCharacters, this.authKey);
   }
 
-  async createPlayerItem(
+  async createPlayerItem (
     character: Character,
     itemIdentifier: string | number,
     slot: number,

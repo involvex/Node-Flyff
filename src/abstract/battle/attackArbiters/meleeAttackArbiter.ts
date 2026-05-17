@@ -1,9 +1,5 @@
 import { AttackFlags } from "../../../common/attackFlag";
 import { DefineAttributes } from "../../../common/defineAttributes";
-import { ItemPartType } from "../../../common/itemPartyType";
-import { MoverClassType } from "../../../common/moverClassType";
-import { ObjectState } from "../../../common/objectState";
-import { WeaponType } from "../../../common/weaponType";
 import { Mover } from "../../../entities/mover";
 import { Player } from "../../../entities/player";
 import { FFRandom } from "../../../helpers/FFRandom";
@@ -17,7 +13,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
   private readonly _attackFlags: AttackFlags;
   private readonly _attackPower: number;
 
-  constructor(
+  constructor (
     attacker: Mover,
     defender: Mover,
     attackFlags: AttackFlags = AttackFlags.AF_GENERIC,
@@ -28,7 +24,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     this._attackPower = attackPower;
   }
 
-  calculateDamages(): AttackResult {
+  calculateDamages (): AttackResult {
     let flags = this.getAttackFlags();
 
     if (flags & AttackFlags.AF_MISS) {
@@ -70,7 +66,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return AttackResult.success(damages, flags);
   }
 
-  private getAttackFlags(): AttackFlags {
+  private getAttackFlags (): AttackFlags {
     let hitRate = 0;
     const hitRating = this.getHitRating(this.attacker);
     const escapeRating = this.getEscapeRating(this.defender);
@@ -107,7 +103,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
       : AttackFlags.AF_MISS;
   }
 
-  private getHitRating(entity: Mover): number {
+  private getHitRating (_entity: Mover): number {
     // if (entity instanceof Player) {
     //     return entity.statistics.dexterity + entity.attributes.get(DefineAttributes.DST_DEX);
     // } else if (entity instanceof Monster) {
@@ -117,7 +113,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return 0;
   }
 
-  private isCriticalAttack(
+  private isCriticalAttack (
     attacker: Mover,
     currentAttackFlags: AttackFlags
   ): boolean {
@@ -152,7 +148,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return FFRandom.random(0, 100) < criticalProbability;
   }
 
-  private calculateCriticalDamages(
+  private calculateCriticalDamages (
     actualAttackRange: RangeHelper<number>
   ): RangeHelper<number> {
     const criticalMin = 1.1;
@@ -184,7 +180,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return new RangeHelper<number>(attackMin, attackMax);
   }
 
-  private isKnockback(attackerAttackFlags: AttackFlags): boolean {
+  private isKnockback (_attackerAttackFlags: AttackFlags): boolean {
     const knockbackChance = FFRandom.random(0, 100) < 15;
 
     if (this.defender instanceof Player) {
@@ -210,7 +206,7 @@ export class MeleeAttackArbiter extends AttackArbiterBase {
     return canFly && knockbackChance;
   }
 
-  private getChargeAttackMultiplier(): number {
+  private getChargeAttackMultiplier (): number {
     if (!(this._attackFlags & AttackFlags.AF_RANGE)) {
       return 1;
     }

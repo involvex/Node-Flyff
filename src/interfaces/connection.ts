@@ -8,7 +8,7 @@ export interface IUserConnection extends UserConnection {
   userId: number | null;
   sessionId: number;
   socket: Socket;
-  send(packet: FlyffPacket): void;
-  sendError(errorType: ErrorType): void;
-  disconnect(): void;
+  send (packet: FlyffPacket): void;
+  sendError (errorType: ErrorType): void;
+  disconnect (): void;
 }

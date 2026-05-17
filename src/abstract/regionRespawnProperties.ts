@@ -18,7 +18,7 @@ export class MapRespawnRegionProperties extends MapRegionProperties {
   // Used for flying monsters.
   public height: number;
 
-  constructor(
+  constructor (
     x: number,
     z: number,
     width: number,

@@ -1,7 +1,7 @@
 // Minimal Flyff packet helpers for the web client demo.
 // This is intentionally tiny: extend with full framing/fields as needed.
 
-export function encodeCertify(account: string, password: string) {
+export function encodeCertify (account: string, password: string) {
   const enc = new TextEncoder();
   const a = enc.encode(account);
   const p = enc.encode(password);
@@ -20,7 +20,7 @@ export function encodeCertify(account: string, password: string) {
   return buf;
 }
 
-export function parseWelcome(buffer: ArrayBuffer) {
+export function parseWelcome (buffer: ArrayBuffer) {
   // very tiny parse: expect type 2 and session id uint32
   const dv = new DataView(buffer);
   const type = dv.getUint8(2);
@@ -29,7 +29,7 @@ export function parseWelcome(buffer: ArrayBuffer) {
   return { type: "WELCOME", session };
 }
 
-export function parseServerList(buffer: ArrayBuffer) {
+export function parseServerList (buffer: ArrayBuffer) {
   // Demo parse: expect type 3 and a null-terminated list of server names separated by '|'
   const dv = new DataView(buffer);
   const type = dv.getUint8(2);
@@ -43,7 +43,7 @@ export function parseServerList(buffer: ArrayBuffer) {
   return { type: "SERVER_LIST", servers };
 }
 
-export function encodeSelectServer(name: string) {
+export function encodeSelectServer (name: string) {
   const enc = new TextEncoder();
   const n = enc.encode(name);
   const buf = new ArrayBuffer(4 + n.length + 1);
@@ -57,7 +57,7 @@ export function encodeSelectServer(name: string) {
   return buf;
 }
 
-export function encodeSelectCluster(clusterId: number) {
+export function encodeSelectCluster (clusterId: number) {
   const buf = new ArrayBuffer(4 + 4);
   const dv = new DataView(buf);
   dv.setUint16(0, 1 + 4, true);
@@ -66,7 +66,7 @@ export function encodeSelectCluster(clusterId: number) {
   return buf;
 }
 
-export function encodeSelectCharacter(name: string) {
+export function encodeSelectCharacter (name: string) {
   const enc = new TextEncoder();
   const n = enc.encode(name);
   const buf = new ArrayBuffer(4 + n.length + 1);
@@ -80,7 +80,7 @@ export function encodeSelectCharacter(name: string) {
   return buf;
 }
 
-export function encodeJoin(characterId: number) {
+export function encodeJoin (characterId: number) {
   const buf = new ArrayBuffer(4 + 4);
   const dv = new DataView(buf);
   dv.setUint16(0, 1 + 4, true);
@@ -89,7 +89,7 @@ export function encodeJoin(characterId: number) {
   return buf;
 }
 
-export function parseAck(buffer: ArrayBuffer) {
+export function parseAck (buffer: ArrayBuffer) {
   const dv = new DataView(buffer);
   const type = dv.getUint8(2);
   // type 9 = ACK with message string

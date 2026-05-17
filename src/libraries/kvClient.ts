@@ -10,7 +10,7 @@ export class KvClient {
   private expiresMemory: Map<string, number> | null = null;
   private logger: Logger;
 
-  constructor(dbFile?: string) {
+  constructor (dbFile?: string) {
     this.logger = new Logger("KV SQLite Client");
     const dataDir = path.resolve(process.cwd(), "data");
     if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
@@ -25,7 +25,7 @@ export class KvClient {
       this.db = new Database(file);
       this.migrate();
       this.logger.main("Using better-sqlite3 for KV storage.");
-    } catch (err) {
+    } catch (_err) {
       this.logger.warn(
         "better-sqlite3 not available or failed to initialize, falling back to in-memory KV store."
       );
@@ -34,7 +34,7 @@ export class KvClient {
     }
   }
 
-  private migrate() {
+  private migrate () {
     if (!this.db) return;
     this.db
       .prepare(
@@ -58,7 +58,7 @@ export class KvClient {
       .run();
   }
 
-  private isExpired(key: string) {
+  private isExpired (key: string) {
     if (this.db) {
       const row = this.db
         .prepare("SELECT expireAt FROM expires WHERE key = ?")
@@ -85,7 +85,7 @@ export class KvClient {
     return false;
   }
 
-  async get(key: string): Promise<string | null> {
+  async get (key: string): Promise<string | null> {
     if (this.isExpired(key)) return null;
     if (this.db) {
       const row = this.db
@@ -96,7 +96,7 @@ export class KvClient {
     return this.memory?.get(key) ?? null;
   }
 
-  async set(key: string, value: string | number): Promise<void> {
+  async set (key: string, value: string | number): Promise<void> {
     if (this.db) {
       this.db
         .prepare("INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)")
@@ -106,7 +106,7 @@ export class KvClient {
     this.memory?.set(key, String(value));
   }
 
-  async del(key: string): Promise<void> {
+  async del (key: string): Promise<void> {
     if (this.db) {
       this.db.prepare("DELETE FROM kv WHERE key = ?").run(key);
       this.db.prepare("DELETE FROM expires WHERE key = ?").run(key);
@@ -116,7 +116,7 @@ export class KvClient {
     this.expiresMemory?.delete(key);
   }
 
-  async exists(key: string): Promise<number> {
+  async exists (key: string): Promise<number> {
     if (this.isExpired(key)) return 0;
     if (this.db) {
       const row = this.db.prepare("SELECT 1 FROM kv WHERE key = ?").get(key);
@@ -126,7 +126,7 @@ export class KvClient {
   }
 
   // keys supports simple glob '*' wildcard
-  async keys(pattern: string): Promise<string[]> {
+  async keys (pattern: string): Promise<string[]> {
     const like = pattern.replace(/\*/g, "%");
     if (this.db) {
       const rows = this.db
@@ -143,29 +143,29 @@ export class KvClient {
   }
 
   // Hash helpers: store hash as JSON under the hashKey
-  async hget(hashKey: string, field: string): Promise<string | null> {
+  async hget (hashKey: string, field: string): Promise<string | null> {
     const raw = await this.get(hashKey);
     if (!raw) return null;
     try {
       const obj = JSON.parse(raw);
       return obj[field] !== undefined ? String(obj[field]) : null;
-    } catch (err) {
+    } catch (_err) {
       return null;
     }
   }
 
-  async hgetall(hashKey: string): Promise<{ [k: string]: string } | null> {
+  async hgetall (hashKey: string): Promise<{ [k: string]: string } | null> {
     const raw = await this.get(hashKey);
     if (!raw) return null;
     try {
       const obj = JSON.parse(raw);
       return _.mapValues(obj, (v) => String(v));
-    } catch (err) {
+    } catch (_err) {
       return null;
     }
   }
 
-  async hset(hashKey: string, field: string, value: any): Promise<void> {
+  async hset (hashKey: string, field: string, value: any): Promise<void> {
     const raw = await this.get(hashKey);
     let obj = {} as any;
     if (raw) {
@@ -179,7 +179,7 @@ export class KvClient {
     await this.set(hashKey, JSON.stringify(obj));
   }
 
-  async hmset(hashKey: string, obj: Record<string, any>): Promise<void> {
+  async hmset (hashKey: string, obj: Record<string, any>): Promise<void> {
     const raw = await this.get(hashKey);
     let base = {} as any;
     if (raw) {
@@ -193,7 +193,7 @@ export class KvClient {
     await this.set(hashKey, JSON.stringify(base));
   }
 
-  async expire(key: string, seconds: number): Promise<void> {
+  async expire (key: string, seconds: number): Promise<void> {
     const expireAt = Date.now() + seconds * 1000;
     if (this.db) {
       this.db

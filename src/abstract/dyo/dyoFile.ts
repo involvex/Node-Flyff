@@ -10,7 +10,7 @@ import { DyoNpcElement } from "./dyoNpcElement";
 export class DyoFile {
   private _elements: DyoElement[] = [];
 
-  constructor(dyoFilePath: string) {
+  constructor (dyoFilePath: string) {
     const data = fs.readFileSync(dyoFilePath, "binary");
     const buffer = Buffer.from(data, "binary");
     const streamReader = new BinaryStream(buffer);
@@ -46,11 +46,11 @@ export class DyoFile {
     }
   }
 
-  get Elements(): DyoElement[] {
+  get Elements (): DyoElement[] {
     return this._elements;
   }
 
-  getElements<T extends DyoElement>(): T[] {
+  getElements<T extends DyoElement> (): T[] {
     return this._elements.filter((element) => element) as T[];
   }
 }

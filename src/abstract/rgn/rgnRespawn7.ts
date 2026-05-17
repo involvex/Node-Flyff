@@ -7,7 +7,7 @@ export class RgnRespawn7 extends RgnElement {
   private _time: number;
   private _agroNumber: number;
 
-  constructor(respawnData: string[]) {
+  constructor (respawnData: string[]) {
     super(
       parseInt(respawnData[1]),
       new Vector3(
@@ -27,19 +27,19 @@ export class RgnRespawn7 extends RgnElement {
     this._agroNumber = parseInt(respawnData[8]);
   }
 
-  get model(): number {
+  get model (): number {
     return this._model;
   }
 
-  get count(): number {
+  get count (): number {
     return this._count;
   }
 
-  get time(): number {
+  get time (): number {
     return this._time;
   }
 
-  get agroNumber(): number {
+  get agroNumber (): number {
     return this._agroNumber;
   }
 }

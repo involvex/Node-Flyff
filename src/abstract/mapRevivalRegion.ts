@@ -9,7 +9,7 @@ export class MapRevivalRegionProperties extends MapRegionProperties {
   public targetRevivalKey: boolean;
   public revivalPosition: Vector3;
 
-  constructor(
+  constructor (
     x: number,
     z: number,
     width: number,

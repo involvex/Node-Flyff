@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
-
 export enum ObjectState {
   OBJSTA_NONE = 0x00000000,
 
@@ -96,5 +94,5 @@ export enum ObjectState {
     OBJSTA_JUMP_ALL |
     OBJSTA_ATK_ALL |
     OBJSTA_DMG_ALL |
-    OBJSTA_ACTION_ALL,
+    OBJSTA_ACTION_ALL
 }

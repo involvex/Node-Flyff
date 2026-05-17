@@ -10,5 +10,5 @@ export enum ShortcutType {
   Chat,
   SkillFun,
   Emoticon,
-  LordSkill,
+  LordSkill
 }

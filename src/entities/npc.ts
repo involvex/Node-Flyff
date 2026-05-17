@@ -1,11 +1,9 @@
 import { WorldObject } from "../abstract/worldObject";
 import { WorldObjectType } from "../common/worldObjectType";
-import { DialogOptions } from "../common/dialogOptions";
 import { QuestState } from "../common/questState";
 import { Item } from "../common/item";
 import {
   NpcProperties,
-  DialogProperties,
   DialogLink,
   ShopProperties,
   ShopItemProperties
@@ -17,19 +15,19 @@ import { FlyffPacket } from "../libraries/flyffPacket";
 // Forward declarations to avoid circular dependencies
 interface Player extends WorldObject {
   questDiary: QuestDiary;
-  send(packet: FlyffPacket): void;
+  send (packet: FlyffPacket): void;
 }
 
 interface Quest {
   id: number;
   properties: QuestProperties;
-  canFinish(): boolean;
+  canFinish (): boolean;
 }
 
 interface QuestDiary {
   activeQuests: Quest[];
-  canStartQuest(quest: QuestProperties): boolean;
-  hasActiveQuest(questId: number): boolean;
+  canStartQuest (quest: QuestProperties): boolean;
+  hasActiveQuest (questId: number): boolean;
 }
 
 interface QuestProperties {
@@ -46,22 +44,22 @@ class ItemContainer {
   private items: Map<number, Item> = new Map();
   private readonly maxSize: number;
 
-  constructor(maxSize: number) {
+  constructor (maxSize: number) {
     this.maxSize = maxSize;
   }
 
-  public initialize(items: Record<number, Item>): void {
+  public initialize (items: Record<number, Item>): void {
     this.items.clear();
     for (const [slot, item] of Object.entries(items)) {
       this.items.set(parseInt(slot), item);
     }
   }
 
-  public getItem(slot: number): Item | null {
+  public getItem (slot: number): Item | null {
     return this.items.get(slot) || null;
   }
 
-  public setItem(slot: number, item: Item): boolean {
+  public setItem (slot: number, item: Item): boolean {
     if (slot < 0 || slot >= this.maxSize) {
       return false;
     }
@@ -69,11 +67,11 @@ class ItemContainer {
     return true;
   }
 
-  public get size(): number {
+  public get size (): number {
     return this.maxSize;
   }
 
-  public get itemCount(): number {
+  public get itemCount (): number {
     return this.items.size;
   }
 }
@@ -127,23 +125,23 @@ export class Npc extends WorldObject {
   public readonly shop: ItemContainer[] | null = null;
   public readonly quests: QuestProperties[] = [];
 
-  public get type(): WorldObjectType {
+  public get type (): WorldObjectType {
     return WorldObjectType.Mover;
   }
 
-  public get hasShop(): boolean {
+  public get hasShop (): boolean {
     return this.shop !== null;
   }
 
-  public get hasDialog(): boolean {
+  public get hasDialog (): boolean {
     return this.properties.hasDialog;
   }
 
-  public get hasQuests(): boolean {
+  public get hasQuests (): boolean {
     return this.quests.length > 0;
   }
 
-  constructor(properties: NpcProperties) {
+  constructor (properties: NpcProperties) {
     super();
 
     this.properties = properties;
@@ -159,7 +157,7 @@ export class Npc extends WorldObject {
     this.loadQuests();
   }
 
-  private initializeShop(shopProperties: ShopProperties): void {
+  private initializeShop (shopProperties: ShopProperties): void {
     if (!shopProperties.items || shopProperties.items.length === 0) {
       return;
     }
@@ -187,7 +185,7 @@ export class Npc extends WorldObject {
     });
   }
 
-  private groupShopItemsByTab(
+  private groupShopItemsByTab (
     items: ShopItemProperties[]
   ): ShopItemProperties[][] {
     // For now, put all items in one tab
@@ -195,7 +193,7 @@ export class Npc extends WorldObject {
     return [items];
   }
 
-  private loadQuests(): void {
+  private loadQuests (): void {
     // Load quests that start with this NPC
     const npcQuests = GameResources.Current.Quests.filter(
       (quest) =>
@@ -206,7 +204,7 @@ export class Npc extends WorldObject {
     (this as any).quests = npcQuests;
   }
 
-  public update(): void {
+  public update (): void {
     if (!this.isSpawned) {
       return;
     }
@@ -214,7 +212,7 @@ export class Npc extends WorldObject {
     this.speak();
   }
 
-  public openShop(target: Player): void {
+  public openShop (_target: Player): void {
     if (!this.hasShop) {
       return;
     }
@@ -226,10 +224,10 @@ export class Npc extends WorldObject {
     console.log(`Opening shop for player at NPC ${this.name}`);
   }
 
-  public speak(text: string, player: Player): void;
-  public speak(): void;
-  public speak(text?: string, player?: Player): void {
-    if (text && player) {
+  public speak (text: string, player: Player): void;
+  public speak (): void;
+  public speak (text?: string, _player?: Player): void {
+    if (text && _player) {
       // Send specific text to specific player
       // TODO: Implement ChatSnapshot when available
       // const packet = new ChatSnapshot(this, text);
@@ -241,7 +239,7 @@ export class Npc extends WorldObject {
     }
   }
 
-  public showDialog(
+  public showDialog (
     targetPlayer: Player,
     texts?: string[],
     links?: DialogLink[],
@@ -270,15 +268,14 @@ export class Npc extends WorldObject {
     }
   }
 
-  public showQuestDialog(
+  public showQuestDialog (
     player: Player,
     texts: string[],
     buttons: DialogLink[],
     questId: number
   ): void {
     const questDialogs = texts.map((text) =>
-      GameResources.Current.getText(text)
-    );
+      GameResources.Current.getText(text));
     this.showDialog(
       player,
       questDialogs,
@@ -290,7 +287,7 @@ export class Npc extends WorldObject {
     );
   }
 
-  public closeDialog(player: Player): void {
+  public closeDialog (_player: Player): void {
     // TODO: Implement DialogOptionSnapshot when available
     // const snapshot = new DialogOptionSnapshot(player, DialogOptions.FUNCTYPE_EXIT);
     // player.send(snapshot);
@@ -298,10 +295,9 @@ export class Npc extends WorldObject {
     console.log(`Closing dialog for player at NPC ${this.name}`);
   }
 
-  public suggestAvailableQuest(player: Player): boolean {
+  public suggestAvailableQuest (player: Player): boolean {
     const availableQuests = this.quests.filter((quest) =>
-      player.questDiary.canStartQuest(quest)
-    );
+      player.questDiary.canStartQuest(quest));
 
     if (availableQuests.length > 0) {
       const quest = availableQuests[0];
@@ -317,7 +313,7 @@ export class Npc extends WorldObject {
     return false;
   }
 
-  public suggestFinalizeQuest(player: Player): boolean {
+  public suggestFinalizeQuest (player: Player): boolean {
     const playerQuestsToFinalize = player.questDiary.activeQuests.filter(
       (quest) =>
         quest.canFinish() &&
@@ -338,7 +334,7 @@ export class Npc extends WorldObject {
     return false;
   }
 
-  private performAutomaticSpeaking(): void {
+  private performAutomaticSpeaking (): void {
     if (this.properties.dialog && this.properties.dialog.shoutText) {
       if (this._lastSpeakTime <= timeInSeconds()) {
         const playersAround = this.visibleObjects
@@ -346,8 +342,7 @@ export class Npc extends WorldObject {
             (obj) => obj instanceof Object && obj.constructor.name === "Player"
           ) // Type check for Player
           .filter((obj) =>
-            this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS)
-          );
+            this.position.isInCircle(obj.position, Npc.ORAL_TEXT_RADIUS));
 
         if (playersAround.length > 0) {
           playersAround.forEach((player) => {
@@ -360,7 +355,7 @@ export class Npc extends WorldObject {
     }
   }
 
-  private addQuestDialogOptions(targetPlayer: Player, questId: number): void {
+  private addQuestDialogOptions (targetPlayer: Player, _questId: number): void {
     // Add new quest options
     const newQuestLinks = this.quests
       .filter((quest) => targetPlayer.questDiary.canStartQuest(quest))
@@ -386,7 +381,7 @@ export class Npc extends WorldObject {
     console.log(`Quests in progress: ${questsInProgressLinks.length}`);
   }
 
-  public dispose(): void {
+  public dispose (): void {
     // Clean up NPC resources
     super.dispose();
   }

@@ -1,6 +1,5 @@
 import { PacketType } from "../common/packetType";
 import { SnapshotType } from "../common/snapshotType";
-import { BinaryStream } from "./binaryStream";
 import { FlyffPacket } from "./flyffPacket";
 
 export class FlyffSnapshot extends FlyffPacket {
@@ -13,10 +12,10 @@ export class FlyffSnapshot extends FlyffPacket {
 
   count: number;
 
-  constructor();
-  constructor(snapshots: FlyffSnapshot[]);
-  constructor(snapshot: SnapshotType, objectId: number);
-  constructor(param1?: FlyffSnapshot[] | SnapshotType, param2?: number) {
+  constructor ();
+  constructor (snapshots: FlyffSnapshot[]);
+  constructor (snapshot: SnapshotType, objectId: number);
+  constructor (param1?: FlyffSnapshot[] | SnapshotType, param2?: number) {
     super(PacketType.SNAPSHOT);
     if (param1 instanceof Array) {
       for (const snapshot of param1) {
@@ -35,15 +34,15 @@ export class FlyffSnapshot extends FlyffPacket {
     }
   }
 
-  mergeSnapshots(snapshot: FlyffSnapshot) {
+  mergeSnapshots (snapshot: FlyffSnapshot) {
     this.merge(snapshot.buffer);
   }
 
-  getContent(): Buffer {
+  getContent (): Buffer {
     return this.getSnapshotContent(this);
   }
 
-  private getSnapshotContent(snapshot: FlyffSnapshot): Buffer {
+  private getSnapshotContent (snapshot: FlyffSnapshot): Buffer {
     const snapshotBuffer = snapshot.buffer;
     return snapshotBuffer.subarray(FlyffSnapshot.SnapshotContentOffset);
   }

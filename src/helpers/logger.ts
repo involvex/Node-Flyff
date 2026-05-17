@@ -14,31 +14,31 @@ export class Logger {
     main: clc.magenta
   };
 
-  constructor(sender: ServerType | string) {
+  constructor (sender: ServerType | string) {
     this.sender = sender;
   }
 
-  public info(...message: any[]): void {
+  public info (...message: any[]): void {
     this.log("info", ...message);
   }
 
-  public warn(...message: any[]): void {
+  public warn (...message: any[]): void {
     this.log("warn", ...message);
   }
 
-  public error(...message: any[]): void {
+  public error (...message: any[]): void {
     this.log("error", ...message);
   }
 
-  public success(...message: any[]): void {
+  public success (...message: any[]): void {
     this.log("success", ...message);
   }
 
-  public main(...message: any[]): void {
+  public main (...message: any[]): void {
     this.log("main", ...message);
   }
 
-  private log(level: string = "main", ...message: any[]) {
+  private log (level: string = "main", ...message: any[]) {
     console.log(
       clc.blue(moment().format("LTS")) +
         " " +

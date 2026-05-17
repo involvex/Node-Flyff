@@ -5,8 +5,6 @@ import { FlyffPacket } from "../../../libraries/flyffPacket";
 import { PacketHandler } from "../../../libraries/packetHandler";
 import { SetPacketType } from "../../../decorators/packetHandler";
 import Account from "../../../database/account";
-import Character from "../../../database/character";
-import EquipmentItem from "../../../database/equipmentItem";
 import { uNumPad } from "../../../helpers/numPad";
 
 @SetPacketType(PacketType.GET_CHARACTER_LIST)
@@ -17,7 +15,7 @@ export default class Handler extends PacketHandler {
   password: string;
   channelId: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.msgVer = packet.readStringLE();
     this.authKey = packet.readInt32LE();
@@ -26,7 +24,7 @@ export default class Handler extends PacketHandler {
     this.channelId = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const channel = await this.server?.redisClient?.getChannelById(
       this.server?.config?.settings?.name,
       this.channelId
@@ -71,13 +69,13 @@ export default class Handler extends PacketHandler {
     }
   }
 
-  sendChannelIp(ip: string) {
+  sendChannelIp (ip: string) {
     const packet = new FlyffPacket(PacketType.CACHE_ADDR);
     packet.writeStringLE(ip);
     return this.send(packet);
   }
 
-  async sendNumPadId() {
+  async sendNumPadId () {
     const numpadId = Math.floor(Math.random() * uNumPad.length);
     await this.server.redisClient.setNumpadId(this.username, numpadId);
     const packet = new FlyffPacket(PacketType.LOGIN_PROTECT_NUMPAD);

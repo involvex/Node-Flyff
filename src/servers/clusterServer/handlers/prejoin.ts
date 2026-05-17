@@ -5,8 +5,6 @@ import { FlyffPacket } from "../../../libraries/flyffPacket";
 import { PacketHandler } from "../../../libraries/packetHandler";
 import { SetPacketType } from "../../../decorators/packetHandler";
 import Account from "../../../database/account";
-import Character from "../../../database/character";
-import { FFRandom } from "../../../helpers/FFRandom";
 import { uNumPad } from "../../../helpers/numPad";
 
 @SetPacketType(PacketType.PRE_JOIN)
@@ -16,7 +14,7 @@ export default class Handler extends PacketHandler {
   characterName: string;
   secretNum: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     console.log(packet.buffer.toString("hex"));
     this.username = packet.readStringLE();
@@ -25,7 +23,7 @@ export default class Handler extends PacketHandler {
     this.secretNum = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const accounts = this.server?.instance?.getEntity("Account");
 
     const account = (await accounts?.findOne({
@@ -78,12 +76,12 @@ export default class Handler extends PacketHandler {
     }
   }
 
-  sendPreJoin(): void {
+  sendPreJoin (): void {
     const packet = new FlyffPacket(PacketType.PRE_JOIN);
     this.send(packet);
   }
 
-  async extractBankPin(): Promise<number> {
+  async extractBankPin (): Promise<number> {
     const numpadId = await this.server.redisClient.getNumpadId(this.username);
     let nPW = 0;
     if (numpadId && numpadId <= 999 && this.secretNum <= 9999) {
@@ -100,7 +98,7 @@ export default class Handler extends PacketHandler {
     return nPW;
   }
 
-  async sendLoginProtect(success: boolean): Promise<void> {
+  async sendLoginProtect (success: boolean): Promise<void> {
     let numpadId = 0;
     if (!success) {
       numpadId = Math.floor(Math.random() * uNumPad.length);

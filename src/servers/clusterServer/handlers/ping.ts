@@ -8,7 +8,7 @@ export default class Handler extends PacketHandler {
   time: number;
   timedOut: boolean;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     try {
       this.time = packet.readInt32LE();
@@ -19,7 +19,7 @@ export default class Handler extends PacketHandler {
     }
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const packet = new FlyffPacket(PacketType.PING);
     packet.writeInt32LE(this.time);
     this.send(packet);

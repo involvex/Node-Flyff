@@ -5,5 +5,5 @@ export enum WorldEntityType {
   Pet = 0x08,
   Drop = 0x10,
   Mover = Player | Monster | Pet,
-  Object = Player | Monster | Npc | Pet | Drop,
+  Object = Player | Monster | Npc | Pet | Drop
 }

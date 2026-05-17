@@ -18,15 +18,15 @@ export class DatabaseBuilder {
   private entitiesPath!: string;
   private database!: DataSource;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger(BuilderType.DATABASE_BUILDER);
   }
 
-  setEntitiesPath(entitiesPath: string) {
+  setEntitiesPath (entitiesPath: string) {
     this.entitiesPath = entitiesPath;
   }
 
-  getOptionByType(options: IDataSource) {
+  getOptionByType (options: IDataSource) {
     switch (options.type) {
       case DatabaseType.MYSQL:
       case DatabaseType.MARIADB:
@@ -40,7 +40,7 @@ export class DatabaseBuilder {
     }
   }
 
-  async addConnection(options: IDatabaseOptions) {
+  async addConnection (options: IDatabaseOptions) {
     try {
       const entities = await this.loadEntities();
       this.database = new DataSource({
@@ -53,7 +53,7 @@ export class DatabaseBuilder {
     }
   }
 
-  async loadEntities() {
+  async loadEntities () {
     const entities = new Set();
     try {
       if (!fs.existsSync(this.entitiesPath)) {
@@ -62,7 +62,7 @@ export class DatabaseBuilder {
       const files = fs.readdirSync(join(this.entitiesPath));
       if (_.isEmpty(files)) return [];
       await Promise.all(
-        _.map(files, async(file: string) => {
+        _.map(files, async (file: string) => {
           if (
             file.endsWith(".ts") &&
             fs.existsSync(join(this.entitiesPath, file))
@@ -80,7 +80,7 @@ export class DatabaseBuilder {
     return entities;
   }
 
-  async build() {
+  async build () {
     try {
       await this.database.initialize();
       await this.database.synchronize();

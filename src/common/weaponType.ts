@@ -19,5 +19,5 @@ export enum WeaponType {
   SWING = 18,
   KNUCKLE = 19,
   MELEE_YOYO = 20,
-  RANGE_BOW = 21,
+  RANGE_BOW = 21
 }

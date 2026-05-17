@@ -10,7 +10,7 @@ import { WorldObject } from "./src/abstract/worldObject";
 
 const logger = new Logger("GameplayTest");
 
-async function main() {
+async function main () {
   logger.main("=== Gameplay Systems Test ===");
 
   try {
@@ -123,7 +123,7 @@ async function main() {
   }
 }
 
-function createTestEntity(id: number, position: Vector3): WorldObject {
+function createTestEntity (id: number, position: Vector3): WorldObject {
   // Create a simple test entity
   const entity = {
     objectId: id,
@@ -141,14 +141,14 @@ function createTestEntity(id: number, position: Vector3): WorldObject {
     stateMode: 0,
     visibleObjects: [],
     type: 0,
-    getVisibleObject: function() {
+    getVisibleObject: function () {
       return null;
     },
-    sendDefinedText: function() {},
-    sendSpecialEffect: function() {},
-    send: function() {},
-    sendToVisible: function() {},
-    dispose: function() {}
+    sendDefinedText: function () {},
+    sendSpecialEffect: function () {},
+    send: function () {},
+    sendToVisible: function () {},
+    dispose: function () {}
   } as WorldObject;
 
   return entity;

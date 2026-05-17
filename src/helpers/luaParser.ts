@@ -3,19 +3,19 @@ import { Logger } from "./logger";
 
 export interface LuaTable {
   [key: string]: any;
-  getValues<T>(): T[];
-  getValue<T>(key: string): T | undefined;
-  getValueOrDefault<T>(key: string, defaultValue: T): T;
+  getValues<T> (): T[];
+  getValue<T> (key: string): T | undefined;
+  getValueOrDefault<T> (key: string, defaultValue: T): T;
 }
 
 export class LuaParser {
   private logger: Logger;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("LuaParser");
   }
 
-  public parseFile(filePath: string): LuaTable | null {
+  public parseFile (filePath: string): LuaTable | null {
     if (!fs.existsSync(filePath)) {
       this.logger.error(`Lua file not found: ${filePath}`);
       return null;
@@ -30,7 +30,7 @@ export class LuaParser {
     }
   }
 
-  private parseContent(content: string): LuaTable {
+  private parseContent (content: string): LuaTable {
     const result: LuaTable = this.createLuaTable({});
 
     // Remove comments and normalize whitespace
@@ -56,7 +56,7 @@ export class LuaParser {
     return result;
   }
 
-  private parseTableContent(content: string): any {
+  private parseTableContent (content: string): any {
     // Remove outer braces
     const innerContent = content.trim().slice(1, -1).trim();
 
@@ -88,7 +88,7 @@ export class LuaParser {
     return result;
   }
 
-  private tokenize(
+  private tokenize (
     content: string
   ): Array<{ type: "assignment" | "value"; key?: string; value: string }> {
     const tokens: Array<{
@@ -105,8 +105,6 @@ export class LuaParser {
       }
 
       if (i >= content.length) break;
-
-      const start = i;
 
       // Check if this is a table (starts with {)
       if (content[i] === "{") {
@@ -151,7 +149,7 @@ export class LuaParser {
     return tokens;
   }
 
-  private findMatchingBrace(content: string, start: number): number {
+  private findMatchingBrace (content: string, start: number): number {
     let depth = 0;
     let inString = false;
     let stringChar = "";
@@ -179,7 +177,7 @@ export class LuaParser {
     return content.length - 1;
   }
 
-  private findAssignment(
+  private findAssignment (
     content: string,
     start: number
   ): { key: string; value: string; endIndex: number } | null {
@@ -228,7 +226,7 @@ export class LuaParser {
     };
   }
 
-  private findValueEnd(content: string, start: number): number {
+  private findValueEnd (content: string, start: number): number {
     let i = start;
     let inString = false;
     let stringChar = "";
@@ -251,7 +249,7 @@ export class LuaParser {
     return i;
   }
 
-  private parseTokenValue(value: string): any {
+  private parseTokenValue (value: string): any {
     const trimmed = value.trim();
 
     // Handle table values
@@ -263,7 +261,7 @@ export class LuaParser {
     return this.parseSimpleValue(trimmed);
   }
 
-  private parseSimpleValue(value: string): any {
+  private parseSimpleValue (value: string): any {
     if (!value) return "";
 
     // String values
@@ -288,7 +286,7 @@ export class LuaParser {
     return value;
   }
 
-  private createLuaTable(obj: any): LuaTable {
+  private createLuaTable (obj: any): LuaTable {
     const luaTable = obj as LuaTable;
 
     // Following C# NLua pattern: getValues returns array of all values

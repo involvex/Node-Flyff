@@ -11,12 +11,12 @@ import { AttackArbiterBase } from "./attackArbiterBase";
 export class SkillAttackArbiterBase extends AttackArbiterBase {
   protected readonly skill: Skill;
 
-  constructor(attacker: Mover, defender: Mover, skill: Skill) {
+  constructor (attacker: Mover, defender: Mover, skill: Skill) {
     super(attacker, defender);
     this.skill = skill;
   }
 
-  protected getAttackerSkillPower(): number {
+  protected getAttackerSkillPower (): number {
     const skillProps: any =
       (this.skill as any).Properties ?? (this.skill as any).properties ?? {};
     const levelProps: any =
@@ -55,9 +55,9 @@ export class SkillAttackArbiterBase extends AttackArbiterBase {
     const attack: RangeHelper<number> =
       this.attacker instanceof Player && this.defender instanceof Player
         ? new RangeHelper<number>(
-          levelProps.abilityMinPVP,
-          levelProps.abilityMaxPVP
-        )
+            levelProps.abilityMinPVP,
+            levelProps.abilityMaxPVP
+          )
         : new RangeHelper<number>(levelProps.abilityMin, levelProps.abilityMax);
 
     let weaponItem: Item | null = null;

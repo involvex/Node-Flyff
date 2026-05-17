@@ -18,14 +18,14 @@ export default class Handler extends PacketHandler {
   username: string;
   passwordByte: Buffer;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.msgVersion = packet.readString();
     this.username = packet.readString();
     this.passwordByte = packet.readBytes(16 * 42);
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     if (
       this.server?.instance?.config?.login_server.security["build-version"] !==
       this.msgVersion
@@ -68,7 +68,7 @@ export default class Handler extends PacketHandler {
     }
   }
 
-  async sendServerList() {
+  async sendServerList () {
     const packet = new FlyffPacket(PacketType.SERVER_LIST);
     const clusters = await this.server.redisClient.getAllClusters();
 

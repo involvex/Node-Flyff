@@ -26,5 +26,5 @@ export enum QuestDialogKeys {
   QSAY_EXTRA12 = 26,
   QSAY_EXTRA13 = 27,
   QSAY_EXTRA14 = 28,
-  QSAY_EXTRA15 = 29,
+  QSAY_EXTRA15 = 29
 }

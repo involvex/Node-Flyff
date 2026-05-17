@@ -17,7 +17,7 @@ export class Item {
   public elementRefine: number;
   public properties!: ItemProperties;
 
-  constructor(
+  constructor (
     id: number,
     name: string,
     quantity: number,
@@ -37,15 +37,15 @@ export class Item {
     this.serialNumber = serialNumber;
   }
 
-  get quantity(): number {
+  get quantity (): number {
     return this._quantity;
   }
 
-  set quantity(value: number) {
+  set quantity (value: number) {
     this._quantity = Math.max(0, Math.min(value, this.properties.dwPackMax));
   }
 
-  public serialize(packet: FlyffPacket): void {
+  public serialize (packet: FlyffPacket): void {
     packet.writeInt32(this.id);
     packet.writeInt32(this.serialNumber ?? 0);
     packet.writeString(this.name.substring(0, 31)); // TakeCharacters(31) equivalent
@@ -69,7 +69,7 @@ export class Item {
     packet.writeInt32(0); // m_bTranformVisPet
   }
 
-  public clone(): Item {
+  public clone (): Item {
     return new Item(
       this.id,
       this.name,
@@ -82,7 +82,7 @@ export class Item {
     );
   }
 
-  public equals(other: Item): boolean {
+  public equals (other: Item): boolean {
     return (
       this.id === other.id &&
       this.serialNumber === other.serialNumber &&

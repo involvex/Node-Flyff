@@ -3,17 +3,17 @@ const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
 
-function run(cmd, args, opts) {
+function run (cmd, args, opts) {
   const res = spawnSync(cmd, args, Object.assign({ stdio: "pipe" }, opts));
   if (res.error) throw res.error;
   if (res.status !== 0)
     throw new Error(
-      `Command failed: ${cmd} ${args.join(" ")}\n${res.stderr.toString()}`,
+      `Command failed: ${cmd} ${args.join(" ")}\n${res.stderr.toString()}`
     );
   return res.stdout.toString();
 }
 
-function usage() {
+function usage () {
   console.log("Usage: node tools/generate-sprite-sheet.js <packName>");
   process.exit(1);
 }
@@ -40,22 +40,22 @@ const avatar = manifest.assets.avatar || {};
 const outSheetsDir = path.join(packDir, "sheets");
 fs.mkdirSync(outSheetsDir, { recursive: true });
 
-function localPathFromUrl(url) {
+function localPathFromUrl (url) {
   if (!url.startsWith("/assets/")) return null;
   return path.join(
     __dirname,
     "..",
     "public",
-    url.replace("/assets/", "assets/"),
+    url.replace("/assets/", "assets/")
   );
 }
 
-function identifySize(file) {
+function identifySize (file) {
   // use ImageMagick identify
   const res = spawnSync("magick", ["identify", "-format", "%w %h", file]);
   if (res.error || res.status !== 0) {
     throw new Error(
-      `ImageMagick 'identify' failed for ${file}: ${res.stderr.toString()}`,
+      `ImageMagick 'identify' failed for ${file}: ${res.stderr.toString()}`
     );
   }
   const out = res.stdout.toString().trim();
@@ -98,10 +98,10 @@ for (const part of Object.keys(avatar)) {
     sheet: `/assets/${packName}/sheets/${part}.png`,
     frameWidth: size.w,
     frameHeight: size.h,
-    count: localFiles.length,
+    count: localFiles.length
   };
   console.log(
-    `Generated sheet for ${part}: ${outFile} (${localFiles.length} frames @ ${size.w}x${size.h})`,
+    `Generated sheet for ${part}: ${outFile} (${localFiles.length} frames @ ${size.w}x${size.h})`
   );
 }
 

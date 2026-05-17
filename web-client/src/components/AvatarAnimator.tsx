@@ -7,9 +7,9 @@ type SheetInfo = {
   count: number;
 };
 
-export default function AvatarAnimator({
+export default function AvatarAnimator ({
   part = "body",
-  fps = 8,
+  fps = 8
 }: {
   part?: string;
   fps?: number;
@@ -22,7 +22,7 @@ export default function AvatarAnimator({
     let img: HTMLImageElement | null = null;
     let sheetInfo: SheetInfo | null = null;
 
-    async function loadManifest() {
+    async function loadManifest () {
       const resp = await fetch("/assets/manifest.json");
       if (!resp.ok) return;
       const manifest = await resp.json();
@@ -43,7 +43,7 @@ export default function AvatarAnimator({
     let last = performance.now();
     const interval = 1000 / fps;
 
-    function draw() {
+    function draw () {
       if (!canvasRef.current || !img || !sheetInfo) return;
       const now = performance.now();
       const delta = now - last;
@@ -65,12 +65,12 @@ export default function AvatarAnimator({
         0,
         0,
         sheetInfo.frameWidth,
-        sheetInfo.frameHeight,
+        sheetInfo.frameHeight
       );
       rafRef.current = requestAnimationFrame(draw);
     }
 
-    function startAnimation() {
+    function startAnimation () {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(draw);
     }

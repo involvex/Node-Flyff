@@ -15,12 +15,12 @@ export class NpcResources {
   private readonly redisClient: any;
   private readonly npcs: Map<string, NpcProperties> = new Map();
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("NPC Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public async get(name: string): Promise<NpcProperties | null> {
+  public async get (name: string): Promise<NpcProperties | null> {
     // Try cache first
     const cached = await this.redisClient.hgetall(`npc:${name}`);
     if (cached && Object.keys(cached).length > 0) {
@@ -31,7 +31,7 @@ export class NpcResources {
     return this.npcs.get(name) || null;
   }
 
-  public async load(): Promise<void> {
+  public async load (): Promise<void> {
     await this.loadNpcDialogs();
     await this.loadNpcShops();
     await this.loadNpcPropStrings();
@@ -39,7 +39,7 @@ export class NpcResources {
     await this.loadNpcProp();
   }
 
-  private parseNpcProperties(data: { [key: string]: string }): NpcProperties {
+  private parseNpcProperties (data: { [key: string]: string }): NpcProperties {
     return {
       id: data.id,
       name: data.name,
@@ -56,7 +56,7 @@ export class NpcResources {
     };
   }
 
-  public async loadNpcDialogs(): Promise<void> {
+  public async loadNpcDialogs (): Promise<void> {
     const dialogDir = path.join(ResourcePaths.dialogsDir, "en");
     if (!fs.existsSync(dialogDir)) {
       this.logger.warn(`Dialog directory not found: ${dialogDir}`);
@@ -90,7 +90,7 @@ export class NpcResources {
     }
   }
 
-  public async loadNpcShops(): Promise<void> {
+  public async loadNpcShops (): Promise<void> {
     if (!fs.existsSync(ResourcePaths.shopsDir)) {
       this.logger.warn(`Shops directory not found: ${ResourcePaths.shopsDir}`);
       return;
@@ -123,7 +123,7 @@ export class NpcResources {
     }
   }
 
-  public async loadNpcPropStrings(): Promise<void> {
+  public async loadNpcPropStrings (): Promise<void> {
     // Load from character.txt.txt or similar
     const propPath = path.join(
       ResourcePaths.resPath,
@@ -153,7 +153,7 @@ export class NpcResources {
     this.logger.info("NPC prop strings loaded");
   }
 
-  public async loadNpcSchoolPropStrings(): Promise<void> {
+  public async loadNpcSchoolPropStrings (): Promise<void> {
     // Load from character-school.txt.txt
     const propPath = path.join(
       ResourcePaths.resPath,
@@ -183,7 +183,7 @@ export class NpcResources {
     this.logger.info("NPC school prop strings loaded");
   }
 
-  public async loadNpcProp(): Promise<void> {
+  public async loadNpcProp (): Promise<void> {
     // Parse character*.inc files for SetName and AddMenu, cache in Redis
     const dataPath = path.join(ResourcePaths.resPath, "data");
     if (!fs.existsSync(dataPath)) {

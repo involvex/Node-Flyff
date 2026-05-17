@@ -24,7 +24,7 @@ import {
 import { RedisBuilder } from "../../builders/redisBuilder";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async() => {
+export default async () => {
   const instanceBuilder = new InstanceBuilder();
 
   const __filename = fileURLToPath(import.meta.url);
@@ -34,11 +34,11 @@ export default async() => {
     builder.setBasePath(join(__dirname, "../../configs"));
   });
 
-  instanceBuilder.buildDatabase(async(builder: DatabaseBuilder) => {
+  instanceBuilder.buildDatabase(async (builder: DatabaseBuilder) => {
     builder.setEntitiesPath(join(__dirname, "../../database"));
   });
 
-  instanceBuilder.buildHandlers(async(builder: HandlerBuilder) => {
+  instanceBuilder.buildHandlers(async (builder: HandlerBuilder) => {
     builder.setBasePath(__dirname);
   });
 
@@ -62,7 +62,7 @@ export default async() => {
   clusterIntercom(instance);
 };
 
-async function clusterIntercom(instance: IInstance) {
+async function clusterIntercom (instance: IInstance) {
   const { config, server, publisher, subscriber, client } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
@@ -97,9 +97,9 @@ async function clusterIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/30 * * * * *", async() => {
+  cron.schedule("*/30 * * * * *", async () => {
     const channels = await client?.getAllChannels(initCluster.name);
-    channels?.forEach(async(channel) => {
+    channels?.forEach(async (channel) => {
       if (
         channel.lastPing &&
         new Date().getTime() > channel.lastPing + 60 * 1000
@@ -120,7 +120,7 @@ async function clusterIntercom(instance: IInstance) {
   });
   // ////// MAIN //////////
 
-  async function processChannelMessage(
+  async function processChannelMessage (
     redisChannel: RedisChannel,
     message: string
   ) {
@@ -219,7 +219,7 @@ async function clusterIntercom(instance: IInstance) {
       }
     }
   }
-  function sendMessage(
+  function sendMessage (
     channel: RedisChannel,
     command: MessageCommand,
     message: any = null
@@ -229,10 +229,10 @@ async function clusterIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-            sender: ServerType.CLUSTER_SERVER,
-            command,
-            data: message
-          })
+              sender: ServerType.CLUSTER_SERVER,
+              command,
+              data: message
+            })
           : message,
         master
       )

@@ -10,11 +10,11 @@ export class ExperienceTableResources {
   private characterExpTable: Map<number, CharacterExpTableProperties> =
     new Map();
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("ExperienceTableResources");
   }
 
-  public load(): void {
+  public load (): void {
     const startTime = Date.now();
     const expTablePath = ResourcePaths.expTablePath;
 
@@ -63,7 +63,7 @@ export class ExperienceTableResources {
     }
   }
 
-  public getDropLuck(level: number, refine: number): number {
+  public getDropLuck (level: number, refine: number): number {
     if (level < 1 || level > this.expDropLuck.length) {
       return 0;
     }
@@ -76,11 +76,11 @@ export class ExperienceTableResources {
     return levelArray[refine];
   }
 
-  public getCharacterExp(level: number): CharacterExpTableProperties | null {
+  public getCharacterExp (level: number): CharacterExpTableProperties | null {
     return this.characterExpTable.get(level) || null;
   }
 
-  private loadDropLuck(dropLuckBlock: Block): number[][] {
+  private loadDropLuck (dropLuckBlock: Block): number[][] {
     const values = dropLuckBlock.unknownStatements.map((x) => parseInt(x, 10));
     const result: number[][] = [];
 
@@ -94,7 +94,7 @@ export class ExperienceTableResources {
     return result;
   }
 
-  private loadCharacterExperience(
+  private loadCharacterExperience (
     expTableBlock: Block
   ): Map<number, CharacterExpTableProperties> {
     const values = expTableBlock.unknownStatements;

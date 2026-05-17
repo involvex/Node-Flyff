@@ -57,5 +57,5 @@ export enum ObjectMessageType {
   OBJMSG_FALL,
   OBJMSG_LFORWARD,
   OBJMSG_RFORWARD,
-  OBJMSG_STOP_RUN,
+  OBJMSG_STOP_RUN
 }

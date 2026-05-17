@@ -18,7 +18,7 @@ export class AssetManager {
   private worldLoader: WorldLoader;
   private initialized: boolean = false;
 
-  constructor(config: AssetManagerConfig) {
+  constructor (config: AssetManagerConfig) {
     this.logger = new Logger("AssetManager");
 
     // Initialize components
@@ -33,7 +33,7 @@ export class AssetManager {
     this.worldLoader = new WorldLoader(this.assetCache);
   }
 
-  async initialize(): Promise<void> {
+  async initialize (): Promise<void> {
     if (this.initialized) {
       this.logger.warn("AssetManager already initialized");
       return;
@@ -55,7 +55,7 @@ export class AssetManager {
     }
   }
 
-  async loadModel(modelId: string): Promise<any> {
+  async loadModel (modelId: string): Promise<any> {
     if (!this.initialized) {
       throw new Error("AssetManager not initialized");
     }
@@ -66,7 +66,7 @@ export class AssetManager {
     );
   }
 
-  async loadWorld(worldId: string): Promise<any> {
+  async loadWorld (worldId: string): Promise<any> {
     if (!this.initialized) {
       throw new Error("AssetManager not initialized");
     }
@@ -77,7 +77,10 @@ export class AssetManager {
     );
   }
 
-  async preloadAssets(modelIds?: string[], worldIds?: string[]): Promise<void> {
+  async preloadAssets (
+    modelIds?: string[],
+    worldIds?: string[]
+  ): Promise<void> {
     if (!this.initialized) {
       throw new Error("AssetManager not initialized");
     }
@@ -108,7 +111,7 @@ export class AssetManager {
     this.logger.success("Asset preloading complete");
   }
 
-  async extractCwfArchives(): Promise<void> {
+  async extractCwfArchives (): Promise<void> {
     if (!this.initialized) {
       throw new Error("AssetManager not initialized");
     }
@@ -126,36 +129,36 @@ export class AssetManager {
     }
   }
 
-  getModel(modelId: string): any {
+  getModel (modelId: string): any {
     return this.modelLoader.getModel(modelId);
   }
 
-  getWorld(worldId: string): any {
+  getWorld (worldId: string): any {
     return this.worldLoader.getWorld(worldId);
   }
 
-  clearCache(assetType?: string): void {
+  clearCache (assetType?: string): void {
     this.assetCache.clearCache(assetType);
   }
 
-  getCacheStats(): any {
+  getCacheStats (): any {
     return this.assetCache.getCacheStats();
   }
 
-  getModelStats(): any {
+  getModelStats (): any {
     return this.modelLoader.getStats();
   }
 
-  getWorldStats(): any {
+  getWorldStats (): any {
     return this.worldLoader.getStats();
   }
 
-  getOverallStats(): {
+  getOverallStats (): {
     initialized: boolean;
     cache: any;
     models: any;
     worlds: any;
-    } {
+  } {
     return {
       initialized: this.initialized,
       cache: this.getCacheStats(),
@@ -164,21 +167,21 @@ export class AssetManager {
     };
   }
 
-  unloadModel(modelId: string): boolean {
+  unloadModel (modelId: string): boolean {
     return this.modelLoader.unloadModel(modelId);
   }
 
-  unloadWorld(worldId: string): boolean {
+  unloadWorld (worldId: string): boolean {
     return this.worldLoader.unloadWorld(worldId);
   }
 
-  unloadAll(): void {
+  unloadAll (): void {
     this.modelLoader.unloadAllModels();
     this.worldLoader.unloadAllWorlds();
     this.logger.info("Unloaded all assets");
   }
 
-  async shutdown(): Promise<void> {
+  async shutdown (): Promise<void> {
     this.logger.info("Shutting down AssetManager...");
 
     this.unloadAll();
@@ -187,19 +190,19 @@ export class AssetManager {
     this.logger.success("AssetManager shutdown complete");
   }
 
-  isInitialized(): boolean {
+  isInitialized (): boolean {
     return this.initialized;
   }
 
-  getClientPath(): string {
+  getClientPath (): string {
     return this.assetCache.getClientPath();
   }
 
-  getCachePath(): string {
+  getCachePath (): string {
     return this.assetCache.getCachePath();
   }
 
-  isCacheEnabled(): boolean {
+  isCacheEnabled (): boolean {
     return this.assetCache.isEnabled();
   }
 }

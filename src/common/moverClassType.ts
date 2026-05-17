@@ -6,5 +6,5 @@ export enum MoverClassType {
   RANK_MID_BOSS = 5,
   RANK_MATERIAL = 6,
   RANK_SUPER = 7,
-  RANK_GUARD = 8,
+  RANK_GUARD = 8
 }

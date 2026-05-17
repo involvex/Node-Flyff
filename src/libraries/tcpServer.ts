@@ -35,14 +35,14 @@ export class TcpServer {
   config: IConfig;
 
   // Constructor to initialize TcpServer instance
-  constructor(serverType: ServerType, options: IServerConfig) {
+  constructor (serverType: ServerType, options: IServerConfig) {
     this.logger = new Logger(serverType);
     this.serverType = serverType;
     this.options = options;
   }
 
   // Method to start the server
-  start() {
+  start () {
     this.logger.main("Starting...");
     if (!this.handlers.size) {
       this.logger.warn("No packet handlers imported.");
@@ -55,20 +55,20 @@ export class TcpServer {
     );
   }
 
-  setConfig(config: IConfig) {
+  setConfig (config: IConfig) {
     this.config = config;
   }
 
-  addHandlers(handlers: Map<PacketType, HandlerConstructor>) {
+  addHandlers (handlers: Map<PacketType, HandlerConstructor>) {
     this.handlers = handlers;
   }
 
-  addRedisClient(redisClient: IRedisClient) {
+  addRedisClient (redisClient: IRedisClient) {
     this.redisClient = redisClient;
   }
 
   // Method called when server starts listening
-  protected onServerStart(): void {
+  protected onServerStart (): void {
     this.logger.info(
       `Server listening on ${this.options.host}:${this.options.port}`
     );
@@ -76,7 +76,7 @@ export class TcpServer {
   }
 
   // Method called when a new connection is established
-  protected onConnection(socket: Socket): void {
+  protected onConnection (socket: Socket): void {
     const userConnection = new UserConnection(socket);
     if (this.isUserConnected(userConnection)) return;
     this.connections.set(userConnection.sessionId, userConnection);
@@ -93,17 +93,16 @@ export class TcpServer {
     }
 
     // Attach event listeners for data, close, and error events
-    socket.on("data", async(data) => {
+    socket.on("data", async (data) => {
       await this.onData(data, userConnection);
     });
     socket.on("close", () => this.onDisconnect(userConnection.sessionId));
     socket.on("error", (error) =>
-      this.onError(error, userConnection.sessionId)
-    );
+      this.onError(error, userConnection.sessionId));
   }
 
   // Method called when data is received from a client
-  protected async onData(
+  protected async onData (
     data: Buffer,
     userConnection: IUserConnection
   ): Promise<void> {
@@ -130,7 +129,7 @@ export class TcpServer {
   }
 
   // Method called when a connection is closed
-  protected onDisconnect(sessionId: number): void {
+  protected onDisconnect (sessionId: number): void {
     if (this.connections.has(sessionId)) {
       this.connections.delete(sessionId);
       this.logger.warn(`Connection with session ID ${sessionId} closed`);
@@ -138,7 +137,7 @@ export class TcpServer {
   }
 
   // Method called when an error occurs
-  protected onError(error: Error, sessionId: number | null = null): void {
+  protected onError (error: Error, sessionId: number | null = null): void {
     console.log(error);
     if (sessionId) {
       this.logger.error(`Error occurred for session ID ${sessionId}: ${error}`);
@@ -148,7 +147,7 @@ export class TcpServer {
   }
 
   // Utility method to get packet type ID as string
-  getPacketTypeId(value: number): string | undefined {
+  getPacketTypeId (value: number): string | undefined {
     for (const key in PacketType) {
       if (PacketType[key as keyof typeof PacketType] === value) {
         return key;
@@ -158,11 +157,11 @@ export class TcpServer {
   }
 
   // Method to disconnect a user
-  disconnectUser(userConnection: IUserConnection) {
+  disconnectUser (userConnection: IUserConnection) {
     userConnection.disconnect();
   }
 
-  disconnectByAccount(account: string) {
+  disconnectByAccount (account: string) {
     const userConnection = this.getConnectionByAccount(account);
 
     if (userConnection) {
@@ -177,7 +176,7 @@ export class TcpServer {
   isUserAccountConnected = (account: string) =>
     !_.isNil(this.getConnectionByAccount(account));
 
-  getConnectionByAccount(account: string): UserConnection | null {
+  getConnectionByAccount (account: string): UserConnection | null {
     let userConnection: UserConnection | null = null;
     this.connections.forEach((connection) => {
       if (connection.username === account) {
@@ -195,26 +194,26 @@ export class UserConnection {
   public readonly socket: Socket;
 
   // Constructor to initialize a user connection
-  constructor(socket: Socket) {
+  constructor (socket: Socket) {
     this.sessionId = Math.floor(Math.random() * Math.pow(2, 32));
     this.socket = socket;
   }
 
   // Method called when data is received (can be overridden)
-  protected async onData(_packet: FlyffPacket): Promise<void> {}
+  protected async onData (_packet: FlyffPacket): Promise<void> {}
 
   // Method to send a packet to the client
-  send(packet: FlyffPacket): void {
+  send (packet: FlyffPacket): void {
     this.socket.write(FlyffPacket.appendHeader(packet.buffer));
   }
 
-  sendError(errorType: ErrorType): void {
+  sendError (errorType: ErrorType): void {
     const packet = new FlyffPacket(PacketType.ERROR);
     packet.writeUInt32LE(errorType);
     return this.send(packet);
   }
 
-  sendCharacterList(characters: Character[], authKey: number): void {
+  sendCharacterList (characters: Character[], authKey: number): void {
     const packet = new FlyffPacket(PacketType.CHARACTER_LIST);
     const filteredCharacters = _.filter(characters, { deleted: false });
 
@@ -258,7 +257,7 @@ export class UserConnection {
     return this.send(packet);
   }
 
-  disconnect(): void {
+  disconnect (): void {
     this.socket.destroy();
   }
 }

@@ -10,12 +10,12 @@ import Character from "../../../database/character";
 export default class Handler extends PacketHandler {
   characterId: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.characterId = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     // Get character information
     const characters = this.server?.instance?.getEntity("Character");
     const character = (await characters?.findOne({
@@ -63,7 +63,7 @@ export default class Handler extends PacketHandler {
     );
   }
 
-  sendWorldServerInfo(sessionKey: number, character: Character): void {
+  sendWorldServerInfo (sessionKey: number, character: Character): void {
     const packet = new FlyffPacket(PacketType.JOIN_GAME);
 
     // Channel ID (from config)

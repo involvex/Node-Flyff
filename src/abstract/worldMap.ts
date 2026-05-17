@@ -17,23 +17,23 @@ export class WorldMap {
 
   public properties: MapProperties;
 
-  public get id(): number {
+  public get id (): number {
     return this.properties.id;
   }
 
-  public get name(): string {
+  public get name (): string {
     return this.properties.name;
   }
 
-  public get isCancelled() {
+  public get isCancelled () {
     return this._cancelled;
   }
 
-  public set isCancelled(value: boolean) {
+  public set isCancelled (value: boolean) {
     this._cancelled = value;
   }
 
-  public constructor(properties: MapProperties) {
+  public constructor (properties: MapProperties) {
     this._logger = new Logger("World Map");
     this.properties = properties;
     this._defaultMapLayer = new MapLayer(this, this._mapLayerIdGenerator++);
@@ -44,20 +44,20 @@ export class WorldMap {
     setInterval(this.updateSecondsAsync.bind(this), 1000);
   }
 
-  public getDefaultLayer(): MapLayer {
+  public getDefaultLayer (): MapLayer {
     return this._defaultMapLayer;
   }
 
-  public getLayer(layerId: number): MapLayer | undefined {
+  public getLayer (layerId: number): MapLayer | undefined {
     return this._layers.find((x) => x.id === layerId);
   }
 
-  public getHeight(positionX: number, positionZ: number): number {
+  public getHeight (_positionX: number, _positionZ: number): number {
     // TODO: Implement
     return 0;
   }
 
-  public isInBounds(
+  public isInBounds (
     xOrPosition: number | Vector3,
     y?: number,
     z?: number
@@ -74,7 +74,7 @@ export class WorldMap {
     }
   }
 
-  public getNearestRevivalRegion(
+  public getNearestRevivalRegion (
     position: Vector3,
     isChaoMode: boolean
   ): MapRevivalRegionProperties | undefined {
@@ -106,7 +106,7 @@ export class WorldMap {
       .shift() as MapRevivalRegionProperties | undefined;
   }
 
-  public getRevivalRegion(
+  public getRevivalRegion (
     revivalKey: string,
     isChaoMode: boolean
   ): MapRevivalRegionProperties | undefined {
@@ -120,7 +120,7 @@ export class WorldMap {
       ) as MapRevivalRegionProperties | undefined;
   }
 
-  private async updateAsync(): Promise<void> {
+  private async updateAsync (): Promise<void> {
     while (!this.isCancelled) {
       try {
         const nextUpdate = new Date(Date.now() + WorldMap.UpdateRate);
@@ -140,7 +140,7 @@ export class WorldMap {
     }
   }
 
-  private async updateSecondsAsync(): Promise<void> {
+  private async updateSecondsAsync (): Promise<void> {
     while (!this.isCancelled) {
       this._layers.forEach((layer) => {
         layer.updateSeconds();

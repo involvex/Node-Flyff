@@ -4,5 +4,5 @@ export enum RegionInfoType {
   Begin = 12,
   Revival = 13,
   Structure = 14,
-  Place = 15,
+  Place = 15
 }

@@ -30,5 +30,5 @@ export enum ItemPartType {
   Glove,
   Boots,
   Cloak2,
-  Maximum,
+  Maximum
 }

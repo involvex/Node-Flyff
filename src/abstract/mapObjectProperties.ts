@@ -6,7 +6,12 @@ export class MapObjectProperties {
   public angle: number;
   public name: string;
 
-  constructor(modelId: number, position: Vector3, angle: number, name: string) {
+  constructor (
+    modelId: number,
+    position: Vector3,
+    angle: number,
+    name: string
+  ) {
     this.modelId = modelId;
     this.position = position;
     this.angle = angle;

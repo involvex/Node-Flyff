@@ -25,7 +25,7 @@ import { RedisBuilder } from "../../builders/redisBuilder";
 import { FFRandom } from "../../helpers/FFRandom";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async() => {
+export default async () => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const instanceBuilder = new InstanceBuilder();
@@ -64,7 +64,7 @@ export default async() => {
   global.TimeStarted = new Date().getTime();
 };
 
-function worldIntercom(instance: IInstance) {
+function worldIntercom (instance: IInstance) {
   const { config, server, publisher, subscriber } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
@@ -97,11 +97,11 @@ function worldIntercom(instance: IInstance) {
   }
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  function randomId() {
+  function randomId () {
     return FFRandom.random(0, Math.pow(2, 32) / 2 - 1);
   }
 
-  function processChannelMessage(redisChannel: RedisChannel, message: string) {
+  function processChannelMessage (redisChannel: RedisChannel, message: string) {
     if (redisChannel !== RedisChannel.CLUSTER_CHANNEL) return;
     if (!isValidEncryptionString(message, master)) return; // reject invalid messages
     const decrypted = parseMessage(decryptString(message, master));
@@ -140,7 +140,7 @@ function worldIntercom(instance: IInstance) {
     }
   }
 
-  function schedulePing() {
+  function schedulePing () {
     if (scheduler) {
       scheduler.stop();
     }
@@ -149,16 +149,16 @@ function worldIntercom(instance: IInstance) {
     });
   }
 
-  function sendMessage(command: MessageCommand, message: any = null) {
+  function sendMessage (command: MessageCommand, message: any = null) {
     publisher?.publish(
       RedisChannel.CLUSTER_CHANNEL,
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-            sender: ServerType.WORLD_SERVER,
-            command,
-            data: message
-          })
+              sender: ServerType.WORLD_SERVER,
+              command,
+              data: message
+            })
           : message,
         master
       )

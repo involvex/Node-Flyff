@@ -1,5 +1,5 @@
 export enum ItemCreationActionType {
   Add,
   Update,
-  Delete,
+  Delete
 }

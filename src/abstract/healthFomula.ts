@@ -2,7 +2,7 @@ import { DefineAttributes } from "../common/defineAttributes";
 import { Mover } from "../entities/mover";
 
 export class HealthFormulas {
-  static getOriginalPoints(mover: Mover, attribute: DefineAttributes): number {
+  static getOriginalPoints (mover: Mover, attribute: DefineAttributes): number {
     switch (attribute) {
       // case DefineAttributes.DST_STR:
       //     return mover.statistics?.strength ?? 0;
@@ -17,7 +17,7 @@ export class HealthFormulas {
     }
   }
 
-  static getMaxParamPoints(
+  static getMaxParamPoints (
     originValue: number,
     additional: number,
     maxFactor: number
@@ -30,15 +30,18 @@ export class HealthFormulas {
     return maxValue;
   }
 
-  static getStatisticPoints(mover: Mover, attribute: DefineAttributes): number {
+  static getStatisticPoints (
+    _mover: Mover,
+    _attribute: DefineAttributes
+  ): number {
     return 0; // return this.getOriginalPoints(mover, attribute) + mover.attributes.get(attribute);
   }
 
-  static reduceRecoveryPercent(recovery: number): number {
+  static reduceRecoveryPercent (recovery: number): number {
     return Math.round(recovery - recovery * 0.1);
   }
 
-  static getHpRecovery(entity: Mover): number {
+  static getHpRecovery (_entity: Mover): number {
     // const level = entity.level;
     // const stamina = this.getStatisticPoints(entity, DefineAttributes.DST_STA);
     // const maxHp = this.getMaxHp(entity);
@@ -51,7 +54,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMpRecovery(entity: Mover): number {
+  static getMpRecovery (_entity: Mover): number {
     // const level = entity.level;
     // const intelligence = this.getStatisticPoints(entity, DefineAttributes.DST_INT);
     // const maxMp = this.getMaxMp(entity);
@@ -64,7 +67,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getFpRecovery(entity: Mover): number {
+  static getFpRecovery (_entity: Mover): number {
     // const level = entity.level;
     // const stamina = this.getStatisticPoints(entity, DefineAttributes.DST_STA);
     // const maxFp = this.getMaxFp(entity);
@@ -77,7 +80,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxHp(entity: Mover): number {
+  static getMaxHp (_entity: Mover): number {
     // return this.getMaxParamPoints(
     //     this.getMaxOriginHp(entity),
     //     entity.attributes.get(DefineAttributes.DST_HP_MAX),
@@ -86,7 +89,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxMp(entity: Mover): number {
+  static getMaxMp (_entity: Mover): number {
     // return this.getMaxParamPoints(
     //     this.getMaxOriginMp(entity),
     //     entity.attributes.get(DefineAttributes.DST_MP_MAX),
@@ -95,7 +98,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxFp(entity: Mover): number {
+  static getMaxFp (_entity: Mover): number {
     // return this.getMaxParamPoints(
     //     this.getMaxOriginFp(entity),
     //     entity.attributes.get(DefineAttributes.DST_FP_MAX),
@@ -104,7 +107,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxOriginHp(entity: Mover): number {
+  static getMaxOriginHp (_entity: Mover): number {
     // if (entity instanceof Player) {
     //     const maxHpFactor = entity.job.maxHpFactor;
     //     const level = entity.level;
@@ -121,7 +124,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxOriginMp(entity: Mover): number {
+  static getMaxOriginMp (_entity: Mover): number {
     // const level = entity.level;
     // const intelligence = this.getStatisticPoints(entity, DefineAttributes.DST_INT);
 
@@ -135,7 +138,7 @@ export class HealthFormulas {
     return 0;
   }
 
-  static getMaxOriginFp(entity: Mover): number {
+  static getMaxOriginFp (_entity: Mover): number {
     // const level = entity.level;
     // const stamina = this.getStatisticPoints(entity, DefineAttributes.DST_STA);
     // const dexterity = this.getStatisticPoints(entity, DefineAttributes.DST_DEX);

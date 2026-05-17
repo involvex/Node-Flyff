@@ -25,5 +25,5 @@ export enum PlayerStatusModifierType {
   SM_ATTACK_UP1,
   SM_SHOUT_001,
   SM_BANK_001,
-  SM_MAX,
+  SM_MAX
 }

@@ -6,9 +6,6 @@ import { PacketHandler } from "../../../libraries/packetHandler";
 import { SetPacketType } from "../../../decorators/packetHandler";
 import Account from "../../../database/account";
 import Character from "../../../database/character";
-import { FFRandom } from "../../../helpers/FFRandom";
-import EquipmentItem from "../../../database/equipmentItem";
-import { Repository, ObjectLiteral } from "typeorm";
 import { ErrorType } from "../../../common/errorType";
 
 @SetPacketType(PacketType.DELETE_CHARACTER)
@@ -19,7 +16,7 @@ export default class Handler extends PacketHandler {
   characterId: number;
   authKey: number;
 
-  constructor(packet: FlyffPacket) {
+  constructor (packet: FlyffPacket) {
     super();
     this.username = packet.readStringLE();
     this.password = packet.readStringLE();
@@ -28,7 +25,7 @@ export default class Handler extends PacketHandler {
     this.authKey = packet.readInt32LE();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const accounts = this.server?.instance?.getEntity("Account");
     const characters = this.server?.instance?.getEntity("Character");
 

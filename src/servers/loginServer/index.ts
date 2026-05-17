@@ -23,7 +23,7 @@ import {
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 
-export default async() => {
+export default async () => {
   const instanceBuilder = new InstanceBuilder();
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
@@ -53,7 +53,7 @@ export default async() => {
   await coreIntercom(instance);
 };
 
-async function coreIntercom(instance: IInstance) {
+async function coreIntercom (instance: IInstance) {
   const { config, server, publisher, subscriber, client } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
@@ -70,9 +70,9 @@ async function coreIntercom(instance: IInstance) {
   });
   subscriber?.on("message", processChannelMessage.bind(this));
 
-  cron.schedule("*/10 * * * * *", async() => {
+  cron.schedule("*/10 * * * * *", async () => {
     const clusters = await client?.getAllClusters();
-    clusters?.forEach(async(cluster) => {
+    clusters?.forEach(async (cluster) => {
       // console.log(cluster.lastPing, new Date().getTime());
       if (
         cluster.lastPing &&
@@ -91,7 +91,10 @@ async function coreIntercom(instance: IInstance) {
 
   /// /// MAIN //////////
 
-  async function processChannelMessage(channel: RedisChannel, message: string) {
+  async function processChannelMessage (
+    channel: RedisChannel,
+    message: string
+  ) {
     if (channel !== RedisChannel.CORE_CHANNEL) return;
     if (!isValidEncryptionString(message, master)) return; // reject invalid messages
     const decrypted = parseMessage(decryptString(message, master));
@@ -154,16 +157,16 @@ async function coreIntercom(instance: IInstance) {
       }
     }
   }
-  function sendMessage(command: MessageCommand, message: any = null) {
+  function sendMessage (command: MessageCommand, message: any = null) {
     publisher?.publish(
       RedisChannel.CORE_CHANNEL,
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-            sender: ServerType.LOGIN_SERVER,
-            command,
-            data: message
-          })
+              sender: ServerType.LOGIN_SERVER,
+              command,
+              data: message
+            })
           : message,
         master
       )

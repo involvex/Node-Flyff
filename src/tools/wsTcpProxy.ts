@@ -72,7 +72,6 @@ wss.on("connection", (ws: any) => {
 });
 
 wss.on("listening", () =>
-  console.log("WS->TCP proxy listening on port", listenPort)
-);
+  console.log("WS->TCP proxy listening on port", listenPort));
 
 export {};

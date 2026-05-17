@@ -3,5 +3,5 @@ export enum ServerType {
   LOGIN_SERVER = "LoginServer",
   CORE_SERVER = "CoreServer",
   CLUSTER_SERVER = "ClusterServer",
-  WORLD_SERVER = "WorldServer",
+  WORLD_SERVER = "WorldServer"
 }

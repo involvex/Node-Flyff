@@ -7,12 +7,12 @@ import { Logger } from "./helpers/logger";
 
 const logger = new Logger("SystemTest");
 
-async function testInterServerCommunication() {
+async function testInterServerCommunication () {
   logger.info("Testing Inter-Server Communication System...");
 
   try {
     // Create a test inter-server client
-    const client = new InterServerClient(
+    const _client = new InterServerClient(
       ServerType.LOGIN_SERVER,
       "127.0.0.1",
       23001
@@ -21,7 +21,7 @@ async function testInterServerCommunication() {
     logger.success("✓ InterServerClient created successfully");
 
     // Test message creation
-    const testMessage = {
+    const _testMessage = {
       type: "test",
       source: ServerType.LOGIN_SERVER,
       target: ServerType.CLUSTER_SERVER,
@@ -34,13 +34,13 @@ async function testInterServerCommunication() {
     // Clean up
     // Note: We don't actually start the server in this test
     logger.success("✓ Inter-server communication test passed");
-  } catch (error) {
-    logger.error("✗ Inter-server communication test failed:", error);
-    throw error;
+  } catch (_error) {
+    logger.error("✗ Inter-server communication test failed:", _error);
+    throw _error;
   }
 }
 
-async function testSessionManager() {
+async function testSessionManager () {
   logger.info("Testing Session Manager...");
 
   try {
@@ -86,13 +86,13 @@ async function testSessionManager() {
     // Clean up
     sessionManager.stop();
     logger.success("✓ Session manager test passed");
-  } catch (error) {
-    logger.error("✗ Session manager test failed:", error);
-    throw error;
+  } catch (_error) {
+    logger.error("✗ Session manager test failed:", _error);
+    throw _error;
   }
 }
 
-async function testDatabaseManager() {
+async function testDatabaseManager () {
   logger.info("Testing Database Manager...");
 
   try {
@@ -107,7 +107,7 @@ async function testDatabaseManager() {
     logger.success("✓ DatabaseManager created successfully");
 
     // Test database initialization
-    const dataSource = await dbManager.initialize();
+    const _dataSource = await dbManager.initialize();
     logger.success("✓ Database initialized successfully");
 
     // Test health check
@@ -125,13 +125,13 @@ async function testDatabaseManager() {
     // Clean up
     await dbManager.disconnect();
     logger.success("✓ Database manager test passed");
-  } catch (error) {
-    logger.error("✗ Database manager test failed:", error);
-    throw error;
+  } catch (_error) {
+    logger.error("✗ Database manager test failed:", _error);
+    throw _error;
   }
 }
 
-async function runAllTests() {
+async function runAllTests () {
   logger.main("=== Starting System Tests ===");
 
   try {
@@ -148,8 +148,9 @@ async function runAllTests() {
     logger.success("✓ Inter-server communication: OK");
     logger.success("✓ Session management: OK");
     logger.success("✓ Database management: OK");
-  } catch (error) {
+  } catch (_error) {
     logger.error("=== Tests Failed ===");
+    logger.error(_error);
     process.exit(1);
   }
 }

@@ -13,12 +13,12 @@ export class ExpTableResources {
   logger: Logger;
   redisClient: any;
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("ExpTable Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public async getExpCharacter(
+  public async getExpCharacter (
     level: string | number
   ): Promise<CharacterExp | null> {
     const data = await this.redisClient.hgetall(`expCharacter:${level}`);
@@ -32,7 +32,7 @@ export class ExpTableResources {
     };
   }
 
-  public async getDropLuck(level: string | number): Promise<DropLuck | null> {
+  public async getDropLuck (level: string | number): Promise<DropLuck | null> {
     const data = await this.redisClient.hgetall(`expDropLuck:${level}`);
     if (!data) return null;
     return {
@@ -41,7 +41,7 @@ export class ExpTableResources {
     };
   }
 
-  public async loadExpCharacter(): Promise<void> {
+  public async loadExpCharacter (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.expCharacter);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
@@ -52,13 +52,13 @@ export class ExpTableResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as CharacterExp[];
 
-    _.forEach(data, async(exp) => {
+    _.forEach(data, async (exp) => {
       await this.redisClient.hmset(`expCharacter:${exp.level}`, exp);
     });
     this.logger.main(`${data.length} exp character loaded.`);
   }
 
-  public async loadExpDropLuck(): Promise<void> {
+  public async loadExpDropLuck (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.expDropLuck);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
@@ -69,7 +69,7 @@ export class ExpTableResources {
     const text = fs.readFileSync(absolutePath, "utf-8");
     const data = yaml.load(text) as DropLuck[];
 
-    _.forEach(data, async(dropLuck) => {
+    _.forEach(data, async (dropLuck) => {
       await this.redisClient.hmset(`expDropLuck:${dropLuck.level}`, {
         level: dropLuck.level,
         chance: JSON.stringify(dropLuck.chance)

@@ -24,7 +24,7 @@ export class RgnRegion3 extends RgnElement {
   public checkGuild: boolean;
   public chaoKey: boolean;
 
-  constructor(regionData: string[]) {
+  constructor (regionData: string[]) {
     super(
       parseInt(regionData[1]),
       new Vector3(

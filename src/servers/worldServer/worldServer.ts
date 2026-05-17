@@ -4,7 +4,7 @@ import { ServerType } from "../../common/serverType";
 // Main TCP Server class
 export class WorldServer extends TcpServer {
   // Constructor to initialize TcpServer instance
-  constructor(options: IServerConfig) {
+  constructor (options: IServerConfig) {
     super(ServerType.WORLD_SERVER, options);
   }
 }

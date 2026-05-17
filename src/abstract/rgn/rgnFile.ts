@@ -7,15 +7,15 @@ import { RgnRespawn7 } from "./rgnRespawn7";
 export class RgnFile {
   private _elements: RgnElement[] = [];
 
-  public get Elements(): ReadonlyArray<RgnElement> {
+  public get Elements (): ReadonlyArray<RgnElement> {
     return this._elements;
   }
 
-  constructor(private filePath: string) {
+  constructor (private filePath: string) {
     this.read();
   }
 
-  private read(): void {
+  private read (): void {
     try {
       const fileContent = fs.readFileSync(this.filePath, "utf16le");
       const lines = fileContent.split("\n");
@@ -48,7 +48,7 @@ export class RgnFile {
     }
   }
 
-  public getElements<T extends RgnElement>(): T[] {
+  public getElements<T extends RgnElement> (): T[] {
     return this._elements.filter((x) => x) as T[];
   }
 }

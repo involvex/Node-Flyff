@@ -28,16 +28,16 @@ export class WorldObject {
   public stateMode: StateMode = StateMode.NONE;
   public readonly visibleObjects: WorldObject[] = [];
 
-  public get type(): WorldObjectType {
+  public get type (): WorldObjectType {
     return WorldObjectType.Object;
   }
 
-  protected constructor() {
+  protected constructor () {
     this.objectId = FFRandom.generateUniqueId();
     this.position = new Vector3();
   }
 
-  public getVisibleObject<TEntity extends WorldObject>(
+  public getVisibleObject<TEntity extends WorldObject> (
     objectId: number
   ): TEntity | null {
     return this.visibleObjects.find(
@@ -45,12 +45,12 @@ export class WorldObject {
     ) as TEntity | null;
   }
 
-  public sendDefinedText(text: DefineText, ...parameters: any[]): void {
+  public sendDefinedText (text: DefineText, ...parameters: any[]): void {
     const snapshot = new DefinedTextSnapshot(this, text, parameters);
     this.send(snapshot);
   }
 
-  public sendSpecialEffect(
+  public sendSpecialEffect (
     specialEffect: DefineSpecialEffects,
     followObject: boolean = true
   ): void {
@@ -62,16 +62,19 @@ export class WorldObject {
     this.sendToVisible(snapshot, true);
   }
 
-  public send(packet: FlyffPacket): void {}
+  public send (_packet: FlyffPacket): void {}
 
-  public sendToVisible(packet: FlyffPacket, sendToSelf: boolean = false): void {
+  public sendToVisible (
+    packet: FlyffPacket,
+    sendToSelf: boolean = false
+  ): void {
     this.visibleObjects.forEach((obj) => obj.send(packet));
     if (sendToSelf) {
       this.send(packet);
     }
   }
 
-  public dispose(): void {
+  public dispose (): void {
     // Base dispose implementation - subclasses can override
   }
 }

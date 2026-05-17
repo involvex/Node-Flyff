@@ -4,7 +4,7 @@ import { SnapshotType } from "../../common/snapshotType";
 import { FlyffSnapshot } from "../../libraries/snapshot";
 
 export class CreateSfxObjectSnapshot extends FlyffSnapshot {
-  constructor(
+  constructor (
     worldObject: WorldObject,
     specialEffect: DefineSpecialEffects,
     followObject: boolean = true

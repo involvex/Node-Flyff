@@ -4,5 +4,5 @@ export enum BuffType {
   Skill,
   Pet,
   Item2,
-  Equip,
+  Equip
 }

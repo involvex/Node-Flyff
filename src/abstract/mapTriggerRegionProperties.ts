@@ -5,7 +5,7 @@ export class MapTriggerRegionProperties extends MapRegionProperties {
   public destinationMapId: number;
   public destinationMapPosition: Vector3;
 
-  constructor(
+  constructor (
     x: number,
     z: number,
     width: number,
@@ -18,7 +18,7 @@ export class MapTriggerRegionProperties extends MapRegionProperties {
     this.destinationMapPosition = destinationMapPosition;
   }
 
-  public get isWrapzone(): boolean {
+  public get isWrapzone (): boolean {
     return this.destinationMapId > 0;
   }
 }

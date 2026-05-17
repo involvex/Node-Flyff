@@ -9,13 +9,13 @@ import { Logger } from "./src/helpers/logger";
 
 const logger = new Logger("Verification");
 
-async function main() {
+async function main () {
   logger.main("=== System Verification ===");
 
   try {
     // Test 1: Import and create InterServerClient
     logger.info("Test 1: InterServerClient...");
-    const interServerClient = new InterServerClient(
+    const _interServerClient = new InterServerClient(
       ServerType.LOGIN_SERVER,
       "127.0.0.1",
       23001

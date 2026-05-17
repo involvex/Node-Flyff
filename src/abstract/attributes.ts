@@ -6,24 +6,24 @@ export class Attributes {
   private _mover: Mover;
   private _attributes: Map<DefineAttributes, number> = new Map();
 
-  constructor(mover: Mover) {
+  constructor (mover: Mover) {
     this._mover = mover;
   }
 
-  get(attribute: DefineAttributes, defaultValue = 0): number {
+  get (attribute: DefineAttributes, defaultValue = 0): number {
     return this._attributes.has(attribute)
       ? this._attributes.get(attribute)!
       : defaultValue;
   }
 
-  set(attribute: DefineAttributes, value: number, sendToEntity = true): void {
+  set (attribute: DefineAttributes, value: number, sendToEntity = true): void {
     this._attributes.set(attribute, value);
     if (sendToEntity && this._mover instanceof Player) {
       this.sendAttributeValue(attribute, value);
     }
   }
 
-  increase(
+  increase (
     attribute: DefineAttributes,
     value: number,
     sendToEntity = true
@@ -55,7 +55,7 @@ export class Attributes {
     }
   }
 
-  decrease(
+  decrease (
     attribute: DefineAttributes,
     value: number,
     sendToEntity = true
@@ -87,7 +87,10 @@ export class Attributes {
     }
   }
 
-  private sendAttributeValue(attribute: DefineAttributes, value: number): void {
+  private sendAttributeValue (
+    _attribute: DefineAttributes,
+    _value: number
+  ): void {
     // const player = this._mover as Player;
     // const snapshot = new UpdateDestParamSnapshot(player, attribute, value);
     // player.send(snapshot);

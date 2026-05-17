@@ -49,5 +49,5 @@ export enum ErrorType {
 
   // CUSTOM
   USER_EXISTS = 0x524,
-  WRONG_PASSWORD = 0x527,
+  WRONG_PASSWORD = 0x527
 }

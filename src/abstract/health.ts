@@ -1,10 +1,8 @@
 import { AttackFlags } from "../common/attackFlag";
 import { AttackType } from "../common/attackType";
 import { DefineAttributes } from "../common/defineAttributes";
-import { ObjectState } from "../common/objectState";
 import { Mover } from "../entities/mover";
 import { Player } from "../entities/player";
-import { FlyffSnapshot } from "../libraries/snapshot";
 import { HealthFormulas } from "./healthFomula";
 
 export class Health {
@@ -14,7 +12,7 @@ export class Health {
   private _fp: number;
   private _nextHealTime: number;
 
-  public constructor(mover: Mover) {
+  public constructor (mover: Mover) {
     this._mover = mover;
     this._nextHealTime = Math.trunc(new Date().getTime() / 1000);
     // this._hp = mover.properties.addHp;
@@ -22,11 +20,11 @@ export class Health {
     this._fp = 0;
   }
 
-  public get hp(): number {
+  public get hp (): number {
     return this._hp;
   }
 
-  public set hp(value: number) {
+  public set hp (value: number) {
     if (this._hp === value) {
       return;
     }
@@ -37,11 +35,11 @@ export class Health {
     // this._mover.sendToVisible(healthSnapshot, true);
   }
 
-  public get mp(): number {
+  public get mp (): number {
     return this._mp;
   }
 
-  public set mp(value: number) {
+  public set mp (value: number) {
     if (this._mp === value) {
       return;
     }
@@ -52,11 +50,11 @@ export class Health {
     // this._mover.sendToVisible(healthSnapshot, true);
   }
 
-  public get fp(): number {
+  public get fp (): number {
     return this._fp;
   }
 
-  public set fp(value: number) {
+  public set fp (value: number) {
     if (this._fp === value) {
       return;
     }
@@ -67,19 +65,19 @@ export class Health {
     // this._mover.sendToVisible(healthSnapshot, true);
   }
 
-  public get maxHp(): number {
+  public get maxHp (): number {
     return HealthFormulas.getMaxHp(this._mover);
   }
 
-  public get maxMp(): number {
+  public get maxMp (): number {
     return HealthFormulas.getMaxMp(this._mover);
   }
 
-  public get maxFp(): number {
+  public get maxFp (): number {
     return HealthFormulas.getMaxFp(this._mover);
   }
 
-  public regenerateAll(): void {
+  public regenerateAll (): void {
     this.hp = this.maxHp;
     this.mp = this.maxMp;
     this.fp = this.maxFp;
@@ -87,10 +85,10 @@ export class Health {
     // this.sendHealth();
   }
 
-  public die(
+  public die (
     killer: Mover,
     attackType: AttackType,
-    sendHitPoints: boolean = false
+    _sendHitPoints: boolean = false
   ): void {
     this.hp = 0;
 
@@ -109,11 +107,11 @@ export class Health {
     // killer.onTargetKilled(this._mover);
   }
 
-  sufferDamages(
+  sufferDamages (
     attacker: Mover,
     damages: number,
     attackType: AttackType,
-    attackFlags: AttackFlags = AttackFlags.AF_GENERIC
+    _attackFlags: AttackFlags = AttackFlags.AF_GENERIC
   ): void {
     // const damagesToInflict = Math.min(this.hp, damages);
     // const damageSnapshots = new FFSnapshot();
@@ -128,7 +126,7 @@ export class Health {
     // }
   }
 
-  idleHeal(): void {
+  idleHeal (): void {
     // if (this.hp <= 0 || this._nextHealTime > Date.now()) {
     //     return;
     // }
@@ -141,7 +139,7 @@ export class Health {
     // this.sendHealth();
   }
 
-  applyDeathRecovery(sendToPlayer = true): void {
+  applyDeathRecovery (_sendToPlayer = true): void {
     // if (this.hp > 0 || !(this._mover instanceof Player)) {
     //     return;
     // }
@@ -154,7 +152,7 @@ export class Health {
     // }
   }
 
-  getCurrent(attribute: DefineAttributes): number {
+  getCurrent (attribute: DefineAttributes): number {
     switch (attribute) {
       case DefineAttributes.DST_HP:
         return this.hp;
@@ -167,7 +165,7 @@ export class Health {
     }
   }
 
-  setCurrent(attribute: DefineAttributes, value: number, send = true): void {
+  setCurrent (attribute: DefineAttributes, value: number, _send = true): void {
     switch (attribute) {
       case DefineAttributes.DST_HP:
         this.hp = value;
@@ -186,7 +184,7 @@ export class Health {
     // }
   }
 
-  getMaximum(attribute: DefineAttributes): number {
+  getMaximum (attribute: DefineAttributes): number {
     switch (attribute) {
       case DefineAttributes.DST_HP:
         return this.maxHp;
@@ -199,7 +197,7 @@ export class Health {
     }
   }
 
-  private sendHealth(): void {
+  private sendHealth (): void {
     // const healthSnapshot = new FFSnapshot();
     // healthSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_HP, this.hp));
     // healthSnapshot.merge(new UpdateParamPointSnapshot(this._mover, DefineAttributes.DST_MP, this.mp));

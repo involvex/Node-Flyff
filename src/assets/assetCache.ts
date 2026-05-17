@@ -19,7 +19,7 @@ export class AssetCache {
   private assetIndex: Map<string, AssetInfo> = new Map();
   private enabled: boolean;
 
-  constructor(clientPath: string, cachePath: string, enabled: boolean = true) {
+  constructor (clientPath: string, cachePath: string, enabled: boolean = true) {
     this.logger = new Logger("AssetCache");
     this.clientPath = clientPath;
     this.cachePath = cachePath;
@@ -30,7 +30,7 @@ export class AssetCache {
     }
   }
 
-  private initializeCache(): void {
+  private initializeCache (): void {
     try {
       if (!fs.existsSync(this.cachePath)) {
         fs.mkdirSync(this.cachePath, { recursive: true });
@@ -59,7 +59,7 @@ export class AssetCache {
     }
   }
 
-  async cacheAsset(
+  async cacheAsset (
     assetType: string,
     assetId: string,
     sourcePath: string,
@@ -102,7 +102,7 @@ export class AssetCache {
     }
   }
 
-  getCachedAsset(assetType: string, assetId: string): string | null {
+  getCachedAsset (assetType: string, assetId: string): string | null {
     if (!this.enabled) {
       return null;
     }
@@ -117,7 +117,7 @@ export class AssetCache {
     return null;
   }
 
-  async loadAssetFromCache(
+  async loadAssetFromCache (
     assetType: string,
     assetId: string
   ): Promise<Buffer | null> {
@@ -140,7 +140,7 @@ export class AssetCache {
     }
   }
 
-  clearCache(assetType?: string): void {
+  clearCache (assetType?: string): void {
     try {
       if (assetType) {
         const cacheDir = path.join(this.cachePath, assetType);
@@ -170,12 +170,12 @@ export class AssetCache {
     }
   }
 
-  getCacheStats(): {
+  getCacheStats (): {
     enabled: boolean;
     totalAssets: number;
     totalSize: number;
     byType: Record<string, number>;
-    } {
+  } {
     const stats = {
       enabled: this.enabled,
       totalAssets: this.assetIndex.size,
@@ -192,7 +192,7 @@ export class AssetCache {
     return stats;
   }
 
-  preloadIndex(): void {
+  preloadIndex (): void {
     try {
       // Scan cache directory and build index
       const types = [
@@ -238,19 +238,19 @@ export class AssetCache {
     }
   }
 
-  isAssetCached(assetType: string, assetId: string): boolean {
+  isAssetCached (assetType: string, assetId: string): boolean {
     return this.getCachedAsset(assetType, assetId) !== null;
   }
 
-  getClientPath(): string {
+  getClientPath (): string {
     return this.clientPath;
   }
 
-  getCachePath(): string {
+  getCachePath (): string {
     return this.cachePath;
   }
 
-  isEnabled(): boolean {
+  isEnabled (): boolean {
     return this.enabled;
   }
 }

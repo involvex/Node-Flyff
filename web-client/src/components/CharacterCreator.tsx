@@ -7,12 +7,12 @@ import {
   parseWelcome,
   parseServerList,
   encodeSelectServer,
-  parseAck,
+  parseAck
 } from "../net/flyffPacket";
 
 const genders = ["male", "female"] as const;
 
-export default function CharacterCreator() {
+export default function CharacterCreator () {
   const [name, setName] = useState("");
   const [genderIdx, setGenderIdx] = useState(0);
   const [face, setFace] = useState(0);
@@ -21,13 +21,13 @@ export default function CharacterCreator() {
   const [animPart, setAnimPart] = useState<"body" | "head" | "hair">("body");
 
   const [wsAdapter] = useState(
-    () => new WebSocketAdapter("ws://localhost:8080"),
+    () => new WebSocketAdapter("ws://localhost:8080")
   );
   const [sessionInfo, setSessionInfo] = useState<string | null>(null);
   const [servers, setServers] = useState<string[] | null>(null);
   const [status, setStatus] = useState<string | null>(null);
 
-  async function handleStart() {
+  async function handleStart () {
     try {
       wsAdapter.connect();
       wsAdapter.onMessage = (data) => {
@@ -55,7 +55,7 @@ export default function CharacterCreator() {
     }
   }
 
-  function handleSelectServer(name: string) {
+  function handleSelectServer (name: string) {
     setStatus(`Selecting server ${name}...`);
     const buf = encodeSelectServer(name);
     wsAdapter.send(buf);

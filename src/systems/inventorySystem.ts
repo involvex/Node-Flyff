@@ -25,11 +25,11 @@ export class InventorySystem {
   private maxInventorySlots: number = 63;
   private maxWeight: number = 1000;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("InventorySystem");
   }
 
-  addItem(
+  addItem (
     characterId: number,
     item: ItemEntity,
     quantity: number = 1
@@ -78,7 +78,7 @@ export class InventorySystem {
     return false;
   }
 
-  removeItem(
+  removeItem (
     characterId: number,
     slotId: number,
     quantity: number = 1
@@ -108,7 +108,7 @@ export class InventorySystem {
     return true;
   }
 
-  moveItem(characterId: number, fromSlot: number, toSlot: number): boolean {
+  moveItem (characterId: number, fromSlot: number, toSlot: number): boolean {
     const inventory = this.getInventory(characterId);
 
     const fromItem = inventory.get(fromSlot);
@@ -160,7 +160,7 @@ export class InventorySystem {
     }
   }
 
-  equipItem(
+  equipItem (
     characterId: number,
     inventorySlot: number,
     equipSlot: number
@@ -198,7 +198,7 @@ export class InventorySystem {
     return true;
   }
 
-  unequipItem(characterId: number, equipSlot: number): boolean {
+  unequipItem (characterId: number, equipSlot: number): boolean {
     const charEquipment = this.getEquipment(characterId);
     const equipmentItem = charEquipment.get(equipSlot);
 
@@ -230,21 +230,21 @@ export class InventorySystem {
     return true;
   }
 
-  getInventory(characterId: number): Map<number, InventoryItemEntity> {
+  getInventory (characterId: number): Map<number, InventoryItemEntity> {
     if (!this.inventories.has(characterId)) {
       this.inventories.set(characterId, new Map());
     }
     return this.inventories.get(characterId)!;
   }
 
-  getEquipment(characterId: number): Map<number, EquipmentItemEntity> {
+  getEquipment (characterId: number): Map<number, EquipmentItemEntity> {
     if (!this.equipment.has(characterId)) {
       this.equipment.set(characterId, new Map());
     }
     return this.equipment.get(characterId)!;
   }
 
-  getInventorySlot(
+  getInventorySlot (
     characterId: number,
     slotId: number
   ): InventoryItemEntity | null {
@@ -252,7 +252,7 @@ export class InventorySystem {
     return inventory.get(slotId) || null;
   }
 
-  getEquipmentSlot(
+  getEquipmentSlot (
     characterId: number,
     equipSlot: number
   ): EquipmentItemEntity | null {
@@ -260,7 +260,7 @@ export class InventorySystem {
     return equipment.get(equipSlot) || null;
   }
 
-  getAllInventorySlots(characterId: number): InventorySlot[] {
+  getAllInventorySlots (characterId: number): InventorySlot[] {
     const inventory = this.getInventory(characterId);
     const slots: InventorySlot[] = [];
 
@@ -276,7 +276,7 @@ export class InventorySystem {
     return slots;
   }
 
-  getAllEquipmentSlots(characterId: number): EquipmentSlot[] {
+  getAllEquipmentSlots (characterId: number): EquipmentSlot[] {
     const equipment = this.getEquipment(characterId);
     const slots: EquipmentSlot[] = [];
 
@@ -292,7 +292,7 @@ export class InventorySystem {
     return slots;
   }
 
-  private getSlotTypeName(slotId: number): string {
+  private getSlotTypeName (slotId: number): string {
     const slotTypes = [
       "right_hand",
       "left_hand",
@@ -305,7 +305,7 @@ export class InventorySystem {
     return slotTypes[slotId] || `slot_${slotId}`;
   }
 
-  findEmptySlot(characterId: number): number | null {
+  findEmptySlot (characterId: number): number | null {
     const inventory = this.getInventory(characterId);
 
     for (let i = 0; i < this.maxInventorySlots; i++) {
@@ -317,7 +317,7 @@ export class InventorySystem {
     return null;
   }
 
-  getEmptySlotCount(characterId: number): number {
+  getEmptySlotCount (characterId: number): number {
     let count = 0;
     const inventory = this.getInventory(characterId);
 
@@ -330,7 +330,7 @@ export class InventorySystem {
     return count;
   }
 
-  getItemCount(characterId: number, itemId: number): number {
+  getItemCount (characterId: number, itemId: number): number {
     const inventory = this.getInventory(characterId);
     let count = 0;
 
@@ -343,26 +343,26 @@ export class InventorySystem {
     return count;
   }
 
-  hasItem(characterId: number, itemId: number, quantity: number = 1): boolean {
+  hasItem (characterId: number, itemId: number, quantity: number = 1): boolean {
     return this.getItemCount(characterId, itemId) >= quantity;
   }
 
-  private canStack(item: ItemEntity): boolean {
+  private canStack (item: ItemEntity): boolean {
     // Most items can be stacked, except equipment
     return !this.isEquipment(item);
   }
 
-  private canStackById(itemId: number): boolean {
+  private canStackById (_itemId: number): boolean {
     // Simplified check - would need item database lookup
     return true;
   }
 
-  private isEquipment(item: ItemEntity): boolean {
+  private isEquipment (_item: ItemEntity): boolean {
     // Simplified check - would need item database lookup
     return false;
   }
 
-  private getMaxStack(item: ItemEntity): number {
+  private getMaxStack (item: ItemEntity): number {
     // Stack size depends on item type
     if (this.isEquipment(item)) {
       return 1;
@@ -372,41 +372,41 @@ export class InventorySystem {
     return 99;
   }
 
-  private getMaxStackById(itemId: number): number {
+  private getMaxStackById (_itemId: number): number {
     // Simplified - would need item database lookup
     return 99;
   }
 
-  removeCharacter(characterId: number): void {
+  removeCharacter (characterId: number): void {
     this.inventories.delete(characterId);
     this.equipment.delete(characterId);
     this.logger.info(`Removed inventory for character ${characterId}`);
   }
 
-  getMaxInventorySlots(): number {
+  getMaxInventorySlots (): number {
     return this.maxInventorySlots;
   }
 
-  setMaxInventorySlots(slots: number): void {
+  setMaxInventorySlots (slots: number): void {
     this.maxInventorySlots = slots;
     this.logger.info(`Max inventory slots set to ${slots}`);
   }
 
-  getMaxWeight(): number {
+  getMaxWeight (): number {
     return this.maxWeight;
   }
 
-  setMaxWeight(weight: number): void {
+  setMaxWeight (weight: number): void {
     this.maxWeight = weight;
     this.logger.info(`Max weight set to ${weight}`);
   }
 
-  getStats(): {
+  getStats (): {
     totalCharacters: number;
     totalItems: number;
     totalEquipment: number;
     averageItemsPerCharacter: number;
-    } {
+  } {
     let totalItems = 0;
     let totalEquipment = 0;
 
@@ -429,7 +429,7 @@ export class InventorySystem {
     };
   }
 
-  clear(): void {
+  clear (): void {
     this.inventories.clear();
     this.equipment.clear();
     this.logger.info("Inventory system cleared");

@@ -15,5 +15,5 @@ export interface IInstance {
   subscriber: any | null;
   client: IRedisClient | null;
   gameResources: GameResources | null;
-  getEntity(entityName: string): Repository<ObjectLiteral> | undefined;
+  getEntity (entityName: string): Repository<ObjectLiteral> | undefined;
 }

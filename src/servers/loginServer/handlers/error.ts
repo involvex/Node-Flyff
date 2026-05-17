@@ -4,11 +4,11 @@ import { SetPacketType } from "../../../decorators/packetHandler";
 
 @SetPacketType(PacketType.ERROR)
 export default class Handler extends PacketHandler {
-  constructor() {
+  constructor () {
     super();
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     if (this.server.instance?.server?.isUserConnected(this.userConnection)) {
       this.server.instance.server.disconnectUser(this.userConnection);
     }

@@ -8,7 +8,6 @@ import { HandlerBuilder } from "./handlerBuilder";
 import { ServerBuilder } from "./serverBuilder";
 import { HandlerConstructor } from "../libraries/packetHandler";
 import { PacketType } from "../common/packetType";
-import { sleep } from "../helpers/sleep";
 import { IConfig } from "../interfaces/config";
 import { RedisBuilder } from "./redisBuilder";
 import { IInstance } from "../interfaces/instance";
@@ -25,45 +24,45 @@ export class InstanceBuilder {
   redisBuilder: RedisBuilder;
   resourceBuilder: ResourceBuilder;
 
-  constructor() {}
+  constructor () {}
 
-  buildConfig(_: (builder: ConfigBuilder) => void): void {
+  buildConfig (_: (builder: ConfigBuilder) => void): void {
     const builder = new ConfigBuilder();
     _(builder);
     this.config = builder.build();
   }
 
-  buildDatabase(_: (builder: DatabaseBuilder) => void): void {
+  buildDatabase (_: (builder: DatabaseBuilder) => void): void {
     const builder = new DatabaseBuilder();
     _(builder);
     this.databaseBuilder = builder;
   }
 
-  buildHandlers(_: (builder: HandlerBuilder) => void): void {
+  buildHandlers (_: (builder: HandlerBuilder) => void): void {
     const builder = new HandlerBuilder();
     _(builder);
     this.handlerBuilder = builder;
   }
 
-  buildServer(_: (builder: ServerBuilder) => void): void {
+  buildServer (_: (builder: ServerBuilder) => void): void {
     const builder = new ServerBuilder();
     _(builder);
     this.serverBuilder = builder;
   }
 
-  buildRedis(_: (builder: RedisBuilder) => void): void {
+  buildRedis (_: (builder: RedisBuilder) => void): void {
     const builder = new RedisBuilder();
     _(builder);
     this.redisBuilder = builder;
   }
 
-  buildResource(_: (builder: ResourceBuilder) => void): void {
+  buildResource (_: (builder: ResourceBuilder) => void): void {
     const builder = new ResourceBuilder();
     _(builder);
     this.resourceBuilder = builder;
   }
 
-  async build(): Promise<IInstance> {
+  async build (): Promise<IInstance> {
     // build config
     let server: TcpServer | null = null;
     let publisher: any | null = null;
@@ -95,7 +94,7 @@ export class InstanceBuilder {
 
     if (this.redisBuilder) {
       // prefer async build which attempts to connect and falls back to sqlite if needed
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       const redis = await this.redisBuilder.buildAsync();
       publisher = redis.publisher;
       subscriber = redis.subscriber;

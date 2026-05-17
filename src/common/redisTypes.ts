@@ -1,6 +1,6 @@
 export enum RedisChannel {
   CORE_CHANNEL = "core_channel",
-  CLUSTER_CHANNEL = "cluster_channel",
+  CLUSTER_CHANNEL = "cluster_channel"
 }
 
 export enum MessageCommand {
@@ -17,5 +17,5 @@ export enum MessageCommand {
   CHANNEL_ADDED = "channel_added",
   CHANNEL_REMOVED = "channel_removed",
   CHANNEL_EXIST = "channel_exist",
-  CHANNEL_ID_EXIST = "channel_id_exist",
+  CHANNEL_ID_EXIST = "channel_id_exist"
 }

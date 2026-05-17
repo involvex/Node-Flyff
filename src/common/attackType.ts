@@ -6,5 +6,5 @@ export enum AttackType {
   RangeBowAttack = 4,
   RangeWandAttack = 5,
   SkillMeleeAttack = 6,
-  SkillMagicAttack = 7,
+  SkillMagicAttack = 7
 }

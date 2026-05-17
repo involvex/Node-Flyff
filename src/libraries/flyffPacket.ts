@@ -1,4 +1,4 @@
-import { PacketType, ToStringHex } from "../common/packetType";
+import { PacketType } from "../common/packetType";
 import { BinaryStream } from "./binaryStream";
 
 export class FlyffPacket extends BinaryStream {
@@ -9,9 +9,9 @@ export class FlyffPacket extends BinaryStream {
   DataLength!: number;
   PacketType!: PacketType;
 
-  constructor(
+  constructor (
     bufferOrHeader?: Buffer | PacketType,
-    login = false,
+    _login = false,
     ignoreHeaders = false
   ) {
     super(bufferOrHeader instanceof Buffer ? bufferOrHeader : Buffer.alloc(0));
@@ -33,18 +33,18 @@ export class FlyffPacket extends BinaryStream {
     }
   }
 
-  static getMessageLength(buffer: Buffer, littleMedia = false) {
+  static getMessageLength (buffer: Buffer, littleMedia = false) {
     const packetDataLengthBuffer = buffer.subarray(1, 5);
     return littleMedia
       ? packetDataLengthBuffer.readInt32LE()
       : packetDataLengthBuffer.readInt32BE();
   }
 
-  static getHeader(buffer: Buffer) {
+  static getHeader (buffer: Buffer) {
     return buffer.readUInt32LE(1);
   }
 
-  static appendHeader(buffer: Buffer) {
+  static appendHeader (buffer: Buffer) {
     const contentLength = buffer.length - FlyffPacket.PACKET_DATA_START_OFFSET;
     const contentLengthBuffer = Buffer.alloc(4);
     contentLengthBuffer.writeUInt32LE(contentLength, 0);
@@ -52,25 +52,25 @@ export class FlyffPacket extends BinaryStream {
     return buffer;
   }
 
-  readString() {
+  readString () {
     const stringLength = this.readInt32LE();
     const stringBytes = this.readBytes(Number(stringLength));
     return BinaryStream.STRING_DECODER.decode(stringBytes);
   }
 
-  writeString(value: string = "") {
+  writeString (value: string = "") {
     const stringBytes = BinaryStream.STRING_ENCODER.encode(value);
     this.writeInt32(stringBytes.length);
     this.writeBytes(stringBytes as Buffer);
   }
 
-  writeStringLE(value: string = "") {
+  writeStringLE (value: string = "") {
     const stringBytes = BinaryStream.STRING_ENCODER.encode(value);
     this.writeInt32LE(stringBytes.length);
     this.writeBytes(stringBytes as Buffer);
   }
 
-  toHex() {
+  toHex () {
     return this.buffer.toString("hex");
   }
 }

@@ -15,14 +15,14 @@ export class CwfExtractor {
   private logger: Logger;
   private assetCache: AssetCache;
 
-  constructor(assetCache: AssetCache) {
+  constructor (assetCache: AssetCache) {
     this.logger = new Logger("CwfExtractor");
     this.assetCache = assetCache;
   }
 
-  async extractCwfFile(
+  async extractCwfFile (
     cwfPath: string,
-    targetDir?: string
+    _targetDir?: string
   ): Promise<Map<string, Buffer>> {
     try {
       this.logger.info(`Extracting CWF file: ${cwfPath}`);
@@ -47,13 +47,13 @@ export class CwfExtractor {
 
       this.logger.success(`Extracted ${extractedFiles.size} files from CWF`);
       return extractedFiles;
-    } catch (error) {
-      this.logger.error(`Failed to extract CWF file ${cwfPath}:`, error);
-      throw error;
+    } catch (_error) {
+      this.logger.error(`Failed to extract CWF file ${cwfPath}:`, _error);
+      throw _error;
     }
   }
 
-  private parseCwfHeader(buffer: Buffer): CwfEntry[] {
+  private parseCwfHeader (buffer: Buffer): CwfEntry[] {
     const entries: CwfEntry[] = [];
 
     try {
@@ -83,13 +83,16 @@ export class CwfExtractor {
       }
 
       return entries;
-    } catch (error) {
-      this.logger.warn("Failed to parse CWF header, trying alternative format");
+    } catch (_error) {
+      this.logger.warn(
+        "Failed to parse CWF header, trying alternative format:",
+        _error
+      );
       return this.parseAlternativeCwfHeader(buffer);
     }
   }
 
-  private parseAlternativeCwfHeader(buffer: Buffer): CwfEntry[] {
+  private parseAlternativeCwfHeader (buffer: Buffer): CwfEntry[] {
     const entries: CwfEntry[] = [];
 
     try {
@@ -131,13 +134,13 @@ export class CwfExtractor {
         `Found ${entries.length} entries using alternative parsing`
       );
       return entries;
-    } catch (error) {
-      this.logger.error("Alternative CWF parsing failed:", error);
+    } catch (_error) {
+      this.logger.error("Alternative CWF parsing failed:", _error);
       return [];
     }
   }
 
-  private extractEntry(buffer: Buffer, entry: CwfEntry): Buffer {
+  private extractEntry (buffer: Buffer, entry: CwfEntry): Buffer {
     try {
       const startOffset = entry.offset;
       const endOffset = startOffset + entry.size;
@@ -154,26 +157,26 @@ export class CwfExtractor {
       }
 
       return data;
-    } catch (error) {
-      this.logger.error(`Failed to extract entry ${entry.name}:`, error);
-      throw error;
+    } catch (_error) {
+      this.logger.error(`Failed to extract entry ${entry.name}:`, _error);
+      throw _error;
     }
   }
 
-  private isCompressed(data: Buffer): boolean {
+  private isCompressed (_data: Buffer): boolean {
     // Simple check for compression (would need actual compression detection)
     // For now, assume data is not compressed
     return false;
   }
 
-  private decompressData(data: Buffer): Buffer {
+  private decompressData (data: Buffer): Buffer {
     // Decompression would be implemented here
     // For now, return data as-is
     this.logger.warn("Decompression not implemented, returning raw data");
     return data;
   }
 
-  private readString(buffer: Buffer, offset: number): string {
+  private readString (buffer: Buffer, offset: number): string {
     // Read null-terminated string
     let end = offset;
     while (end < buffer.length && buffer[end] !== 0) {
@@ -182,7 +185,7 @@ export class CwfExtractor {
     return buffer.toString("utf8", offset, end);
   }
 
-  private isValidFileName(name: string): boolean {
+  private isValidFileName (name: string): boolean {
     // Check if the string looks like a valid filename
     const validExtensions = [
       ".o3d",
@@ -199,7 +202,7 @@ export class CwfExtractor {
     );
   }
 
-  private determineAssetType(fileName: string): string {
+  private determineAssetType (fileName: string): string {
     const ext = path.extname(fileName).toLowerCase();
 
     switch (ext) {
@@ -225,12 +228,12 @@ export class CwfExtractor {
     }
   }
 
-  private getAssetId(fileName: string): string {
+  private getAssetId (fileName: string): string {
     // Generate a consistent asset ID from filename
     return fileName.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
   }
 
-  async extractAllCwfFiles(
+  async extractAllCwfFiles (
     clientPath: string
   ): Promise<Map<string, Map<string, Buffer>>> {
     this.logger.info("Extracting all CWF files from client...");
@@ -253,8 +256,8 @@ export class CwfExtractor {
           const extracted = await this.extractCwfFile(cwfPath);
           allExtracted.set(file, extracted);
           processedCount++;
-        } catch (error) {
-          this.logger.error(`Failed to extract ${file}:`, error);
+        } catch (_error) {
+          this.logger.error(`Failed to extract ${file}:`, _error);
         }
       }
     }
@@ -263,7 +266,7 @@ export class CwfExtractor {
     return allExtracted;
   }
 
-  getCwfFileList(clientPath: string): string[] {
+  getCwfFileList (clientPath: string): string[] {
     const modelDir = path.join(clientPath, "model");
 
     if (!fs.existsSync(modelDir)) {

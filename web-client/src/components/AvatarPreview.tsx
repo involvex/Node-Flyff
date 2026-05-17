@@ -12,11 +12,11 @@ type Props = {
 
 const HAIR_COLORS = ["#2b2b2b", "#7b3f00", "#f2d16b", "#d9644a", "#1e90ff"];
 
-function makeAvatarSVG(
+function makeAvatarSVG (
   gender: string,
   face: number,
   hair: number,
-  hairColor: string,
+  hairColor: string
 ) {
   // Simple inline SVG with separate hair and body shapes so we can tint hair dynamically.
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -42,13 +42,13 @@ function makeAvatarSVG(
   </svg>`;
 }
 
-export default function AvatarPreview({
+export default function AvatarPreview ({
   gender,
   face,
   hair,
   hairColor,
   width = 160,
-  height = 160,
+  height = 160
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [loadedParts, setLoadedParts] =
@@ -88,7 +88,7 @@ export default function AvatarPreview({
       for (const img of imgs) {
         const scale = Math.min(
           canvas.width / img.width,
-          canvas.height / img.height,
+          canvas.height / img.height
         );
         const w = img.width * scale;
         const h = img.height * scale;
@@ -108,7 +108,7 @@ export default function AvatarPreview({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const scale = Math.min(
         canvas.width / img.width,
-        canvas.height / img.height,
+        canvas.height / img.height
       );
       const w = img.width * scale;
       const h = img.height * scale;

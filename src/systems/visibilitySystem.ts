@@ -1,8 +1,5 @@
 import { Logger } from "../helpers/logger";
 import { Vector3 } from "../abstract/vector3";
-import { Player } from "../entities/player";
-import { Monster } from "../entities/monster";
-import { Npc } from "../entities/npc";
 import { WorldObject } from "../abstract/worldObject";
 
 export interface VisibilityUpdate {
@@ -21,13 +18,13 @@ export class VisibilitySystem {
   private visibilityMap: Map<number, Set<number>> = new Map(); // objectId -> visible objectIds
   private lastUpdateTime: Map<number, number> = new Map(); // objectId -> last update time
 
-  constructor(visibilityRange: number = 50, updateInterval: number = 100) {
+  constructor (visibilityRange: number = 50, updateInterval: number = 100) {
     this.logger = new Logger("VisibilitySystem");
     this.visibilityRange = visibilityRange;
     this.updateInterval = updateInterval;
   }
 
-  start(): void {
+  start (): void {
     if (this.updateTimer) {
       this.logger.warn("Visibility system already started");
       return;
@@ -42,7 +39,7 @@ export class VisibilitySystem {
     }, this.updateInterval);
   }
 
-  stop(): void {
+  stop (): void {
     if (this.updateTimer) {
       clearInterval(this.updateTimer);
       this.updateTimer = null;
@@ -50,12 +47,12 @@ export class VisibilitySystem {
     }
   }
 
-  private updateVisibility(): void {
+  private updateVisibility (): void {
     // This would be called by the world server to update visibility for all entities
     // For now, this is a placeholder for the visibility update logic
   }
 
-  calculateDistance(entity1: WorldObject, entity2: WorldObject): number {
+  calculateDistance (entity1: WorldObject, entity2: WorldObject): number {
     const pos1 = entity1.position;
     const pos2 = entity2.position;
 
@@ -66,12 +63,12 @@ export class VisibilitySystem {
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
   }
 
-  isVisible(entity1: WorldObject, entity2: WorldObject): boolean {
+  isVisible (entity1: WorldObject, entity2: WorldObject): boolean {
     const distance = this.calculateDistance(entity1, entity2);
     return distance <= this.visibilityRange;
   }
 
-  getVisibleEntities(
+  getVisibleEntities (
     entity: WorldObject,
     allEntities: WorldObject[]
   ): WorldObject[] {
@@ -90,7 +87,7 @@ export class VisibilitySystem {
     return visible;
   }
 
-  getVisibilityUpdates(
+  getVisibilityUpdates (
     entity: WorldObject,
     allEntities: WorldObject[]
   ): VisibilityUpdate[] {
@@ -137,35 +134,35 @@ export class VisibilitySystem {
     return updates;
   }
 
-  updateEntityPosition(entity: WorldObject): void {
+  updateEntityPosition (entity: WorldObject): void {
     // Mark entity for visibility update
     this.lastUpdateTime.set(entity.objectId, Date.now());
   }
 
-  removeEntity(entity: WorldObject): void {
+  removeEntity (entity: WorldObject): void {
     this.visibilityMap.delete(entity.objectId);
     this.lastUpdateTime.delete(entity.objectId);
 
     // Remove this entity from other entities' visibility maps
-    for (const [entityId, visibleSet] of this.visibilityMap.entries()) {
+    for (const [_entityId, visibleSet] of this.visibilityMap.entries()) {
       visibleSet.delete(entity.objectId);
     }
   }
 
-  getVisibilityRange(): number {
+  getVisibilityRange (): number {
     return this.visibilityRange;
   }
 
-  setVisibilityRange(range: number): void {
+  setVisibilityRange (range: number): void {
     this.visibilityRange = range;
     this.logger.info(`Visibility range updated to ${range}`);
   }
 
-  getUpdateInterval(): number {
+  getUpdateInterval (): number {
     return this.updateInterval;
   }
 
-  setUpdateInterval(interval: number): void {
+  setUpdateInterval (interval: number): void {
     this.updateInterval = interval;
 
     if (this.updateTimer) {
@@ -176,12 +173,12 @@ export class VisibilitySystem {
     this.logger.info(`Update interval updated to ${interval}ms`);
   }
 
-  getStats(): {
+  getStats (): {
     visibilityRange: number;
     updateInterval: number;
     trackedEntities: number;
     totalVisibilityConnections: number;
-    } {
+  } {
     let totalConnections = 0;
     for (const visibleSet of this.visibilityMap.values()) {
       totalConnections += visibleSet.size;
@@ -195,7 +192,7 @@ export class VisibilitySystem {
     };
   }
 
-  clear(): void {
+  clear (): void {
     this.visibilityMap.clear();
     this.lastUpdateTime.clear();
     this.logger.info("Visibility system cleared");

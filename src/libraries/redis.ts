@@ -9,13 +9,13 @@ export class RedisClient implements IRedisClient {
   private logger: Logger;
   private client: any;
 
-  constructor(options?: any) {
+  constructor (options?: any) {
     this.logger = new Logger("Redis Client");
     // Use KV-backed client when Redis is not desired; keep interface compatibility
     this.client = options && options.client ? options.client : new KvClient();
   }
 
-  async getAllClusters(): Promise<ICluster[]> {
+  async getAllClusters (): Promise<ICluster[]> {
     const clusterKeys = await this.client.keys("cluster:*");
     const clusters: ICluster[] = [];
     if (clusterKeys) {
@@ -29,7 +29,7 @@ export class RedisClient implements IRedisClient {
     return clusters;
   }
 
-  async insertCluster(cluster: ICluster): Promise<void> {
+  async insertCluster (cluster: ICluster): Promise<void> {
     const key = `cluster:${cluster.name}`;
     const clusterData = {
       name: cluster.name,
@@ -42,7 +42,7 @@ export class RedisClient implements IRedisClient {
     await this.client.hmset(key, clusterData);
   }
 
-  async updateCluster(cluster: ICluster): Promise<void> {
+  async updateCluster (cluster: ICluster): Promise<void> {
     const key = `cluster:${cluster.name}`;
     const clusterData = {
       name: cluster.name,
@@ -56,15 +56,13 @@ export class RedisClient implements IRedisClient {
     await this.client.hmset(key, clusterData);
   }
 
-  async deleteCluster(clusterName: string): Promise<void> {
+  async deleteCluster (clusterName: string): Promise<void> {
     await this.client.del(`cluster:${clusterName}`);
   }
 
-  async getCluster(clusterName: string): Promise<ICluster | null> {
+  async getCluster (clusterName: string): Promise<ICluster | null> {
     const cluster: any = await this.client.hgetall(
-      clusterName?.includes("cluster:")
-        ? clusterName
-        : `cluster:${clusterName}`
+      clusterName?.includes("cluster:") ? clusterName : `cluster:${clusterName}`
     );
     let channels: IChannel[] = [];
     if (cluster.channels) {
@@ -94,12 +92,12 @@ export class RedisClient implements IRedisClient {
     return null;
   }
 
-  async getAllChannels(clusterName: string): Promise<IChannel[]> {
+  async getAllChannels (clusterName: string): Promise<IChannel[]> {
     const cluster = await this.getCluster(clusterName);
     return cluster?.channels || [];
   }
 
-  async insertChannel(clusterName: string, channel: IChannel): Promise<void> {
+  async insertChannel (clusterName: string, channel: IChannel): Promise<void> {
     const clusterData = await this.getCluster(clusterName);
     const clusterKey = `cluster:${clusterName}`;
 
@@ -127,7 +125,7 @@ export class RedisClient implements IRedisClient {
     }
   }
 
-  async updateChannel(
+  async updateChannel (
     clusterName: string,
     updatedChannel: IChannel
   ): Promise<void> {
@@ -156,7 +154,7 @@ export class RedisClient implements IRedisClient {
     }
   }
 
-  async getChannel(
+  async getChannel (
     clusterName: string,
     channelName: string
   ): Promise<IChannel | null> {
@@ -164,7 +162,10 @@ export class RedisClient implements IRedisClient {
     return _.find(cluster?.channels, { name: channelName }) || null;
   }
 
-  async deleteChannel(clusterName: string, channelName: string): Promise<void> {
+  async deleteChannel (
+    clusterName: string,
+    channelName: string
+  ): Promise<void> {
     const key = `cluster:${clusterName}`;
     const clusterData = await this.client.hgetall(key);
 
@@ -185,7 +186,7 @@ export class RedisClient implements IRedisClient {
     }
   }
 
-  async getChannelById(
+  async getChannelById (
     clusterName: string,
     id: number
   ): Promise<IChannel | undefined> {
@@ -193,18 +194,18 @@ export class RedisClient implements IRedisClient {
     return _.find(channels, { id });
   }
 
-  async getNumpadId(username: string): Promise<number | null> {
+  async getNumpadId (username: string): Promise<number | null> {
     const key = `numpadId:${username}`;
     const numPadId = await this.client.get(key);
     return numPadId !== null ? parseInt(numPadId) : null;
   }
 
-  async setNumpadId(username: string, numPadId: number): Promise<void> {
+  async setNumpadId (username: string, numPadId: number): Promise<void> {
     const key = `numpadId:${username}`;
     await this.client.set(key, numPadId);
   }
 
-  async setCharacterSession(
+  async setCharacterSession (
     sessionKey: number,
     characterId: number,
     username: string,
@@ -221,7 +222,7 @@ export class RedisClient implements IRedisClient {
     await this.client.expire(key, expireInSeconds);
   }
 
-  async getCharacterSession(sessionKey: number): Promise<{
+  async getCharacterSession (sessionKey: number): Promise<{
     characterId: number;
     username: string;
     password: string;
@@ -240,7 +241,7 @@ export class RedisClient implements IRedisClient {
     };
   }
 
-  async deleteCharacterSession(sessionKey: number): Promise<void> {
+  async deleteCharacterSession (sessionKey: number): Promise<void> {
     const key = `session:${sessionKey}`;
     await this.client.del(key);
   }

@@ -8,7 +8,7 @@ class FFRandom {
    * @param max Maximum value (inclusive)
    * @returns Random integer between min and max
    */
-  public static random(min: number, max: number): number {
+  public static random (min: number, max: number): number {
     return Math.floor(min + Math.random() * (max - min + 1));
   }
 
@@ -16,7 +16,7 @@ class FFRandom {
    * Gets a random floating number.
    * @returns Random floating number between 0 and 1
    */
-  public static floatRandom(): number {
+  public static floatRandom (): number {
     return Math.random();
   }
 
@@ -26,7 +26,7 @@ class FFRandom {
    * @param f2 Maximum value
    * @returns Random floating number between f1 and f2
    */
-  public static floatRandomBetween(f1: number, f2: number): number {
+  public static floatRandomBetween (f1: number, f2: number): number {
     return (f2 - f1) * Math.random() + f1;
   }
 
@@ -36,7 +36,7 @@ class FFRandom {
    * @param max Maximum value (inclusive)
    * @returns Random long between min and max
    */
-  public static longRandom(min: number, max: number): number {
+  public static longRandom (min: number, max: number): number {
     return Math.floor(min + Math.random() * (max - min + 1));
   }
 
@@ -44,7 +44,7 @@ class FFRandom {
    * Generates a unique id.
    * @returns Unique id
    */
-  public static generateUniqueId(): number {
+  public static generateUniqueId (): number {
     if (!this._syncLock) {
       this._syncLock = {};
     }
@@ -57,7 +57,7 @@ class FFRandom {
     return this._id;
   }
 
-  public static getHashCode(value: string | number) {
+  public static getHashCode (value: string | number) {
     if (typeof value === "number") value = value.toString();
     let hash = 0;
     let chr: number;

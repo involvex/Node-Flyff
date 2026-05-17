@@ -12,11 +12,11 @@ export class ConfigBuilder {
   private config: IConfig;
   private basePath: string | null = null;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger(BuilderType.CONFIG_BUILDER);
   }
 
-  setBasePath(basePath: string): void {
+  setBasePath (basePath: string): void {
     if (!fs.existsSync(basePath)) {
       this.logger.error(`Cannot find base path ${basePath}.`);
       return;
@@ -24,7 +24,7 @@ export class ConfigBuilder {
     this.basePath = basePath;
   }
 
-  build(): IConfig | null {
+  build (): IConfig | null {
     if (!this.basePath) {
       return null;
     }

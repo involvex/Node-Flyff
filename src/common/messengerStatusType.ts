@@ -11,5 +11,5 @@ export enum MessengerStatusType {
   Danger,
   OfflineBlock,
   AutoAbsent,
-  FriendStat,
+  FriendStat
 }

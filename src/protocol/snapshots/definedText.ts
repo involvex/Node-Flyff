@@ -4,7 +4,7 @@ import { SnapshotType } from "../../common/snapshotType";
 import { FlyffSnapshot } from "../../libraries/snapshot";
 
 export class DefinedTextSnapshot extends FlyffSnapshot {
-  constructor(
+  constructor (
     worldObject: WorldObject,
     textId: DefineText,
     ...parameters: any[]

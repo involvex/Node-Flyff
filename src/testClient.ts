@@ -9,7 +9,7 @@ import {
 enum ClientState {
   LOGIN,
   CLUSTER,
-  WORLD,
+  WORLD
 }
 
 class TestClient {
@@ -21,28 +21,28 @@ class TestClient {
   private username: string = "testuser";
   private password: string = "testpass";
 
-  constructor() {
+  constructor () {
     this.startLogin();
   }
 
-  private startLogin() {
+  private startLogin () {
     this.state = ClientState.LOGIN;
     this.connect("127.0.0.1", 23000); // login server
   }
 
-  private startCluster() {
+  private startCluster () {
     this.state = ClientState.CLUSTER;
     this.disconnect();
     this.connect("127.0.0.1", 28000); // cluster server
   }
 
-  private startWorld() {
+  private startWorld () {
     this.state = ClientState.WORLD;
     this.disconnect();
     this.connect("127.0.0.1", 5400); // world server
   }
 
-  private connect(host: string, port: number) {
+  private connect (host: string, port: number) {
     this.socket = createConnection({ host, port }, () => {
       console.log(`Connected to ${host}:${port} (${ClientState[this.state]})`);
       if (this.state === ClientState.LOGIN) {
@@ -67,7 +67,7 @@ class TestClient {
     });
   }
 
-  private handleData(data: Buffer) {
+  private handleData (data: Buffer) {
     const packet = new FlyffPacket(data);
     console.log(packet);
 
@@ -102,7 +102,7 @@ class TestClient {
     }
   }
 
-  private sendCertify() {
+  private sendCertify () {
     const packet = new FlyffPacket(PacketType.CERTIFY);
     packet.writeString("20100412"); // version
     packet.writeString(this.username);
@@ -118,21 +118,21 @@ class TestClient {
     console.log("Sent CERTIFY packet");
   }
 
-  private sendGetCharacterList() {
+  private sendGetCharacterList () {
     const packet = new FlyffPacket(PacketType.GET_CHARACTER_LIST);
     packet.writeInt32LE(0); // auth key from server list?
     this.send(packet);
     console.log("Sent GET_CHARACTER_LIST packet");
   }
 
-  private sendSelectCharacter() {
+  private sendSelectCharacter () {
     const packet = new FlyffPacket(PacketType.SEL_PLAYER);
     packet.writeInt32LE(this.characterId);
     this.send(packet);
     console.log("Sent SEL_PLAYER packet");
   }
 
-  private sendJoinGame() {
+  private sendJoinGame () {
     const packet = new FlyffPacket(PacketType.JOIN_GAME);
     packet.writeInt32LE(1); // channelId
     packet.writeInt32LE(this.characterId);
@@ -151,20 +151,20 @@ class TestClient {
     console.log("Sent JOIN_GAME packet");
   }
 
-  private send(packet: FlyffPacket) {
+  private send (packet: FlyffPacket) {
     if (this.socket) {
       this.socket.write(FlyffPacket.appendHeader(packet.buffer) as any);
     }
   }
 
-  private disconnect() {
+  private disconnect () {
     if (this.socket) {
       this.socket.end();
       this.socket = null;
     }
   }
 
-  public close() {
+  public close () {
     this.disconnect();
   }
 }

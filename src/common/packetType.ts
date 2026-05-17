@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
-
 export enum PacketType {
   // Inter-server
   CLUSTER_AUTH_REQ = 0x00003500,
@@ -692,10 +690,10 @@ export enum PacketType {
   GUILDHOUSE_LEVEL_UPDATE = 0x88100237,
   GUILDHOUSE_EXPIRED = 0x88100238,
   QUERY_MAILBOX_REQ = 0x88100240,
-  QUERY_MAILBOX_COUNT = 0x88100241,
+  QUERY_MAILBOX_COUNT = 0x88100241
 }
 
-export function ToStringHex(packetType: PacketType): string {
+export function ToStringHex (packetType: PacketType): string {
   const buffer = Buffer.alloc(4);
   buffer.writeUInt32BE(packetType);
   return `0x${buffer.toString("hex")}`;

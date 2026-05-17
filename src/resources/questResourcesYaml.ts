@@ -8,10 +8,7 @@ import {
   QuestStartRequirementsProperties,
   QuestEndConditionProperties,
   QuestRewardProperties,
-  QuestItemDropProperties,
-  QuestItemProperties,
-  QuestMonsterProperties,
-  QuestPatrolProperties
+  QuestItemDropProperties
 } from "../interfaces/questProperties";
 import { DefineJob } from "../common/defineJob";
 import { GenderType } from "../common/genderType";
@@ -79,7 +76,7 @@ export class QuestResourcesYaml {
   private readonly questByIdentifiers: Map<string, QuestProperties> = new Map();
   private readonly questsYamlPath: string;
 
-  constructor(defines: Map<string, number>) {
+  constructor (defines: Map<string, number>) {
     this.logger = new Logger("QuestResourcesYaml");
     this.defines = defines;
     this.questsYamlPath = path.join(
@@ -88,7 +85,7 @@ export class QuestResourcesYaml {
     );
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     const startTime = Date.now();
 
     if (!fs.existsSync(ResourcePaths.defineQuest)) {
@@ -123,11 +120,11 @@ export class QuestResourcesYaml {
     }
   }
 
-  public get(questId: number): QuestProperties | null {
+  public get (questId: number): QuestProperties | null {
     return this.quests.get(questId) || null;
   }
 
-  public getByIdentifier(questIdentifier: string): QuestProperties | null {
+  public getByIdentifier (questIdentifier: string): QuestProperties | null {
     const questId = parseInt(questIdentifier, 10);
     if (!isNaN(questId)) {
       return this.get(questId);
@@ -136,7 +133,7 @@ export class QuestResourcesYaml {
     }
   }
 
-  public where(
+  public where (
     predicate: (quest: QuestProperties) => boolean
   ): QuestProperties[] {
     const results: QuestProperties[] = [];
@@ -148,11 +145,11 @@ export class QuestResourcesYaml {
     return results;
   }
 
-  public getLoadedCount(): number {
+  public getLoadedCount (): number {
     return this.quests.size;
   }
 
-  public load(): void {
+  public load (): void {
     const startTime = Date.now();
 
     if (!fs.existsSync(this.questsYamlPath)) {
@@ -198,7 +195,7 @@ export class QuestResourcesYaml {
     );
   }
 
-  private loadYamlQuest(filePath: string): QuestProperties | null {
+  private loadYamlQuest (filePath: string): QuestProperties | null {
     try {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       const yamlData = yaml.load(fileContent) as YamlQuestData;
@@ -223,7 +220,7 @@ export class QuestResourcesYaml {
     }
   }
 
-  private convertYamlToQuestProperties(
+  private convertYamlToQuestProperties (
     yamlData: YamlQuestData,
     questId: number
   ): QuestProperties {
@@ -247,7 +244,7 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertStartRequirements(
+  private convertStartRequirements (
     data?: YamlQuestData["start_requirements"]
   ): QuestStartRequirementsProperties {
     if (!data) {
@@ -272,7 +269,7 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertEndConditions(
+  private convertEndConditions (
     data?: YamlQuestData["end_conditions"]
   ): QuestEndConditionProperties {
     if (!data) {
@@ -304,7 +301,7 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertRewards(
+  private convertRewards (
     data?: YamlQuestData["rewards"]
   ): QuestRewardProperties {
     if (!data) {
@@ -329,7 +326,7 @@ export class QuestResourcesYaml {
     };
   }
 
-  private convertDrops(
+  private convertDrops (
     data?: YamlQuestData["drops"]
   ): QuestItemDropProperties[] {
     if (!data) return [];
@@ -352,7 +349,7 @@ export class QuestResourcesYaml {
     return questItemDrops;
   }
 
-  private parseGenderType(sex: string): GenderType {
+  private parseGenderType (sex: string): GenderType {
     switch (sex?.toLowerCase()) {
       case "male":
         return GenderType.Male;
@@ -364,7 +361,7 @@ export class QuestResourcesYaml {
     }
   }
 
-  private tryGetQuestId(questIdentifier: string): number | null {
+  private tryGetQuestId (questIdentifier: string): number | null {
     let questId = this.defines.get(questIdentifier);
 
     if (!questId) {

@@ -12,16 +12,16 @@ export class ItemResources extends BaseResource {
   redisClient: any;
   private itemCount: number = 0;
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     super("Item");
     this.redisClient = client || new KvClient();
   }
 
-  public getItemCount(): number {
+  public getItemCount (): number {
     return this.itemCount;
   }
 
-  public async get(
+  public async get (
     itemIdentifier: string | number
   ): Promise<ItemProperties | null> {
     const itemId =
@@ -35,7 +35,7 @@ export class ItemResources extends BaseResource {
     return null;
   }
 
-  public async where(
+  public async where (
     predicate: (item: ItemProperties) => boolean
   ): Promise<ItemProperties[]> {
     const items: ItemProperties[] = [];
@@ -56,7 +56,7 @@ export class ItemResources extends BaseResource {
     return items;
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineItem);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn("Unable to load items. Reason: cannot find file.");
@@ -65,7 +65,7 @@ export class ItemResources extends BaseResource {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -78,7 +78,7 @@ export class ItemResources extends BaseResource {
     });
   }
 
-  public async loadItemsPropStrings(): Promise<void> {
+  public async loadItemsPropStrings (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.itemsText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -93,7 +93,7 @@ export class ItemResources extends BaseResource {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((_i) => _i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async(pair, _i) => {
+      _.forEach(pairs, async (pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("itemNames", idName, name);
@@ -104,7 +104,7 @@ export class ItemResources extends BaseResource {
     }
   }
 
-  public async loadItemsProp(): Promise<void> {
+  public async loadItemsProp (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.itemsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -120,7 +120,7 @@ export class ItemResources extends BaseResource {
     const _data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = _data.split("\n");
-    _.forEach(lines, async(_line) => {
+    _.forEach(lines, async (_line) => {
       const items = _line.trim().split("\t");
 
       const id = await this.redisClient.hget("itemDefines", items[1]);
@@ -204,7 +204,7 @@ export class ItemResources extends BaseResource {
     this.logger.main("Items loaded.");
   }
 
-  parseItemProperties(_data: { [key: string]: string }): ItemProperties {
+  parseItemProperties (_data: { [key: string]: string }): ItemProperties {
     return {
       id: parseInt(_data.id),
       ver6: parseInt(_data.ver6),
@@ -266,7 +266,7 @@ export class ItemResources extends BaseResource {
     };
   }
 
-  async cleanCache(): Promise<void> {
+  async cleanCache (): Promise<void> {
     try {
       const _keys = await this.redisClient.keys("item:*");
       if (!_keys || _keys.length === 0) return;

@@ -4,7 +4,7 @@ export class Delayer {
   private _delayedActions: Map<string, DelayedAction> = new Map();
 
   /** Delay an action using a time stamp as delay. */
-  public delayAction(delayTime: number, action: () => void): string {
+  public delayAction (delayTime: number, action: () => void): string {
     const delayedActionId = uuidv4();
     const delayedAction = new DelayedAction(action, delayTime);
 
@@ -15,12 +15,12 @@ export class Delayer {
   }
 
   /** Delay an action using seconds as time unit. */
-  public delayActionSeconds(delaySeconds: number, action: () => void): string {
+  public delayActionSeconds (delaySeconds: number, action: () => void): string {
     return this.delayAction(delaySeconds * 1000, action);
   }
 
   /** Delay an action using milliseconds as time unit. */
-  public delayActionMilliseconds(
+  public delayActionMilliseconds (
     delayMilliseconds: number,
     action: () => void
   ): string {
@@ -28,7 +28,7 @@ export class Delayer {
   }
 
   /** Cancels an action. */
-  public cancelAction(delayedActionId: string): void {
+  public cancelAction (delayedActionId: string): void {
     const delayedAction = this._delayedActions.get(delayedActionId);
     if (delayedAction) {
       delayedAction.cancel();
@@ -37,7 +37,7 @@ export class Delayer {
   }
 
   /** Cancel all actions. */
-  public cancelAllActions(): void {
+  public cancelAllActions (): void {
     for (const [delayedActionId, delayedAction] of this._delayedActions) {
       delayedAction.cancel();
       this._delayedActions.delete(delayedActionId);
@@ -48,19 +48,19 @@ export class Delayer {
 class DelayedAction {
   private _timerId: ReturnType<typeof setTimeout>;
 
-  constructor(
+  constructor (
     private _actionToExecute: () => void,
     private _delayTime: number
   ) {}
 
-  public start(): void {
+  public start (): void {
     this._timerId = setTimeout(() => {
       this._actionToExecute();
     }, this._delayTime);
   }
 
   /** Cancels the delayed action. */
-  public cancel(): void {
+  public cancel (): void {
     clearTimeout(this._timerId);
   }
 }

@@ -7,16 +7,16 @@ export class RedisBuilder {
   private logger: Logger;
   options: any;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger(BuilderType.REDIS_BUILDER);
   }
 
-  setRedisOptions(options: any): void {
+  setRedisOptions (options: any): void {
     this.options = options;
   }
 
   // Synchronous build kept for compatibility but delegate to async build
-  async build(): Promise<{
+  async build (): Promise<{
     subscriber: any | null;
     publisher: any | null;
     client: IRedisClient | null;
@@ -64,7 +64,7 @@ export class RedisBuilder {
   }
 
   // Async build: try connecting to Redis with a short timeout and fall back to sqlite if unreachable
-  async buildAsync(): Promise<{
+  async buildAsync (): Promise<{
     subscriber: any | null;
     publisher: any | null;
     client: IRedisClient | null;

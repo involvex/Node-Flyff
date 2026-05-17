@@ -8,7 +8,7 @@ export class RgnElement {
   protected _right: number;
   protected _bottom: number;
 
-  constructor(
+  constructor (
     type: number,
     position: Vector3,
     left: number,
@@ -24,35 +24,35 @@ export class RgnElement {
     this._bottom = bottom;
   }
 
-  get type(): number {
+  get type (): number {
     return this._type;
   }
 
-  get position(): Vector3 {
+  get position (): Vector3 {
     return this._position;
   }
 
-  get left(): number {
+  get left (): number {
     return this._left;
   }
 
-  get top(): number {
+  get top (): number {
     return this._top;
   }
 
-  get right(): number {
+  get right (): number {
     return this._right;
   }
 
-  get bottom(): number {
+  get bottom (): number {
     return this._bottom;
   }
 
-  get width(): number {
+  get width (): number {
     return this._right - this._left;
   }
 
-  get length(): number {
+  get length (): number {
     return this._bottom - this._top;
   }
 }

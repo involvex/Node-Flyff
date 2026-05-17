@@ -20,12 +20,12 @@ export class DatabaseManager {
   private dataSource: DataSource | null = null;
   private config: DatabaseConfig;
 
-  constructor(config: DatabaseConfig) {
+  constructor (config: DatabaseConfig) {
     this.logger = new Logger("DatabaseManager");
     this.config = config;
   }
 
-  async initialize(): Promise<DataSource> {
+  async initialize (): Promise<DataSource> {
     try {
       this.logger.info(`Initializing ${this.config.type} database...`);
 
@@ -47,7 +47,7 @@ export class DatabaseManager {
     }
   }
 
-  private buildDataSourceOptions(): DataSourceOptions {
+  private buildDataSourceOptions (): DataSourceOptions {
     const baseOptions: DataSourceOptions = {
       type: this.config.type as any,
       database: this.config.database,
@@ -102,7 +102,7 @@ export class DatabaseManager {
     }
   }
 
-  private getSqliteMode?(): number {
+  private getSqliteMode? (): number {
     try {
       // Try to use better-sqlite3 if available
       if (Database) {
@@ -114,18 +114,18 @@ export class DatabaseManager {
     return 0;
   }
 
-  async disconnect(): Promise<void> {
+  async disconnect (): Promise<void> {
     if (this.dataSource && this.dataSource.isInitialized) {
       await this.dataSource.destroy();
       this.logger.info("Database disconnected");
     }
   }
 
-  getDataSource(): DataSource | null {
+  getDataSource (): DataSource | null {
     return this.dataSource;
   }
 
-  async healthCheck(): Promise<boolean> {
+  async healthCheck (): Promise<boolean> {
     if (!this.dataSource || !this.dataSource.isInitialized) {
       return false;
     }
@@ -139,7 +139,7 @@ export class DatabaseManager {
     }
   }
 
-  async executeQuery<T = any>(query: string, parameters?: any[]): Promise<T> {
+  async executeQuery<T = any> (query: string, parameters?: any[]): Promise<T> {
     if (!this.dataSource || !this.dataSource.isInitialized) {
       throw new Error("Database not initialized");
     }
@@ -153,7 +153,7 @@ export class DatabaseManager {
     }
   }
 
-  async transaction<T>(
+  async transaction<T> (
     callback: (entityManager: any) => Promise<T>
   ): Promise<T> {
     if (!this.dataSource || !this.dataSource.isInitialized) {
@@ -177,7 +177,7 @@ export class DatabaseManager {
     }
   }
 
-  getRepository(entity: any): any {
+  getRepository (entity: any): any {
     if (!this.dataSource || !this.dataSource.isInitialized) {
       throw new Error("Database not initialized");
     }
@@ -185,7 +185,7 @@ export class DatabaseManager {
     return this.dataSource.getRepository(entity);
   }
 
-  async getStats(): Promise<{
+  async getStats (): Promise<{
     connected: boolean;
     type: string;
     database: string;

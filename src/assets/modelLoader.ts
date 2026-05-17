@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 import { Logger } from "../helpers/logger";
 import { AssetCache } from "./assetCache";
@@ -57,13 +56,13 @@ export class ModelLoader {
   private cwfExtractor: CwfExtractor;
   private loadedModels: Map<string, ModelData> = new Map();
 
-  constructor(assetCache: AssetCache) {
+  constructor (assetCache: AssetCache) {
     this.logger = new Logger("ModelLoader");
     this.assetCache = assetCache;
     this.cwfExtractor = new CwfExtractor(assetCache);
   }
 
-  async loadModel(modelId: string, clientPath: string): Promise<ModelData> {
+  async loadModel (modelId: string, clientPath: string): Promise<ModelData> {
     // Check if already loaded
     if (this.loadedModels.has(modelId)) {
       return this.loadedModels.get(modelId)!;
@@ -126,7 +125,7 @@ export class ModelLoader {
     }
   }
 
-  private parseModelData(buffer: Buffer, modelId: string): ModelData {
+  private parseModelData (buffer: Buffer, modelId: string): ModelData {
     try {
       // Parse model data (simplified - actual format would need reverse engineering)
       // This is a placeholder implementation
@@ -163,7 +162,7 @@ export class ModelLoader {
     }
   }
 
-  private isO3DFormat(buffer: Buffer): boolean {
+  private isO3DFormat (buffer: Buffer): boolean {
     // Check for O3D magic number
     if (buffer.length < 4) return false;
     const magic = buffer.readUInt32LE(0);
@@ -173,13 +172,13 @@ export class ModelLoader {
     ); // \0O3O
   }
 
-  private isXFormat(buffer: Buffer): boolean {
+  private isXFormat (buffer: Buffer): boolean {
     // Check for X file format
     if (buffer.length < 4) return false;
     return buffer.toString("ascii", 0, 4).toLowerCase() === "xof ";
   }
 
-  private parseO3DModel(buffer: Buffer, modelId: string): ModelData {
+  private parseO3DModel (buffer: Buffer, modelId: string): ModelData {
     this.logger.info(`Parsing O3D model: ${modelId}`);
 
     // Simplified O3D parsing
@@ -250,7 +249,7 @@ export class ModelLoader {
     }
   }
 
-  private parseXModel(buffer: Buffer, modelId: string): ModelData {
+  private parseXModel (buffer: Buffer, modelId: string): ModelData {
     this.logger.info(`Parsing X model: ${modelId}`);
 
     // Simplified X file parsing
@@ -274,7 +273,7 @@ export class ModelLoader {
     return model;
   }
 
-  private calculateBoundingBox(model: ModelData): void {
+  private calculateBoundingBox (model: ModelData): void {
     if (model.vertices.length === 0) {
       return;
     }
@@ -305,11 +304,11 @@ export class ModelLoader {
     };
   }
 
-  private getAssetId(fileName: string): string {
+  private getAssetId (fileName: string): string {
     return fileName.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
   }
 
-  async preloadModels(modelIds: string[], clientPath: string): Promise<void> {
+  async preloadModels (modelIds: string[], clientPath: string): Promise<void> {
     this.logger.info(`Preloading ${modelIds.length} models...`);
 
     for (const modelId of modelIds) {
@@ -323,29 +322,29 @@ export class ModelLoader {
     this.logger.success(`Preloaded ${this.loadedModels.size} models`);
   }
 
-  getModel(modelId: string): ModelData | null {
+  getModel (modelId: string): ModelData | null {
     return this.loadedModels.get(modelId) || null;
   }
 
-  getLoadedModelCount(): number {
+  getLoadedModelCount (): number {
     return this.loadedModels.size;
   }
 
-  unloadModel(modelId: string): boolean {
+  unloadModel (modelId: string): boolean {
     return this.loadedModels.delete(modelId);
   }
 
-  unloadAllModels(): void {
+  unloadAllModels (): void {
     this.loadedModels.clear();
     this.logger.info("Unloaded all models");
   }
 
-  getStats(): {
+  getStats (): {
     loadedModels: number;
     totalVertices: number;
     totalIndices: number;
     memoryUsage: number;
-    } {
+  } {
     let totalVertices = 0;
     let totalIndices = 0;
     let memoryUsage = 0;

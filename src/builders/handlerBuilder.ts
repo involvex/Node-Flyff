@@ -12,11 +12,11 @@ export class HandlerBuilder {
   private basePath: string;
   private handlers: Map<PacketType, HandlerConstructor> = new Map();
 
-  constructor() {
+  constructor () {
     this.logger = new Logger(BuilderType.HANDLER_BUILDER);
   }
 
-  setBasePath(basePath: string): void {
+  setBasePath (basePath: string): void {
     if (!fs.existsSync(basePath)) {
       this.logger.error(`Cannot find base path ${basePath}.`);
       return;
@@ -24,7 +24,7 @@ export class HandlerBuilder {
     this.basePath = basePath;
   }
 
-  async loadHandlers(): Promise<void> {
+  async loadHandlers (): Promise<void> {
     if (!fs.existsSync(this.basePath)) {
       this.logger.error(`Cannot find base path ${this.basePath}.`);
       return;
@@ -37,7 +37,7 @@ export class HandlerBuilder {
     if (!files.length) return;
 
     await Promise.all(
-      _.map(files, async(file: string) => {
+      _.map(files, async (file: string) => {
         const handlerModule = await import(join(handlersFolder, file));
         if (handlerModule && handlerModule.default) {
           const HandlerClass = handlerModule.default as HandlerConstructor;
@@ -50,7 +50,7 @@ export class HandlerBuilder {
     );
   }
 
-  build(): Map<PacketType, HandlerConstructor> {
+  build (): Map<PacketType, HandlerConstructor> {
     this.logger.main(this.handlers.size, "handlers loaded");
     return this.handlers;
   }

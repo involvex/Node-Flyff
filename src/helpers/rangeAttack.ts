@@ -2,7 +2,9 @@ import { AttackType } from "../common/attackType";
 import { ObjectMessageType } from "../common/objectMessageType";
 import { SkillType } from "../common/skillType";
 
-export function toObjectMessageType(attackType: AttackType): ObjectMessageType {
+export function toObjectMessageType (
+  attackType: AttackType
+): ObjectMessageType {
   switch (attackType) {
     case AttackType.MeleeAttack1:
       return ObjectMessageType.OBJMSG_ATK1;
@@ -27,7 +29,7 @@ export function toObjectMessageType(attackType: AttackType): ObjectMessageType {
   }
 }
 
-export function isMeleeAttack(attackType: AttackType): boolean {
+export function isMeleeAttack (attackType: AttackType): boolean {
   switch (attackType) {
     case AttackType.MeleeAttack1:
     case AttackType.MeleeAttack2:
@@ -39,7 +41,7 @@ export function isMeleeAttack(attackType: AttackType): boolean {
   }
 }
 
-export function isRangeAttack(attackType: AttackType): boolean {
+export function isRangeAttack (attackType: AttackType): boolean {
   switch (attackType) {
     case AttackType.RangeBowAttack:
     case AttackType.RangeWandAttack:
@@ -49,7 +51,7 @@ export function isRangeAttack(attackType: AttackType): boolean {
   }
 }
 
-export function isSkillAttack(attackType: AttackType): boolean {
+export function isSkillAttack (attackType: AttackType): boolean {
   switch (attackType) {
     case AttackType.SkillMeleeAttack:
     case AttackType.SkillMagicAttack:
@@ -59,23 +61,23 @@ export function isSkillAttack(attackType: AttackType): boolean {
   }
 }
 
-export function causesArrowProjectile(attackType: AttackType): boolean {
+export function causesArrowProjectile (attackType: AttackType): boolean {
   return attackType === AttackType.RangeBowAttack;
 }
 
-export function causesMagicProjectile(attackType: AttackType): boolean {
+export function causesMagicProjectile (attackType: AttackType): boolean {
   return attackType === AttackType.RangeWandAttack;
 }
 
-export function causesMeleeSkill(attackType: AttackType): boolean {
+export function causesMeleeSkill (attackType: AttackType): boolean {
   return attackType === AttackType.SkillMeleeAttack;
 }
 
-export function causesMagicSkill(attackType: AttackType): boolean {
+export function causesMagicSkill (attackType: AttackType): boolean {
   return attackType === AttackType.SkillMagicAttack;
 }
 
-export function toAttackType(skillType: SkillType): AttackType {
+export function toAttackType (skillType: SkillType): AttackType {
   switch (skillType) {
     case SkillType.Magic:
       return AttackType.SkillMagicAttack;

@@ -1,4 +1,4 @@
 export enum MapItemType {
   DropItem,
-  QuestItem,
+  QuestItem
 }

@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import CryptoJS from "crypto-js";
 
-export function encryptByteArray(input: Buffer, key: Buffer): string {
+export function encryptByteArray (input: Buffer, key: Buffer): string {
   const iv = Buffer.alloc(16, 0);
 
   const cipher = crypto.createCipheriv("aes-128-cbc", key, iv);
@@ -12,7 +12,7 @@ export function encryptByteArray(input: Buffer, key: Buffer): string {
   return encryptedString;
 }
 
-export function decryptByteArray(input: any, key: any) {
+export function decryptByteArray (input: any, key: any) {
   const iv = Buffer.alloc(16, 0);
 
   const decipher: any = crypto.createDecipheriv("aes-128-cbc", key, iv);
@@ -28,15 +28,15 @@ export function decryptByteArray(input: any, key: any) {
   return decrypted.replace(/\0+$/, "");
 }
 
-export function encryptString(input: string, key: string) {
+export function encryptString (input: string, key: string) {
   return CryptoJS.AES.encrypt(input, key).toString();
 }
 
-export function decryptString(input: string, key: string) {
+export function decryptString (input: string, key: string) {
   return CryptoJS.AES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
 }
 
-export function parseMessage(message: string) {
+export function parseMessage (message: string) {
   try {
     // Remove all non-printable ASCII characters, control characters, and whitespace
     const cleanedMessage = message.trim();
@@ -46,7 +46,7 @@ export function parseMessage(message: string) {
   }
 }
 
-export function isValidEncryptionString(input: any, key: any) {
+export function isValidEncryptionString (input: any, key: any) {
   try {
     return !!decryptString(input, key);
   } catch {
@@ -54,7 +54,7 @@ export function isValidEncryptionString(input: any, key: any) {
   }
 }
 
-export function buildEncryptionKeyFromString(
+export function buildEncryptionKeyFromString (
   encryptionKey: string,
   keySize = 16,
   encoding: BufferEncoding = "utf8"
@@ -73,18 +73,18 @@ export function buildEncryptionKeyFromString(
   }
 }
 
-export function generateMD5(input: string, salt = "") {
+export function generateMD5 (input: string, salt = "") {
   const hash = crypto.createHash("md5");
   hash.update(salt + input);
   return hash.digest("hex");
 }
 
-export function generateKeyPair() {
+export function generateKeyPair () {
   const curve = crypto.createECDH("secp256k1");
   return curve.generateKeys("hex", "compressed");
 }
 
-export function signMessage(message: string | Buffer, key: Buffer) {
+export function signMessage (message: string | Buffer, key: Buffer) {
   const hmac = crypto.createHmac("sha256", key);
   hmac.update(
     typeof message === "string" ? Buffer.from(message, "hex") : message
@@ -92,7 +92,7 @@ export function signMessage(message: string | Buffer, key: Buffer) {
   return hmac.digest("hex");
 }
 
-export function verify(
+export function verify (
   message: string | Buffer,
   signature: string,
   key: Buffer
@@ -101,6 +101,6 @@ export function verify(
   return signature === calculatedSignature;
 }
 
-export function encryptMessage(message: string, key: string) {
+export function encryptMessage (message: string, key: string) {
   return encryptString(message, key);
 }

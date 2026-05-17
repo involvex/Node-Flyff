@@ -9,12 +9,12 @@ export class SessionManager {
   private accountSessions: Map<number, number> = new Map(); // accountId -> sessionId
   private cleanupInterval: NodeJS.Timeout | null = null;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("SessionManager");
     this.startCleanup();
   }
 
-  createSession(
+  createSession (
     accountId: number,
     characterId: number,
     username: string,
@@ -47,7 +47,7 @@ export class SessionManager {
     return sessionId;
   }
 
-  getSession(sessionId: number): PlayerSessionData | null {
+  getSession (sessionId: number): PlayerSessionData | null {
     const session = this.sessions.get(sessionId);
 
     if (!session) {
@@ -64,7 +64,7 @@ export class SessionManager {
     return session;
   }
 
-  getSessionByCharacter(characterId: number): PlayerSessionData | null {
+  getSessionByCharacter (characterId: number): PlayerSessionData | null {
     const sessionId = this.characterSessions.get(characterId);
     if (!sessionId) {
       return null;
@@ -72,7 +72,7 @@ export class SessionManager {
     return this.getSession(sessionId);
   }
 
-  getSessionByAccount(accountId: number): PlayerSessionData | null {
+  getSessionByAccount (accountId: number): PlayerSessionData | null {
     const sessionId = this.accountSessions.get(accountId);
     if (!sessionId) {
       return null;
@@ -80,7 +80,7 @@ export class SessionManager {
     return this.getSession(sessionId);
   }
 
-  validateSession(
+  validateSession (
     sessionId: number,
     expectedAccountId?: number,
     expectedCharacterId?: number
@@ -110,7 +110,7 @@ export class SessionManager {
     return true;
   }
 
-  updateSession(
+  updateSession (
     sessionId: number,
     updates: Partial<PlayerSessionData>
   ): boolean {
@@ -125,7 +125,7 @@ export class SessionManager {
     return true;
   }
 
-  extendSession(sessionId: number, additionalSeconds: number): boolean {
+  extendSession (sessionId: number, additionalSeconds: number): boolean {
     const session = this.sessions.get(sessionId);
 
     if (!session) {
@@ -139,7 +139,7 @@ export class SessionManager {
     return true;
   }
 
-  destroySession(sessionId: number): boolean {
+  destroySession (sessionId: number): boolean {
     const session = this.sessions.get(sessionId);
 
     if (!session) {
@@ -154,7 +154,7 @@ export class SessionManager {
     return true;
   }
 
-  destroySessionsByAccount(accountId: number): number {
+  destroySessionsByAccount (accountId: number): number {
     const sessionId = this.accountSessions.get(accountId);
     if (!sessionId) {
       return 0;
@@ -162,7 +162,7 @@ export class SessionManager {
     return this.destroySession(sessionId) ? 1 : 0;
   }
 
-  destroySessionsByCharacter(characterId: number): number {
+  destroySessionsByCharacter (characterId: number): number {
     const sessionId = this.characterSessions.get(characterId);
     if (!sessionId) {
       return 0;
@@ -170,11 +170,11 @@ export class SessionManager {
     return this.destroySession(sessionId) ? 1 : 0;
   }
 
-  getActiveSessionCount(): number {
+  getActiveSessionCount (): number {
     return this.sessions.size;
   }
 
-  getSessionsByServer(serverType: ServerType): PlayerSessionData[] {
+  getSessionsByServer (serverType: ServerType): PlayerSessionData[] {
     const sessions: PlayerSessionData[] = [];
 
     for (const session of this.sessions.values()) {
@@ -186,18 +186,18 @@ export class SessionManager {
     return sessions;
   }
 
-  getAllSessions(): PlayerSessionData[] {
+  getAllSessions (): PlayerSessionData[] {
     return Array.from(this.sessions.values());
   }
 
-  private startCleanup(): void {
+  private startCleanup (): void {
     // Clean up expired sessions every minute
     this.cleanupInterval = setInterval(() => {
       this.cleanupExpiredSessions();
     }, 60000);
   }
 
-  private cleanupExpiredSessions(): void {
+  private cleanupExpiredSessions (): void {
     const now = Date.now();
     const expiredSessions: number[] = [];
 
@@ -218,12 +218,12 @@ export class SessionManager {
     }
   }
 
-  private generateSessionId(): number {
+  private generateSessionId (): number {
     // Generate a random session ID
     return Math.floor(Math.random() * 0xffffffff);
   }
 
-  stop(): void {
+  stop (): void {
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = null;
@@ -238,12 +238,12 @@ export class SessionManager {
     this.logger.info("SessionManager stopped");
   }
 
-  getStats(): {
+  getStats (): {
     totalSessions: number;
     activeSessions: number;
     expiredSessions: number;
     sessionsByServer: Record<string, number>;
-    } {
+  } {
     const now = Date.now();
     let activeCount = 0;
     let expiredCount = 0;

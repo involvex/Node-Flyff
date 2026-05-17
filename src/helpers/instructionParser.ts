@@ -21,7 +21,7 @@ export interface BlockStatement extends Statement {
 }
 
 export class InstructionParser {
-  public static parseBlock(content: string): BlockStatement[] {
+  public static parseBlock (content: string): BlockStatement[] {
     const blocks: BlockStatement[] = [];
     const lines = content
       .split("\n")
@@ -68,7 +68,7 @@ export class InstructionParser {
     return blocks;
   }
 
-  private static parseInstruction(line: string): Instruction | null {
+  private static parseInstruction (line: string): Instruction | null {
     const match = line.match(/(\w+)\s*\((.*?)\)/);
     if (!match) return null;
 
@@ -81,7 +81,7 @@ export class InstructionParser {
     return { name, parameters };
   }
 
-  private static parseVariable(line: string): Variable | null {
+  private static parseVariable (line: string): Variable | null {
     const parts = line.split("=");
     if (parts.length !== 2) return null;
 

@@ -5,7 +5,7 @@ import { Logger } from "./src/helpers/logger";
 
 const logger = new Logger("AssetTest");
 
-async function main() {
+async function main () {
   logger.main("=== Asset System Test ===");
 
   try {

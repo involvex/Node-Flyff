@@ -9,7 +9,7 @@ import { Mover } from "./mover";
 export class MapItemObject extends WorldObject {
   private _nextRespawnTime: number;
 
-  public get type(): WorldObjectType {
+  public get type (): WorldObjectType {
     return WorldObjectType.Item;
   }
 
@@ -21,7 +21,7 @@ export class MapItemObject extends WorldObject {
 
   public respawnTime: number;
 
-  constructor(item: Item) {
+  constructor (item: Item) {
     super();
     if (!item) {
       throw new Error(
@@ -37,27 +37,27 @@ export class MapItemObject extends WorldObject {
       item.id === DefineItem.II_GOLD_SEED4;
   }
 
-  public update(): void {
+  public update (): void {
     if (!this.isSpawned && this.canRespawn()) {
       this.respawn();
     }
   }
 
-  public serialize(packet: FlyffPacket): void {
+  public serialize (packet: FlyffPacket): void {
     packet.writeInt32(-1);
     this.item.serialize(packet);
   }
 
-  public despawn(): void {
+  public despawn (): void {
     this.isSpawned = false;
     this._nextRespawnTime = new Date().getTime() + this.respawnTime;
   }
 
-  private canRespawn(): boolean {
+  private canRespawn (): boolean {
     return this._nextRespawnTime < new Date().getTime();
   }
 
-  private respawn(): void {
+  private respawn (): void {
     this.isSpawned = true;
   }
 }

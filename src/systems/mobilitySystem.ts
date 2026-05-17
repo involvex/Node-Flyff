@@ -20,12 +20,12 @@ export class MobilitySystem {
   private acceleration: number = 5.0;
   private friction: number = 0.9;
 
-  constructor(updateInterval: number = 50) {
+  constructor (updateInterval: number = 50) {
     this.logger = new Logger("MobilitySystem");
     this.updateInterval = updateInterval;
   }
 
-  start(): void {
+  start (): void {
     if (this.updateTimer) {
       this.logger.warn("Mobility system already started");
       return;
@@ -40,7 +40,7 @@ export class MobilitySystem {
     }, this.updateInterval);
   }
 
-  stop(): void {
+  stop (): void {
     if (this.updateTimer) {
       clearInterval(this.updateTimer);
       this.updateTimer = null;
@@ -48,7 +48,7 @@ export class MobilitySystem {
     }
   }
 
-  private updateMovements(): void {
+  private updateMovements (): void {
     // Update all moving entities
     for (const [objectId, update] of this.movementUpdates.entries()) {
       if (update.isMoving) {
@@ -57,7 +57,7 @@ export class MobilitySystem {
     }
   }
 
-  private applyMovement(objectId: number, update: MovementUpdate): void {
+  private applyMovement (objectId: number, update: MovementUpdate): void {
     // Apply velocity to position
     update.position.x += update.velocity.x * (this.updateInterval / 1000);
     update.position.y += update.velocity.y * (this.updateInterval / 1000);
@@ -85,7 +85,7 @@ export class MobilitySystem {
     update.timestamp = Date.now();
   }
 
-  startMovement(
+  startMovement (
     entity: WorldObject,
     targetPosition: Vector3,
     speed: number = 1.0
@@ -106,7 +106,7 @@ export class MobilitySystem {
     this.logger.info(`Started movement for entity ${entity.objectId}`);
   }
 
-  stopMovement(entity: WorldObject): void {
+  stopMovement (entity: WorldObject): void {
     const update = this.movementUpdates.get(entity.objectId);
     if (update) {
       update.isMoving = false;
@@ -117,7 +117,7 @@ export class MobilitySystem {
     }
   }
 
-  setVelocity(entity: WorldObject, velocity: Vector3): void {
+  setVelocity (entity: WorldObject, velocity: Vector3): void {
     let update = this.movementUpdates.get(entity.objectId);
 
     if (!update) {
@@ -136,7 +136,7 @@ export class MobilitySystem {
     }
   }
 
-  setPosition(entity: WorldObject, position: Vector3): void {
+  setPosition (entity: WorldObject, position: Vector3): void {
     let update = this.movementUpdates.get(entity.objectId);
 
     if (!update) {
@@ -154,7 +154,7 @@ export class MobilitySystem {
     }
   }
 
-  setRotation(entity: WorldObject, rotation: number): void {
+  setRotation (entity: WorldObject, rotation: number): void {
     let update = this.movementUpdates.get(entity.objectId);
 
     if (!update) {
@@ -172,20 +172,20 @@ export class MobilitySystem {
     }
   }
 
-  getMovementUpdate(objectId: number): MovementUpdate | null {
+  getMovementUpdate (objectId: number): MovementUpdate | null {
     return this.movementUpdates.get(objectId) || null;
   }
 
-  getAllMovementUpdates(): MovementUpdate[] {
+  getAllMovementUpdates (): MovementUpdate[] {
     return Array.from(this.movementUpdates.values());
   }
 
-  isMoving(objectId: number): boolean {
+  isMoving (objectId: number): boolean {
     const update = this.movementUpdates.get(objectId);
     return update ? update.isMoving : false;
   }
 
-  private calculateDirection(from: Vector3, to: Vector3): Vector3 {
+  private calculateDirection (from: Vector3, to: Vector3): Vector3 {
     const direction = new Vector3(to.x - from.x, to.y - from.y, to.z - from.z);
 
     const length = Math.sqrt(
@@ -203,7 +203,7 @@ export class MobilitySystem {
     return direction;
   }
 
-  private calculateVelocity(direction: Vector3, speed: number): Vector3 {
+  private calculateVelocity (direction: Vector3, speed: number): Vector3 {
     const clampedSpeed = Math.min(speed, this.maxVelocity);
     return new Vector3(
       direction.x * clampedSpeed,
@@ -212,44 +212,44 @@ export class MobilitySystem {
     );
   }
 
-  removeEntity(objectId: number): void {
+  removeEntity (objectId: number): void {
     this.movementUpdates.delete(objectId);
   }
 
-  getMaxVelocity(): number {
+  getMaxVelocity (): number {
     return this.maxVelocity;
   }
 
-  setMaxVelocity(velocity: number): void {
+  setMaxVelocity (velocity: number): void {
     this.maxVelocity = velocity;
     this.logger.info(`Max velocity set to ${velocity}`);
   }
 
-  getAcceleration(): number {
+  getAcceleration (): number {
     return this.acceleration;
   }
 
-  setAcceleration(acceleration: number): void {
+  setAcceleration (acceleration: number): void {
     this.acceleration = acceleration;
     this.logger.info(`Acceleration set to ${acceleration}`);
   }
 
-  getFriction(): number {
+  getFriction (): number {
     return this.friction;
   }
 
-  setFriction(friction: number): void {
+  setFriction (friction: number): void {
     this.friction = Math.max(0, Math.min(1, friction));
     this.logger.info(`Friction set to ${this.friction}`);
   }
 
-  getStats(): {
+  getStats (): {
     updateInterval: number;
     movingEntities: number;
     maxVelocity: number;
     acceleration: number;
     friction: number;
-    } {
+  } {
     let movingCount = 0;
     for (const update of this.movementUpdates.values()) {
       if (update.isMoving) {
@@ -266,7 +266,7 @@ export class MobilitySystem {
     };
   }
 
-  clear(): void {
+  clear (): void {
     this.movementUpdates.clear();
     this.logger.info("Mobility system cleared");
   }

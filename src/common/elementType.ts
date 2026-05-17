@@ -4,5 +4,5 @@ export enum ElementType {
   Water,
   Electricity,
   Wind,
-  Earth,
+  Earth
 }

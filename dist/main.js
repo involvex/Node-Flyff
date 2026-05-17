@@ -75989,7 +75989,7 @@ class KvClient {
       this.db = new Database(file);
       this.migrate();
       this.logger.main("Using better-sqlite3 for KV storage.");
-    } catch (err) {
+    } catch (_err) {
       this.logger.warn("better-sqlite3 not available or failed to initialize, falling back to in-memory KV store.");
       this.memory = new Map;
       this.expiresMemory = new Map;
@@ -76091,7 +76091,7 @@ class KvClient {
     try {
       const obj = JSON.parse(raw);
       return obj[field] !== undefined ? String(obj[field]) : null;
-    } catch (err) {
+    } catch (_err) {
       return null;
     }
   }
@@ -76102,7 +76102,7 @@ class KvClient {
     try {
       const obj = JSON.parse(raw);
       return import_lodash3.default.mapValues(obj, (v) => String(v));
-    } catch (err) {
+    } catch (_err) {
       return null;
     }
   }
@@ -85528,7 +85528,7 @@ class IncludeFile {
   content;
   blocks = new Map;
   statements = [];
-  constructor(filePath, separators = "([(){}=,;\\n\\r\\t ])") {
+  constructor(filePath, _separators = "([(){}=,;\\n\\r\\t ])") {
     this.logger = new Logger("IncludeFile");
     if (!fs8.existsSync(filePath)) {
       throw new Error(`File not found: ${filePath}`);
@@ -85939,7 +85939,7 @@ class MonsterResources {
       const lines = data.split(`
 `).map((i2) => i2.toString().trim());
       const pairs2 = import_lodash8.default.chunk(lines, 2);
-      import_lodash8.default.forEach(pairs2, async (pair, i2) => {
+      import_lodash8.default.forEach(pairs2, async (pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("monsterNames", idName, name);
@@ -87938,7 +87938,7 @@ class SkillResources {
       const lines = data.split(`
 `).map((i2) => i2.toString().trim());
       const pairs2 = import_lodash14.default.chunk(lines, 2);
-      import_lodash14.default.forEach(pairs2, async (pair, i2) => {
+      import_lodash14.default.forEach(pairs2, async (pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("skillNames", idName, name);
@@ -88464,9 +88464,9 @@ class ResourceBuilder {
         this.mapResource = new MapResources(kv);
         this.skillResource = new SkillResources(kv);
         this.questResources = new QuestResourcesYaml(new Map);
-      } catch (error) {
-        this.logger.error("Failed to initialize resource instances:", error);
-        throw new Error(`Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`);
+      } catch (_error) {
+        this.logger.error("Failed to initialize resource instances:", _error);
+        throw new Error(`Resource initialization failed: ${_error instanceof Error ? _error.message : String(_error)}`);
       }
       if (this.load) {
         this.logger.info("Loading game resources...");
@@ -88480,8 +88480,8 @@ class ResourceBuilder {
           this.logger.info("Loading monsters/movers...");
           try {
             await this.monsterResources.load();
-          } catch (error) {
-            this.logger.warn("Failed to load with new method, falling back to Redis-based loading:", error);
+          } catch (_error) {
+            this.logger.warn("Failed to load with new method, falling back to Redis-based loading:", _error);
             await this.monsterResources.loadDefines();
             await this.monsterResources.loadMonstersPropStrings();
             await this.monsterResources.loadMonstersProp();
@@ -88528,10 +88528,10 @@ class ResourceBuilder {
           throw new Error("Critical resources failed to load. Server cannot start safely.");
         }
       }
-    } catch (error) {
-      this.logger.error("Critical error during resource building:", error);
+    } catch (_error) {
+      this.logger.error("Critical error during resource building:", _error);
       this.logErrorSummary();
-      throw error;
+      throw _error;
     }
     return {
       itemResources: this.itemResources,
@@ -88554,9 +88554,9 @@ class ResourceBuilder {
         resourceType,
         elapsed
       });
-    } catch (error) {
+    } catch (_error) {
       const elapsed = Date.now() - startTime;
-      const loadError = error instanceof Error ? error : new Error(String(error));
+      const loadError = _error instanceof Error ? _error : new Error(String(_error));
       this.loadErrors.push({
         success: false,
         resourceType,
@@ -88584,7 +88584,7 @@ class ResourceBuilder {
   }
   async logResourceSummary(buildStartTime) {
     const totalElapsed = Date.now() - buildStartTime;
-    const successfulLoads = this.loadErrors.filter((result) => result.success);
+    const _successfulLoads = this.loadErrors.filter((result) => result.success);
     const failedLoads = this.loadErrors.filter((result) => !result.success);
     this.logger.success("==== RESOURCE LOADING SUMMARY ====");
     const resourceCounts = await this.getResourceCounts();
@@ -88655,7 +88655,8 @@ class ResourceBuilder {
         if (this.skillResource) {
           counts.Skills = await this.getRedisCount("skill:*");
         }
-      } catch (error) {
+      } catch (_error) {
+        this.logger.error(_error);
         counts.Items = this.itemResources ? -1 : 0;
         counts.NPCs = this.npcResources ? -1 : 0;
         counts.Jobs = this.jobResources ? -1 : 0;
@@ -88663,8 +88664,8 @@ class ResourceBuilder {
       }
       counts["Exp Tables"] = this.expTableResources ? 2 : 0;
       counts["Death Penalties"] = this.deathPenaltyResource ? 3 : 0;
-    } catch (error) {
-      this.logger.warn("Error getting resource counts:", error);
+    } catch (_error) {
+      this.logger.warn("Error getting resource counts:", _error);
     }
     return counts;
   }
@@ -88674,7 +88675,8 @@ class ResourceBuilder {
       if (!keys)
         return -1;
       return Array.isArray(keys) ? keys.length : -1;
-    } catch (err) {
+    } catch (_err) {
+      this.logger.error(_err);
       return -1;
     }
   }
@@ -88793,7 +88795,7 @@ class FlyffPacket extends BinaryStream {
   HeaderNumber;
   DataLength;
   PacketType;
-  constructor(bufferOrHeader, login = false, ignoreHeaders = false) {
+  constructor(bufferOrHeader, _login = false, ignoreHeaders = false) {
     super(bufferOrHeader instanceof Buffer ? bufferOrHeader : Buffer.alloc(0));
     if (bufferOrHeader instanceof Buffer) {
       if (!ignoreHeaders) {

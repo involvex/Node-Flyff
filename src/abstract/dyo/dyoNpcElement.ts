@@ -8,7 +8,7 @@ export class DyoNpcElement extends DyoElement {
   public belligerence: number;
   public extraFlag: number;
 
-  public read(streamReader: BinaryStream): void {
+  public read (streamReader: BinaryStream): void {
     super.read(streamReader);
 
     this.name = this.convertToString(streamReader.readBytes(64));
@@ -18,7 +18,7 @@ export class DyoNpcElement extends DyoElement {
     this.extraFlag = streamReader.readInt32();
   }
 
-  private convertToString(buffer: Buffer): string {
+  private convertToString (buffer: Buffer): string {
     const nullTerminatorIndex = buffer.indexOf(0);
     if (nullTerminatorIndex !== -1) {
       return buffer.toString("utf8", 0, nullTerminatorIndex);

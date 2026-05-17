@@ -6,5 +6,5 @@ export enum SpellRegionType {
   Double,
   Line,
   Around,
-  Troupe,
+  Troupe
 }

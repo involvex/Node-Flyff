@@ -11,16 +11,16 @@ import { RangeHelper } from "../../range";
 import { AttackResult } from "../attackResult";
 
 export class AttackArbiterBase {
-  constructor(
+  constructor (
     public attacker: Mover,
     public defender: Mover
   ) {}
 
-  calculateDamages(): AttackResult {
+  calculateDamages (): AttackResult {
     return AttackResult.miss();
   }
 
-  getEscapeRating(entity: Mover): number {
+  getEscapeRating (_entity: Mover): number {
     // if (entity instanceof Player) {
     //     const playerDexterity = entity.statistics.dexterity + entity.attributes.get(DefineAttributes.DST_DEX);
     //     return Math.round(playerDexterity * 0.5); // TODO: add DST_PARRY
@@ -30,7 +30,7 @@ export class AttackArbiterBase {
     return 0;
   }
 
-  getWeaponAttackDamages(player: Player, weaponType: WeaponType): number {
+  getWeaponAttackDamages (player: Player, weaponType: WeaponType): number {
     let attribute = 0;
     let levelFactor = 0;
     let jobFactor = 1;
@@ -110,7 +110,7 @@ export class AttackArbiterBase {
     return Math.round(attribute * jobFactor + levelFactor);
   }
 
-  getWeaponAttackPower(
+  getWeaponAttackPower (
     entity: Mover,
     weapon: Item | null
   ): RangeHelper<number> {
@@ -133,7 +133,7 @@ export class AttackArbiterBase {
     );
   }
 
-  getWeaponItemMultiplier(weapon: Item | null): number {
+  getWeaponItemMultiplier (weapon: Item | null): number {
     if (!weapon) {
       return 1;
     }
@@ -155,7 +155,7 @@ export class AttackArbiterBase {
     return multiplier;
   }
 
-  getWeaponExtraDamages(entity: Mover, weapon: Item | null): number {
+  getWeaponExtraDamages (entity: Mover, weapon: Item | null): number {
     if (!weapon) {
       return 0;
     }
@@ -198,7 +198,7 @@ export class AttackArbiterBase {
     return extraDamages;
   }
 
-  getAttackMultiplier(): number {
+  getAttackMultiplier (): number {
     let multiplier =
       1.0 +
       this.attacker.attributes.get(DefineAttributes.DST_ATKPOWER_RATE) / 100;

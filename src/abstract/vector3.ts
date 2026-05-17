@@ -6,28 +6,28 @@ export class Vector3 {
   y: number;
   z: number;
 
-  constructor(x: number = 0, y: number = 0, z: number = 0) {
+  constructor (x: number = 0, y: number = 0, z: number = 0) {
     this.x = x;
     this.y = y;
     this.z = z;
   }
 
-  get length(): number {
+  get length (): number {
     return Math.sqrt(this.squaredLength);
   }
 
-  get squaredLength(): number {
+  get squaredLength (): number {
     return this.x * this.x + this.y * this.y + this.z * this.z;
   }
 
-  getDistance2D(otherPosition: Vector3): number {
+  getDistance2D (otherPosition: Vector3): number {
     return Math.sqrt(
       Math.pow(otherPosition.x - this.x, 2) +
         Math.pow(otherPosition.z - this.z, 2)
     );
   }
 
-  getDistance3D(otherPosition: Vector3): number {
+  getDistance3D (otherPosition: Vector3): number {
     return Math.sqrt(
       Math.pow(otherPosition.x - this.x, 2) +
         Math.pow(otherPosition.y - this.y, 2) +
@@ -35,7 +35,7 @@ export class Vector3 {
     );
   }
 
-  isInCircle(otherPosition: Vector3, circleRadius: number): boolean {
+  isInCircle (otherPosition: Vector3, circleRadius: number): boolean {
     return (
       Math.pow(otherPosition.x - this.x, 2) +
         Math.pow(otherPosition.z - this.z, 2) <
@@ -43,7 +43,7 @@ export class Vector3 {
     );
   }
 
-  isInRange(otherPosition: Vector3, range: number): boolean {
+  isInRange (otherPosition: Vector3, range: number): boolean {
     const distance = this.clone().subtract(otherPosition).setY(0);
     if (distance.squaredLength > range * range) {
       return false;
@@ -51,7 +51,7 @@ export class Vector3 {
     return true;
   }
 
-  intersects(rectangle: Rectangle, radius: number): boolean {
+  intersects (rectangle: Rectangle, radius: number): boolean {
     const deltaX =
       this.x -
       Math.max(rectangle.x, Math.min(this.x, rectangle.x + rectangle.width));
@@ -61,7 +61,7 @@ export class Vector3 {
     return deltaX * deltaX + deltaY * deltaY < radius * radius;
   }
 
-  normalize(): Vector3 {
+  normalize (): Vector3 {
     const sqLength = this.squaredLength;
     if (sqLength <= 0) {
       throw new Error("Cannot normalize a vector of zero length.");
@@ -69,29 +69,29 @@ export class Vector3 {
     return this.divide(Math.sqrt(sqLength));
   }
 
-  clone(): Vector3 {
+  clone (): Vector3 {
     return new Vector3(this.x, this.y, this.z);
   }
 
-  reset(): void {
+  reset (): void {
     this.x = this.y = this.z = 0;
   }
 
-  copy(otherVector: Vector3): void {
+  copy (otherVector: Vector3): void {
     this.x = otherVector.x;
     this.y = otherVector.y;
     this.z = otherVector.z;
   }
 
-  isZero(): boolean {
+  isZero (): boolean {
     return this.squaredLength <= 0;
   }
 
-  toString(): string {
+  toString (): string {
     return `Vector3: ${this.x}:${this.y}:${this.z}`;
   }
 
-  hashCode(): number {
+  hashCode (): number {
     return (
       FFRandom.getHashCode(this.x) ^
       FFRandom.getHashCode(this.y) ^
@@ -99,15 +99,15 @@ export class Vector3 {
     );
   }
 
-  equals(other: Vector3): boolean {
+  equals (other: Vector3): boolean {
     return this == other;
   }
 
-  static dotProduct(a: Vector3, b: Vector3): number {
+  static dotProduct (a: Vector3, b: Vector3): number {
     return a.x * b.x + a.y * b.y + a.z * b.z;
   }
 
-  static crossProduct(a: Vector3, b: Vector3): Vector3 {
+  static crossProduct (a: Vector3, b: Vector3): Vector3 {
     return new Vector3(
       a.y * b.z - a.z * b.y,
       a.z * b.x - a.x * b.z,
@@ -115,7 +115,7 @@ export class Vector3 {
     );
   }
 
-  static angleBetween(a: Vector3, b: Vector3): number {
+  static angleBetween (a: Vector3, b: Vector3): number {
     const dist = b.subtract(a);
     let angle = Math.atan2(dist.x, -dist.z);
     angle = this.toDegree(angle);
@@ -127,7 +127,7 @@ export class Vector3 {
     return angle;
   }
 
-  static getRandomPositionInCircle(center: Vector3, radius: number): Vector3 {
+  static getRandomPositionInCircle (center: Vector3, radius: number): Vector3 {
     const newVector = center.clone();
     const angle = (FFRandom.floatRandomBetween(0, 360) * Math.PI) / 180;
     const power = FFRandom.floatRandomBetween(0, radius);
@@ -136,71 +136,71 @@ export class Vector3 {
     return newVector;
   }
 
-  static distance2D(from: Vector3, to: Vector3): number {
+  static distance2D (from: Vector3, to: Vector3): number {
     const x = from.x - to.x;
     const z = from.z - to.z;
     return Math.sqrt(x * x + z * z);
   }
 
-  static distance3D(from: Vector3, to: Vector3): number {
+  static distance3D (from: Vector3, to: Vector3): number {
     const x = from.x - to.x;
     const y = from.y - to.y;
     const z = from.z - to.z;
     return Math.sqrt(x * x + y * y + z * z);
   }
 
-  static toDegree(radian: number): number {
+  static toDegree (radian: number): number {
     return radian * (180 / Math.PI);
   }
 
-  static toRadian(degree: number): number {
+  static toRadian (degree: number): number {
     return degree * (Math.PI / 180);
   }
 
-  add(other: Vector3): Vector3 {
+  add (other: Vector3): Vector3 {
     this.x += other.x;
     this.y += other.y;
     this.z += other.z;
     return this;
   }
 
-  subtract(other: Vector3): Vector3 {
+  subtract (other: Vector3): Vector3 {
     this.x -= other.x;
     this.y -= other.y;
     this.z -= other.z;
     return this;
   }
 
-  multiply(value: number): Vector3 {
+  multiply (value: number): Vector3 {
     this.x *= value;
     this.y *= value;
     this.z *= value;
     return this;
   }
 
-  divide(value: number): Vector3 {
+  divide (value: number): Vector3 {
     this.x /= value;
     this.y /= value;
     this.z /= value;
     return this;
   }
 
-  setX(x: number): Vector3 {
+  setX (x: number): Vector3 {
     this.x = x;
     return this;
   }
 
-  setY(y: number): Vector3 {
+  setY (y: number): Vector3 {
     this.y = y;
     return this;
   }
 
-  setZ(z: number): Vector3 {
+  setZ (z: number): Vector3 {
     this.z = z;
     return this;
   }
 
-  static equals(a: Vector3, b: Vector3): boolean {
+  static equals (a: Vector3, b: Vector3): boolean {
     return a == b;
   }
 }

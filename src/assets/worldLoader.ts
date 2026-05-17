@@ -23,12 +23,12 @@ export class WorldLoader {
   private assetCache: AssetCache;
   private loadedWorlds: Map<string, WorldData> = new Map();
 
-  constructor(assetCache: AssetCache) {
+  constructor (assetCache: AssetCache) {
     this.logger = new Logger("WorldLoader");
     this.assetCache = assetCache;
   }
 
-  async loadWorld(worldId: string, clientPath: string): Promise<WorldData> {
+  async loadWorld (worldId: string, clientPath: string): Promise<WorldData> {
     // Check if already loaded
     if (this.loadedWorlds.has(worldId)) {
       return this.loadedWorlds.get(worldId)!;
@@ -72,7 +72,7 @@ export class WorldLoader {
     }
   }
 
-  private async loadWldFile(
+  private async loadWldFile (
     worldId: string,
     clientPath: string,
     worldData: WorldData
@@ -96,7 +96,7 @@ export class WorldLoader {
     }
   }
 
-  private async loadDyoFile(
+  private async loadDyoFile (
     worldId: string,
     clientPath: string,
     worldData: WorldData
@@ -122,7 +122,7 @@ export class WorldLoader {
     }
   }
 
-  private async loadRgnFile(
+  private async loadRgnFile (
     worldId: string,
     clientPath: string,
     worldData: WorldData
@@ -148,7 +148,7 @@ export class WorldLoader {
     }
   }
 
-  private async loadWorldAssets(
+  private async loadWorldAssets (
     worldId: string,
     clientPath: string,
     worldData: WorldData
@@ -224,7 +224,7 @@ export class WorldLoader {
     }
   }
 
-  private async loadModelAsset(
+  private async loadModelAsset (
     modelId: string,
     clientPath: string
   ): Promise<any> {
@@ -253,7 +253,7 @@ export class WorldLoader {
     return null;
   }
 
-  private async loadTextureAsset(
+  private async loadTextureAsset (
     textureId: string,
     clientPath: string
   ): Promise<any> {
@@ -298,7 +298,7 @@ export class WorldLoader {
     return null;
   }
 
-  private async loadSoundAsset(
+  private async loadSoundAsset (
     soundId: string,
     clientPath: string
   ): Promise<any> {
@@ -335,24 +335,24 @@ export class WorldLoader {
     return null;
   }
 
-  getWorld(worldId: string): WorldData | null {
+  getWorld (worldId: string): WorldData | null {
     return this.loadedWorlds.get(worldId) || null;
   }
 
-  getLoadedWorldCount(): number {
+  getLoadedWorldCount (): number {
     return this.loadedWorlds.size;
   }
 
-  unloadWorld(worldId: string): boolean {
+  unloadWorld (worldId: string): boolean {
     return this.loadedWorlds.delete(worldId);
   }
 
-  unloadAllWorlds(): void {
+  unloadAllWorlds (): void {
     this.loadedWorlds.clear();
     this.logger.info("Unloaded all worlds");
   }
 
-  async preloadWorlds(worldIds: string[], clientPath: string): Promise<void> {
+  async preloadWorlds (worldIds: string[], clientPath: string): Promise<void> {
     this.logger.info(`Preloading ${worldIds.length} worlds...`);
 
     for (const worldId of worldIds) {
@@ -366,14 +366,14 @@ export class WorldLoader {
     this.logger.success(`Preloaded ${this.loadedWorlds.size} worlds`);
   }
 
-  getStats(): {
+  getStats (): {
     loadedWorlds: number;
     totalObjects: number;
     totalRegions: number;
     totalModels: number;
     totalTextures: number;
     totalSounds: number;
-    } {
+  } {
     let totalObjects = 0;
     let totalRegions = 0;
     let totalModels = 0;

@@ -11,5 +11,5 @@ export enum UpdateItemType {
   UI_FLAG = 9,
   UI_RANDOMOPTITEMID = 10,
   UI_KEEPTIME = 11,
-  UI_REPAIR_NUM = 12,
+  UI_REPAIR_NUM = 12
 }

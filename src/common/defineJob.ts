@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
-
 export enum JobType {
   JTYPE_BASE = 0,
   JTYPE_EXPERT = 1,
@@ -8,7 +6,7 @@ export enum JobType {
   JTYPE_COMMON = 4,
   JTYPE_MASTER = 5,
   JTYPE_HERO = 6,
-  JTYPE_LEGEND_HERO = 7,
+  JTYPE_LEGEND_HERO = 7
 }
 
 export enum JobMax {
@@ -41,7 +39,7 @@ export enum JobMax {
     MAX_EXPERT_SKILL +
     MAX_PRO_SKILL +
     MAX_MASTER_SKILL +
-    MAX_HERO_SKILL,
+    MAX_HERO_SKILL
 }
 
 export enum DefineJob {
@@ -96,7 +94,7 @@ export enum DefineJob {
   JOB_MENTALIST_HERO = 38,
   JOB_ELEMENTORLORD_HERO = 39,
 
-  JOB_ALL = 40,
+  JOB_ALL = 40
 }
 
 export enum SkillGroupDisciple {
@@ -141,13 +139,13 @@ export enum SkillGroupDisciple {
   DIS_TWOHANDSWORD = 28,
   DIS_TWOHANDAXE = 29,
   DIS_DOUBLESWORD = 30,
-  DIS_DOUBLEAXE = 31,
+  DIS_DOUBLEAXE = 31
 }
 
 export enum TroupRank {
   // 극단 소속
   TRO_MASTER = 0, // 단장
-  TRO_MEMBERE = 1, // 멤버
+  TRO_MEMBERE = 1 // 멤버
 }
 
 export enum GuildRank {
@@ -156,5 +154,5 @@ export enum GuildRank {
   GUD_KINGPIN = 1, // 킹핀
   GUD_CAPTAIN = 2, // 캡틴
   GUD_SUPPORTER = 3, // 서포터
-  GUD_ROOKIE = 4, // 루키
+  GUD_ROOKIE = 4 // 루키
 }

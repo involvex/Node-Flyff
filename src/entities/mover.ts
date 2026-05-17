@@ -4,7 +4,6 @@ import { Buffs } from "../abstract/buffs";
 import { Defense } from "../abstract/defense";
 import { Delayer } from "../abstract/delayer";
 import { Health } from "../abstract/health";
-import { Projectile } from "../abstract/projectile";
 import { ProjectileList } from "../abstract/projectileList";
 import { Statistics } from "../abstract/statistics";
 import { Vector3 } from "../abstract/vector3";
@@ -28,7 +27,7 @@ import { MapItemObject } from "./mapItemObject";
 import { Player } from "./player";
 
 export class Mover extends WorldObject {
-  public get type(): WorldObjectType {
+  public get type (): WorldObjectType {
     return WorldObjectType.Mover;
   }
 
@@ -47,7 +46,7 @@ export class Mover extends WorldObject {
   public Buffs?: Buffs;
   public SendToVisible?: (packet: any, sendToSelf?: boolean) => void;
 
-  protected constructor(properties: MoverProperties) {
+  protected constructor (properties: MoverProperties) {
     super();
     this.properties =
       properties ??
@@ -91,7 +90,7 @@ export class Mover extends WorldObject {
   public target: Mover | null = null;
   public isFighting: boolean = false;
 
-  public get speed(): number {
+  public get speed (): number {
     return (
       (this.properties.fSpeed +
         this.attributes.get(DefineAttributes.DST_SPEED) / 100) *
@@ -99,24 +98,24 @@ export class Mover extends WorldObject {
     );
   }
 
-  public get isDead(): boolean {
+  public get isDead (): boolean {
     return this.health.hp <= 0;
   }
 
-  public get isMoving(): boolean {
+  public get isMoving (): boolean {
     return (
       (this.objectState & ObjectState.OBJSTA_MOVE_ALL) !== 0 &&
       !this.destinationPosition.isZero()
     );
   }
 
-  public get isFollowing(): boolean {
+  public get isFollowing (): boolean {
     return this.followTarget !== null;
   }
 
   public readonly projectiles: ProjectileList = new ProjectileList();
 
-  public move(x: number, y: number, z: number): void {
+  public move (x: number, y: number, z: number): void {
     this.objectState |= ObjectState.OBJSTA_FMOVE;
     this.objectState &= ~ObjectState.OBJSTA_STAND;
     this.destinationPosition = new Vector3(x, y, z);
@@ -129,7 +128,7 @@ export class Mover extends WorldObject {
     this.sendToVisible(packet);
   }
 
-  public stopMoving(): void {
+  public stopMoving (): void {
     this.objectState &= ~ObjectState.OBJSTA_FMOVE;
     this.objectState |= ObjectState.OBJSTA_STAND;
 
@@ -137,7 +136,7 @@ export class Mover extends WorldObject {
     this.onArrived();
   }
 
-  public follow(target: WorldObject, distance: number = 1): void {
+  public follow (target: WorldObject, distance: number = 1): void {
     this.followTarget = target;
     this.followDistance = distance;
     this.destinationPosition.copy(target.position);
@@ -148,12 +147,12 @@ export class Mover extends WorldObject {
     this.sendToVisible(snapshot);
   }
 
-  public unfollow(): void {
+  public unfollow (): void {
     this.followTarget = null;
     this.followDistance = 0;
   }
 
-  public sendMotion(
+  public sendMotion (
     motion: ObjectMessageType,
     sendToSelf: boolean = true
   ): void {
@@ -161,7 +160,7 @@ export class Mover extends WorldObject {
     this.sendToVisible(snapshot, sendToSelf);
   }
 
-  public dropItem(item: Item, owner: Mover | null = null): void {
+  public dropItem (item: Item, owner: Mover | null = null): void {
     const itemObject = new MapItemObject(item);
     itemObject.position.copy(this.position);
     itemObject.isSpawned = true;
@@ -177,7 +176,7 @@ export class Mover extends WorldObject {
     this.mapLayer?.addItem?.(itemObject);
   }
 
-  public canAttack(target: Mover): boolean {
+  public canAttack (target: Mover): boolean {
     if (this.isDead || target === this || target.isDead) {
       return false;
     }
@@ -185,7 +184,7 @@ export class Mover extends WorldObject {
     return true;
   }
 
-  public tryMeleeAttack(target: Mover, attackType: AttackType): boolean {
+  public tryMeleeAttack (target: Mover, attackType: AttackType): boolean {
     if (!this.canAttack(target) || !isMeleeAttack(attackType)) {
       return false;
     }
@@ -231,16 +230,16 @@ export class Mover extends WorldObject {
   }
 
   // TODO: Implement range attack system when projectile classes are available
-  public tryRangeAttack(
-    target: Mover,
-    power: number,
-    attackType: AttackType
+  public tryRangeAttack (
+    _target: Mover,
+    _power: number,
+    _attackType: AttackType
   ): boolean {
     // Placeholder implementation
     return false;
   }
 
-  public inflictDamages(
+  public inflictDamages (
     target: Mover,
     attackResult: AttackResult,
     attackType: AttackType
@@ -255,7 +254,7 @@ export class Mover extends WorldObject {
     target.onSufferDamages(this, attackResult.damages, attackResult.flags);
   }
 
-  private tryInflictDamagesIfOneHitKillMode(
+  private tryInflictDamagesIfOneHitKillMode (
     target: Mover,
     attackType: AttackType
   ): { success: boolean; attackResult?: AttackResult } {
@@ -272,7 +271,7 @@ export class Mover extends WorldObject {
     return { success: false };
   }
 
-  protected updateMoves(): void {
+  protected updateMoves (): void {
     if (!this.isMoving) {
       return;
     }
@@ -312,15 +311,15 @@ export class Mover extends WorldObject {
     }
   }
 
-  protected onArrived(): void {}
+  protected onArrived (): void {}
 
-  protected onSufferDamages(
-    attacker: Mover,
-    damages: number,
-    attackFlags: AttackFlags
+  protected onSufferDamages (
+    _attacker: Mover,
+    _damages: number,
+    _attackFlags: AttackFlags
   ): void {}
 
-  public onKilled(killer: Mover): void {}
+  public onKilled (_killer: Mover): void {}
 
-  public onTargetKilled(target: Mover): void {}
+  public onTargetKilled (_target: Mover): void {}
 }

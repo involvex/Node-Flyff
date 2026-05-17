@@ -1,8 +1,4 @@
-import { DefineAttributes } from "../common/defineAttributes";
-import { ItemKind2 } from "../common/itemKind";
-import Item from "../database/item";
 import { Mover } from "../entities/mover";
-import { Player } from "../entities/player";
 import { FFRandom } from "../helpers/FFRandom";
 
 export class Defense {
@@ -14,12 +10,12 @@ export class Defense {
   /** Gets the maximum defense. */
   public maximum: number;
 
-  constructor(mover: Mover) {
+  constructor (mover: Mover) {
     this._mover = mover;
   }
 
   /** Gets the defense. */
-  public get(): number {
+  public get (): number {
     if (this.minimum === this.maximum) {
       return this.maximum;
     }
@@ -31,7 +27,7 @@ export class Defense {
     );
   }
 
-  public update(): void {
+  public update (): void {
     // if (this._mover instanceof Player) {
     //     let defenseMin = 0;
     //     let defenseMax = 0;

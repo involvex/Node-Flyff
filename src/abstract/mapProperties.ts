@@ -18,7 +18,7 @@ export class MapProperties {
   public regions: MapRegionProperties[];
   public objects: MapObjectProperties[];
 
-  constructor(
+  constructor (
     id: number,
     name: string,
     width: number,

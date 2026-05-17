@@ -1,10 +1,10 @@
 export enum WeaponKindType {
   General,
   Unique,
-  Ultimate,
+  Ultimate
 }
 
-export function getWeaponKindType(type: string) {
+export function getWeaponKindType (type: string) {
   switch (type) {
     case "WEAPON_GENERAL":
       return WeaponKindType.General;

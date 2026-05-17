@@ -7,5 +7,5 @@ export enum WorldObjectType {
   Mover,
   Region,
   Ship,
-  Path,
+  Path
 }

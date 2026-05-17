@@ -6,18 +6,18 @@ import KvClient from "../libraries/kvClient";
 import { Logger } from "../helpers/logger";
 import { ResourcePaths } from "../resources/resourcePaths";
 import { SkillLevelProperties, SkillProperties } from "../interfaces/resource";
-import { tryParseInt, cleanString, tryParseFloat } from "../helpers/parsing";
+import { tryParseInt, cleanString } from "../helpers/parsing";
 
 export class SkillResources {
   logger: Logger;
   redisClient: any;
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("Skill Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public async get(
+  public async get (
     skillIdentifier: string | number
   ): Promise<SkillProperties | null> {
     const skillId =
@@ -31,7 +31,7 @@ export class SkillResources {
     return null;
   }
 
-  public async getLevel(
+  public async getLevel (
     skillLevelIdentifier: string | number
   ): Promise<SkillLevelProperties | null> {
     const skillLevelId =
@@ -45,7 +45,7 @@ export class SkillResources {
     return null;
   }
 
-  public async where(
+  public async where (
     predicate: (skill: SkillProperties) => boolean
   ): Promise<SkillProperties[]> {
     const skills: SkillProperties[] = [];
@@ -66,7 +66,7 @@ export class SkillResources {
     return skills;
   }
 
-  public async whereLevel(
+  public async whereLevel (
     predicate: (skill: SkillLevelProperties) => boolean
   ): Promise<SkillLevelProperties[]> {
     const skills: SkillLevelProperties[] = [];
@@ -87,7 +87,7 @@ export class SkillResources {
     return skills;
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineSkill);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(
@@ -98,7 +98,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       if (_.trim(line).startsWith("#define")) {
         const parts = _.trim(line).split(/\s+/);
         const id = tryParseInt(parts[2]);
@@ -111,7 +111,7 @@ export class SkillResources {
     });
   }
 
-  public async loadSkillsPropStrings(): Promise<void> {
+  public async loadSkillsPropStrings (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.skillsText);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -126,7 +126,7 @@ export class SkillResources {
       const data = fs.readFileSync(absolutePath, "utf16le");
       const lines = data.split("\n").map((i) => i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async(pair, i) => {
+      _.forEach(pairs, async (pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("skillNames", idName, name);
@@ -137,7 +137,7 @@ export class SkillResources {
     }
   }
 
-  public async loadSkillAddProp(): Promise<void> {
+  public async loadSkillAddProp (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.skillsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -153,7 +153,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       const parts = line.trim().split(",");
 
       const id = await this.redisClient.hget("skillDefines", parts[1]);
@@ -205,7 +205,7 @@ export class SkillResources {
     this.logger.main(`${lines.length} skills loaded.`);
   }
 
-  public async loadSkillsProp(): Promise<void> {
+  public async loadSkillsProp (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.skillsProp);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(
@@ -221,7 +221,7 @@ export class SkillResources {
     const data = fs.readFileSync(absolutePath, "utf8");
 
     const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
+    _.forEach(lines, async (line) => {
       const skills = line.trim().split("\t");
 
       const id = await this.redisClient.hget("skillDefines", skills[1]);
@@ -295,7 +295,7 @@ export class SkillResources {
     this.logger.main(`${lines.length} skills loaded.`);
   }
 
-  parseSkillProperties(data: { [key: string]: string }): SkillProperties {
+  parseSkillProperties (data: { [key: string]: string }): SkillProperties {
     // TODO skill parse properties
     return {
       id: tryParseInt(data.id),
@@ -336,7 +336,7 @@ export class SkillResources {
     };
   }
 
-  parseSkillLevelProperties(data: {
+  parseSkillLevelProperties (data: {
     [key: string]: string;
   }): SkillLevelProperties {
     return {
@@ -373,7 +373,7 @@ export class SkillResources {
     };
   }
 
-  async cleanCache() {
+  async cleanCache () {
     const keys = await this.redisClient.keys("skill:*");
     if (!keys || keys.length === 0) return;
     await this.redisClient.del(...keys);

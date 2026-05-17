@@ -4,7 +4,6 @@ import { AttackFlags } from "../common/attackFlag";
 import { AttackType } from "../common/attackType";
 import { DefineItem } from "../common/defineItem";
 import { ObjectState } from "../common/objectState";
-import { Item } from "../common/item";
 import { MoverProperties } from "../interfaces/resource";
 import {
   DropItemProperties,
@@ -47,7 +46,7 @@ export class Monster extends Mover {
   public readonly region: Rectangle;
   public readonly beginPosition: Vector3;
 
-  constructor(
+  constructor (
     properties: MonsterProperties,
     respawnTime: number = 30,
     region?: Rectangle
@@ -62,7 +61,7 @@ export class Monster extends Mover {
     this.beginPosition = this.position.clone();
   }
 
-  public update(): void {
+  public update (): void {
     if (this.isDead) {
       if (this.canDespawn()) {
         this.despawn();
@@ -134,7 +133,7 @@ export class Monster extends Mover {
     this.updateMoves();
   }
 
-  protected onArrived(): void {
+  protected onArrived (): void {
     if (!this.isFighting) {
       const nextMoveTime = this._isReturningToBeginPosition
         ? FFRandom.longRandom(1, 3)
@@ -154,10 +153,10 @@ export class Monster extends Mover {
     }
   }
 
-  protected onSufferDamages(
+  protected onSufferDamages (
     attacker: Mover,
-    damages: number,
-    attackFlags: AttackFlags
+    _damages: number,
+    _attackFlags: AttackFlags
   ): void {
     if (this.isDead) {
       this.unfollow();
@@ -170,7 +169,7 @@ export class Monster extends Mover {
     }
   }
 
-  public onKilled(killer: Mover): void {
+  public onKilled (killer: Mover): void {
     console.log(`${this.name} killed by ${killer.name}...:("`);
 
     this.dropGold(killer);
@@ -180,11 +179,11 @@ export class Monster extends Mover {
     this._despawnTime = timeInSeconds() + 3;
   }
 
-  public onTargetKilled(target: Mover): void {
+  public onTargetKilled (_target: Mover): void {
     this.returnToBeginPosition();
   }
 
-  private setSpeedFactor(speedFactor: number): void {
+  private setSpeedFactor (speedFactor: number): void {
     this.speedFactor = speedFactor;
 
     // TODO: Implement SetSpeedFactorSnapshot when available
@@ -192,7 +191,7 @@ export class Monster extends Mover {
     // this.sendToVisible(snapshot);
   }
 
-  private returnToBeginPosition(): void {
+  private returnToBeginPosition (): void {
     this._isReturningToBeginPosition = true;
     this.unfollow();
     this.target = null;
@@ -200,22 +199,22 @@ export class Monster extends Mover {
     this.move(this.beginPosition.x, this.beginPosition.y, this.beginPosition.z);
   }
 
-  private canDespawn(): boolean {
+  private canDespawn (): boolean {
     return this.isSpawned && this.isDead && this._despawnTime < timeInSeconds();
   }
 
-  private despawn(): void {
+  private despawn (): void {
     this.isSpawned = false;
     this._nextRespawnTime = timeInSeconds() + this.respawnTime;
   }
 
-  private canRespawn(): boolean {
+  private canRespawn (): boolean {
     return (
       !this.isSpawned && this.isDead && this._nextRespawnTime < timeInSeconds()
     );
   }
 
-  private respawn(): void {
+  private respawn (): void {
     this.position.copy(this.region.getRandomPosition());
     this.destinationPosition.reset();
     this.health.regenerateAll();
@@ -227,7 +226,7 @@ export class Monster extends Mover {
     this.isSpawned = true;
   }
 
-  private dropGold(owner: Mover): void {
+  private dropGold (_owner: Mover): void {
     const DROP_GOLD_LIMIT1 = 9;
     const DROP_GOLD_LIMIT2 = 49;
     const DROP_GOLD_LIMIT3 = 99;
@@ -263,7 +262,7 @@ export class Monster extends Mover {
     }
   }
 
-  private dropItems(owner: Mover): void {
+  private dropItems (_owner: Mover): void {
     const MAX_DROP_CHANCE = 3000000000;
     const monsterProps = this.properties as MonsterProperties;
 

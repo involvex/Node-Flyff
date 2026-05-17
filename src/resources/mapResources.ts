@@ -6,10 +6,8 @@ import yaml from "js-yaml";
 
 import { Logger } from "../helpers/logger";
 import { ResourcePaths } from "../resources/resourcePaths";
-import { WorldPath } from "../interfaces/resource";
 import { RgnRespawn7 } from "../abstract/rgn/rgnRespawn7";
 import { RgnRegion3 } from "../abstract/rgn/rgnRegion3";
-import { RgnElement } from "../abstract/rgn/rgnElement";
 import { WldFile } from "../abstract/wldFile";
 import { MapRegionProperties } from "../abstract/regionProperties";
 import { RgnFile } from "../abstract/rgn/rgnFile";
@@ -22,7 +20,6 @@ import { MapObjectProperties } from "../abstract/mapObjectProperties";
 import { DyoNpcElement } from "../abstract/dyo/dyoNpcElement";
 import { Rectangle } from "../abstract/rectangle";
 import { MapProperties } from "../abstract/mapProperties";
-import { tryParseInt } from "../helpers/parsing";
 
 export class MapResources {
   private logger: Logger;
@@ -32,20 +29,20 @@ export class MapResources {
   private readonly mapsByIdentifier: Map<string, MapProperties> = new Map();
   private worldPaths: Map<string, string> = new Map();
 
-  public get maps(): MapProperties[] {
+  public get maps (): MapProperties[] {
     return Array.from(this.mapsById.values());
   }
 
-  public getLoadedCount(): number {
+  public getLoadedCount (): number {
     return this.mapsById.size;
   }
 
-  constructor(client?: any) {
+  constructor (client?: any) {
     this.logger = new Logger("Map Resources");
     this.redisClient = client || new KvClient();
   }
 
-  public async get(id: number): Promise<MapProperties | null> {
+  public async get (id: number): Promise<MapProperties | null> {
     // Try cache first
     const cached = await this.redisClient.hgetall(`map:${id}`);
     if (cached && Object.keys(cached).length > 0) {
@@ -56,7 +53,7 @@ export class MapResources {
     return this.mapsById.get(id) || null;
   }
 
-  public async getByIdentifier(
+  public async getByIdentifier (
     identifier: string
   ): Promise<MapProperties | null> {
     // Try cache first
@@ -69,14 +66,14 @@ export class MapResources {
     return this.mapsByIdentifier.get(identifier) || null;
   }
 
-  public async load(): Promise<void> {
+  public async load (): Promise<void> {
     await this.loadDefines();
     await this.loadWorldPaths();
     // Load all maps if no identifiers provided
     this.loadMaps();
   }
 
-  public loadMaps(mapIdentifiers?: string[]): void {
+  public loadMaps (mapIdentifiers?: string[]): void {
     const watch = { start: Date.now() };
 
     if (mapIdentifiers && mapIdentifiers.length > 0) {
@@ -141,7 +138,7 @@ export class MapResources {
     this.logger.info(`${this.mapsById.size} maps loaded in ${elapsed}ms.`);
   }
 
-  private loadWorldScriptFile(): Map<string, string> {
+  private loadWorldScriptFile (): Map<string, string> {
     const absolutePath = path.resolve(ResourcePaths.worldPath);
     if (!fs.existsSync(absolutePath)) {
       this.logger.warn(`World script not found: ${absolutePath}`);
@@ -160,7 +157,7 @@ export class MapResources {
     return worlds;
   }
 
-  private loadWorldInformation(worldName: string): {
+  private loadWorldInformation (worldName: string): {
     width: number;
     length: number;
     mpu: number;
@@ -182,7 +179,7 @@ export class MapResources {
     );
   }
 
-  private loadRegions(
+  private loadRegions (
     worldName: string,
     revivalMapId: number
   ): MapRegionProperties[] {
@@ -250,7 +247,7 @@ export class MapResources {
     return regions;
   }
 
-  private loadObjects(worldName: string): MapObjectProperties[] {
+  private loadObjects (worldName: string): MapObjectProperties[] {
     const dyoPath = path.join(
       ResourcePaths.world,
       worldName,
@@ -276,7 +273,7 @@ export class MapResources {
       );
   }
 
-  private loadHeights(
+  private loadHeights (
     worldName: string,
     width: number,
     length: number
@@ -309,7 +306,7 @@ export class MapResources {
     return heights;
   }
 
-  public async loadDefines(): Promise<void> {
+  public async loadDefines (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineWorld);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(`Unable to load world defines: ${absolutePath}`);
@@ -337,7 +334,7 @@ export class MapResources {
     this.logger.info(`${this.defines.size} world defines loaded.`);
   }
 
-  public async loadWorldPaths(): Promise<void> {
+  public async loadWorldPaths (): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.worldPath);
     if (!fs.existsSync(absolutePath)) {
       this.logger.error(`Unable to load world paths: ${absolutePath}`);
@@ -356,7 +353,7 @@ export class MapResources {
     this.logger.info(`${this.worldPaths.size} world paths loaded.`);
   }
 
-  private parseMapProperties(data: { [key: string]: string }): MapProperties {
+  private parseMapProperties (data: { [key: string]: string }): MapProperties {
     return {
       id: parseInt(data.id),
       name: data.name,

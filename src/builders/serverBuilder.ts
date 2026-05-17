@@ -25,30 +25,30 @@ export class ServerBuilder {
   private config: IConfig;
   serverType: ServerType;
 
-  constructor() {}
+  constructor () {}
 
-  setServerType(type: ServerType) {
+  setServerType (type: ServerType) {
     this.logger = new Logger(BuilderType.SERVER_BUILDER);
     this.serverType = type;
   }
 
-  addServer(server: TcpServer) {
+  addServer (server: TcpServer) {
     this.server = server;
   }
 
-  addHandlers(handlers: Map<PacketType, HandlerConstructor>) {
+  addHandlers (handlers: Map<PacketType, HandlerConstructor>) {
     this.handlers = handlers;
   }
 
-  addRedisClient(redisClient: IRedisClient) {
+  addRedisClient (redisClient: IRedisClient) {
     this.redisClient = redisClient;
   }
 
-  setConfig(config: IConfig) {
+  setConfig (config: IConfig) {
     this.config = config;
   }
 
-  build(): TcpServer | null {
+  build (): TcpServer | null {
     if (!this.serverType) return null;
     this.server.addHandlers(this.handlers);
     this.server.addRedisClient(this.redisClient);

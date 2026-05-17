@@ -12,5 +12,5 @@ export enum SpellType {
   FireEarth,
   ElectricityWind,
   EarthWind,
-  EarthWater,
+  EarthWater
 }

@@ -11,7 +11,6 @@ import { ExpTableResources } from "../resources/expTableResource";
 import { DeathPenaltyResources } from "../resources/deathPenaltyResource";
 import { MapResources } from "../resources/mapResources";
 import { SkillResources } from "../resources/skillResources";
-import { QuestResources } from "../resources/questResources";
 import { QuestResourcesYaml } from "../resources/questResourcesYaml";
 
 interface ResourceLoadResult {
@@ -26,29 +25,29 @@ export class ResourceBuilder {
   private loadErrors: ResourceLoadResult[] = [];
   load = true;
   options: any;
-  itemResources: ItemResources;
-  monsterResources: MonsterResources;
-  npcResources: NpcResources;
-  jobResources: JobResources;
-  expTableResources: ExpTableResources;
-  deathPenaltyResource: DeathPenaltyResources;
-  mapResource: MapResources;
-  skillResource: SkillResources;
-  questResources: QuestResourcesYaml;
+  itemResources!: ItemResources;
+  monsterResources!: MonsterResources;
+  npcResources!: NpcResources;
+  jobResources!: JobResources;
+  expTableResources!: ExpTableResources;
+  deathPenaltyResource!: DeathPenaltyResources;
+  mapResource!: MapResources;
+  skillResource!: SkillResources;
+  questResources!: QuestResourcesYaml;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger(BuilderType.RESOURCE_BUILDER);
   }
 
-  setRedisOptions(options: any) {
+  setRedisOptions (options: any) {
     this.options = options;
   }
 
-  setLoad(load: boolean) {
+  setLoad (load: boolean) {
     this.load = load;
   }
 
-  public validateCriticalResources(): boolean {
+  public validateCriticalResources (): boolean {
     const criticalResources = ["Items", "Monsters/Movers", "Jobs", "Skills"];
     const failedCritical = this.loadErrors.filter(
       (result) =>
@@ -75,12 +74,12 @@ export class ResourceBuilder {
     return true;
   }
 
-  public getLoadingStats(): {
+  public getLoadingStats (): {
     total: number;
     successful: number;
     failed: number;
     errors: ResourceLoadResult[];
-    } {
+  } {
     const successful = this.loadErrors.filter((result) => result.success);
     const failed = this.loadErrors.filter((result) => !result.success);
 
@@ -92,7 +91,7 @@ export class ResourceBuilder {
     };
   }
 
-  async build(): Promise<GameResources> {
+  async build (): Promise<GameResources> {
     const buildStartTime = Date.now();
     this.loadErrors = [];
 
@@ -118,17 +117,17 @@ export class ResourceBuilder {
         // QuestResources needs defines from monster resources, so initialize after defines are loaded
         // Use YAML quest loader for better performance and maintainability
         this.questResources = new QuestResourcesYaml(new Map());
-      } catch (error) {
-        this.logger.error("Failed to initialize resource instances:", error);
+      } catch (_error) {
+        this.logger.error("Failed to initialize resource instances:", _error);
         throw new Error(
-          `Resource initialization failed: ${error instanceof Error ? error.message : String(error)}`
+          `Resource initialization failed: ${_error instanceof Error ? _error.message : String(_error)}`
         );
       }
 
       if (this.load) {
         this.logger.info("Loading game resources...");
         // Load items with error handling
-        await this.loadResourceSafely("Items", async() => {
+        await this.loadResourceSafely("Items", async () => {
           this.logger.info("Loading items...");
           await this.itemResources.loadDefines();
           await this.itemResources.loadItemsPropStrings();
@@ -136,14 +135,14 @@ export class ResourceBuilder {
         });
 
         // Load monsters with error handling and fallback
-        await this.loadResourceSafely("Monsters/Movers", async() => {
+        await this.loadResourceSafely("Monsters/Movers", async () => {
           this.logger.info("Loading monsters/movers...");
           try {
             await this.monsterResources.load();
-          } catch (error) {
+          } catch (_error) {
             this.logger.warn(
               "Failed to load with new method, falling back to Redis-based loading:",
-              error
+              _error
             );
             await this.monsterResources.loadDefines();
             await this.monsterResources.loadMonstersPropStrings();
@@ -152,33 +151,33 @@ export class ResourceBuilder {
         });
 
         // Load NPCs with error handling
-        await this.loadResourceSafely("NPCs", async() => {
+        await this.loadResourceSafely("NPCs", async () => {
           this.logger.info("Loading NPCs...");
           await this.npcResources.load();
         });
 
         // Load jobs with error handling
-        await this.loadResourceSafely("Jobs", async() => {
+        await this.loadResourceSafely("Jobs", async () => {
           this.logger.info("Loading jobs...");
           await this.jobResources.loadDefines();
           await this.jobResources.loadJobsProp();
         });
 
         // Load experience tables with error handling
-        await this.loadResourceSafely("Experience Tables", async() => {
+        await this.loadResourceSafely("Experience Tables", async () => {
           this.logger.info("Loading experience tables...");
           await this.expTableResources.loadExpCharacter();
           await this.expTableResources.loadExpDropLuck();
         });
 
         // Load death penalties with error handling
-        await this.loadResourceSafely("Death Penalties", async() => {
+        await this.loadResourceSafely("Death Penalties", async () => {
           this.logger.info("Loading death penalties...");
           await this.deathPenaltyResource.loadDeathPenalty();
         });
 
         // Load maps with error handling
-        await this.loadResourceSafely("Maps", async() => {
+        await this.loadResourceSafely("Maps", async () => {
           this.logger.info("Loading maps and worlds...");
           await this.mapResource.loadDefines();
           await this.mapResource.loadWorldPaths();
@@ -186,7 +185,7 @@ export class ResourceBuilder {
         });
 
         // Load skills with error handling
-        await this.loadResourceSafely("Skills", async() => {
+        await this.loadResourceSafely("Skills", async () => {
           this.logger.info("Loading skills...");
           await this.skillResource.loadDefines();
           await this.skillResource.loadSkillsPropStrings();
@@ -196,7 +195,7 @@ export class ResourceBuilder {
         // Load quests with error handling (non-critical)
         await this.loadResourceSafely(
           "Quests",
-          async() => {
+          async () => {
             this.logger.info("Loading quest defines...");
             await this.questResources.loadDefines();
             this.logger.info("Loading quests...");
@@ -215,10 +214,10 @@ export class ResourceBuilder {
           );
         }
       }
-    } catch (error) {
-      this.logger.error("Critical error during resource building:", error);
+    } catch (_error) {
+      this.logger.error("Critical error during resource building:", _error);
       this.logErrorSummary();
-      throw error;
+      throw _error;
     }
 
     // Return resources even if some failed to load (graceful degradation)
@@ -234,7 +233,7 @@ export class ResourceBuilder {
     };
   }
 
-  private async loadResourceSafely(
+  private async loadResourceSafely (
     resourceType: string,
     loadFunction: () => Promise<void> | void,
     critical: boolean = true
@@ -250,10 +249,10 @@ export class ResourceBuilder {
         resourceType,
         elapsed
       });
-    } catch (error) {
+    } catch (_error) {
       const elapsed = Date.now() - startTime;
       const loadError =
-        error instanceof Error ? error : new Error(String(error));
+        _error instanceof Error ? _error : new Error(String(_error));
 
       this.loadErrors.push({
         success: false,
@@ -282,7 +281,7 @@ export class ResourceBuilder {
     }
   }
 
-  private logErrorSummary(): void {
+  private logErrorSummary (): void {
     const failures = this.loadErrors.filter((result) => !result.success);
 
     if (failures.length > 0) {
@@ -298,9 +297,9 @@ export class ResourceBuilder {
     }
   }
 
-  private async logResourceSummary(buildStartTime: number): Promise<void> {
+  private async logResourceSummary (buildStartTime: number): Promise<void> {
     const totalElapsed = Date.now() - buildStartTime;
-    const successfulLoads = this.loadErrors.filter((result) => result.success);
+    const _successfulLoads = this.loadErrors.filter((result) => result.success);
     const failedLoads = this.loadErrors.filter((result) => !result.success);
 
     this.logger.success("==== RESOURCE LOADING SUMMARY ====");
@@ -371,7 +370,7 @@ export class ResourceBuilder {
     }
   }
 
-  private async getResourceCounts(): Promise<Record<string, number>> {
+  private async getResourceCounts (): Promise<Record<string, number>> {
     const counts: Record<string, number> = {};
 
     try {
@@ -416,7 +415,9 @@ export class ResourceBuilder {
         if (this.skillResource) {
           counts.Skills = await this.getRedisCount("skill:*");
         }
-      } catch (error) {
+      } catch (_error) {
+        this.logger.error(_error);
+
         // Fallback to -1 if Redis count fails
         counts.Items = this.itemResources ? -1 : 0;
         counts.NPCs = this.npcResources ? -1 : 0;
@@ -426,19 +427,20 @@ export class ResourceBuilder {
 
       counts["Exp Tables"] = this.expTableResources ? 2 : 0; // Character exp + Drop luck
       counts["Death Penalties"] = this.deathPenaltyResource ? 3 : 0; // Revival, exp decrease, level down
-    } catch (error) {
-      this.logger.warn("Error getting resource counts:", error);
+    } catch (_error) {
+      this.logger.warn("Error getting resource counts:", _error);
     }
 
     return counts;
   }
 
-  private async getRedisCount(pattern: string): Promise<number> {
+  private async getRedisCount (pattern: string): Promise<number> {
     try {
       const keys = await this.itemResources.redisClient.keys(pattern);
       if (!keys) return -1;
       return Array.isArray(keys) ? keys.length : -1;
-    } catch (err) {
+    } catch (_err) {
+      this.logger.error(_err);
       return -1;
     }
   }

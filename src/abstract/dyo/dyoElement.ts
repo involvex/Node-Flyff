@@ -1,4 +1,3 @@
-import fs from "fs";
 import { Vector3 } from "../vector3";
 import { BinaryStream } from "../../libraries/binaryStream";
 
@@ -14,13 +13,13 @@ export class DyoElement {
   iaInterface: number;
   ia2: number;
 
-  constructor() {
+  constructor () {
     this.axis = new Vector3();
     this.position = new Vector3();
     this.scale = new Vector3();
   }
 
-  read(streamReader: BinaryStream): void {
+  read (streamReader: BinaryStream): void {
     this.angle = streamReader.readSingle();
     this.axis.x = streamReader.readSingle();
     this.axis.y = streamReader.readSingle();

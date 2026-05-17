@@ -1,33 +1,4 @@
 {
-  "name": "nodejs-flyff",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "GPL-3.0",
-  "engines": {
-    "node": ">=22.0.0",
-    "bun": ">=1.0.0"
-  },
-  "workspaces": [
-    "web-client"
-  ],
-  "scripts": {
-    "start": "bun run src/main.ts",
-    "dev": "bun --watch run src/main.ts",
-    "dev:login": "bun dev login",
-    "clean": "rimraf coverage build tmp",
-    "prebuild": "bun run format && bun run lint:fix && bun run typecheck",
-    "build": "bun build ./src/main.ts --outdir ./dist --target node && bun run build:web-client",
-    "build:watch": "bun build ./src/main.ts --outdir ./dist --target node --watch",
-    "build:release": "bun run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
-    "lint": "eslint . --ext .ts --ext .mts",
-    "lint:fix": "eslint . --ext .ts --ext .mts --fix",
-    "format": "prettier --write .",
-    "test-client": "bun run src/testClient.ts",
-    "ws-proxy": "bun run src/tools/wsTcpProxy.ts",
-    "tsc:build": "tsc -p tsconfig.json",
-    "build:web-client": "bun run -F node-flyff-web-client build",
-    "typecheck": "tsc --noEmit"
-  },
   "dependencies": {
     "better-sqlite3": "^8.2.0",
     "cli-color": "^2.0.4",
@@ -45,6 +16,7 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/cli-color": "^2.0.6",
     "@types/crypto-js": "^4.2.2",
     "@types/fs-extra": "^11.0.4",
@@ -55,13 +27,51 @@
     "@types/ws": "^8.18.1",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
-    "eslint": "^8.0.1",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "prettier": "^3.8.3",
+    "prettier-package-json": "2.8.0",
+    "prettier-plugin-space-before-function-paren": "^0.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
-  }
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.3"
+  },
+  "engines": {
+    "bun": ">=1.0.0",
+    "node": ">=22.0.0"
+  },
+  "license": "GPL-3.0",
+  "main": "index.js",
+  "name": "nodejs-flyff",
+  "prettier": {
+    "bracketSpacing": true,
+    "plugins": [
+      "prettier-plugin-space-before-function-paren"
+    ],
+    "singleQuote": false,
+    "trailingComma": "none"
+  },
+  "scripts": {
+    "build": "bun build ./src/main.ts --outdir ./dist --target node && bun run build:web-client",
+    "build:release": "bun run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
+    "build:watch": "bun build ./src/main.ts --outdir ./dist --target node --watch",
+    "build:web-client": "bun run -F node-flyff-web-client build",
+    "clean": "rimraf coverage build tmp",
+    "dev": "bun --watch run src/main.ts",
+    "dev:login": "bun dev login",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prebuild": "bun run format && bun run lint:fix && bun run typecheck",
+    "start": "bun run src/main.ts",
+    "test-client": "bun run src/testClient.ts",
+    "tsc:build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "ws-proxy": "bun run src/tools/wsTcpProxy.ts"
+  },
+  "version": "1.0.0",
+  "workspaces": [
+    "web-client"
+  ]
 }

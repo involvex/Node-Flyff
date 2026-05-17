@@ -7,14 +7,14 @@ export class Rectangle {
   public width: number;
   public length: number;
 
-  constructor(x: number, z: number, width: number, length: number) {
+  constructor (x: number, z: number, width: number, length: number) {
     this.x = x;
     this.z = z;
     this.width = width;
     this.length = length;
   }
 
-  public getRandomPosition(height: number = 0): Vector3 {
+  public getRandomPosition (height: number = 0): Vector3 {
     return new Vector3(
       FFRandom.floatRandomBetween(this.x, this.x + this.width),
       height,
@@ -22,9 +22,9 @@ export class Rectangle {
     );
   }
 
-  public contains(position: Vector3): boolean;
-  public contains(x: number, y: number, z: number): boolean;
-  public contains(arg1: number | Vector3, y?: number, z?: number): boolean {
+  public contains (position: Vector3): boolean;
+  public contains (x: number, y: number, z: number): boolean;
+  public contains (arg1: number | Vector3, y?: number, z?: number): boolean {
     let x: number;
     if (arg1 instanceof Vector3) {
       x = arg1.x;

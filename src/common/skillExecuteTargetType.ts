@@ -20,5 +20,5 @@ export enum SkillExecuteTargetType {
   RangeAttack,
   Pet,
   TroupeWith,
-  Item,
+  Item
 }

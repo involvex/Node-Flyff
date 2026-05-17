@@ -1,7 +1,6 @@
 import { Vector3 } from "../abstract/vector3";
 import { AuthorityType } from "../common/authorityType";
 import { DefineJob } from "../common/defineJob";
-import { DefineSpecialEffects } from "../common/defineSpecialEffects";
 import { DefineText } from "../common/defineText";
 import { GenderType } from "../common/genderType";
 import { MapItemType } from "../common/mapItemType";
@@ -35,9 +34,9 @@ class Inventory {
 
   private items: Map<number, Item> = new Map();
 
-  constructor(private readonly owner: Player) {}
+  constructor (private readonly owner: Player) {}
 
-  getRange(start: number, count: number): Array<{ item: Item | null }> {
+  getRange (start: number, count: number): Array<{ item: Item | null }> {
     const result: Array<{ item: Item | null }> = [];
     for (let i = start; i < start + count; i++) {
       result.push({ item: this.items.get(i) || null });
@@ -45,7 +44,7 @@ class Inventory {
     return result;
   }
 
-  createItem(item: Item): number {
+  createItem (item: Item): number {
     // Find first available slot
     for (let i = 0; i < Inventory.INVENTORY_SIZE; i++) {
       if (!this.items.has(i)) {
@@ -56,7 +55,7 @@ class Inventory {
     return -1; // No space available
   }
 
-  getEquippedItems(): Item[] {
+  getEquippedItems (): Item[] {
     return this.getRange(
       Inventory.INVENTORY_SIZE,
       Inventory.INVENTORY_EQUIP_PARTS
@@ -66,13 +65,13 @@ class Inventory {
   }
 
   // Compatibility: return equipped item for a given part (best-effort)
-  getEquipedItem(part: number): Item | null {
+  getEquipedItem (_part: number): Item | null {
     const equipped = this.getEquippedItems();
     return equipped.length > 0 ? equipped[0] : null;
   }
 
   // Compatibility alias (older naming)
-  GetEquipedItem(part: number): Item | null {
+  GetEquipedItem (part: number): Item | null {
     return this.getEquipedItem(part);
   }
 }
@@ -80,19 +79,19 @@ class Inventory {
 class Gold {
   private amount: number = 0;
 
-  constructor(private readonly owner: Player) {}
+  constructor (private readonly owner: Player) {}
 
-  get value(): number {
+  get value (): number {
     return this.amount;
   }
 
-  increase(amount: number): boolean {
+  increase (amount: number): boolean {
     if (amount <= 0) return false;
     this.amount += amount;
     return true;
   }
 
-  decrease(amount: number): boolean {
+  decrease (amount: number): boolean {
     if (amount <= 0 || this.amount < amount) return false;
     this.amount -= amount;
     return true;
@@ -103,17 +102,17 @@ class Experience {
   private currentExp: number = 0;
   private currentLevel: number = 1;
 
-  constructor(private readonly owner: Player) {}
+  constructor (private readonly owner: Player) {}
 
-  get exp(): number {
+  get exp (): number {
     return this.currentExp;
   }
 
-  get level(): number {
+  get level (): number {
     return this.currentLevel;
   }
 
-  increase(amount: number): void {
+  increase (amount: number): void {
     if (amount <= 0) return;
     this.currentExp += amount;
     // TODO: Check for level up based on exp table
@@ -121,7 +120,7 @@ class Experience {
 }
 
 class Skill {
-  constructor(
+  constructor (
     public readonly properties: any,
     public level: number = 0,
     public readonly player: Player
@@ -133,17 +132,17 @@ class SkillTree {
 
   private skills: Map<number, Skill> = new Map();
 
-  constructor(private readonly owner: Player) {}
+  constructor (private readonly owner: Player) {}
 
-  [Symbol.iterator](): Iterator<Skill> {
+  [Symbol.iterator] (): Iterator<Skill> {
     return this.skills.values();
   }
 
-  setSkill(skill: Skill): void {
+  setSkill (skill: Skill): void {
     this.skills.set(skill.properties.id, skill);
   }
 
-  getSkill(id: number): Skill | undefined {
+  getSkill (id: number): Skill | undefined {
     return this.skills.get(id);
   }
 }
@@ -151,9 +150,9 @@ class SkillTree {
 class QuestDiary {
   private quests: Map<number, any> = new Map();
 
-  constructor(private readonly owner: Player) {}
+  constructor (private readonly owner: Player) {}
 
-  onMonsterKilled(monster: Monster): void {
+  onMonsterKilled (_monster: Monster): void {
     // TODO: Update quest progress based on killed monster
   }
 }
@@ -161,7 +160,7 @@ class QuestDiary {
 class Taskbar {
   private shortcuts: Map<number, any> = new Map();
 
-  constructor() {}
+  constructor () {}
 }
 
 // Configuration constants
@@ -201,7 +200,7 @@ export class Player extends Mover {
   public skillPoints: number = 0;
   public currentShopName: string = "";
 
-  public constructor(
+  public constructor (
     private readonly _connection: UserConnection,
     properties: MoverProperties,
     playerData: {
@@ -252,7 +251,7 @@ export class Player extends Mover {
     });
   }
 
-  update(): void {
+  update (): void {
     if (this.isDead || !this.isSpawned) {
       return;
     }
@@ -265,7 +264,7 @@ export class Player extends Mover {
     this.updateMoves();
   }
 
-  public lookAround(): void {
+  public lookAround (): void {
     if (!this.isSpawned || !this.isVisible) {
       return;
     }
@@ -297,11 +296,11 @@ export class Player extends Mover {
     }
   }
 
-  public getEquippedItems(): Item[] {
+  public getEquippedItems (): Item[] {
     return this.inventory.getEquippedItems();
   }
 
-  public updateStatistics(
+  public updateStatistics (
     strength: number,
     stamina: number,
     dexterity: number,
@@ -338,7 +337,7 @@ export class Player extends Mover {
     // this.send(setStateSnapshot);
   }
 
-  public resetStatistics(): void {
+  public resetStatistics (): void {
     const defaultCharacter =
       this.appearance.gender === GenderType.Male
         ? GameOptions.Current.DefaultCharacter.Man
@@ -358,7 +357,7 @@ export class Player extends Mover {
     // this.send(setStateSnapshot);
   }
 
-  public addSkillPoints(skillPointsToAdd: number, sendToPlayer = true): void {
+  public addSkillPoints (skillPointsToAdd: number, sendToPlayer = true): void {
     this.skillPoints += skillPointsToAdd;
 
     if (sendToPlayer) {
@@ -368,7 +367,7 @@ export class Player extends Mover {
     }
   }
 
-  public resetSkills(): void {
+  public resetSkills (): void {
     for (const skill of this.skills) {
       this.skillPoints +=
         (skill.level || 0) *
@@ -377,11 +376,11 @@ export class Player extends Mover {
     }
   }
 
-  public resetAvailableSkillPoints(): void {
+  public resetAvailableSkillPoints (): void {
     this.skillPoints = 0;
   }
 
-  public changeJob(job: DefineJob): void {
+  public changeJob (job: DefineJob): void {
     if (this.job.id === job) {
     }
 
@@ -409,19 +408,19 @@ export class Player extends Mover {
     // this.sendToVisible(snapshots, true);
   }
 
-  public speak(message: string): void {
+  public speak (_message: string): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new ChatSnapshot(this, message);
     // this.sendToVisible(snapshot, true);
   }
 
-  public sendDefinedText(textId: DefineText, params?: string): void {
+  public sendDefinedText (_textId: DefineText, _params?: string): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new DefinedTextSnapshot(this, textId, params);
     // this.send(snapshot);
   }
 
-  public pickupItem(mapItem: MapItemObject, sendPickupMotion = true): void {
+  public pickupItem (mapItem: MapItemObject, sendPickupMotion = true): void {
     if (mapItem.owner && mapItem.owner !== this) {
       this.sendDefinedText(
         DefineText.TID_GAME_PRIORITYITEMPER,
@@ -460,7 +459,11 @@ export class Player extends Mover {
     }
   }
 
-  public teleport(mapId: number, position: Vector3, sendToPlayer = true): void {
+  public teleport (
+    mapId: number,
+    position: Vector3,
+    _sendToPlayer = true
+  ): void {
     const setPlayerPosition = (newPosition: Vector3): void => {
       this.unfollow();
       this.stopMoving();
@@ -509,7 +512,7 @@ export class Player extends Mover {
     }
   }
 
-  public onTargetKilled(target: Mover): void {
+  public onTargetKilled (target: Mover): void {
     if (target instanceof Player) {
       // TODO: PK
     } else {
@@ -524,11 +527,11 @@ export class Player extends Mover {
     }
   }
 
-  public onKilled(killer: Mover): void {
+  public onKilled (killer: Mover): void {
     super.onKilled(killer);
   }
 
-  public dispose(): void {
+  public dispose (): void {
     for (const visibleObject of this.visibleObjects) {
       if (!(visibleObject instanceof Player)) {
         this.removeVisibleEntity(visibleObject);
@@ -538,30 +541,30 @@ export class Player extends Mover {
     this.mapLayer?.removePlayer(this);
   }
 
-  protected onArrived(): void {
+  protected onArrived (): void {
     if (this.isFollowing && this.followTarget instanceof MapItemObject) {
       this.pickupItem(this.followTarget);
       this.unfollow();
     }
   }
 
-  public cancelSkillUsage(): void {
+  public cancelSkillUsage (): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new ClearUseSkillSnapshot(this);
     // this.sendToVisible(snapshot, true);
   }
 
-  public sendSnoopMessage(message: string): void {
+  public sendSnoopMessage (_message: string): void {
     // TODO: Implement proper snapshot system
     // const snapshot = new SnoopSnapshot(message);
     // this.send(snapshot);
   }
 
-  public send(packet: FlyffPacket): void {
+  public send (packet: FlyffPacket): void {
     this._connection.send(packet);
   }
 
-  private addVisibleEntity(
+  private addVisibleEntity (
     entity: import("../abstract/worldObject").WorldObject
   ): void {
     if (!this.visibleObjects.includes(entity)) {
@@ -573,7 +576,7 @@ export class Player extends Mover {
     }
   }
 
-  private removeVisibleEntity(
+  private removeVisibleEntity (
     entity: import("../abstract/worldObject").WorldObject
   ): void {
     const index = this.visibleObjects.indexOf(entity);

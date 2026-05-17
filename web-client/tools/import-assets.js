@@ -6,12 +6,12 @@ try {
   AdmZip = require("adm-zip");
 } catch (e) {
   console.error(
-    "Missing dependency adm-zip. Run `npm install adm-zip` in web-client/",
+    "Missing dependency adm-zip. Run `npm install adm-zip` in web-client/"
   );
   process.exit(2);
 }
 
-function usage() {
+function usage () {
   console.log("Usage: node tools/import-assets.js <path-to-zip> [packName]");
 }
 
@@ -47,7 +47,7 @@ const manifestPath = path.join(
   "..",
   "public",
   "assets",
-  "manifest.json",
+  "manifest.json"
 );
 let manifest = { version: "1", generated: true, assets: {} };
 if (fs.existsSync(manifestPath)) {
@@ -61,7 +61,7 @@ if (fs.existsSync(manifestPath)) {
 manifest.assets = manifest.assets || {};
 manifest.assets.avatar = manifest.assets.avatar || {};
 
-function detectPart(filename) {
+function detectPart (filename) {
   const n = filename.toLowerCase();
   if (/hair|bang|toupe/i.test(n)) return "hair";
   if (/head|face|eyes|mouth/i.test(n)) return "head";

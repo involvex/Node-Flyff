@@ -10,14 +10,14 @@ export class ConfigLoader {
   private serverName: string;
   public config: any;
 
-  constructor(serverName: string) {
+  constructor (serverName: string) {
     this.logger = new Logger("Config Loader");
     this.serverName = serverName.trim().toLowerCase().replace(/\s/g, "_");
     this.loadConfig();
     this.logger.success("Loaded configuration");
   }
 
-  loadConfig(): void {
+  loadConfig (): void {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
     const configPath = path.join(
@@ -36,11 +36,11 @@ export class ConfigLoader {
     }
   }
 
-  public getConfig(): any {
+  public getConfig (): any {
     return this.config;
   }
 
-  public getValue(key: string): any {
+  public getValue (key: string): any {
     return this.config[key];
   }
 }

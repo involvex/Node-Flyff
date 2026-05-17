@@ -520,7 +520,7 @@ export class Player {
 
 // Query the database
 const player = await dataSource.getRepository(Player).findOne({
-  where: { id: playerId },
+  where: { id: playerId }
 });
 ```
 
@@ -532,7 +532,7 @@ Use the packet handler infrastructure for network communication:
 // Define a packet handler
 @PacketHandler(PacketType.CERTIFY)
 export class CertifyHandler implements IPacketHandler {
-  async handle(packet: Packet, client: Client): Promise<void> {
+  async handle (packet: Packet, client: Client): Promise<void> {
     // Handle the packet
   }
 }
@@ -557,9 +557,9 @@ try {
 Use async/await for asynchronous operations:
 
 ```typescript
-async function getPlayerData(playerId: number): Promise<PlayerData> {
+async function getPlayerData (playerId: number): Promise<PlayerData> {
   const player = await this.playerRepository.findOne({
-    where: { id: playerId },
+    where: { id: playerId }
   });
 
   if (!player) {

@@ -9,17 +9,17 @@ export class PacketHandler {
   userConnection!: UserConnection;
   server!: TcpServer;
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("Packet Handler");
   }
 
-  async execute(): Promise<void> {}
+  async execute (): Promise<void> {}
 
-  send(packet: FlyffPacket) {
+  send (packet: FlyffPacket) {
     this.userConnection.send(packet);
   }
 
-  async wrappedExecute() {
+  async wrappedExecute () {
     try {
       await this.execute();
     } catch (e) {

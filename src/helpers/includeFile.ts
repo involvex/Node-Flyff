@@ -10,9 +10,9 @@ import {
 export interface Block {
   name: string;
   unknownStatements: string[];
-  getInstruction(name: string): Instruction | null;
-  getInstructions(name: string): Instruction[];
-  getVariable(name: string): Variable | null;
+  getInstruction (name: string): Instruction | null;
+  getInstructions (name: string): Instruction[];
+  getVariable (name: string): Variable | null;
 }
 
 export class IncludeFile {
@@ -21,7 +21,10 @@ export class IncludeFile {
   private blocks: Map<string, Block> = new Map();
   private statements: BlockStatement[] = [];
 
-  constructor(filePath: string, separators: string = "([(){}=,;\\n\\r\\t ])") {
+  constructor (
+    filePath: string,
+    _separators: string = "([(){}=,;\\n\\r\\t ])"
+  ) {
     this.logger = new Logger("IncludeFile");
 
     if (!fs.existsSync(filePath)) {
@@ -32,7 +35,7 @@ export class IncludeFile {
     this.parseContent();
   }
 
-  private parseContent(): void {
+  private parseContent (): void {
     this.statements = InstructionParser.parseBlock(this.content);
 
     for (const statement of this.statements) {
@@ -54,15 +57,15 @@ export class IncludeFile {
     }
   }
 
-  public get Statements(): BlockStatement[] {
+  public get Statements (): BlockStatement[] {
     return this.statements;
   }
 
-  public getBlock(blockName: string): Block | null {
+  public getBlock (blockName: string): Block | null {
     return this.blocks.get(blockName) || null;
   }
 
-  public dispose(): void {
+  public dispose (): void {
     this.blocks.clear();
     this.statements = [];
   }

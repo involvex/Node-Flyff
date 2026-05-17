@@ -1,5 +1,4 @@
 import { Logger } from "../helpers/logger";
-import { Vector3 } from "../abstract/vector3";
 import { WorldObject } from "../abstract/worldObject";
 import { Player } from "../entities/player";
 import { Monster } from "../entities/monster";
@@ -31,11 +30,11 @@ export class CombatSystem {
   private criticalHitChance: number = 0.1; // 10% chance
   private blockChance: number = 0.15; // 15% chance
 
-  constructor() {
+  constructor () {
     this.logger = new Logger("CombatSystem");
   }
 
-  performAttack(
+  performAttack (
     attacker: WorldObject,
     target: WorldObject,
     attackType: string = "melee"
@@ -86,7 +85,7 @@ export class CombatSystem {
     return result;
   }
 
-  private calculateDamage(attacker: WorldObject, target: WorldObject): number {
+  private calculateDamage (attacker: WorldObject, target: WorldObject): number {
     // Base damage calculation (simplified)
     let baseDamage = 10;
 
@@ -111,34 +110,34 @@ export class CombatSystem {
     return Math.floor(baseDamage);
   }
 
-  private isCriticalHit(): boolean {
+  private isCriticalHit (): boolean {
     return Math.random() < this.criticalHitChance;
   }
 
-  private isBlocked(): boolean {
+  private isBlocked (): boolean {
     return Math.random() < this.blockChance;
   }
 
-  setAttackCooldown(attackerId: number, duration?: number): void {
+  setAttackCooldown (attackerId: number, duration?: number): void {
     const cooldown = duration || this.defaultAttackCooldown;
     this.combatCooldowns.set(attackerId, Date.now() + cooldown);
   }
 
-  getAttackCooldown(attackerId: number): number {
+  getAttackCooldown (attackerId: number): number {
     const cooldownEnd = this.combatCooldowns.get(attackerId) || 0;
     const remaining = Math.max(0, cooldownEnd - Date.now());
     return remaining;
   }
 
-  isOnCooldown(attackerId: number): boolean {
+  isOnCooldown (attackerId: number): boolean {
     return this.getAttackCooldown(attackerId) > 0;
   }
 
-  getCombatResults(attackerId: number): CombatResult[] {
+  getCombatResults (attackerId: number): CombatResult[] {
     return this.combatResults.get(attackerId) || [];
   }
 
-  getCombatStats(attackerId: number): CombatStats {
+  getCombatStats (attackerId: number): CombatStats {
     const results = this.combatResults.get(attackerId) || [];
 
     if (results.length === 0) {
@@ -169,7 +168,7 @@ export class CombatSystem {
     };
   }
 
-  clearCombatResults(attackerId?: number): void {
+  clearCombatResults (attackerId?: number): void {
     if (attackerId) {
       this.combatResults.delete(attackerId);
     } else {
@@ -177,50 +176,50 @@ export class CombatSystem {
     }
   }
 
-  removeEntity(entityId: number): void {
+  removeEntity (entityId: number): void {
     this.combatResults.delete(entityId);
     this.combatCooldowns.delete(entityId);
   }
 
-  getCriticalHitChance(): number {
+  getCriticalHitChance (): number {
     return this.criticalHitChance;
   }
 
-  setCriticalHitChance(chance: number): void {
+  setCriticalHitChance (chance: number): void {
     this.criticalHitChance = Math.max(0, Math.min(1, chance));
     this.logger.info(
       `Critical hit chance set to ${(this.criticalHitChance * 100).toFixed(1)}%`
     );
   }
 
-  getBlockChance(): number {
+  getBlockChance (): number {
     return this.blockChance;
   }
 
-  setBlockChance(chance: number): void {
+  setBlockChance (chance: number): void {
     this.blockChance = Math.max(0, Math.min(1, chance));
     this.logger.info(
       `Block chance set to ${(this.blockChance * 100).toFixed(1)}%`
     );
   }
 
-  getDefaultAttackCooldown(): number {
+  getDefaultAttackCooldown (): number {
     return this.defaultAttackCooldown;
   }
 
-  setDefaultAttackCooldown(cooldown: number): void {
+  setDefaultAttackCooldown (cooldown: number): void {
     this.defaultAttackCooldown = cooldown;
     this.logger.info(`Default attack cooldown set to ${cooldown}ms`);
   }
 
-  getStats(): {
+  getStats (): {
     totalCombatants: number;
     totalAttacks: number;
     totalDamage: number;
     averageDamage: number;
     criticalRate: number;
     blockRate: number;
-    } {
+  } {
     let totalAttacks = 0;
     let totalDamage = 0;
     let totalCrits = 0;
@@ -247,7 +246,7 @@ export class CombatSystem {
     };
   }
 
-  clear(): void {
+  clear (): void {
     this.combatResults.clear();
     this.combatCooldowns.clear();
     this.logger.info("Combat system cleared");

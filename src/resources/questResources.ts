@@ -7,10 +7,7 @@ import {
   QuestStartRequirementsProperties,
   QuestEndConditionProperties,
   QuestRewardProperties,
-  QuestItemDropProperties,
-  QuestItemProperties,
-  QuestMonsterProperties,
-  QuestPatrolProperties
+  QuestItemDropProperties
 } from "../interfaces/questProperties";
 import { LuaParser, LuaTable } from "../helpers/luaParser";
 import { DefineJob } from "../common/defineJob";
@@ -22,16 +19,16 @@ export class QuestResources {
   private readonly quests: Map<number, QuestProperties> = new Map();
   private readonly questByIdentifiers: Map<string, QuestProperties> = new Map();
 
-  constructor(defines: Map<string, number>) {
+  constructor (defines: Map<string, number>) {
     this.logger = new Logger("QuestResources");
     this.defines = defines;
   }
 
-  public get(questId: number): QuestProperties | null {
+  public get (questId: number): QuestProperties | null {
     return this.quests.get(questId) || null;
   }
 
-  public getByIdentifier(questIdentifier: string): QuestProperties | null {
+  public getByIdentifier (questIdentifier: string): QuestProperties | null {
     const questId = parseInt(questIdentifier, 10);
     if (!isNaN(questId)) {
       return this.get(questId);
@@ -40,7 +37,7 @@ export class QuestResources {
     }
   }
 
-  public where(
+  public where (
     predicate: (quest: QuestProperties) => boolean
   ): QuestProperties[] {
     const results: QuestProperties[] = [];
@@ -52,11 +49,11 @@ export class QuestResources {
     return results;
   }
 
-  public getLoadedCount(): number {
+  public getLoadedCount (): number {
     return this.quests.size;
   }
 
-  public load(): void {
+  public load (): void {
     const startTime = Date.now();
 
     if (!fs.existsSync(ResourcePaths.questsPath)) {
@@ -127,7 +124,7 @@ export class QuestResources {
     this.logger.info(`${this.quests.size} quests loaded in ${elapsed}ms.`);
   }
 
-  private tryGetQuestId(questIdentifier: string): number | null {
+  private tryGetQuestId (questIdentifier: string): number | null {
     let questId = this.defines.get(questIdentifier);
 
     if (!questId) {
@@ -143,7 +140,7 @@ export class QuestResources {
     return questId || null;
   }
 
-  private parseStartRequirements(
+  private parseStartRequirements (
     questTable: LuaTable
   ): QuestStartRequirementsProperties {
     const startReqTable = questTable.getValue<LuaTable>("start_requirements");
@@ -163,7 +160,7 @@ export class QuestResources {
     };
   }
 
-  private parseEndConditions(
+  private parseEndConditions (
     questTable: LuaTable
   ): QuestEndConditionProperties {
     const itemsTable = questTable.getValue<LuaTable>("end_conditions.items");
@@ -195,7 +192,7 @@ export class QuestResources {
     };
   }
 
-  private parseRewards(questTable: LuaTable): QuestRewardProperties {
+  private parseRewards (questTable: LuaTable): QuestRewardProperties {
     const rewardsTable = questTable.getValue<LuaTable>("rewards");
     const rewardItemsTable = rewardsTable?.getValue<LuaTable>("items");
 
@@ -212,12 +209,12 @@ export class QuestResources {
     };
   }
 
-  private parseDialogs(questTable: LuaTable, dialogPath: string): string[] {
+  private parseDialogs (questTable: LuaTable, dialogPath: string): string[] {
     const dialogTable = questTable.getValue<LuaTable>(dialogPath);
     return dialogTable?.getValues<string>() || [];
   }
 
-  private loadQuestItemDrops(
+  private loadQuestItemDrops (
     dropsTable: LuaTable | undefined
   ): QuestItemDropProperties[] {
     const questItemDrops: QuestItemDropProperties[] = [];

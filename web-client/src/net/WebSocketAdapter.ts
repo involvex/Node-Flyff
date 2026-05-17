@@ -3,11 +3,11 @@ export default class WebSocketAdapter {
   url: string;
   onMessage: ((data: ArrayBuffer) => void) | null = null;
 
-  constructor(url = "ws://localhost:8080") {
+  constructor (url = "ws://localhost:8080") {
     this.url = url;
   }
 
-  connect() {
+  connect () {
     this.ws = new WebSocket(this.url);
     this.ws.binaryType = "arraybuffer";
     this.ws.onopen = () => console.log("WS connected");
@@ -20,12 +20,12 @@ export default class WebSocketAdapter {
     this.ws.onerror = (e) => console.error("WS error", e);
   }
 
-  send(buffer: ArrayBuffer) {
+  send (buffer: ArrayBuffer) {
     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
     this.ws.send(buffer);
   }
 
-  disconnect() {
+  disconnect () {
     this.ws?.close();
     this.ws = null;
   }
