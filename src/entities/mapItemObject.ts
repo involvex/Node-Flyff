@@ -7,25 +7,25 @@ import { FlyffPacket } from "../libraries/flyffPacket";
 import { Mover } from "./mover";
 
 export class MapItemObject extends WorldObject {
-  private _nextRespawnTime: number;
+  private _nextRespawnTime!: number;
 
   public get type (): WorldObjectType {
     return WorldObjectType.Item;
   }
 
   public readonly item: Item;
-  public owner: Mover;
-  public ownershipTime: number;
+  public owner!: Mover;
+  public ownershipTime!: number;
   public readonly itemType: MapItemType = MapItemType.DropItem;
   public readonly isGold: boolean;
 
-  public respawnTime: number;
+  public respawnTime!: number;
 
   constructor (item: Item) {
     super();
     if (!item) {
       throw new Error(
-        "Cannot create a map object instance with an undefined item."
+        "Cannot create a map object instance with an undefined item.",
       );
     }
     this.item = item;

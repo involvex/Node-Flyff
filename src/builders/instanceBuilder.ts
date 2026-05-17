@@ -17,12 +17,12 @@ import { ResourceBuilder } from "./resourceBuilder";
 import { GameResources } from "../interfaces/resource";
 
 export class InstanceBuilder {
-  config: IConfig | null;
-  databaseBuilder: DatabaseBuilder;
-  handlerBuilder: HandlerBuilder;
-  serverBuilder: ServerBuilder;
-  redisBuilder: RedisBuilder;
-  resourceBuilder: ResourceBuilder;
+  config!: IConfig | null;
+  databaseBuilder!: DatabaseBuilder;
+  handlerBuilder!: HandlerBuilder;
+  serverBuilder!: ServerBuilder;
+  redisBuilder!: RedisBuilder;
+  resourceBuilder!: ResourceBuilder;
 
   constructor () {}
 

@@ -7,3 +7,9 @@ build
 dist
 web-client/dist
 web-client/node_modules
+
+.env
+.env.local
+web-client/.env
+web-client/.env.local
+web-client/dist/assets/index-C3ifSqoG.css

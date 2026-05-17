@@ -77,7 +77,7 @@ export class RedisBuilder {
     } catch (err) {
       this.logger.warn(
         "Initialization failed, falling back to local sqlite storage:",
-        err?.message ?? err
+        err ?? err
       );
       try {
         const { default: SqliteClient } =

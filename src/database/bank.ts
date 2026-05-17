@@ -13,18 +13,18 @@ import BankItemEntity from "./bankItem";
 @Entity("Bank")
 export default class BankEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
-  id: number;
+  id!: number;
 
   @OneToOne(() => CharacterEntity)
   @JoinColumn()
-  character: CharacterEntity;
+  character!: CharacterEntity;
 
   @Column({ default: 0 })
-  pin: number;
+  pin!: number;
 
   @Column({ default: 0 })
-  gold: number;
+  gold!: number;
 
   @OneToMany(() => BankItemEntity, (bankItem) => bankItem.bank)
-  items: BankItemEntity[];
+  items!: BankItemEntity[];
 }

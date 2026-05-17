@@ -9,7 +9,7 @@ import { IConfig } from "../interfaces/config";
 
 export class ConfigBuilder {
   private logger: Logger;
-  private config: IConfig;
+  private config!: IConfig;
   private basePath: string | null = null;
 
   constructor () {

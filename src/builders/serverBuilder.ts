@@ -18,12 +18,12 @@ export interface IServerConfig {
 }
 
 export class ServerBuilder {
-  private logger: Logger;
-  private server: TcpServer;
+  private logger!: Logger;
+  private server!: TcpServer;
   private handlers: Map<PacketType, HandlerConstructor> = new Map();
-  private redisClient: IRedisClient;
-  private config: IConfig;
-  serverType: ServerType;
+  private redisClient!: IRedisClient;
+  private config!: IConfig;
+  serverType!: ServerType;
 
   constructor () {}
 

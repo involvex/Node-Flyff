@@ -9,7 +9,7 @@ import { BuilderType } from "../common/builderType";
 
 export class HandlerBuilder {
   private logger: Logger;
-  private basePath: string;
+  private basePath!: string;
   private handlers: Map<PacketType, HandlerConstructor> = new Map();
 
   constructor () {
