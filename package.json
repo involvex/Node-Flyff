@@ -12,11 +12,12 @@
     "dev": "bun --watch run src/main.ts",
     "dev:login": "bun dev login",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "bun run lint",
+    "prebuild": "bun run lint:fix",
     "build": "bun build ./src/main.ts --outdir ./dist --target node",
     "build:watch": "bun build ./src/main.ts --outdir ./dist --target node --watch",
     "build:release": "bun run clean && bun build ./src/main.ts --outdir ./dist --target node --minify",
     "lint": "eslint . --ext .ts --ext .mts",
+    "lint:fix": "eslint . --ext .ts --ext .mts --fix",
     "format": "prettier --write .",
     "test-client": "bun run src/testClient.ts",
     "ws-proxy": "bun run src/tools/wsTcpProxy.ts",
@@ -53,6 +54,7 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^3.8.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }

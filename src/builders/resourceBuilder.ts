@@ -103,8 +103,7 @@ export class ResourceBuilder {
       try {
         // Use a simple KV-backed client (SQLite) for all resource loading
         // lazy-import to avoid binary dependency unless needed
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const KvClient = require("../libraries/kvClient").default;
+        const { default: KvClient } = await import("../libraries/kvClient");
         const kv = new KvClient();
 
         this.itemResources = new ItemResources(kv);

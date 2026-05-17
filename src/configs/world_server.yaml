@@ -3,11 +3,6 @@ server:
   port: 5400
 security:
   master-password: "StrongPassword"
-redis:
-  host: "127.0.0.1"
-  port: 6379
-  password: ""
-  tls: false
 settings:
   name: "Channel 1"
   maximum-users: 100
@@ -67,10 +62,32 @@ settings:
           - skill-id: SI_RIN_SUP_PROTECT
             level: 10
             time: 3600
-database:
-  provider: "postgres"
+# Inter-server communication (replaces Redis)
+inter-server:
+  enabled: true
   host: "127.0.0.1"
-  port: 5432
-  username: "flyff"
-  password: "flyffpass"
-  database: "nodeflyff"
+  port: 5401
+  cluster-server:
+    host: "127.0.0.1"
+    port: 28001
+# Database configuration (Bun SQLite optimized)
+database:
+  provider: "sqlite"
+  database: "data/flyff.db"
+  synchronize: true
+  logging: false
+# Session management (in-memory, replaces Redis)
+sessions:
+  default-duration: 3600
+  cleanup-interval: 60
+# Asset configuration
+assets:
+  client-path: "I:\\ClockworksFlyff Client\\"
+  cache-path: "data/assets/"
+  enable-caching: true
+# Performance settings
+performance:
+  max-players-per-channel: 100
+  visibility-range: 50
+  update-interval: 100
+  save-interval: 30000

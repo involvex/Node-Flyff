@@ -59,9 +59,7 @@ export class ItemResources extends BaseResource {
   public async loadDefines(): Promise<void> {
     const absolutePath = path.resolve(ResourcePaths.defineItem);
     if (!fs.existsSync(absolutePath)) {
-      this.logger.error(
-        `Unable to load items. Reason: cannot find '${absolutePath}' file.`
-      );
+      this.logger.warn("Unable to load items. Reason: cannot find file.");
     }
 
     const data = fs.readFileSync(absolutePath, "utf8");
@@ -93,16 +91,16 @@ export class ItemResources extends BaseResource {
 
     try {
       const data = fs.readFileSync(absolutePath, "utf16le");
-      const lines = data.split("\n").map((i) => i.toString().trim());
+      const lines = data.split("\n").map((_i) => _i.toString().trim());
       const pairs = _.chunk(lines, 2);
-      _.forEach(pairs, async(pair, i) => {
+      _.forEach(pairs, async(pair, _i) => {
         const [idName, name] = pair[0].split("\t");
         const [idDesc, desc] = pair[1].split("\t");
         await this.redisClient.hset("itemNames", idName, name);
         await this.redisClient.hset("itemDescriptions", idDesc, desc);
       });
-    } catch (err) {
-      this.logger.error("Error parsing item file:", err);
+    } catch (error) {
+      this.logger.error("Error parsing item file:", error);
     }
   }
 
@@ -119,11 +117,11 @@ export class ItemResources extends BaseResource {
 
     await this.cleanCache(); // clean cache
 
-    const data = fs.readFileSync(absolutePath, "utf8");
+    const _data = fs.readFileSync(absolutePath, "utf8");
 
-    const lines = data.split("\n");
-    _.forEach(lines, async(line) => {
-      const items = line.trim().split("\t");
+    const lines = _data.split("\n");
+    _.forEach(lines, async(_line) => {
+      const items = _line.trim().split("\t");
 
       const id = await this.redisClient.hget("itemDefines", items[1]);
 
@@ -203,78 +201,76 @@ export class ItemResources extends BaseResource {
       }
     });
 
-    this.logger.main(`${lines.length} items loaded.`);
+    this.logger.main("Items loaded.");
   }
 
-  parseItemProperties(data: { [key: string]: string }): ItemProperties {
+  parseItemProperties(_data: { [key: string]: string }): ItemProperties {
     return {
-      id: parseInt(data.id),
-      ver6: parseInt(data.ver6),
-      dwID: data.dwID,
-      szName: data.szName,
-      szNameId: data.szNameId,
-      dwPackMax: parseInt(data.dwPackMax),
-      dwItemKind1: data.dwItemKind1,
-      dwItemKind2: data.dwItemKind2,
-      dwItemKind3: data.dwItemKind3,
-      dwItemJob: data.dwItemJob,
-      bPermanence: data.bPermanence === "true",
-      dwUseable: data.dwUseable === "true",
-      dwItemSex: parseInt(data.dwItemSex),
-      dwCost: parseInt(data.dwCost),
-      dwLimitLevel1: parseInt(data.dwLimitLevel1),
-      dwParts: data.dwParts,
-      dwAbilityMin: parseInt(data.dwAbilityMin),
-      dwAbilityMax: parseInt(data.dwAbilityMax),
-      eItemType: data.eItemType,
-      dwItemLV: parseInt(data.dwItemLV),
-      dwItemRare: parseInt(data.dwItemRare),
-      dwAttackSpeed: parseFloat(data.dwAttackSpeed),
-      dwDestParam1: cleanString(data.dwDestParam1),
-      dwDestParam2: cleanString(data.dwDestParam2),
-      dwDestParam3: cleanString(data.dwDestParam3),
-      nAdjParamVal1: parseInt(data.nAdjParamVal1),
-      nAdjParamVal2: parseInt(data.nAdjParamVal2),
-      nAdjParamVal3: parseInt(data.nAdjParamVal3),
-      dwCircleTime: parseInt(data.dwCircleTime),
-      dwSfxObj: cleanString(data.dwSfxObj),
-      dwSfxObj2: cleanString(data.dwSfxObj2),
-      dwSfxObj3: cleanString(data.dwSfxObj3),
-      dwSfxObj4: cleanString(data.dwSfxObj4),
-      dwSfxObj5: cleanString(data.dwSfxObj5),
-      dwSkillReady: parseInt(data.dwSkillReady),
-      dwWeaponType: parseInt(data.dwWeaponType),
-      dwItemAtkOrder1: parseInt(data.dwItemAtkOrder1),
-      dwItemAtkOrder2: parseInt(data.dwItemAtkOrder2),
-      dwItemAtkOrder3: parseInt(data.dwItemAtkOrder3),
-      dwItemAtkOrder4: parseInt(data.dwItemAtkOrder4),
-      dwSkillReadyType: parseInt(data.dwSkillReadyType),
-      dwReferStat1: data.dwReferStat1,
-      dwAddSkillMin: parseInt(data.dwAddSkillMin),
-      dwAddSkillMax: parseInt(data.dwAddSkillMax),
-      dwReqMp: parseInt(data.dwReqMp),
-      dwReqFp: parseInt(data.dwReqFp),
-      dwReferStat2: cleanString(data.dwReferStat2),
-      dwReferTarget1: cleanString(data.dwReferTarget1),
-      dwReferTarget2: cleanString(data.dwReferTarget2),
-      dwReferValue1: parseInt(data.dwReferValue1),
-      dwReferValue2: parseInt(data.dwReferValue2),
-      dwFlightLimit: parseInt(data.dwFlightLimit),
-      dwFFuelReMax: parseInt(data.dwFFuelReMax),
-      dwAFuelReMax: parseInt(data.dwAFuelReMax),
-      dwReflect: parseInt(data.dwReflect),
-      dwQuestID: parseInt(data.dwQuestID),
-      szComment: data.szComment
+      id: parseInt(_data.id),
+      ver6: parseInt(_data.ver6),
+      dwID: _data.dwID,
+      szName: _data.szName,
+      szNameId: _data.szNameId,
+      dwPackMax: parseInt(_data.dwPackMax),
+      dwItemKind1: _data.dwItemKind1,
+      dwItemKind2: _data.dwItemKind2,
+      dwItemKind3: _data.dwItemKind3,
+      dwItemJob: _data.dwItemJob,
+      bPermanence: _data.bPermanence === "true",
+      dwUseable: _data.dwUseable === "true",
+      dwItemSex: parseInt(_data.dwItemSex),
+      dwCost: parseInt(_data.dwCost),
+      dwLimitLevel1: parseInt(_data.dwLimitLevel1),
+      dwParts: _data.dwParts,
+      dwAbilityMin: parseInt(_data.dwAbilityMin),
+      dwAbilityMax: parseInt(_data.dwAbilityMax),
+      eItemType: _data.eItemType,
+      dwItemLV: parseInt(_data.dwItemLV),
+      dwItemRare: parseInt(_data.dwItemRare),
+      dwAttackSpeed: parseFloat(_data.dwAttackSpeed),
+      dwDestParam1: cleanString(_data.dwDestParam1),
+      dwDestParam2: cleanString(_data.dwDestParam2),
+      dwDestParam3: cleanString(_data.dwDestParam3),
+      nAdjParamVal1: parseInt(_data.nAdjParamVal1),
+      nAdjParamVal2: parseInt(_data.nAdjParamVal2),
+      nAdjParamVal3: parseInt(_data.nAdjParamVal3),
+      dwCircleTime: parseInt(_data.dwCircleTime),
+      dwSfxObj: cleanString(_data.dwSfxObj),
+      dwSfxObj2: cleanString(_data.dwSfxObj2),
+      dwSfxObj3: cleanString(_data.dwSfxObj3),
+      dwSfxObj4: cleanString(_data.dwSfxObj4),
+      dwSfxObj5: cleanString(_data.dwSfxObj5),
+      dwSkillReady: parseInt(_data.dwSkillReady),
+      dwWeaponType: parseInt(_data.dwWeaponType),
+      dwItemAtkOrder1: parseInt(_data.dwItemAtkOrder1),
+      dwItemAtkOrder2: parseInt(_data.dwItemAtkOrder2),
+      dwItemAtkOrder3: parseInt(_data.dwItemAtkOrder3),
+      dwItemAtkOrder4: parseInt(_data.dwItemAtkOrder4),
+      dwSkillReadyType: parseInt(_data.dwSkillReadyType),
+      dwReferStat1: _data.dwReferStat1,
+      dwAddSkillMin: parseInt(_data.dwAddSkillMin),
+      dwAddSkillMax: parseInt(_data.dwAddSkillMax),
+      dwReqMp: parseInt(_data.dwReqMp),
+      dwReqFp: parseInt(_data.dwReqFp),
+      dwReferStat2: cleanString(_data.dwReferStat2),
+      dwReferTarget1: cleanString(_data.dwReferTarget1),
+      dwReferTarget2: cleanString(_data.dwReferTarget2),
+      dwReferValue1: parseInt(_data.dwReferValue1),
+      dwReferValue2: parseInt(_data.dwReferValue2),
+      dwFlightLimit: parseInt(_data.dwFlightLimit),
+      dwFFuelReMax: parseInt(_data.dwFFuelReMax),
+      dwAFuelReMax: parseInt(_data.dwAFuelReMax),
+      dwReflect: parseInt(_data.dwReflect),
+      dwQuestID: parseInt(_data.dwQuestID),
+      szComment: _data.szComment
     };
   }
 
   async cleanCache(): Promise<void> {
     try {
-      const keys = await this.redisClient.keys("item:*");
-      if (!keys || keys.length === 0) return;
-      await this.redisClient.del(...keys);
-    } catch (err) {
-      throw err;
-    }
+      const _keys = await this.redisClient.keys("item:*");
+      if (!_keys || _keys.length === 0) return;
+      await this.redisClient.del(..._keys);
+    } catch {}
   }
 }

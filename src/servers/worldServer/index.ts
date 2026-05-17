@@ -19,13 +19,13 @@ import {
   decryptString,
   encryptMessage,
   isValidEncryptionString,
-  parseMessage
+  parseMessage,
 } from "../../libraries/crypto";
 import { RedisBuilder } from "../../builders/redisBuilder";
 import { FFRandom } from "../../helpers/FFRandom";
 import { ResourceBuilder } from "../../builders/resourceBuilder";
 
-export default async() => {
+export default async () => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const instanceBuilder = new InstanceBuilder();
@@ -49,7 +49,7 @@ export default async() => {
   instanceBuilder.buildServer((builder: ServerBuilder) => {
     builder.setServerType(ServerType.WORLD_SERVER);
     builder.addServer(
-      new WorldServer(instanceBuilder.config?.world_server.server)
+      new WorldServer(instanceBuilder.config?.world_server.server),
     );
   });
 
@@ -68,7 +68,7 @@ function worldIntercom(instance: IInstance) {
   const { config, server, publisher, subscriber } = instance;
   const logger = server?.logger;
   const master = buildEncryptionKeyFromString(
-    config?.world_server.security["master-password"]
+    config?.world_server.security["master-password"],
   ).toString("hex");
 
   let scheduler: ScheduledTask;
@@ -81,18 +81,20 @@ function worldIntercom(instance: IInstance) {
     enabled: true,
     currentUsers: 0,
     maxUsers: config?.world_server.settings["maximum-users"],
-    pkEnabled: config?.world_server.settings["pk-enabled"]
+    pkEnabled: config?.world_server.settings["pk-enabled"],
   };
 
-  subscriber?.subscribe(RedisChannel.CLUSTER_CHANNEL, (err) => {
-    if (!err) {
-      setTimeout(() => {
-        sendMessage(MessageCommand.ADD_CHANNEL, channel);
-      }, 500); // for dev: temp delay for 500ms
-    } else {
-      logger?.error(err);
-    }
-  });
+  if (subscriber) {
+    subscriber.subscribe(RedisChannel.CLUSTER_CHANNEL, (err) => {
+      if (!err) {
+        setTimeout(() => {
+          sendMessage(MessageCommand.ADD_CHANNEL, channel);
+        }, 500); // for dev: temp delay for 500ms
+      } else {
+        logger?.error(err);
+      }
+    });
+  }
   subscriber?.on("message", processChannelMessage.bind(this));
 
   function randomId() {
@@ -153,13 +155,13 @@ function worldIntercom(instance: IInstance) {
       encryptMessage(
         typeof message === "object"
           ? JSON.stringify({
-            sender: ServerType.WORLD_SERVER,
-            command,
-            data: message
-          })
+              sender: ServerType.WORLD_SERVER,
+              command,
+              data: message,
+            })
           : message,
-        master
-      )
+        master,
+      ),
     );
   }
 }

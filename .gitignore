@@ -1,3 +1,6 @@
 data/*
 node_modules
 build
+*.log
+*.err
+.fresh

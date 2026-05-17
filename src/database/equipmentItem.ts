@@ -8,14 +8,17 @@ import {
   PrimaryGeneratedColumn
 } from "typeorm";
 import ItemEntity from "./item";
-import CharacterEntity from "./character";
+import type CharacterEntity from "./character";
 
 @Entity("EquipmentItem")
 export default class EquipmentItemEntity extends BaseEntity {
   @PrimaryGeneratedColumn() // Primary key with auto-increment
     id: number;
 
-  @ManyToOne(() => CharacterEntity, (character) => character.equipments)
+  @ManyToOne(
+    "CharacterEntity",
+    (character: CharacterEntity) => character.equipments
+  )
     character: CharacterEntity;
 
   @Column({ default: 0 })

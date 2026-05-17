@@ -373,16 +373,9 @@ export class SkillResources {
     };
   }
 
-  cleanCache() {
-    return new Promise<void>(async(resolve, reject) => {
-      try {
-        const keys = await this.redisClient.keys("skill:*");
-        if (!keys || keys.length === 0) return resolve();
-        await this.redisClient.del(...keys);
-        resolve();
-      } catch (err) {
-        reject(err);
-      }
-    });
+  async cleanCache() {
+    const keys = await this.redisClient.keys("skill:*");
+    if (!keys || keys.length === 0) return;
+    await this.redisClient.del(...keys);
   }
 }

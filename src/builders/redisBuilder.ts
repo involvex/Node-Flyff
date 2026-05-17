@@ -16,11 +16,11 @@ export class RedisBuilder {
   }
 
   // Synchronous build kept for compatibility but delegate to async build
-  build(): {
+  async build(): Promise<{
     subscriber: any | null;
     publisher: any | null;
     client: IRedisClient | null;
-    } {
+  }> {
     // Attempt to build synchronously (best-effort). If Redis is unreachable
     // the async build path in InstanceBuilder will be used instead.
     // Synchronous build: do not attempt to create real Redis connections.
@@ -40,8 +40,8 @@ export class RedisBuilder {
       );
       try {
         // lazy import to avoid adding binary deps unless needed
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const SqliteClient = require("../libraries/sqliteClient").default;
+        const { default: SqliteClient } =
+          await import("../libraries/sqliteClient");
         const sqliteClient = new SqliteClient();
         this.logger.success("Sqlite fallback client initialized");
         return {
@@ -80,7 +80,8 @@ export class RedisBuilder {
         err?.message ?? err
       );
       try {
-        const SqliteClient = require("../libraries/sqliteClient").default;
+        const { default: SqliteClient } =
+          await import("../libraries/sqliteClient");
         const sqliteClient = new SqliteClient();
         this.logger.success("Sqlite fallback client initialized");
         return { subscriber: null, publisher: null, client: sqliteClient };

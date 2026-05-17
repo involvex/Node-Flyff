@@ -7,7 +7,7 @@ import {
   ManyToOne
 } from "typeorm";
 import { GenderType } from "../common/genderType";
-import EquipmentItemEntity from "./equipmentItem";
+import type EquipmentItemEntity from "./equipmentItem";
 import AccountEntity from "./account";
 
 @Entity("Character")
@@ -100,8 +100,8 @@ export default class CharacterEntity extends BaseEntity {
     fatiguePoints: number;
 
   @OneToMany(
-    () => EquipmentItemEntity,
-    (equipmentItem) => equipmentItem.character
+    "EquipmentItemEntity",
+    (equipmentItem: EquipmentItemEntity) => equipmentItem.character
   )
     equipments: EquipmentItemEntity[];
 

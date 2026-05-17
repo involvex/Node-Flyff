@@ -18,7 +18,9 @@ export class KvClient {
 
     // Try to load better-sqlite3 bindings; if unavailable, fall back to in-memory store
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // better-sqlite3 is a native binary module that must be loaded via require or dynamic import.
+      // Using require here because we need synchronous initialization in the constructor.
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const Database = require("better-sqlite3");
       this.db = new Database(file);
       this.migrate();
